@@ -13,12 +13,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/json-20180813.jar"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/gson-2.8.5.jar"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/commons-codec-1.11.jar"/>
-	<classpathentry kind="lib" path="/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/lib/activation.jar"/>
 	<classpathentry kind="output" path="build/WEB-INF/classes"/>
 </classpath>
