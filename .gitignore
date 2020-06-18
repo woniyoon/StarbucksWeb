@@ -13,3 +13,5 @@ local.properties
 .project
 .settings
 /target
+/build
+
