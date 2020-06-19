@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet {
 				
 		try {
 			String props = config.getInitParameter("propertyConfig");
-			System.out.println("확인용 props : " + props);
+			System.out.println("[확인용] props : " + props);
 		
 			fis = new FileInputStream(props);
 			
@@ -51,8 +51,8 @@ public class FrontController extends HttpServlet {
 			while (en.hasMoreElements()) {
 				String key = (String) en.nextElement();
 				
-				System.out.println("확인용 : " + key);
-				System.out.println("확인용 : " + pr.getProperty(key));
+				System.out.println("[확인용] key : " + key);
+				System.out.println("[확인용] pr.getProperty(key) : " + pr.getProperty(key));
 
 				String className = pr.getProperty(key);
 				
@@ -64,8 +64,6 @@ public class FrontController extends HttpServlet {
 		            // 주의할 점은 실제로 String 으로 되어져 있는 문자열이 클래스로 존재해야만 한다는 것이다.
 					
 					Object obj = cls.newInstance();
-				
-					System.out.println("####\n"+obj.toString());
 					
 					cmdMap.put(key, obj);
 					// cmdMap 에서 키값으로 Command.properties 파일에 저장되어진 url 을 주면 
@@ -77,7 +75,6 @@ public class FrontController extends HttpServlet {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			System.out.println(">>> /Users/woniyoon/Documents/myjsp/MyMVC/WebContent/WEB-INF/Command.properties ");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -105,11 +102,9 @@ public class FrontController extends HttpServlet {
 		
 		String key = uri.substring(ctxPath.length());
 
-//		System.out.println("👻👻👻👻👻👻👻");
-
 		AbstractController action = (AbstractController) cmdMap.get(key);
 		if(action == null) {
-			System.out.println(">>> " +key +" URL 패턴에 맵핑된 클래스는 없습니다.");
+			System.out.println("⚠️⚠️⚠️ " +key +" URL 패턴에 맵핑된 클래스는 없습니다. ⚠️⚠️⚠️");
 		} else {
 			try {
 				action.execute(request, response);
