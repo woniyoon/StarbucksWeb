@@ -11,8 +11,8 @@ import javax.servlet.http.*;
 		description = "사용자가 웹에서 *.sb을 했을 경우 이 서블릿이 먼저 응답을 해주도록 한다", 
 		urlPatterns = { "*.sb" }, 
 		initParams = { 
-				@WebInitParam(name = "propertyConfig", value = "/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/Command.properties", description = "*.sb에 대한 클래스의 맵핑파일")
-//보배			@WebInitParam(name = "propertyConfig", value = "C:/myjsp/MyMVC/WebContent/WEB-INF/Command.properties", description = "*.sb에 대한 클래스의 매핑파일")
+//				@WebInitParam(name = "propertyConfig", value = "/Users/woniyoon/Documents/myjsp/StarbucksWeb/WebContent/WEB-INF/Command.properties", description = "*.sb에 대한 클래스의 맵핑파일")
+			@WebInitParam(name = "propertyConfig", value = "C:/myjsp/StarbucksWeb/WebContent/WEB-INF/Command.properties", description = "*.sb에 대한 클래스의 매핑파일")
 		
 		})
 public class FrontController extends HttpServlet {
