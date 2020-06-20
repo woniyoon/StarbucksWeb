@@ -248,7 +248,7 @@
         </ul>
     </header>
     <nav><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-    <section align="center">
+    <section>
         <ul class="order_progress">
             <li id="shoppingCart"><span>커스텀</span></li>
             <li id="storeLocation"><span>매장선택</span></li>
@@ -260,14 +260,18 @@
                 <input type="text" id="search_bar" placeholder="지역명을 입력하세요." />
                 <div  id="store_locations">
                     <table>
-                        <thead><tr><th>매장 목록</th></tr></thead>
-                        <tr><td>ㅎㅎ</td></tr>
-                        <tr><td>ㅎㅎ</td></tr>
-                        <tr><td>ㅎㅎ</td></tr>
-                        <tr><td>ㅎㅎ</td></tr>
-                        <tr><td>ㅎㅎ</td></tr>
-                        <tr><td>ㅎㅎ</td></tr>
-                        <tr><td>ㅎㅎ</td></tr>
+                        <thead>
+                        	<tr><th>매장 목록</th></tr>
+                        </thead>
+                        <tbody>
+	                        <tr><td>ㅎㅎ</td></tr>
+	                        <tr><td>ㅎㅎ</td></tr>
+	                        <tr><td>ㅎㅎ</td></tr>
+	                        <tr><td>ㅎㅎ</td></tr>
+	                        <tr><td>ㅎㅎ</td></tr>
+	                        <tr><td>ㅎㅎ</td></tr>
+	                        <tr><td>ㅎㅎ</td></tr>
+                        </tbody>
                     </table>
                 </div>
             </aside>
@@ -275,7 +279,7 @@
                 <div id="map"></div>
             </aside>
         </div>
-        <div>
+        <div align="center">
             <button class="move_button" onclick="history.back()">뒤로</button>
             <button class="move_button" id="next" onclick="javascript:location.href='order_payment.html'">다음</button>
         </div>
