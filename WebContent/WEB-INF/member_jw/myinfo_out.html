@@ -189,7 +189,7 @@
     	margin-left: 10px;
 	}	
 	
-	#con3 {
+	#delAccount {
 		width: 650px;
 		height: 50px;
 		margin-top: 30px;
@@ -198,41 +198,52 @@
 		background-color: #e2c383;
 	}
 	
-	#con3 p {
+	#delAccount p {
 		font-weight: bold;
 		font-size: 20px;
 		text-align: center;
 		padding-top: 10px;
 	}
 	
-	#con3 a {
+	#delAccount a {
 		color: black;	
 	}
 </style>
     
 <script type="text/javascript" src="/JqueryStudy/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/JqueryStudy/util/myutil.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("div#con3").click(function () {
-		alert("회원탈퇴 후 마이 스타벅스 리워드 혜택 및 등록한 스타벅스 카드의 소유권 상실에 대해 동의하여야 합니다.");
+	var date = new Date();
+	$('#now_date').html(moment(date).format('YYYY년 MM월 DD일 '));
+
+	
+	
+	$("div#delAccount").click(function () {
+		
+		// 약관동의
+		var bAgree = $("input:checkbox[id=ck_agree]").prop("checked"); 
+		
+		if(bAgree == 0) {
+		
+			alert("회원탈퇴 후 마이 스타벅스 리워드 혜택 및 등록한 스타벅스 카드의 소유권 상실에 대해 동의하여야 합니다.");
+			
+			return;
+		}
+		
+		else {
+			alert("동의함");
+		}
+	
+	
 	});
 	
-//	document.getElementById('now_date').valueAsDate = new Date();
 
-	function getFormatDate(date){
-	    var year = date.getFullYear();              //yyyy
-	    var month = (1 + date.getMonth());          //M
-	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
-	    var day = date.getDate();                   //d
-	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
-	    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
-	}
 
-	var now_date = new Date();
-	$("#now_date").text(new Date());
 
 	
 });
@@ -309,7 +320,7 @@ $(document).ready(function(){
      	</div>
      </nav>
      
-     <div id="con3"><p><a>마이 스타벅스 리워드 서비스 이용내역 일괄삭제</a></p></div>
+     <div id="delAccount"><p><a>마이 스타벅스 리워드 서비스 이용내역 일괄삭제</a></p></div>
      
     <footer></footer>
     
