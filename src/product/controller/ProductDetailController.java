@@ -5,12 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class ProductMenuController extends AbstractController {
+public class ProductDetailController extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		super.setViewPage("/WEB-INF/product_view/product_menu.jsp");
+		super.setViewPage("/WEB-INF/product_view/product_detail.jsp");
+
 	}
 
 }

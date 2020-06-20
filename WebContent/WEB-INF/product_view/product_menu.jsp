@@ -94,7 +94,7 @@
 	    grid-row-gap: 50px;
 	    grid-template-columns: 25% 25% 25% 25%;
 	    padding: 10px;
-	    background-color: #2196F3;
+	    /* background-color: #2196F3; */
 	}
 	    
 	/* 메뉴 리스트 */
@@ -191,17 +191,17 @@ var arr_food_title=[
     {type:"product_bakery", name:"베이커리", summary:"디카페인 에스프레소 샷 추가 가능 (일부 음료 제외)"},
     {type:"product_cake", name:"케이크", summary:"디카페인 에스프레소 샷 추가 가능 (일부 음료 제외)"}];  
 var arr_coffee_list=[
-    {type:"product_coldbrew", name:"나이트로 바닐라 크림", filename:"images/1-1.jpg"},
-    {type:"product_coldbrew", name:"초콜릿 블랙 콜드 브루", filename:"images/1-2.jpg"},
-    {type:"product_brewed", name:"아이스 커피", filename:"images/1-3.jpg"},
-    {type:"product_brewed", name:"오늘의 커피", filename:"images/1-4.jpg"},
-    {type:"product_brewed", name:"오늘의 커피", filename:"images/1-4.jpg"}];
+    {type:"product_coldbrew", name:"나이트로 바닐라 크림", filename:"/StarbucksWeb/images/bobae/1-1.jpg"},
+    {type:"product_coldbrew", name:"초콜릿 블랙 콜드 브루", filename:"/StarbucksWeb/images/bobae/1-2.jpg"},
+    {type:"product_brewed", name:"아이스 커피", filename:"/StarbucksWeb/images/bobae/1-3.jpg"},
+    {type:"product_brewed", name:"오늘의 커피", filename:"/StarbucksWeb/images/bobae/1-4.jpg"},
+    {type:"product_brewed", name:"오늘의 커피", filename:"/StarbucksWeb/images/bobae/1-4.jpg"}];
     var arr_food_list=[
-    {type:"product_bakery", name:"녹차 머핀", filename:"images/2-1.jpg"},
-    {type:"product_bakery", name:"다크 초콜릿 칩 머핀", filename:"images/2-2.jpg"},
-    {type:"product_cake", name:"서머 베리 요거트 케이크", filename:"images/2-3.jpg"},
-    {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"images/2-4.jpg"},
-    {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"images/2-4.jpg"}];
+    {type:"product_bakery", name:"녹차 머핀", filename:"/StarbucksWeb/images/bobae/2-1.jpg"},
+    {type:"product_bakery", name:"다크 초콜릿 칩 머핀", filename:"/StarbucksWeb/images/bobae/2-2.jpg"},
+    {type:"product_cake", name:"서머 베리 요거트 케이크", filename:"/StarbucksWeb/images/bobae/2-3.jpg"},
+    {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"},
+    {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"}];
 
 
 
@@ -409,7 +409,7 @@ $(document).ready(function(){
         <h1>음료/푸드</h1>
         <nav>
             <ul>
-                <li><a href="#"><img src="images/home.jpg" alt="홈으로"/></a></li>
+                <li><a href="#"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
                 <li>></li>
                 <li><a href="#">MENU</a></li>
                 <li>></li>
