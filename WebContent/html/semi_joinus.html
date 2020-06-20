@@ -9,7 +9,7 @@
 <style type="text/css">
 	
 	body {
-		font-family: Arial, "MS Trebuchet", sans-serif;
+		font-family: 'nbg', '맑은 고딕', HelveticaNeue, DroidSans, Sans-serif, Helvetica;
 	}
 	
 	* {
@@ -90,7 +90,30 @@
 	
 	span.error {
 		color: red;
-		font-size: 10pt;
+		font-size: 11pt;
+		float: left;
+		margin: 10px;
+		margin-top: 15px;
+	}
+	
+	/* 성공메시지 */
+	
+	span.success {
+		color: #444;
+		float: left;
+		margin: 10px;
+	}
+	
+	/* 입력 - 가능 */
+	
+	.successInput {
+		background: #f2f2f2;
+	}
+	
+	/* 입력 - 비활성화 */
+	
+	.bgcol {
+		border: solid 1px red;
 	}
 	
 	/*아이디~비밀번호확인*/
@@ -172,15 +195,138 @@
 
 </style>
 
+<script type="text/javascript" src="/StarbucksWeb/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/StarbucksWeb/util/myutil.js"></script>
+
 <script type="text/javascript">
 
 
-	var now = new Date();
-	// 자바스크립트에서 현재날짜시각을 알려주는 것이다.
-	var currentYear = now.getFullYear(); // 현재년도
-	
-	window.onload = function() {
-	
+	$(document).ready(function() {
+		
+		/* id중복체크 - ajax 기능추가하기 */
+		
+		var now = new Date();
+		// 자바스크립트에서 현재날짜시각을 알려주는 것이다.
+		var currentYear = now.getFullYear(); // 현재년도
+
+		$("span#id_error").hide();
+		$("span#id_success").hide();
+		
+		$("#id").blur(function(){
+			
+			var data = $(this).val().trim();
+			
+			if(data == "") {
+				// 입력하지 않거나 공백만 입력했을 경우
+				$("span#id_success").hide();
+				$("ul#able").css("margin-bottom","40px");
+				$(this).parent().find("#id_error").show();
+				$("#id").addClass("bgcol"); 
+			}
+
+			else{
+				// 공백이 아닌 글자를 입력했을 경우
+				
+				// 아이디 정규식 : 영문(대소문자 구분 없음), 숫자로 4~13자리만 입력 가능합니다.
+				var regExp = /^[a-zA-Z]{1}[a-zA-Z0-9]{3,12}$/;
+				var bool = regExp.test($(this).val()); 
+
+				if(!bool) { 
+					// 조건에 맞지않으면
+					$("span#id_success").hide();
+					$("span#id_error").html("영문(대소문자 구분 없음), 숫자로 4~13자리만 입력 가능합니다.").show();
+					$("ul#able").css("margin-bottom","40px");
+					$("#id").addClass("bgcol");  
+					
+					return;
+				} 
+				
+				$("ul#able").css("margin-bottom","40px");
+				$(this).parent().find("#id_error").hide();
+				$("span#id_success").show();
+				$(":input").prop("disabled",false).removeClass("bgcol"); 
+				/* $("#id").addClas("successInput"); */
+			}
+			
+		}); // end of $("#id").blur(function()------------------------
+		
+				
+				
+		$("span#password_error").hide();
+		$("span#password_success").hide();		
+		
+		$("span#passwordCheck_error").hide();
+		$("span#passwordCheck_success").hide();	
+		
+		$("#password").blur(function(){
+			
+			var data = $(this).val().trim();
+			
+			if(data == "") {
+				// 입력하지 않거나 공백만 입력했을 경우
+				$("span#password_success").hide();
+				$("ul#able").css("margin-bottom","40px");
+				$(this).parent().find("#password_error").show();
+				$("#password").addClass("bgcol"); 
+			}
+
+			else{
+				// 공백이 아닌 글자를 입력했을 경우
+				
+				// 비밀번호 정규식 : 영문, 숫자 혼합하여 10~20자리 이내로 입력하세요.
+				var regExp = /^[a-zA-Z0-9]{10,20}$/;
+				var bool = regExp.test($(this).val()); 
+
+				if(!bool) { 
+					// 조건에 맞지않으면
+					$("span#password_success").hide();
+					$("span#password_error").html("영문, 숫자 혼합하여 10~20자리 이내로 입력하세요.").show();
+					$("ul#able").css("margin-bottom","40px");
+					$("#password").addClass("bgcol");  
+					
+					return;
+				} 
+				
+				$("ul#able").css("margin-bottom","40px");
+				$(this).parent().find("#password_error").hide();
+				$("span#password_success").show();
+				$(":input").prop("disabled",false).removeClass("bgcol"); 	
+				
+				$("#passwordCheck").blur(function(){
+					var passwd = $("#password").val();
+					var passwdCheck = $(this).val();
+					
+					if(passwd != passwdCheck) { // 암호와 암호확인값이 틀린 경우 
+						$("span#passwordCheck_success").hide();
+						$(this).parent().find("#passwordCheck_error").show();
+						$("ul#able").css("margin-bottom","40px");
+						$("#passwordCheck").addClass("bgcol");  
+					}
+					else { // 암호와 암호확인값이 같은 경우 
+						$("ul#able").css("margin-bottom","40px");
+						$(this).parent().find("#passwordCheck_error").hide();
+						$("span#passwordCheck_success").show();
+						$(":input").prop("disabled",false).removeClass("bgcol"); 
+					}
+					
+				});// end of $("#pwdcheck").blur()--------------
+			}
+			
+		}); // end of $("#password").blur(function()------------------------	
+				
+				
+		/* 
+			성별 남-checked 초기값
+			생년월일 값 초기화 - 선택값 없을시 선택하세요 error 띄우기
+			휴대폰 input-text 삽입 ==> 고객의소리form 에서 들고오던지..
+			이름, 메일 입력작업
+			
+			이용약관 내용바꾸기
+			체크박스 크기줄이기
+		*/
+		
+		
+		
 	   var sOption = "<option>1993년</option>"; //화살표 누르면 나올 년도 옵션
 	   for(var i=0; i<currentYear-1950+1; i++){ 
 		   sOption += "<option>"+(1950+i)+"</option>";
@@ -188,7 +334,7 @@
 	   
 	   document.getElementById("birthYear").innerHTML = sOption; //birthYear의 태그를 잡아서 옵션에 넣기
 		
-	} // end of window.onload = function()--------------
+	}); // end of window.onload = function()--------------
 	 
 	function selectYear() {
 		
@@ -322,26 +468,32 @@
 			  		<p style="margin-top:20px; color: gray;">회원정보를 입력해 주세요.</p>
 			  	</div>	
 			  <div id="box">
-				<ul>
+				<ul id="able">
 					<li>
-						<label for="userid"></label>
-						<input class="input1" type="text" name="userid" id="userid" value="" maxlength="50" required autofocus placeholder="아이디" />   
+						<label for="id"></label>
+						<input class="input1" type="text" name="id" id="id" autofocus placeholder="아이디" /> 
+						<span class="error" id="id_error">아이디를 입력 하세요.</span>
+						<span class="success" id="id_success">사용 가능한 아이디 입니다.</span> 
 					</li>
 				</ul>		
 			  </div>	
 			  <div id="box" >
-			  	<ul>	
+			  	<ul id="able">	
 					<li>
-						<label for="passwd"></label>
-						<input class="input1" type="password" name="passwd" id="passwd" value="" maxlength="50" required placeholder="비밀번호"/>
+						<label for="password"></label>
+						<input class="input1" type="password" name="password" id="password" placeholder="비밀번호"/>
+						<span class="error" id="password_error">비밀번호를 입력 하세요.</span>
+						<span class="success" id="password_success">사용 가능한 비밀번호 입니다.</span> 
 					</li>
 				</ul>		
 			  </div>	
 			  <div id="box">
-			  	<ul>	
+			  	<ul id="able">	
 					<li>
 						<label for="passwdCheck"></label>
-						<input class="input1" type="password" id="passwdCheck" value="" required placeholder="비밀번호 확인"/>
+						<input class="input1" type="password" id="passwordCheck" placeholder="비밀번호 확인"/>
+						<span class="error" id="passwordCheck_error">일치하지 않습니다.</span>
+						<span class="success" id="passwordCheck_success">일치합니다.</span> 
 					</li>
 				</ul>	
 			 </div>
