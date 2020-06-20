@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="/StarbucksWeb/css/order_cart.css"></style>
+    <link rel="stylesheet" type="text/css" href="/StarbucksWeb/css/order_cart.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="/StarbucksWeb/js/order_cart.js"></script>
     <title>스타벅스 코리아</title>
@@ -298,7 +298,7 @@
         <div class="items_container">
             
         </div>        
-        <div>
+        <div align="center">
             <button class="move_button">뒤로</button>
             <button class="move_button" id="next">다음</button>
         </div>
