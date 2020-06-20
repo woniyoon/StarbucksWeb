@@ -64,6 +64,12 @@
 	    border: solid 1px #ccc;
 	}
 	
+	hr {
+		border: none;
+		height: 1px;
+		background-color: #ccc;
+	}
+	
 	div.group_sub_title {
 	    /* border: solid 1px yellow; */
 	    margin-bottom: 30px;
@@ -72,7 +78,7 @@
 	button.category {
 	    width: 200px;
 	    height: 35px;
-	    margin-top: 20px;
+	    margin: 20px 8px 0 0;
 	    border-style: none;
 	    border-radius: 5px;
 	    border: none;
