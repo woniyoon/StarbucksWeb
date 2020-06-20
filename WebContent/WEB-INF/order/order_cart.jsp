@@ -291,7 +291,7 @@
     <section>
         <ul class="order_progress">
             <li id="shoppingCart"><span>커스텀</span></li>
-            <li id="order_location"><span>매장선택</span></li>
+            <li id="storeLocation"><span>매장선택</span></li>
             <li id="order_payment"><span>결제하기</span></li>
             <li id="order_confirmed"><span>결제완료</span></li>
         </ul>
