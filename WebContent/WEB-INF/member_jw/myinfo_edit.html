@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>개인정보 수정</title>
+
+<style type="text/css">
+	
+	* {
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	header {
+		/* position: fixed; */
+		height: 100px; 
+		background-color : green;
+	}
+	
+	#con1 {
+		width: 500px;
+		height: 50px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 50px;
+		font-size: 35px;
+		text-align: center;
+		/* border: solid 1px blue; */
+	} 	
+	
+	nav {
+		width: 700px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20px;
+		/* border: solid 1px red; */	
+	}
+	
+	nav:after {
+		content: '';
+		clear: both;
+		display: block;
+	}
+	 
+	#box1 {
+		width: 700px;
+		height: 130px;
+		float: left;
+		border: solid 1px #EAEAEA;
+	}
+	
+	strong { /* 아이디, 비밀번호 title */
+		font-size: 20pt;
+		padding-left: 20px;
+		margin-top: 10px;
+		display: block;
+	}
+	
+	.id_text {
+		padding: 20px;
+	}
+	
+	#id {
+		width: 100%;
+		height: 40px;
+		font-size: 12pt;
+		display: inline-block;
+		max-width: 530px;
+		background-color: #F4F4F2;
+		border: 1px solid #ddd;
+	}
+	
+	#box2 {
+		width: 700px;
+		height: 800px;
+		margin-top: 20px;
+		float: left;
+		/* background-color: pink; */
+	}
+	
+	#box2-1 {
+		width: 700px;
+		height: 130px;
+		float: left;
+		margin-top: 5px;
+		border: solid 1px #EAEAEA;
+	}
+	
+	#name {
+		width: 300px;
+		height: 40px;
+		font-size: 12pt;
+		display: inline-block;
+		max-width: 530px;
+		background-color: #F4F4F2;
+		border: 1px solid #ddd;
+	}
+	
+	#box2-1 input[type=radio] {
+		margin-left: 15px;
+		zoom: 2;
+	}
+	
+	a:hover {
+    	text-decoration: underline;
+	}
+	
+	.btn_change_name {
+		background: #666;
+	    border-radius: 3px;
+	    color: #fff;
+	    display: block;
+	    float: right;
+	    line-height: 46px;
+	    text-align: center;
+	    width: 24%;
+	}
+	
+	#box2-2 {
+		width: 700px;
+		height: 200px;
+		float: left;
+		border: solid 1px #EAEAEA;
+	}
+	
+	#birthday {
+		width: 100%;
+		height: 40px;
+		font-size: 12pt;
+		display: inline-block;
+		max-width: 530px;
+		background-color: #F4F4F2;
+		border: solid 1px navy;
+	}
+	
+	.select_birth_box2 {
+		font-size: 15pt;
+		margin-left: 20px;
+		margin-top: 20px;
+	}
+	
+	select {
+		font-size: 25pt;
+		margin-right: 5px;
+	}
+	
+	#box2-3 {
+		width: 700px;
+		height: 200px;
+		float: left;
+		border: solid 1px #EAEAEA;
+	}
+	
+	#phone {
+		width: 450px;
+		height: 40px;
+		font-size: 12pt;
+		display: inline-block;
+		max-width: 530px;
+		background-color: #F4F4F2;
+		border: 1px solid #ddd;
+	}
+	
+	.btn_change_phone {
+	    border-radius: 3px;
+	    color: #fff;
+	    float: right;
+	    margin-right: 50px;
+	    line-height: 46px;
+	    text-align: center;
+	    width: 20%;
+	    background: #006633;
+	}
+	
+	#box2-4 {
+		width: 700px;
+		height: 200px;
+		float: left;
+		border: solid 1px #EAEAEA;
+	}
+	
+	#mail {
+		width: 100%;
+		height: 40px;
+		font-size: 12pt;
+		display: inline-block;
+		max-width: 530px;
+		background-color: #F4F4F2;
+		border: 1px solid #ddd;
+	}
+	
+	#con2 {
+		width: 900px;
+		height: 50px;
+		margin-top: 30px;
+		margin-right: auto;
+		margin-left: auto;
+		font-weight: bold;
+		font-size: 16pt;
+		/* background-color: yellow; */
+	}
+	
+	#con3 {
+		width: 650px;
+		height: 100px;
+		margin-top: 10px;
+		margin-right: auto;
+		margin-left: auto;
+		border-radius: 3px;
+		background-color: #006633;
+	}	
+	
+	.line {
+    	border-top: 1px solid #ddd;
+	}
+	
+	label {
+		font-size: 12pt;
+		margin-top: 20px;
+		display: block;    
+	}
+	
+	.btn_ok {
+		color: white;
+		text-decoration: none;
+		cursor: pointer;
+		font-size: 24pt;
+		line-height: 100px;
+		display: block;
+		text-align: center;
+	}
+	
+	
+	footer {
+		margin-top: 80px;
+		height: 300px;
+		background-color: black;
+	}
+
+
+</style>
+
+<script type="text/javascript">
+
+</script>
+
+</head>
+<body>
+	<div id="container">
+		<header></header>
+		
+		<h2 id="con1">개인정보 확인 및 수정</h2>
+		
+		<nav>
+		
+			<div id="box1">
+				<strong>아이디</strong>			
+				<p class="id_text"><input type="text" id="id" /></p>
+			</div>
+			<div id="box2">
+				<div id="box2-1">
+					<strong>이름(필수)</strong>			
+					<p class="id_text">
+					<input type="text" id="name" />
+					<input type="radio" name="gender" value="남">남
+                    <input type="radio" name="gender" value="여" checked>여
+                    <a class="btn_change_name"><font size="4">변경</font></a>
+                    </p>
+				</div>
+			
+				<div id="box2-2">
+					<strong>생년월일(필수)</strong>
+					<div class="select_birth_box">
+						<div class="select_birth_box2">			
+	                    <script type="text/javascript">
+	                         var today = new Date();
+	                         var toyear = parseInt(today.getFullYear ());
+	                         var start = toyear;
+	                         var end = toyear - 35;
+	
+	                         document.write("<select name=birth1> ");
+	                         document.write("<option value='2020' selected>");
+	                         for (i=start;i>=end;i--) document.write("<option>"+i);
+	                         document.write("</select>년  ");
+	
+	                         document.write("<select name=birth2>");
+	                         document.write("<option value='' selected>");
+	                         for (i=1;i<=12;i++) document.write("<option>"+i);
+	                         document.write("</select>월  ");
+	
+	                         document.write("<select name=birth3>");
+	                         document.write("<option value='' selected>");
+	                         for (i=1;i<=31;i++) document.write("<option>"+i);
+	                         document.write("</select>일  </font>");
+	                         
+	                         
+                         </script>
+                         </div>
+                    <font size="3.5"><br>생일 무료 음료 쿠폰은 1년에 1번만 발행되므로, 변경 후에도 해당 연도 내 발행 이력이 있는 경우 추가 발행되지 않습니다.</font>
+                   </div>
+				</div>
+			
+				<div id="box2-3">
+					<strong>휴대폰(필수)</strong>			
+					<p class="id_text">
+					<input type="text" id="phone" />
+					<a class="btn_change_phone"><font size="4">인증</font></a>
+					<label class="line"></label>
+					<label for="agreement1">SMS를 통한 이벤트 및 신규 매장 정보 수신에 동의합니다.[선택]</label>
+					</p>
+				</div>
+				
+				<div id="box2-4">
+					<strong>메일(필수)</strong>			
+					<p class="id_text">
+					<input type="text" id="mail" /><br>
+					<label class="line"></label>
+					<label for="agreement3">이메일을 통한 이벤트 및 신규 매장 정보 수신에 동의합니다.[선택]</label>
+					</p>
+				</div>
+			
+			
+			</div>
+		
+		</nav>
+		
+		<div id="con2"><b>＊ 선택항목은 입력하지 않거나 동의하지 않아도 스타벅스 서비스를 이용하실 수 있습니다.</b></div>		
+		
+		<div id="con3"><a class="btn_ok" href="myinfo_edit.html">정보수정</a></div>
+		
+		<footer></footer>
+	</div>
+</body>
+</html>
