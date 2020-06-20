@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">		
+<title>join us</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<style type="text/css">
+	
+	body {
+		font-family: Arial, "MS Trebuchet", sans-serif;
+	}
+	
+	* {
+		margin: 0;
+	}
+	
+	/* 전체 틀 & 중간항목 기본form 값*/
+
+	div#container { 
+		width: 1100px;
+	    margin: 0 auto;
+	    padding: 50px 0;
+		/* text-align: center;	 */			
+		/* border: 1px solid red; */
+	}
+
+	div#frame {
+		width: 550px;
+		margin: 20px auto;
+		padding: 0;
+		border: solid 1px #cccccc;
+		border-radius: 3px;
+	}
+
+	div#box {
+		border-top: solid 1px #cccccc;
+		border-radius: 3px;
+	}
+	
+	input {
+		margin: 10px;
+		box-shadow: none;
+		border: solid 1px #cccccc;
+		border-radius: 3px;
+	}
+	
+	ul {
+		width: 510px;
+		padding: 10px 15px;
+		list-style-type: none;
+	}
+	
+	fieldset {
+         text-align: left;
+         border: 0px;
+	}
+	
+	legend {
+		font-size: 20pt;
+		font-weight: bold;	
+	}
+	
+	fieldset>ul {
+		padding: 30px;
+		list-style: none;
+	}
+	
+	fieldset>ul>li>label:first-child {
+		display: inline-block;
+		width: 10%;
+		/* border: solid 1px green; */
+	} 
+	
+	p {
+		margin: 0;
+		margin-top: 10px;
+	}
+
+	select {
+		margin-top: 15px;
+		margin-left: 10px;
+		width: 100px;
+		height: 40px;
+		border-radius: none;
+		border: solid 1px #cccccc;
+	}
+	/*에러메시지*/
+	
+	span.error {
+		color: red;
+		font-size: 10pt;
+	}
+	
+	/*아이디~비밀번호확인*/
+	
+	div#headImg {
+		padding: 10px;
+		margin: 20px;
+	}
+	
+	input.input1 {
+		width: 500px;
+		height: 50px;
+		margin: 0 10px;
+		padding-left: 8px;
+		border-radius: 3px;
+	}
+
+	/* 이름~메일 */
+	
+	input#name {
+		height: 40px;
+	} 
+	
+	.btn-danger {
+	    color: gray;
+	    background-color: white;
+	    /* background-color: #f2f2f2; */
+	    border-color: #a6a6a6;
+	}
+	
+	.btn-danger:hover {
+	    color: black;
+	    background-color: #f2f2f2;
+	    border-color: #a6a6a6;
+	}
+	
+	/* .btn-danger {
+		color: black;
+	    background-color: #f2f2f2;
+	    border-color: #a6a6a6;
+	} */
+	
+	input[id="agree"] + label {
+		float: right; 
+		margin-top: 10px;
+		cursor: pointer; 
+		width: 50px; 
+		height: 50px;
+		background: url('/StarbucksWeb/images/hyejeong/mem_check_off.png') left center no-repeat;
+	}
+	
+	input[id="agree"]:checked + label {
+		background-image: url("/StarbucksWeb/images/hyejeong/mem_check_on.png");
+	} 
+	
+	input[id="agree"] {
+		 display: none; 
+	}
+
+	/*회원가입 버튼*/
+
+	div#joinBtn {
+		width: 538px;
+		height: 40px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	
+	input#btnRegister {
+		width: 550px;
+		height: 40px;
+		margin: 0px;
+		background-color: #006633;
+		border: none;
+		border-radius: 2px;
+		color: #ffffff;
+		font-size: 12pt;
+	}
+
+</style>
+
+<script type="text/javascript">
+
+
+	var now = new Date();
+	// 자바스크립트에서 현재날짜시각을 알려주는 것이다.
+	var currentYear = now.getFullYear(); // 현재년도
+	
+	window.onload = function() {
+	
+	   var sOption = "<option>1993년</option>"; //화살표 누르면 나올 년도 옵션
+	   for(var i=0; i<currentYear-1950+1; i++){ 
+		   sOption += "<option>"+(1950+i)+"</option>";
+	   }
+	   
+	   document.getElementById("birthYear").innerHTML = sOption; //birthYear의 태그를 잡아서 옵션에 넣기
+		
+	} // end of window.onload = function()--------------
+	 
+	function selectYear() {
+		
+		var sBirthYear = document.getElementById("birthYear").value;
+		
+	//	alert(sBirthYear);
+	//	alert(typeof sBirthYear); ==> string
+	
+		var bNaN = isNaN( Number(sBirthYear) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생년도를 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthYear) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectYear()-------------
+
+	function selectMonth() {
+		
+		var sBirthYear = document.getElementById("birthYear").value;
+		
+	//	alert(sBirthYear);
+	//	alert(typeof sBirthYear); ==> string
+	
+		var bNaN = isNaN( Number(sBirthYear) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생년도를 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthYear) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectMonth()-------------
+
+	function selectDay() {
+		
+		var sBirthYear = document.getElementById("birthYear").value;
+		
+	//	alert(sBirthYear);
+	//	alert(typeof sBirthYear); ==> string
+	
+		var bNaN = isNaN( Number(sBirthYear) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생년도를 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthYear) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectDay()-------------
+
+	function selectLuSol() {
+		
+		var sBirthYear = document.getElementById("birthYear").value;
+		
+	//	alert(sBirthYear);
+	//	alert(typeof sBirthYear); ==> string
+	
+		var bNaN = isNaN( Number(sBirthYear) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생년도를 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthYear) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectLuSol()-------------	
+
+</script>	
+
+</head>
+<body>
+<div id="container">
+	<form name="registerFrm">
+		<fieldset>
+			<legend style="text-align: center;">회원가입</legend>
+			<div id="form" >
+			<div id="frame" class="1" style="text-align: center;">
+			  	<div id="headImg">
+			  		<img src="/StarbucksWeb/images/hyejeong/icon_find_sally.png" width="245px;" height="212px;"/>
+			  		<br/>
+			  		<p style="margin-top:20px; color: gray;">회원정보를 입력해 주세요.</p>
+			  	</div>	
+			  <div id="box">
+				<ul>
+					<li>
+						<label for="userid"></label>
+						<input class="input1" type="text" name="userid" id="userid" value="" maxlength="50" required autofocus placeholder="아이디" />   
+					</li>
+				</ul>		
+			  </div>	
+			  <div id="box" >
+			  	<ul>	
+					<li>
+						<label for="passwd"></label>
+						<input class="input1" type="password" name="passwd" id="passwd" value="" maxlength="50" required placeholder="비밀번호"/>
+					</li>
+				</ul>		
+			  </div>	
+			  <div id="box">
+			  	<ul>	
+					<li>
+						<label for="passwdCheck"></label>
+						<input class="input1" type="password" id="passwdCheck" value="" required placeholder="비밀번호 확인"/>
+					</li>
+				</ul>	
+			 </div>
+			</div>
+			<div id="frame" class="2">	
+					<ul>	
+						<li>
+							<p style="font-weight: bold; margin-left: 10px; ">이름(필수)</p>
+							<label for="name"></label>
+							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="name" id="name" value="" maxlength="10" required />
+							
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-danger">
+							<input type="radio" name="jb-radio" id="jb-radio-1" checked="checked"> 남
+						</label>
+						<label class="btn btn-danger">
+							<input type="radio" name="jb-radio" id="jb-radio-2"> 여
+						</label>
+					</div>
+						
+						</li>
+					</ul>	
+				<div id="box">
+					<ul>
+						<li>
+							<p style="font-weight: bold; margin-left: 10px;">생년월일(필수)</p>
+							<label for="birthYear"></label>
+							<select name="birthYear" id="birthYear" onchange="selectYear();"></select>
+							<select name="birthYear" id="birthYear" onchange="selectMonth();">
+								<option>12월</option>
+						        <option>11월</option>
+						        <option>10월</option>
+						        <option>9월</option>
+						        <option>8월</option>
+						        <option>7월</option>
+						        <option>6월</option>
+						        <option>5월</option>
+						        <option>4월</option>
+						        <option>3월</option>
+						        <option>2월</option>
+						        <option>1월</option>
+							</select>
+							<select name="birthYear" id="birthYear" onchange="selectDay();">
+								<option>1일</option>
+								<option>2일</option>
+								<option>3일</option>
+							</select>
+							<select name="birthYear" id="birthYear" onchange="selectLuSol();">
+								<option>양</option>
+								<option>음</option>
+							</select>
+							<p style="font-size: 9pt; margin-left: 15px;"> 회원 가입 완료 후 스타벅스 카드를 등록하시면 생일 무료음료 쿠폰이 발행됩니다.</p>
+						</li>
+					</ul>
+				</div>
+				<div id="box">
+					<ul>
+						<li>
+						   <p style="font-weight: bold; margin-left: 10px;">휴대폰(필수)</p>
+						   <p style="font-size: 14pt; margin-left: 15px;"> 010 - 2943 - 3235</p>
+		            	</li>
+	            	</ul>
+	            </div>	
+	            <div id="box">
+		            <ul>
+						<li>
+							<p style="font-weight: bold; margin-left: 10px;">메일(필수)</p>
+							<label for="email"></label>
+							<input class="input1" type="email" name="email" id="email" value="" maxlength="40" placeholder="E-mail을 입력하세요." required />
+						</li>
+					</ul>	
+				</div>
+			</div>
+			<div id="frame" class="3">		
+				<ul>
+					<li style="width:500px; height: 60px;">
+						<label style="margin-left: 10px; padding-top:15px; font-weight: bold;" for="agree">이용약관 동의</label><input type="checkbox" name="agree" id="agree" /><label for="agree"></label>&nbsp;
+					</li>
+					<li>
+						<iframe src="iframeAgree/agree.html" width="500px;" height="170px;" style="border: solid 1px navy; margin: 20px 10px;"></iframe>
+					</li>
+				</ul>
+			</div>
+			
+				<ul style="width:550px; height:40px; margin:0 auto; padding: 0px;">
+					<li>
+						<input type="button" id="btnRegister" value="가입하기" />
+					</li>
+				</ul>
+			
+			</div>	
+		</fieldset>
+	</form>
+</div>
+</body>
+</html>
+
+
+
