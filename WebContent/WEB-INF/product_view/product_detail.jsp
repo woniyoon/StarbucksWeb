@@ -196,6 +196,7 @@
 	hr {
 	 	border: solid 1px black;
 	 }
+	 
 	/* fieldset 폼 */
 	fieldset {
 	 	border: solid 0px red;
@@ -284,7 +285,7 @@
 	}
 	
 	/* 알레르기 */
-	div.product_factor {
+	div.allergy_triggers {
 	    clear: both;
    	    position: relative;
 	    padding: 3px 11px; 
@@ -493,7 +494,7 @@
 					<div class="product_img img-zoom-container myimagediv">
 						<img id="myimage" src="/StarbucksWeb/images/bobae/1-1.jpg" alt="상세이미지" style="weight: 400px; height: 530px;">
 					</div>
-				</p>
+				</p> 
 
 				<p>
 					<div class="product_magnifier">
@@ -501,17 +502,10 @@
 					</div>			
 				</p>
 				<p>
-					<div class="row">
+					<div>
 						<div class="product_img_small">
-							<img src="/StarbucksWeb/images/bobae/1-1.jpg" alt="상세이미지" style="width: 106px; height: 110px onclick="myFunction(this);">
+							<img src="/StarbucksWeb/images/bobae/1-1.jpg" alt="상세이미지" style="width: 106px; height: 110px;">
 						</div>
-						<div class="product_img_small">
-							<img src="/StarbucksWeb/images/bobae/2-1.jpg" alt="상세이미지" style="width: 106px; height: 110px onclick="myFunction(this);">
-						</div>
-					</div>
-					<div class="container"> 
-						<img id="expandedImg" style="width:100%">
-					  	<div id="imgtext"></div>
 					</div>
 				</p>
 			</div>
@@ -548,7 +542,7 @@
                                     <dd>75</dd>
                                 </dl>
                             </li>
-                            <li class="sat_FAT">
+                            <li class="cholesterol">
                                 <dl>
                                     <dt>포화지방 (g)</dt>
                                     <dd>2</dd>
@@ -568,13 +562,13 @@
                                     <dd>20</dd>
                                 </dl>
                             </li>
-                            <li class="sugars">
+                            <li class="sugar">
                                 <dl>
                                     <dt>당류 (g)</dt>
                                     <dd>10</dd>
                                 </dl>
                             </li>
-                            <li class="caffeine last">
+                            <li class="caffein">
                                 <dl>
                                     <dt>카페인 (mg)</dt>
                                     <dd>245</dd>
@@ -583,7 +577,7 @@
                         </ul>
 					</div>
 				
-					<div class="product_factor">
+					<div class="allergy_triggers">
 						<p>알레르기 유발요인 : 우유</p>
 					</div>
 					</fieldset>

@@ -99,8 +99,9 @@
 	    display: grid;
 	    grid-row-gap: 50px;
 	    grid-template-columns: 25% 25% 25% 25%;
+	    margin-bottom: 50px;
 	    padding: 10px;
-	    /* background-color: #2196F3; */
+	    border: 1px solid green;
 	}
 	    
 	/* 메뉴 리스트 */
@@ -176,30 +177,28 @@
 	    line-height: 1.8;
 	}
 	
-	/* 수정해야 됨 */
-	div#arr_coffee_title {
-	    padding: 20px;
+	/* 수정해야 됨*/
+	
+	div.sub_title {
+		padding: 20px;
 	    background: #f4f4f2;
-	    margin-bottom: 20px;
+	    margin-bottom: 10px;
 	    border-radius: 3px;
 	    overflow: hidden;
+	    font-size: 20pt;
+	    font-weight: bold;
 	}
 	
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script type="text/javascript">
     
-    
-var arr_coffee_title=[
-    {type:"product_coldbrew", name:"콜드 브루 커피", summary:"디카페인 에스프레소 샷 추가 가능 (일부 음료 제외)"},
-    {type:"product_brewed", name:"브루드 커피", summary:"디카페인 에스프레소 샷 추가 가능 (일부 음료 제외)"}];  
-var arr_food_title=[
-    {type:"product_bakery", name:"베이커리", summary:"디카페인 에스프레소 샷 추가 가능 (일부 음료 제외)"},
-    {type:"product_cake", name:"케이크", summary:"디카페인 에스프레소 샷 추가 가능 (일부 음료 제외)"}];  
 var arr_coffee_list=[
     {type:"product_coldbrew", name:"나이트로 바닐라 크림", filename:"/StarbucksWeb/images/bobae/1-1.jpg"},
     {type:"product_coldbrew", name:"초콜릿 블랙 콜드 브루", filename:"/StarbucksWeb/images/bobae/1-2.jpg"},
     {type:"product_brewed", name:"아이스 커피", filename:"/StarbucksWeb/images/bobae/1-3.jpg"},
+    {type:"product_brewed", name:"오늘의 커피", filename:"/StarbucksWeb/images/bobae/1-4.jpg"},
+    {type:"product_brewed", name:"오늘의 커피", filename:"/StarbucksWeb/images/bobae/1-4.jpg"},
     {type:"product_brewed", name:"오늘의 커피", filename:"/StarbucksWeb/images/bobae/1-4.jpg"},
     {type:"product_brewed", name:"오늘의 커피", filename:"/StarbucksWeb/images/bobae/1-4.jpg"}];
     var arr_food_list=[
@@ -209,31 +208,48 @@ var arr_coffee_list=[
     {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"},
     {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"}];
 
-
+var drink_category = ["product_coldbrew","product_brewed"];
+var foods_category = ["product_bakery","product_cake"];
 
 $(document).ready(function(){
 
+	var selected = "view_photo";
 
     // 커피 & 이미지 html 추가해주기
     var html = "";
-    for(var i=0; i<arr_coffee_list.length; i++){
-        html += "<div id='"+arr_coffee_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_coffee_list[i].filename +"'/></div>" + arr_coffee_list[i].name +"</div>";
-    }   
-    $("div#grid_coffee_list").html(html);
+    for(var n=0; n<drink_category.length; n++) {
+		$("div.view_photo_drink").append("<div class='sub_title' id='sub_title_"+drink_category[n]+"'>"+ drink_category[n] + "</div>");  // 음료 카테고리를 보여주는 div 	
+		$("div.view_photo_drink").append("<div class='grid_container' id='grid_"+drink_category[n]+"'>");									// 이미지들을 담을 grid 컨테이너 div
+	    for(var i=0; i<arr_coffee_list.length; i++){
+	    	if(arr_coffee_list[i].type == drink_category[n]) {
+		        html += "<div id='"+arr_coffee_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_coffee_list[i].filename +"'/></div>" + arr_coffee_list[i].name +"</div>";	    		
+	    	}
+	    }   
+	    $("div#grid_"+drink_category[n]).append(html);
+	    html = "";
+	    $("div.view_photo_drink").append("</div>")
+    }
     
     html = "";
-    for(var i=0; i<arr_food_list.length; i++){
-        html += "<div id='"+arr_food_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_food_list[i].filename +"'/></div>" +arr_food_list[i].name+"</div>";
+    //for(var n=0; n<foods_category.length; i++){
+    	//$("div.view_photo_food").append("<div class='sub_title' id='sub_title_"+foods_category[n]+"'>"+ foods_category[n] + "</div>");  // 음식 카테고리를 보여주는 div 	
+		//$("div.view_photo_food").append("<div class='grid_container' id='grid_"+foods_category[n]+"'>");									// 이미지들을 담을 grid 컨테이너 div
+		for(var i=0; i<arr_food_list.length; i++){
+	    	if(arr_food_list[i].type == foods_category[n]) {
+		        html += "<div id='"+arr_food_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_food_list[i].filename +"'/></div>" + arr_food_list[i].name +"</div>";	    		
+	    	}
+	    }  
+		//$("div#grid_"+foods_category[n]).append(html);
+	    //html = "";
+	    //$("div.view_photo_food").append("</div>")
+	    $("div#grid_food_list").hide();
     } 
-    $("div#grid_food_list").html(html);
-    $("div#grid_food_list").hide();
    
-    html = "";
-    for(var i=0; i<arr_coffee_title.length; i++){
-        html += arr_coffee_title[i].type + arr_coffee_title[i].name+arr_coffee_title[i].summary
-    }   
-    $("div#arr_coffee_title").html(html);
-
+    
+    
+    
+    
+    
     // 처음 음료카테고리 버튼은 켜져있어야 함.
     $("button#coffee_category_btn").toggleClass("button_on");
     $("button#coffee_category_btn").prop("disabled", true);   // 어떤 버튼이 켜져있어야 하는지 알기 위해 눌러진 버튼에 disabled(비활성화)
@@ -244,44 +260,45 @@ $(document).ready(function(){
     $("button.category").click(function(event){   // 분류보기 탭을 클릭했을 때
         var $target = $(event.target);
         
-        // 현재 선택된 버튼이 비활성화되있지 않다면, 초록색으로 바꿔줘야함
-        if(!$target.prop("disabled")) {
+        // 현재 선택된 분류보기 버튼이 클릭되었따면, 활성화시키고 초록색으로 바꾸자
+        if(!$target.prop("disabled")) { 
             $target.toggleClass("button_on");
             
-            console.log("지금 누른 버튼은 활성화되있음");
             $("button.category").prop("disabled", false);
             $("button.category").toggleClass("button_on")
             $target.prop("disabled", true);
             $target.toggleClass("button_on");
-            console.log($target.prop("id"));
+            // console.log("지금 누른 버튼은 활성화되있음");
+            console.log("활성화된 아이디:"+$target.prop("id"));
         }
 
         
+       
+        // 미니카테고리 '사진으로보기', '영양정보로 보기' 클릭
         var selected_mini_category ="";
-        // 사진을 보는지 or 영양정보를 보는지
         $("button.view_list").each(function(){
-            if(this.disabled) {
-                selected_mini_category = this.id.substring(0, this.id.length - 4);
-                console.log(selected_mini_category);
+            if(this.disabled) { // 미니카테고리 버튼이 활성화 상태라면
+                selected_mini_category = this.id.substring(0, this.id.length - 4); //.btn 잘라버리고 앞의 글자만 데리고오겠다~ view_photo / view_nutrition
+                console.log("미니카테고리 뭘로 체크되어있어? : "+selected_mini_category); // view_photo / view_nutrition
                 return;
             }
         });
         
         $("div.product_view > div > div").each(function(){
-            $(this).hide();   
-            console.log($(this).prop("id"));
+            $(this).hide();   // grid_coffee_list / coffee_table / grid_food_list / food_table
+            // console.log("this가 뭐야:"+$(this).prop("id"));
         });
         
         if($target.prop("id") == "coffee_category_btn") { // 커피 버튼을 누르면
             $("div.food_category").css('display', "none"); // 음식 체크박스 숨기고
             $("div.coffee_category").css('display', "");    // 커피 체크박스 보여주기
-            $("div#coffee > div."+selected_mini_category).show();
-            console.log($("div#coffee > div."+selected_mini_category).prop("id"));
-        } else {
-            $("div.coffee_category").css('display', "none");
-            $("div.food_category").css('display', "");
-            $("div#food > div."+selected_mini_category).show();      
-            console.log($("div#food > div."+selected_mini_category).prop("id"));
+            /* $("div#coffee > div."+selected_mini_category+"_drink").show();
+            console.log($("으으으잉? div#coffee > div."+selected_mini_category).prop("id")); */
+        } else { 	// 푸드 버튼을 누르면
+            $("div.coffee_category").css('display', "none"); // 커피 체크박스 숨기고
+            $("div.food_category").css('display', ""); // 음식 체크박스 보여줘
+            /* $("div#food > div."+selected_mini_category+"_food").show();      
+            console.log($("으잉? div#food > div."+selected_mini_category).prop("id")); */
         }
     });
  
@@ -298,24 +315,34 @@ $(document).ready(function(){
 	            
 	        if(isBtnOn) {   
 	            $(this).prop("checked", true); // 그런데 name이 coffee_select인 체크박스에 전체선택도 포함되있으므로 한 번 더 참으로 바꿔줌         
-	            $("div#grid_coffee_list").children().show()
+	            $("div#grid_coffee_list").children().show() // 전체선택됐으면 내용 보여줘
+	            $(".nutrition_list").hide()
 	        } else {
-	            $("div#grid_coffee_list").children().hide()
+	            $("div#grid_coffee_list").children().hide() // 전체선택 안됐으면 내용 숨겨줘
 	        }
 	            
-        } else { // 지금 선택된 체크박스가 전체선택이 아니다.
+        } else { // 지금 선택된 체크박스가 전체선택이 아니다. 개별 선택이다.
 	        if($("input:checkbox[id=coffee_all]").prop("checked")) {
 	            $("input:checkbox[id=coffee_all]").prop("checked", false);
 	            $("div#grid_coffee_list").children().hide();
 	        }
 	        var filter_condition = $(this).prop("id");
-	        console.log("지금은 "+filter_condition+"체크박스가 선택됨 ");
-	        if($(this).prop("checked")) {
-	            console.log("체크됨!");
-	            $("div#"+filter_condition).show();
+	        //console.log("지금은 "+filter_condition+"체크박스가 선택됨 ");
+	        console.log(selected + " 버튼 활성화된 상태로"); // view_photo / view_nutrition
+	        if($(this).prop("checked")) { // 체크를 했다면
+	        	//$("div#coffee").children().hide();
+	        	console.log(this);
+	            //$("div."+selected).show();
+	            console.log(filter_condition+"체크함!");
+	            $("div#sub_title_"+filter_condition).show();
+	            $("div#grid_"+filter_condition).show();
+	            console.log("아 내용 좀 보여줘"+filter_condition); 
 	        } else {
-	            console.log("체크안됨 ");
-	            $("div#"+filter_condition).hide();
+	            console.log(filter_condition+"체크풀어버림 ");
+	            $("div#sub_title_"+filter_condition).hide();
+	            $("div#grid_"+filter_condition).hide();
+	            console.log("아 내용 좀 숨겨줘"+filter_condition); 
+	            
 	        }
         }    
     });
@@ -353,50 +380,57 @@ $(document).ready(function(){
         }    
     });
 
+
     
-    
-    <!-- 메뉴 리스트 -->      
     // 처음 사진으로보기 카테고리 버튼은 켜져있어야 함.
     $("button#view_photo_btn").toggleClass("button_on_list");
     $("button#view_photo_btn").prop("disabled", true);   // 어떤 버튼이 켜져있어야 하는지 알기 위해 눌러진 버튼에 disabled(비활성화)
     $("div.nutrition_list").css('display', "none");   //  영양정보를 숨김
 
     // 작은 카테고리 버튼이 클릭됐을 때 이벤트 
-    $("button.view_list").click(function(event){   // 메뉴 리스트 탭을 클릭하면
+    $("button.view_list").click(function(event){   // 작은카테고리 버튼을 클릭하면
         var $miniCategory = $(event.target);
         var selectedCategory = "";
-        $(".category").each(function(){
-	        console.log(this);
+        $(".category").each(function(){ // 큰 카테고리(분류보기)가 뭐야
+	        //console.log(this);
 	        if(this.disabled) {
 	            selectedCategory = this.id;
+	            //console.log("selectedCategory 가 뭐야 ?"+selectedCategory); // coffee_category_btn / food_category_btn
 	            return;
 	        }   
         });
         
-        $miniCategory.prop("disabled", true);
-        $miniCategory.toggleClass("button_on_list");
+        $miniCategory.prop("disabled", true); 
+        $miniCategory.toggleClass("button_on_list"); 
 
         var miniCategory_id = $miniCategory.prop("id");
         var div_to_show = miniCategory_id.substring(0, miniCategory_id.length - 4);
         
+        selected = div_to_show;
+		//console.log("selected에 넣은 값 : " + div_to_show); // view_photo / view_nutrition
+        
         if($miniCategory.prop("id") == "view_photo_btn") {
 	        $("#view_nutrition_btn").prop("disabled", false);
 	        $("#view_nutrition_btn").toggleClass("button_on_list");
+	        console.log("사진으로보기 클릭");
         } else {
 	        $("#view_photo_btn").prop("disabled", false);
 	        $("#view_photo_btn").toggleClass("button_on_list");   
+	        console.log("영양정보로보기 클릭");
         }
         
         $(".product_view > div > div").each(function(){
 	        $(this).hide();   
-	        console.log($(this));
-        });
+	        //console.log($(this));
+        }); 
         
-        if(selectedCategory == "coffee_category_btn") {
+        if(selectedCategory == "coffee_category_btn") { // 클릭한 작은 버튼이 커피버튼을 누르고 있다면
         	$("div#grid_view_container").css("display", "inline-block");
-        	$("div#coffee > div." + div_to_show).show();   
-        } else {
-        	$("div#food > div." + div_to_show).show();   
+        	$("div#coffee > div." + div_to_show+"_drink").show();   
+        	console.log("div_to_show 커피버튼의 작은버튼은 : "+div_to_show);
+        } else {  // 클릭한 작은 버튼이 푸드버튼을 누르고 있다면
+        	$("div#food > div." + div_to_show+"_food").show();   
+        	console.log("div_to_show 음식버튼의 작은버튼은 : "+div_to_show);
         }
     });
     
@@ -449,9 +483,7 @@ $(document).ready(function(){
             <input id="product_cake" name="food_select" type="checkbox"><label for="product_cake">케이크</label>
             <input id="product_sandwitch" name="food_select" type="checkbox"><label for="product_sandwitch">샌드위치 &amp; 샐러드</label>
             <input id="product_warm" name="food_select" type="checkbox"><label for="product_warm">따뜻한 푸드</label>
-            <input id="product_fruit" name="food_select" type="checkbox"><label for="product_fruit">과일 &amp; 요거트</label>
-            <input id="product_snack" name="food_select" type="checkbox"><label for="product_snack">스낵 &amp; 미니 디저트</label>
-            <input id="product_icecream check" name="food_select" type="checkbox"><label for="product_icecream">아이스크림</label>                  
+            <input id="product_fruit" name="food_select" type="checkbox"><label for="product_fruit">과일 &amp; 요거트</label>               
         </div>
         </div>
     </section>
@@ -459,95 +491,92 @@ $(document).ready(function(){
     <!-- 메뉴 리스트 -->
     <section class="product_menulist">
         <div class="product_view">
-        <button class="view_list" id="view_photo_btn">사진으로 보기</button>
-        <button class="view_list" id="view_nutrition_btn">영양정보 보기</button>
-        <div class="list_sub_title" id="arr_coffee_title"></div>
-        <div class="list_sub_title" id="arr_food_title"></div>
-        <div id="coffee">
-            <div class="grid_container view_photo" id="grid_coffee_list"></div>
-            <div class="nutrition_list view_nutrition" id="coffee_table">커피영양정보
-                <section>
-            <table>
-                <thead>
-                    <tr>
-                        <th>메뉴</th>
-                    <th>칼로리(Kcal)</th>
-                    <th>당류(g)</th>
-                    <th>단백질(g)</th>
-                    <th>나트륨(mg)</th>
-                    <th>포화지방(g)</th>
-                    <th>카페인(mg)</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr>
-                    <td>아메리카노</td>
-                    <td>435</td>
-                    <td>37</td>
-                    <td>12</td>
-                    <td>114</td>
-                    <td>16</td>
-                    <td>15</td>
-                    </tr>
-                    <tr>
-                    <td>커피 어쩌거</td>
-                    <td>435</td>
-                    <td>37</td>
-                    <td>12</td>
-                    <td>114</td>
-                    <td>16</td>
-                    <td>15</td>
-                    </tr>
-                </tbody>
-            </table>
-            </section>
-        </div>
-        </div>
-
-        <div id="food">
-            <div class="grid_container view_photo" id="grid_food_list"></div>
-            <div class="nutrition_list view_nutrition" id="food_table">푸드영양정보
-                <section>
-            <table>
-                <thead>
-                    <tr>
-                        <th>메뉴</th>
-                    <th>칼로리(Kcal)</th>
-                    <th>당류(g)</th>
-                    <th>단백질(g)</th>
-                    <th>나트륨(mg)</th>
-                    <th>포화지방(g)</th>
-                    <th>카페인(mg)</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr>
-                    <td>케이크 어쩌거</td>
-                    <td>435</td>
-                    <td>37</td>
-                    <td>12</td>
-                    <td>114</td>
-                    <td>16</td>
-                    <td>15</td>
-                    </tr>
-                    <tr>
-                    <td>빵 어쩌거</td>
-                    <td>435</td>
-                    <td>37</td>
-                    <td>12</td>
-                    <td>114</td>
-                    <td>16</td>
-                    <td>15</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        </div>
-            
-        
-        </div>
+	        <button class="view_list" id="view_photo_btn">사진으로 보기</button>
+	        <button class="view_list" id="view_nutrition_btn">영양정보로 보기</button>
+	        
+	        <div id="coffee">
+	            <div class="view_photo_drink" id="grid_coffee_list"></div>
+	            <div class="nutrition_list view_nutrition_drink" id="coffee_table">커피영양정보
+	                <section>
+		            <table>
+		                <thead>
+		                    <tr>
+		                        <th>메뉴</th>
+			                    <th>칼로리(Kcal)</th>
+			                    <th>당류(g)</th>
+			                    <th>단백질(g)</th>
+			                    <th>나트륨(mg)</th>
+			                    <th>포화지방(g)</th>
+			                    <th>카페인(mg)</th>
+		                    </tr>
+		                </thead>
+		                
+		                <tbody>
+		                    <tr>
+			                    <td>아메리카노</td>
+			                    <td>435</td>
+			                    <td>37</td>
+			                    <td>12</td>
+			                    <td>114</td>
+			                    <td>16</td>
+			                    <td>15</td>
+		                    </tr>
+		                    <tr>
+			                    <td>커피 어쩌거</td>
+			                    <td>435</td>
+			                    <td>37</td>
+			                    <td>12</td>
+			                    <td>114</td>
+			                    <td>16</td>
+			                    <td>15</td>
+		                    </tr>
+		                </tbody>
+		            </table>
+		            </section>
+		        </div>
+			</div>
+			
+	        <div id="food">
+	            <div class="grid_container view_photo_food" id="grid_food_list"></div>
+	            <div class="nutrition_list view_nutrition_food" id="food_table">푸드영양정보
+	                <section>
+			            <table>
+			                <thead>
+			                    <tr>
+			                        <th>메뉴</th>
+				                    <th>칼로리(Kcal)</th>
+				                    <th>당류(g)</th>
+				                    <th>단백질(g)</th>
+				                    <th>나트륨(mg)</th>
+				                    <th>포화지방(g)</th>
+				                    <th>카페인(mg)</th>
+			                    </tr>
+			                </thead>
+			                
+			                <tbody>
+			                    <tr>
+				                    <td>케이크 어쩌거</td>
+				                    <td>435</td>
+				                    <td>37</td>
+				                    <td>12</td>
+				                    <td>114</td>
+				                    <td>16</td>
+				                    <td>15</td>
+			                    </tr>
+			                    <tr>
+				                    <td>빵 어쩌거</td>
+				                    <td>435</td>
+				                    <td>37</td>
+				                    <td>12</td>
+				                    <td>114</td>
+				                    <td>16</td>
+				                    <td>15</td>
+			                    </tr>
+			                </tbody>
+			            </table>
+	        		</section>
+		        </div>
+	    	</div>
         </div>
     </section>
 </div>   
