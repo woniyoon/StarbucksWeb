@@ -40,49 +40,52 @@
 		    padding-inline-start: 0px;
 		}
 		
+		ul#point_usage {
+		    list-style-type: none;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: flex-end;
+		    /* border: 1px solid lightcoral; */
+		}
 		
 		section {
 		    height: auto;
 		    padding-bottom: 3rem;
 		}   
 		
-		@media (max-width:960px) {
-		    #payment_detail {
-		        min-width: 50vw;
-		        max-width: 50vw;
-		        min-height: 40vh;
-		        overflow: inherit;
-		    }
-		
-		    #payment_detail > form {
-		        /* min-width: 40vw;
-		        max-width: 40vw; */
-		        flex: 1;
-		    }
-		    
-		    #payment_detail_left > img {
-		        max-width: 20vw;
-		        max-height: 14vh;
-		    }
-		
-		    #card_payment :first-child {
-		        display: block;
-		        border: 1px solid salmon;
-		    }
-		}
-		
 		#payment_container {
-		    border: 3px solid red;
 		    margin: 30px auto;
-		    width: 100%;
+		    width: 100vw;
 		    height: auto;
 		    padding: 3rem 0;
 		}
 		
+		article#payment_detail {
+		    /* border: 2px solid darkorange; */
+		    display: inline-block;
+		}
+		
 		table, td, tr, th {
-		    border-bottom: 1px solid grey;
+		    border-bottom: 1px solid;
 		    border-collapse: collapse;
 		    padding: 10px;
+		}
+		
+		table {
+		    margin: 50px 0 30px 0;
+		    /* border: 1px solid darkcyan; */
+		}
+		
+		section#price_info {
+		    display: flex;
+		    justify-content: flex-end;
+		    /* width: 40vw; */
+			/* border: 1px solid darkolivegreen; */
+		}
+		
+		input {
+		    display: inline-block;
+		    width: 80px;
 		}
 		
 		.move_button {
@@ -118,14 +121,6 @@
 		    font-size: 17px;
 		}
 		
-		hr {
-		    max-width: 50%; 
-		}
-		
-		h2#total_price {
-		    margin-right: 25vw;
-		}
-		
 		#snackbar.show {
 		    visibility: visible;
 		    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -154,38 +149,53 @@
 	<jsp:include page="../header.jsp" />   
 	
     <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-    <section align="center">
+	<section>
         <ul class="order_progress">
-              <li id="shoppingCart"><span>커스텀</span></li>
+            <li id="shoppingCart"><span>커스텀</span></li>
             <li id="storeLocation"><span>매장선택</span></li>
             <li id="payment"><span>결제하기</span></li>
             <li id="confirmed"><span>결제완료</span></li>
         </ul>
         <div id="payment_container" align="center">
-            <article id="payment_detail">  
-                <aside>   <!-- 결제 요약정보 -->
-                    <h4>주문 매장 : 을지로입구역 스타벅스</h4>
-                    <h4>주문 메뉴</h4>
-                    <table class="table">
-                        <tr>
-                            <th></th>
-                            <th>품목</th>
-                            <th>변경사항</th>
-                            <th>가격</th>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" /></td>
-                            <td>아이스 아메리카노</td>
-                            <td>얼음 적게</td>
-                            <td>4100원</td>
-                        </tr>
-                    </table>
-                    <label>적립금</label>
-                    <input type="number" readonly />
-                    <button>적립금 확인</button>
-                    <h4>총 금액 : </h4>
-
-                </aside>
+            <h2>장바구니</h2>
+            <article id="payment_detail">  <!-- 결제 요약정보 -->
+                <table class="table">
+                    <tr>
+                        <th><input type="checkbox" /></th>
+                        <th>메뉴명</th>
+                        <th>변경사항</th>
+                        <th>가격</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>아이스 아메리카노</td>
+                        <td>얼음 적게 얼음 적게 얼음 적게</td>
+                        <td>4100원</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>아이스 아메리카노</td>
+                        <td>얼음 많이, 물 적게</td>
+                        <td>4100원</td>
+                    </tr>
+                </table>
+                <section id="price_info">
+                    <ul id="point_usage">
+                        <li>
+                            <label>보유 적립금</label>
+                            <input type="number" readonly />
+                            <button>확인</button>            
+                        </li>
+                        <li>
+                            <label>사용 적립금</label>
+                            <input type="number" value="0"/>
+                            <button>적용</button>
+                            <br>
+                        </li>
+                        <li><span>주문 매장 : </span><span>을지로입구역 스타벅스</span></li>
+                        <li><span>총 금액 : </span><span>8200원</span></li>
+                    </ul>    
+                </section>
             </article>
             <div>
                 <button class="move_button" onclick="history.back()">뒤로</button>
