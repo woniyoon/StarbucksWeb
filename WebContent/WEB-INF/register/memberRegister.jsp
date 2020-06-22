@@ -22,9 +22,9 @@
 	/* 전체 틀 & 중간항목 기본form 값*/
 
 	div#container { 
-		width: 1100px;
+		width: 100%;
 	    margin: 0 auto;
-	    padding: 50px 0;
+	    padding: 0;
 		/* text-align: center;	 */			
 		/* border: 1px solid red; */
 	}
@@ -153,11 +153,15 @@
 	    border-color: #a6a6a6;
 	}
 	
-	/* .btn-danger {
+	.btn-danger:not(:disabled):not(.disabled).active, .btn-danger:not(:disabled):not(.disabled):active, .show>.btn-danger.dropdown-toggle{
 		color: black;
 	    background-color: #f2f2f2;
 	    border-color: #a6a6a6;
-	} */
+	} 
+	
+	.btn-danger.focus {
+		box-shadow: none;
+	}
 	
 	input[id="agree"] + label {
 		float: right; 
@@ -216,9 +220,9 @@
 <script type="text/javascript">
 
 /* 
-	성별 남-checked 초기값
+	성별 남-checked 초기값 ㅇ
 	생년월일 값 초기화 - 선택값 없을시 선택하세요 error 띄우기 ㅇ
-	생년월일 각각 name값 검토, function 다시설정
+	생년월일 각각 name값 검토 ㅇ, function 다시설정
 	휴대폰 input-text 삽입 ==> 고객의소리form 에서 들고오던지..ㅇ
 	이름, 메일 입력작업 ㅇ
 	
@@ -236,14 +240,14 @@
 		// 자바스크립트에서 현재날짜시각을 알려주는 것이다.
 		var currentYear = now.getFullYear(); // 현재년도
 		
-		/*
+		
 		// 성별 기본값 - 남 (체크)
-		$('input:radio[id="jb-radio-1"]').prop("checked",true);
-		$('label.btn-danger').css()
-		color: black;
-	    background-color: #f2f2f2;
-	    border-color: #a6a6a6;
-	*/
+		$('label.on').css("color","black");
+		$('label.on').css("background-color","#f2f2f2");
+		$('label.on').css("border-color","#a6a6a6");
+		
+		
+	
 		$("span#id_error").hide();
 		$("span#id_success").hide();
 		
@@ -276,11 +280,39 @@
 					return;
 				} 
 				
+
+				bIdDuplicateCheck = true; // 아이디중복확인을 클릭했는지 클릭안했는지를 알아보기 위한 용도임.(클릭함)
+					
+				$.ajax({
+					url:"<%= ctxPath%>/register/idDuplicateCheck.sb",
+					type:"post",
+					data:{"id":$("#id").val()},
+					dataType:"json",
+					success:function(json){
+						if(json.isUse) {
+							
+							$("span#id_success").html("사용 가능한 아이디 입니다.").show();
+							$("span#id_error").hide();
+							
+						}
+						else {
+							$("span#id_error").html("사용중이거나 이미 탈퇴한 아이디입니다.").show();
+							$("span#id_success").hide();
+							
+						}
+					},
+					error: function(request, status, error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+					}
+					
+				});
+
+				
 				$("ul#able1").css("margin-bottom","40px");
 				$(this).parent().find("#id_error").hide();
-				$("span#id_success").show();
 				$(":input").prop("disabled",false).removeClass("bgcol"); 
 				/* $("#id").addClas("successInput"); */
+				return;
 			}
 			
 		}); // end of $("#id").blur(function()------------------------
@@ -366,6 +398,7 @@
 
 			else{
 				// 공백이 아닌 글자를 입력했을 경우
+				$("ul#able4").css("margin-bottom","16px");
 				$(this).parent().find("#name_error").hide();
 				$(":input").prop("disabled",false).removeClass("bgcol"); 
 				/* $("#id").addClas("successInput"); */
@@ -419,7 +452,7 @@
 		   yearOption += "<option>"+(1950+i)+"</option>";
 	   }
 	   
-	   document.getElementById("birthYear").innerHTML = yearOption; //birthYear의 태그를 잡아서 옵션에 넣기
+	   document.getElementById("Birthyyyy").innerHTML = yearOption; //birthYear의 태그를 잡아서 옵션에 넣기
 		
 	   // 출생달 옵션
 	   var monthOption = "<option>출생달</option>"; 
@@ -427,7 +460,7 @@
 		   monthOption += "<option>"+i+"</option>";
 	   }
 	   
-	   document.getElementById("birthMonth").innerHTML = monthOption;
+	   document.getElementById("Birthmm").innerHTML = monthOption;
 	   
 	   // 출생일 옵션
 	   var dayOption = "<option>출생일</option>"; 
@@ -435,14 +468,14 @@
 		   dayOption += "<option>"+i+"</option>";
 	   }
 	   
-	   document.getElementById("birthDay").innerHTML = dayOption;
+	   document.getElementById("Birthdd").innerHTML = dayOption;
 	   
 	   
 	}); // end of window.onload = function()--------------
 	 
 	function selectYear() {
 		
-		var sBirthYear = document.getElementById("birthYear").value;
+		var sBirthYear = document.getElementById("Birthyyyy").value;
 
 		var bNaN = isNaN( Number(sBirthYear) ); 
 				/* 
@@ -468,7 +501,7 @@
 
 	function selectMonth() {
 		
-		var sBirthMonth = document.getElementById("birthMonth").value;
+		var sBirthMonth = document.getElementById("Birthmm").value;
 
 		var bNaN = isNaN( Number(sBirthMonth) ); 
 				/* 
@@ -494,7 +527,7 @@
 
 	function selectDay() {
 		
-		var sBirthYear = document.getElementById("birthYear").value;
+		var sBirthYear = document.getElementById("Birthdd").value;
 		
 	//	alert(sBirthYear);
 	//	alert(typeof sBirthYear); ==> string
@@ -524,28 +557,12 @@
 	
 	
 	function goRegister() {
+
 		
-		 // *** jQuery 에서 radio, checkbox 의 체크여부 확인하기 *** // 
-	   	 /* 
-	   	   $("input:checkbox[name=이름]").is(":checked");
-	   	   ==> name 이 이름인 체크박스에 체크가 되었으면   true를 반환
-	   	   ==> name 이 이름인 체크박스에 체크가 안되었으면 false를 반환
-	   	   
-	   	   $("input:checkbox[id=이름]").is(":checked");
-	   	   ==> id의 값이 이름인 체크박스에 체크가 되었으면   true를 반환
-	   	   ==> id의 값이 이름인 체크박스에 체크가 안되었으면 false를 반환
-	   	   
-	   	   $("input:radio[name=이름]").is(":checked");
-	   	   ==> name 이 이름인 라디오에 체크가 되었으면   true를 반환
-	   	   ==> name 이 이름인 라디오에 체크가 안되었으면 false를 반환
-	   	   
-	   	   $("input:radio[id=이름]").is(":checked");
-	   	   ==> id의 값이 이름인 라디오에 체크가 되었으면   true를 반환
-	   	   ==> id의 값이 이름인 라디오에 체크가 안되었으면 false를 반환
-	   	 */
-	   	  
+		
+		
 	   	  var bFlag = false;
-	   	  $("input:radio[name=gender]").each(function(){ // 반복문
+	   	  $("input:radio[name=jb-radio]").each(function(){ // 반복문
 	   		var bChecked = $(this).prop("checked");
 	   		if(bChecked) {
 	   			bFlag = true;
@@ -563,17 +580,17 @@
 	   		  return;
 	   	  } 
 	   	  
-	   	  if( !bIdDuplicateCheck ) { // 아이디중복확인을 클릭했는지 클릭안했는지를 알아보기 위한 용도임.
+	   	 /*  if( !bIdDuplicateCheck ) { // 아이디중복확인을 클릭했는지 클릭안했는지를 알아보기 위한 용도임.
 			alert("아이디중복확인 버튼을 클릭하여 ID중복 검사를 하세요!!");
 			return;
-	   	  }
+	   	  } */
 	   	 
 	   	  var bRequiredInfo = false;
 	   	  $(".requiredInfo").each(function(){
 		  	var data = $(this).val().trim();
 			if(data == "") {
 				bRequiredInfo = true;
-				alert("*표시된 필수입력사항은 모두 입력하셔야 합니다.");
+				$(this).focus();
 				return false;
 			}
 		  }); // end of $(".requiredInfo").each()-------
@@ -584,7 +601,7 @@
 		  if(!bRequiredInfo) {
 		   	  var frm = document.registerFrm;
 		   	  frm.method = "POST";
-		   	  frm.action = "memberRegister.up";
+		   	  frm.action = "memberRegister.sb";
 		   	  frm.submit();
 		  }
 	   	  
@@ -593,10 +610,8 @@
 
 </script>	
 
-</head>
-<body>
 <div id="container">
-	<form name="registerFrm">
+	<form name="registerFrm" style="margin-top: 80px; margin-bottom: 80px;">
 		<fieldset>
 			<legend style="text-align: center;">회원가입</legend>
 			<div id="form" >
@@ -610,7 +625,7 @@
 				<ul id="able1">
 					<li>
 						<label for="id"></label>
-						<input class="input1" type="text" name="id" id="id" autofocus placeholder="아이디" /> 
+						<input class="input1 requiredInfo" type="text" name="id" id="id" autofocus placeholder="아이디" /> 
 						<span class="error" id="id_error">아이디를 입력 하세요.</span>
 						<span class="success" id="id_success">사용 가능한 아이디 입니다.</span> 
 					</li>
@@ -620,7 +635,7 @@
 			  	<ul id="able2">	
 					<li>
 						<label for="password"></label>
-						<input class="input1" type="password" name="password" id="password" placeholder="비밀번호"/>
+						<input class="input1 requiredInfo" type="password" name="password" id="password" placeholder="비밀번호"/>
 						<span class="error" id="password_error">비밀번호를 입력 하세요.</span>
 						<span class="success" id="password_success">사용 가능한 비밀번호 입니다.</span> 
 					</li>
@@ -630,7 +645,7 @@
 			  	<ul id="able3">	
 					<li>
 						<label for="passwdCheck"></label>
-						<input class="input1" type="password" id="passwordCheck" placeholder="비밀번호 확인"/>
+						<input class="input1 requiredInfo" type="password" id="passwordCheck" placeholder="비밀번호 확인"/>
 						<span class="error" id="passwordCheck_error">일치하지 않습니다.</span>
 						<span class="success" id="passwordCheck_success">일치합니다.</span> 
 					</li>
@@ -642,11 +657,11 @@
 						<li>
 							<p style="font-weight: bold; margin-left: 10px; ">이름(필수)</p>
 							<label for="name"></label>
-							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="name" id="name" value="" maxlength="10" required />
+							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="name" id="name" class="requiredInfo" />
 
 							<!-- 남/여 성별선택하기 -->
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<label class="btn btn-danger">
+								<label class="btn btn-danger on">
 									<input type="radio" name="jb-radio" id="jb-radio-1"> 남
 								</label>
 								<label class="btn btn-danger">
@@ -661,9 +676,8 @@
 					<ul>
 						<li>
 							<p style="font-weight: bold; margin-left: 10px;">생년월일(필수)</p>
-							<label for="birthYear"></label>
-							<select name="birthYear" id="birthYear" onchange="selectYear();"></select>
-							<select name="birthMonth" id="birthMonth" onchange="selectMonth();">
+							<select name="Birthyyyy" id="Birthyyyy" onchange="selectYear();"></select>
+							<select name="Birthmm" id="Birthmm" onchange="selectMonth();">
 								<option>12월</option>
 						        <option>11월</option>
 						        <option>10월</option>
@@ -677,15 +691,15 @@
 						        <option>2월</option>
 						        <option>1월</option>
 							</select>
-							<select name="birthDay" id="birthDay" onchange="selectDay();">
+							<select name="Birthdd" id="Birthdd" onchange="selectDay();">
 								<option>1일</option>
 								<option>2일</option>
 								<option>3일</option>
 							</select>
-							<select name="birthSol" id="birthSol" onchange="selectLuSol();">
+							<!-- <select name="birthSol" id="birthSol" onchange="selectLuSol();">
 								<option>양</option>
 								<option>음</option>
-							</select>
+							</select> -->
 							<p style="font-size: 9pt; margin-left: 15px;"> 회원 가입 완료 후 스타벅스 카드를 등록하시면 생일 무료음료 쿠폰이 발행됩니다.</p>
 						</li>
 					</ul>
@@ -694,14 +708,14 @@
 					<ul>
 						<li>
 						   <p style="font-weight: bold; margin-left: 10px;">휴대폰(필수)</p>
-							<select class="form-control-tel" id="sel1">
+							<select class="form-control-tel requiredInfo" id="sel1">
 						      	<option>010</option>
 						        <option>011</option>
 						        <option>016</option>
 						        <option>017</option>
 						        <option>018</option>
 						        <option>019</option>
-						    </select> - <input class="form-control-tel" type="text" maxlength="4" /> - <input class="form-control-tel" type="text" maxlength="4" />
+						    </select> - <input class="form-control-tel requiredInfo" type="text" maxlength="4" /> - <input class="form-control-tel requiredInfo" type="text" maxlength="4" />
 		            	</li>
 	            	</ul>
 	            </div>	
@@ -710,7 +724,7 @@
 						<li>
 							<p style="font-weight: bold; margin-left: 10px;">메일(필수)</p>
 							<label for="email"></label>
-							<input class="input1" type="email" name="email" id="email" placeholder="E-mail을 입력하세요." />
+							<input class="input1 requiredInfo" type="email" name="email" id="email" placeholder="E-mail을 입력하세요." />
 							<span class="error" id="email_error">메일을 입력해주세요.</span>
 						</li>
 					</ul>	
@@ -739,7 +753,4 @@
 </div>
 
 
-
-
-
-<jsp:include page="../footer2.jsp" />
+<jsp:include page="../footer.jsp" />
