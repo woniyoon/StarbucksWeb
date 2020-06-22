@@ -13,10 +13,10 @@
 <style type="text/css">
 	
 	nav#sub_nav {
-		    display: flex;
-		    justify-content: flex-end;
-		    width: 50%;
-		    margin: 30px auto;
+		display: flex;
+	    justify-content: flex-end;
+	    width: 50%;
+	    margin: 30px auto;
 	}
 	
 	ul.order_progress li {
@@ -224,7 +224,7 @@
 
 </style>
 </head>
-
+ 
 	<jsp:include page="../header.jsp" />   
         
     <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>

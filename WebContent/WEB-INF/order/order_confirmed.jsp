@@ -102,7 +102,7 @@
 	<jsp:include page="../header.jsp" />   
 	
     <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-    <section align="center">
+    <section>
         <ul class="order_progress">
             <li id="shoppingCart"><span>커스텀</span></li>
             <li id="storeLocation"><span>매장선택</span></li>

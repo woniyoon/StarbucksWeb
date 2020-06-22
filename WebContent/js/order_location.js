@@ -5,15 +5,14 @@ $(document).ready(function(){
     console.log(current_state);
 
     $("#"+current_state).css({"color": "white", "background-color": "#006633"})
+    $("#current_nav_menu").text($("li#"+current_state+" > span").text());
 
     var usesOwnLocation = confirm("현재 위치를 이용하겠습니까?");
     
     var coordinates = { // 디폴트 위치
-        "lat":33.450701, 
-        "lng":126.570667
+    		"lat":33.450701, 
+    		"lng":126.570667
     };
-
-    $("#current_nav_menu").text($("li#"+current_state+" > span").text());
 
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
     var options = { //지도를 생성할 때 필요한 기본 옵션
