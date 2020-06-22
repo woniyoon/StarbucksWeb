@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,60 +11,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style type="text/css">
-    	body {
-		    position: absolute;
-		    min-height: 100vh;
-		    height: auto;
-		    width: 100vw;
-		    margin: 0 auto;
-		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		    /* border: 1px solid pink; */
-		}
-		
-		header {
-		    position: sticky;
-		    display: flex;
-		    align-items: center;
-		    top: 0;
-		    left: 0;
-		    height: 10%;
-		    background-color: white;
-		    box-shadow: 1px 1px 1px 0 #b6b6b65a, 0 1px 1px 0 rgba(155, 155, 155, 0.337);
-		    padding-left: 30px;
-		}
-		
-		ul.nav_menu {
-		    list-style-type: none;
-		    /* border: 2px solid peru; */
-		    display: inline-block;
-		}
-		
-		ul.nav_menu li {
-		    display: inline-block;
-		    font-weight: 500;
-		    font-size: 15pt;
-		    margin-right: 15px;
-		}
-		
-		.nav_menu a:active {
-		    color: #006633;
-		}
-		
-		img#logo {
-		    vertical-align: middle;
-		    display: inline-block;
-		}                               /* header 끝 */
-		
-		nav {
+
+		nav#sub_nav {
 		    display: flex;
 		    justify-content: flex-end;
 		    width: 50%;
 		    margin: 30px auto;
-		    /* border: 1px solid salmon; */
 		}
 		
 		ul.order_progress li {
-		    /* display: inline-block; */
 		    display: table-cell;
 		    vertical-align: middle;
 		    height: 50px;
@@ -79,25 +38,12 @@
 		    padding-inline-start: 0px;
 		}
 		
+		/* 매장 검색 */
 		section {
 		    margin: 30px auto;
 		    width: 100%;
 		    height: auto;
-		    padding-bottom: 5rem;
-		}
-		
-		p {
-		    display: block;
-		    text-align: end;
-		    top: 0px;
-		    right: 0px;
-		    margin: 0;
-		}
-		
-		p > button {
-		    font-size: 2rem;
-		    background-color: transparent;  
-		    border: none;
+		    padding-bottom: 3rem;
 		}
 		
 		#search_location_container {
@@ -160,6 +106,8 @@
 		    height: 100%;
 		}
 		
+		/* 페이지 이동 버튼 */
+		
 		.move_button {
 		    width: 100px;
 		    height: 50px;
@@ -192,44 +140,7 @@
 		    bottom: 50px;
 		    font-size: 17px;
 		}
-		
-		hr {
-		    max-width: 50%; 
-		}
-		
-		h2#total_price {
-		    margin-right: 25vw;
-		}
-		
-		#snackbar.show {
-		    visibility: visible;
-		    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-		    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-		}
-		
-		@-webkit-keyframes fadein {
-		    from {bottom: 0; opacity: 0;} 
-		    to {bottom: 50px; opacity: 1;}
-		}
-		
-		@keyframes fadein {
-		    from {bottom: 0; opacity: 0;}
-		    to {bottom: 50px; opacity: 1;}
-		}
-		
-		@-webkit-keyframes fadeout {
-		    from {bottom: 50px; opacity: 1;} 
-		    to {bottom: 0; opacity: 0;}
-		}
-		
-		footer {
-		    position: absolute;
-		    height: 5rem;
-		    bottom: 0;
-		    width: 100vw;
-		    background-color: rgb(46, 46, 46);
-		}
-		    	
+					
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7fa563027be4561a627edb8c3c2821f"></script>
@@ -237,17 +148,11 @@
     </script> 
     <title>스타벅스 코리아</title>
 </head>
-<body>
-    <header>
-        <img id="logo" src="/StarbucksWeb/images/common/starbucks_logo.png" width=80px height=80px />
-        <ul class="nav_menu">
-            <li><a>ABOUT</a></li>
-            <li><a>MENU</a></li>
-            <li><a>MYPAGE</a></li>
-            <li><a>Q&A</a></li>
-        </ul>
-    </header>
-    <nav><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
+    
+	<jsp:include page="../header.jsp" />   
+    
+    <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
+    
     <section>
         <ul class="order_progress">
             <li id="shoppingCart"><span>커스텀</span></li>
@@ -264,6 +169,7 @@
                         	<tr><th>매장 목록</th></tr>
                         </thead>
                         <tbody>
+                        	<!-- DB에서 받아오는 매장 정보 출력 -->
 	                        <tr><td>ㅎㅎ</td></tr>
 	                        <tr><td>ㅎㅎ</td></tr>
 	                        <tr><td>ㅎㅎ</td></tr>
@@ -284,7 +190,5 @@
             <button class="move_button" id="next" onclick="javascript:location.href='order_payment.html'">다음</button>
         </div>
     </section>
-    <div id="snackbar">알림용 스낵바입니다</div>
-    <footer></footer>
-</body>
-</html>
+
+    <jsp:include page="../footer.jsp" />   

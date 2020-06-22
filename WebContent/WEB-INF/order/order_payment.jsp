@@ -12,57 +12,12 @@
     <script type="text/javascript" src="/StarbucksWeb/js/order_payment.js"></script>
     <title>스타벅스 코리아</title>
     <style type="text/css" >
-    
-    	body {
-		    position: absolute;
-		    min-height: 100vh;
-		    height: auto;
-		    width: 100vw;
-		    margin: 0 auto;
-		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		    /* border: 1px solid pink; */
-		}
-		
-		header {
-		    position: sticky;
-		    display: flex;
-		    align-items: center;
-		    top: 0;
-		    left: 0;
-		    height: 10%;
-		    background-color: white;
-		    box-shadow: 1px 1px 1px 0 #b6b6b65a, 0 1px 1px 0 rgba(155, 155, 155, 0.337);
-		    padding-left: 30px;
-		}
-		
-		ul.nav_menu {
-		    list-style-type: none;
-		    /* border: 2px solid peru; */
-		    display: inline-block;
-		}
-		
-		ul.nav_menu li {
-		    display: inline-block;
-		    font-weight: 500;
-		    font-size: 15pt;
-		    margin-right: 15px;
-		}
-		
-		.nav_menu a:active {
-		    color: #006633;
-		}
-		
-		img#logo {
-		    vertical-align: middle;
-		    display: inline-block;
-		}                               /* header 끝 */
-		
-		nav {
+
+		nav#sub_nav {
 		    display: flex;
 		    justify-content: flex-end;
 		    width: 50%;
 		    margin: 30px auto;
-		    /* border: 1px solid salmon; */
 		}
 		
 		ul.order_progress li {
@@ -191,30 +146,14 @@
 		    from {bottom: 50px; opacity: 1;} 
 		    to {bottom: 0; opacity: 0;}
 		}
-		
-		footer {
-		    position: absolute;
-		    height: 5rem;
-		    bottom: 0;
-		    width: 100vw;
-		    background-color: rgb(46, 46, 46);
-		}
     	
     </style>
     
     
 </head>
-<body>
-    <header>
-        <img id="logo" src="/assets/starbucks_logo.png" width=80px height=80px />
-        <ul class="nav_menu">
-            <li><a>ABOUT</a></li>
-            <li><a>MENU</a></li>
-            <li><a>MYPAGE</a></li>
-            <li><a>Q&A</a></li>
-        </ul>
-    </header>
-    <nav><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
+	<jsp:include page="../header.jsp" />   
+	
+    <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
     <section align="center">
         <ul class="order_progress">
               <li id="shoppingCart"><span>커스텀</span></li>
@@ -255,6 +194,4 @@
         </div>
     </section>
     <div id="snackbar">알림용 스낵바입니다</div>
-    <footer></footer>
-</body>
-</html>
+    <jsp:include page="../footer.jsp" />
