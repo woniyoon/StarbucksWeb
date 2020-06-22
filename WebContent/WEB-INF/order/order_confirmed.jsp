@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="/css/order_confirmed.css"></style>
+<!--     <link rel="stylesheet" type="text/css" href="/StarbucksWeb/css/order_confirmed.css"></style> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascript/order_confirmed.js">
+    <script type="text/javascript" src="/StarbucksWeb/js/order_confirmed.js">
     </script> 
     <title>스타벅스 코리아</title>
     <style type="text/css">

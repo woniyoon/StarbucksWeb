@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="/css/order_payment.css"></style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascript/order_payment.js"></script>
+    <script type="text/javascript" src="/StarbucksWeb/js/order_payment.js"></script>
     <title>스타벅스 코리아</title>
     <style type="text/css" >
     
