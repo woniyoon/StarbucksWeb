@@ -105,12 +105,6 @@
 	}
 	    
 	/* 메뉴 리스트 */
-	div#grid_coffe_list {
-	    padding: 20px;
-	    font-size: 30px;
-	    text-align: center;
-	}
-	
 	button.view_list{
 	    /* background-color: #ffffff;
 	    color: #666666; */
@@ -211,6 +205,10 @@ var arr_coffee_list=[
 var drink_category = ["product_coldbrew","product_brewed"];
 var foods_category = ["product_bakery","product_cake"];
 
+
+
+
+
 $(document).ready(function(){
 
 	var selected = "view_photo";
@@ -229,26 +227,25 @@ $(document).ready(function(){
 	    html = "";
 	    $("div.view_photo_drink").append("</div>")
     }
-    
+
     html = "";
-    //for(var n=0; n<foods_category.length; i++){
-    	//$("div.view_photo_food").append("<div class='sub_title' id='sub_title_"+foods_category[n]+"'>"+ foods_category[n] + "</div>");  // 음식 카테고리를 보여주는 div 	
-		//$("div.view_photo_food").append("<div class='grid_container' id='grid_"+foods_category[n]+"'>");									// 이미지들을 담을 grid 컨테이너 div
+    for(var n=0; n<foods_category.length; n++){
+    	$("div.view_photo_food").append("<div class='sub_title' id='sub_title_"+foods_category[n]+"'>"+ foods_category[n] + "</div>");  // 음식 카테고리를 보여주는 div 	
+		$("div.view_photo_food").append("<div class='grid_container' id='grid_"+foods_category[n]+"'>");									// 이미지들을 담을 grid 컨테이너 div
 		for(var i=0; i<arr_food_list.length; i++){
 	    	if(arr_food_list[i].type == foods_category[n]) {
 		        html += "<div id='"+arr_food_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_food_list[i].filename +"'/></div>" + arr_food_list[i].name +"</div>";	    		
 	    	}
 	    }  
-		//$("div#grid_"+foods_category[n]).append(html);
-	    //html = "";
-	    //$("div.view_photo_food").append("</div>")
+		$("div#grid_"+foods_category[n]).append(html);
+	    html = "";
+	    $("div.view_photo_food").append("</div>")
 	    $("div#grid_food_list").hide();
     } 
-   
+
     
     
-    
-    
+        
     
     // 처음 음료카테고리 버튼은 켜져있어야 함.
     $("button#coffee_category_btn").toggleClass("button_on");
@@ -286,7 +283,7 @@ $(document).ready(function(){
         
         $("div.product_view > div > div").each(function(){
             $(this).hide();   // grid_coffee_list / coffee_table / grid_food_list / food_table
-            // console.log("this가 뭐야:"+$(this).prop("id"));
+            console.log("this가 뭐야:"+$(this).prop("id"));
         });
         
         if($target.prop("id") == "coffee_category_btn") { // 커피 버튼을 누르면
@@ -357,9 +354,11 @@ $(document).ready(function(){
 	        $("input:checkbox[name=food_select]").each(function(){
 	            this.checked = false;
         	});
+	        
 	        if(isBtnOn) {   
 	            $(this).prop("checked", true); // 그런데 name이 coffee_select인 체크박스에 전체선택도 포함되있으므로 한 번 더 참으로 바꿔줌         
 	            $("div#grid_food_list").children().show()
+	            $(".nutrition_list").hide()
 	        } else {
 	            $("div#grid_food_list").children().hide()
 	        } 
@@ -369,13 +368,21 @@ $(document).ready(function(){
 	            $("div#grid_food_list").children().hide();
 	        }
 	        var filter_condition = $(this).prop("id");
-	        console.log("지금은 "+filter_condition+"체크박스가 선택됨 ");
+	        //console.log("지금은 "+filter_condition+"체크박스가 선택됨 ");
+	        console.log(selected + " 버튼 활성화된 상태로"); // view_photo / view_nutrition
 	        if($(this).prop("checked")) {
-	            console.log("체크됨!");
-	            $("div#"+filter_condition).show();               
+	        	//$("div#coffee").children().hide();
+                console.log(this);
+                //$("div."+selected).show();
+                console.log(filter_condition+"체크함!");
+                $("div#sub_title_"+filter_condition).show();
+                $("div#grid_"+filter_condition).show();
+                console.log("아 내용 좀 보여줘"+filter_condition);           
 	        } else {
-	            console.log("체크안됨 ");
-	            $("div#"+filter_condition).hide();
+	        	console.log(filter_condition+"체크풀어버림 ");
+	            $("div#sub_title_"+filter_condition).hide();
+	            $("div#grid_"+filter_condition).hide();
+	            console.log("아 내용 좀 숨겨줘"+filter_condition); 
 	        }
         }    
     });
@@ -432,10 +439,7 @@ $(document).ready(function(){
         	$("div#food > div." + div_to_show+"_food").show();   
         	console.log("div_to_show 음식버튼의 작은버튼은 : "+div_to_show);
         }
-    });
-    
-    
-    
+    }); 
 }); // ----- end of $(document).ready(function(){} -----
 
 </script>
@@ -537,7 +541,7 @@ $(document).ready(function(){
 			</div>
 			
 	        <div id="food">
-	            <div class="grid_container view_photo_food" id="grid_food_list"></div>
+	            <div class="view_photo_food" id="grid_food_list"></div>
 	            <div class="nutrition_list view_nutrition_food" id="food_table">푸드영양정보
 	                <section>
 			            <table>

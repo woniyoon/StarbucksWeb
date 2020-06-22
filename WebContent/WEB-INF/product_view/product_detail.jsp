@@ -71,7 +71,7 @@
 		position: relative;
 		top: 0;
 		float: left;
-		border: solid 1px red;
+		/* border: solid 1px red; */
 	}
 	
 	div.product_img_small {
@@ -490,11 +490,11 @@
 		<!-- 제품 상세 -->
 		<div class="product_view"> 	
 			<div class="product_picture">
-				<p>
+				
 					<div class="product_img img-zoom-container myimagediv">
 						<img id="myimage" src="/StarbucksWeb/images/bobae/1-1.jpg" alt="상세이미지" style="weight: 400px; height: 530px;">
 					</div>
-				</p> 
+				 
 
 				<p>
 					<div class="product_magnifier">
