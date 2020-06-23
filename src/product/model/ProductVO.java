@@ -11,6 +11,7 @@ public class ProductVO {
 	private int price;
 	private String img;
 	private NutritionVO nutrition;
+	private String custom = "";
 	
 	
 	public ProductVO() {
@@ -100,6 +101,14 @@ public class ProductVO {
 	
 	public void setNutrition(NutritionVO nutrition) {
 		this.nutrition = nutrition;
+	}
+
+	public String getCustom() {
+		return custom;
+	}
+	
+	public void setCustom(String custom) {
+		this.custom = custom;
 	}
 	
 }
