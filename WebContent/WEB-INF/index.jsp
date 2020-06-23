@@ -8,7 +8,7 @@
 <title>스타벅스 코리아</title>
 </head>
 <body>
-	<img width="100px" height="100px" src="/StarbucksWeb/images/common/starbucks_logo.png" />
-	스타벅스입니다.
+   <img width="100px" height="100px" src="/StarbucksWeb/images/common/starbucks_logo.png" />
+   스타벅스입니다.
 </body>
 </html>

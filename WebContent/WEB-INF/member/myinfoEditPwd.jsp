@@ -1,4 +1,6 @@
- <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -217,7 +219,7 @@ $(document).ready(function(){
 		<nav>
 		
 			<div id="box1">
-				<img src="img/sally.png" width="300" height="250" >
+				<img src="../images/jiwon/sally.png" width="300" height="250" >
 				<span>새로운 비밀번호로 변경 하실 수 있습니다.</span>
 			</div> 
 			

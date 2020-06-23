@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,7 +257,7 @@ $(document).ready(function(){
      <header>
      	<div id="box1"></div>
      	<div id="box2">
-     		<img src="img/coffeeBeans.jpg">
+     		<img src="../images/jiwon/coffeeBeans.jpg">
      		<div style="padding-right: 1000px; top: 150px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
 			 회원탈퇴
 			</div>

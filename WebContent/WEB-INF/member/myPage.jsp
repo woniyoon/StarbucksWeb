@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>  
+    
+<jsp:include page="header.jsp" /> 
+    
 
+    
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 
 <title>마이페이지</title>
 
@@ -17,13 +20,15 @@
 		padding: 0px;
 	}
 	
-	#box1 {
+/*
+ 	#box1 {
 		height: 100px; 
 		margin: 0;
 		padding: 0;
 		background-color : green;
 	}
-	
+ */	
+ 
 	#box2 {
 		overflow: hidden;	/* div를 벗어나는 부분을 가려주는 역할 */
 		display: flex;
@@ -201,20 +206,33 @@
 
 <script type="text/javascript">
 
-	// 음료 이미지 랜덤발생
-	var imgArray = new Array();
-	imgArray[0] = "img/menu1.jpg";
-	imgArray[1] = "img/menu2.jpg";
-	imgArray[2] = "img/menu3.jpg";
-	imgArray[3] = "img/menu4.jpg";
-	imgArray[4] = "img/menu5.jpg";
+$(document).ready(function(){
 	
+
+	$("#random").click(function(){		
+		showImage();
+	});
+	
+	
+});
+
+
+	// 음료 이미지
+	var imgArray = new Array();
+	imgArray[0] = "../images/jiwon/menu1.jpg";
+	imgArray[1] = "../images/jiwon/menu2.jpg";
+	imgArray[2] = "../images/jiwon/menu3.jpg";
+	imgArray[3] = "../images/jiwon/menu4.jpg";
+	imgArray[4] = "../images/jiwon/menu5.jpg";
+	
+	
+	// 확인 클릭 시 음료이미지 랜덤으로 보여주기
 	function showImage(){
 	
 		var total = {};	// {0: 0, 1:0, 2:0 }
-
+	
 		var imgCnt = $("#recommended_menu").children().length;
-
+	
 		for (var i=0; i<imgCnt; i++) {
 			var imgNum = Math.round(Math.random()*4);
 			
@@ -228,8 +246,9 @@
 			var objImg = document.getElementById("randomImg" + (i+1));
 			objImg.src = imgArray[imgNum];
 		}
-
+	
 	}
+
 
 </script>
 </head>
@@ -238,7 +257,7 @@
      <header>
      	<div id="box1"></div>
      	<div id="box2">
-     	<img src="img/coffeeBeans.jpg">
+     	<img src="../images/jiwon/coffeeBeans.jpg">
      		<div style="padding-right: 1000px; top: 150px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
 			 My Starbucks
 			</div>
@@ -251,7 +270,7 @@
 			
      		<h5>My 리워드</h5>
      		
-     		<figure class="star_reward"><img src="img/star_reward.png">
+     		<figure class="star_reward"><img src="../images/jiwon/star_reward.png">
      			<span class="totalStar">2</span>
      		</figure>
      		
@@ -269,8 +288,8 @@
 	     		</p>
 	     		<div class="user_edit">
 		     		<ul>
-		     			<li class="btn_black"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit.html">개인정보 수정</a></li>
-		     			<li class="btn_gray"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit_pwd.html">비밀번호 변경</a></li>
+		     			<li class="btn_black"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보 수정</a></li>
+		     			<li class="btn_gray"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEditPwd.sb">비밀번호 변경</a></li>
 		     		</ul>
 	     		</div>
      		</div>
@@ -279,8 +298,8 @@
      		<div id="box5">
      		<div class="panel panel-default">
 	     		 <div class="panel-heading">
-			     <h4 class="panel-title">
-	     		 <a data-toggle="collapse" href="#collapse1">My 메뉴</a>
+			     <h4 class="panel-title"> 
+	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'">My 메뉴</a>
 	     	 	 </h4>
 			    </div>
 		    </div> 
@@ -291,9 +310,9 @@
 			        </h4>
 		      	  </div>
 		      	  <div id="collapse2" class="panel-collapse collapse">
-			        <div class="panel-body"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit.html">개인정보확인 및 수정</a></div>
-			        <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/Starbucks/mypage/myinfo_out.html">회원 탈퇴</a></div>
-			        <div class="panel-body"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit_pwd.html">비밀번호 변경</a></div>
+			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보확인 및 수정</a></div>
+			        <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/StarbucksWeb/member/myinfoOut.sb">회원 탈퇴</a></div>
+			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEditPwd.sb">비밀번호 변경</a></div>
 		         </div>
 		    </div>
      		</div>
@@ -316,7 +335,7 @@
 		     			<option value="woman">여성</option>
 		     			<option value="man">남성</option>
 		     		</select>
-		     		이 즐기는 메뉴가 궁금하시죠? <button title="메뉴 확인하기">확인</button></p>
+		     		이 즐기는 메뉴가 궁금하시죠? <button title="메뉴 확인하기" id="random">확인</button></p>
 	     		</header>
 
 	     		<ul id="recommended_menu">
@@ -329,7 +348,8 @@
      	</div>
      </nav>
      
-    <footer></footer>
+    <!-- <footer></footer> -->
 </div>
-</body>
-</html>
+
+
+<jsp:include page="footer.jsp" />
