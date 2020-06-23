@@ -70,3 +70,4 @@ public class MemberRegisterAction extends AbstractController{
 	}
 
 }
+
