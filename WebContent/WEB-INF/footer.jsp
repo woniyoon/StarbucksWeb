@@ -3,26 +3,26 @@
     
 <style type="text/css">
 	footer.footer {
-		height: 350px;
-		background-color: black;
-		color: white;
+		height: 350px !important;
+		background-color: black !important;
+		color: white !important;
 	}
 	
 	div#footer_botton {
-		text-align: center;
-		color: #555;
+		text-align: center !important;
+		color: #555 !important;
 	}
 	
 	ul.footer, li.footer {
-	    list-style: none;
-		display: inline-block;
-		margin-left: 0;
-		margin-right: 30px;
-		color: #999;
+	    list-style: none !important;
+		display: inline-block !important;
+		margin-left: 0 !important;
+		margin-right: 30px !important;
+		color: #999 !important;
 	}
 	
 	span.footer {
-		color: #999;
+		color: #999 !important;
 	}
 	
 </style>    
