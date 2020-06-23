@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>MENU</title>
+<jsp:include page="../header.jsp" />
 
 <style type="text/css">
 
@@ -445,7 +441,7 @@ $(document).ready(function(){
 </script>
 
 </head>
-<body>
+
 <div id="container">
 
     <!-- 타이틀 -->
@@ -584,5 +580,5 @@ $(document).ready(function(){
         </div>
     </section>
 </div>   
-</body>
-</html>
+
+<jsp:include page="../footer.jsp" />
