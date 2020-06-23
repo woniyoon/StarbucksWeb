@@ -20,29 +20,33 @@ public class MemberRegisterAction extends AbstractController{
 		}
 		
 		else {
-			String id = request.getParameter("id");
+			String userid = request.getParameter("userid");
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			String phone = request.getParameter("phone");
-			String gender = request.getParameter("gender");
-			String birthyyyy = request.getParameter("birthyyyy");
-			String birthmm = request.getParameter("birthmm");
-			String birthdd = request.getParameter("birthdd");
-			
+			String hp1 = request.getParameter("hp1");
+			String hp2 = request.getParameter("hp2");
+			String hp3 = request.getParameter("hp3");
+			int gender = Integer.parseInt(request.getParameter("gender"));
+			String Birthyyyy = request.getParameter("Birthyyyy");
+			String Birthmm = request.getParameter("Birthmm");
+			String Birthdd = request.getParameter("Birthdd");
+
 			// *** 클라이언트의 IP 주소 알아오기 *** // 
 			/* String clientip = request.getRemoteAddr(); */
 			
 			MemberVO membervo = new MemberVO();
-			membervo.setId(id);
+			membervo.setUserid(userid);
 			membervo.setPassword(password);
 			membervo.setName(name);
 			membervo.setEmail(email);
-			membervo.setPhone(phone);
+			membervo.setHp1(hp1);
+			membervo.setHp2(hp2);
+			membervo.setHp3(hp3);
 			membervo.setGender(gender);
-			membervo.setBirthyyyy(birthyyyy);
-			membervo.setBirthmm(birthmm);
-			membervo.setBirthdd(birthdd);
+			membervo.setBirthyyyy(Birthyyyy);
+			membervo.setBirthmm(Birthmm);
+			membervo.setBirthdd(Birthdd);
 			/* membervo.setClientip(clientip); */
 			
 			InterMemberDAO memberdao = new MemberDAO();

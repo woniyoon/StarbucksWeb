@@ -22,9 +22,9 @@
 	/* 전체 틀 & 중간항목 기본form 값*/
 
 	div#container { 
-		width: 100%;
+		/* width: 100%;
 	    margin: 0 auto;
-	    padding: 0;
+	    padding: 0; */
 		/* text-align: center;	 */			
 		/* border: 1px solid red; */
 	}
@@ -50,10 +50,16 @@
 	}
 	
 	ul {
+		list-style-type: none;
+	}
+	
+	ul.body {
 		width: 510px;
 		padding: 10px 15px;
 		list-style-type: none;
+		padding-inline-start: 15px;
 	}
+	
 	
 	fieldset {
          text-align: left;
@@ -65,12 +71,12 @@
 		font-weight: bold;	
 	}
 	
-	fieldset>ul {
+	/* fieldset>ul#body {
 		padding: 30px;
 		list-style: none;
-	}
+	} */
 	
-	fieldset>ul>li>label:first-child {
+	fieldset>ul#body>li>label:first-child {
 		display: inline-block;
 		width: 10%;
 		/* border: solid 1px green; */
@@ -163,6 +169,10 @@
 		box-shadow: none;
 	}
 	
+	.btn-group-vertical>.btn.active, .btn-group-vertical>.btn:active, .btn-group-vertical>.btn:focus, .btn-group>.btn.active, .btn-group>.btn:active, .btn-group>.btn:focus {
+		z-index: auto;
+	}
+	
 	input[id="agree"] + label {
 		float: right; 
 		margin-top: 10px;
@@ -234,33 +244,31 @@
 
 	$(document).ready(function() {
 		
-		/* id중복체크 - ajax 기능추가하기 */
-		
 		var now = new Date();
 		// 자바스크립트에서 현재날짜시각을 알려주는 것이다.
 		var currentYear = now.getFullYear(); // 현재년도
 		
 		
 		// 성별 기본값 - 남 (체크)
-		$('label.on').css("color","black");
+		/* $("input:radio[name=jb-radio-1]").prop("checked",true); */
+		/* $('label.on').css("color","black");
 		$('label.on').css("background-color","#f2f2f2");
-		$('label.on').css("border-color","#a6a6a6");
-		
+		$('label.on').css("border-color","#a6a6a6"); */
 		
 	
-		$("span#id_error").hide();
-		$("span#id_success").hide();
+		$("span#user_error").hide();
+		$("span#user_success").hide();
 		
-		$("#id").blur(function(){
+		$("#userid").blur(function(){
 			
 			var data = $(this).val().trim();
 			
 			if(data == "") {
 				// 입력하지 않거나 공백만 입력했을 경우
-				$("span#id_success").hide();
+				$("span#userid_success").hide();
 				$("ul#able1").css("margin-bottom","40px");
 				$(this).parent().find("#id_error").show();
-				$("#id").addClass("bgcol"); 
+				$("#userid").addClass("bgcol"); 
 			}
 
 			else{
@@ -272,10 +280,10 @@
 
 				if(!bool) { 
 					// 조건에 맞지않으면
-					$("span#id_success").hide();
-					$("span#id_error").html("영문(대소문자 구분 없음), 숫자로 4~13자리만 입력 가능합니다.").show();
+					$("span#userid_success").hide();
+					$("span#userid_error").html("영문(대소문자 구분 없음), 숫자로 4~13자리만 입력 가능합니다.").show();
 					$("ul#able1").css("margin-bottom","40px");
-					$("#id").addClass("bgcol");  
+					$("#userid").addClass("bgcol");  
 					
 					return;
 				} 
@@ -286,18 +294,18 @@
 				$.ajax({
 					url:"<%= ctxPath%>/register/idDuplicateCheck.sb",
 					type:"post",
-					data:{"id":$("#id").val()},
+					data:{"userid":$("#userid").val()},
 					dataType:"json",
 					success:function(json){
 						if(json.isUse) {
 							
-							$("span#id_success").html("사용 가능한 아이디 입니다.").show();
-							$("span#id_error").hide();
+							$("span#userid_success").html("사용 가능한 아이디 입니다.").show();
+							$("span#userid_error").hide();
 							
 						}
 						else {
-							$("span#id_error").html("사용중이거나 이미 탈퇴한 아이디입니다.").show();
-							$("span#id_success").hide();
+							$("span#userid_error").html("사용중이거나 이미 탈퇴한 아이디입니다.").show();
+							$("span#userid_success").hide();
 							
 						}
 					},
@@ -309,7 +317,7 @@
 
 				
 				$("ul#able1").css("margin-bottom","40px");
-				$(this).parent().find("#id_error").hide();
+				$(this).parent().find("#userid_error").hide();
 				$(":input").prop("disabled",false).removeClass("bgcol"); 
 				/* $("#id").addClas("successInput"); */
 				return;
@@ -447,14 +455,14 @@
 	
 		
 	   // 출생년도 옵션
-	   var yearOption = "<option>출생년도</option>"; //화살표 누르면 나올 년도 옵션
+	   var yearOption = "<option>2020</option>"; //화살표 누르면 나올 년도 옵션
 	   for(var i=0; i<currentYear-1950+1; i++){ 
 		   yearOption += "<option>"+(1950+i)+"</option>";
 	   }
 	   
 	   document.getElementById("Birthyyyy").innerHTML = yearOption; //birthYear의 태그를 잡아서 옵션에 넣기
 		
-	   // 출생달 옵션
+	  /*  // 출생달 옵션
 	   var monthOption = "<option>출생달</option>"; 
 	   for(var i=1; i<13; i++){ 
 		   monthOption += "<option>"+i+"</option>";
@@ -469,7 +477,7 @@
 	   }
 	   
 	   document.getElementById("Birthdd").innerHTML = dayOption;
-	   
+	    */
 	   
 	}); // end of window.onload = function()--------------
 	 
@@ -516,10 +524,10 @@
 		}
 				
 		else {
-/* 			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
 		    
 	    	var currentAge = currentYear - Number(sBirthMonth) + 1; // 현재나이
-	    	 */
+	    	
 	    	document.getElementById("currentAge").innerHTML = currentAge;
 		}
 	
@@ -552,38 +560,33 @@
 	    	document.getElementById("currentAge").innerHTML = currentAge;
 		}
 	
-	}// end of function selectDay()-------------
+	}// end of function selectDay()------------- */
 	
 	
 	
 	function goRegister() {
-
-		
-		
-		
+		  
 	   	  var bFlag = false;
-	   	  $("input:radio[name=jb-radio]").each(function(){ // 반복문
+	   	  $("input:radio[name=gender]").each(function(){ // 반복문
+
 	   		var bChecked = $(this).prop("checked");
 	   		if(bChecked) {
+	   			console.log(bChecked);
 	   			bFlag = true;
 	   			return false;
-	   		}
+	   		} 
 	   	}); 
 	   	  
 	   	  if(!bFlag) {
 	   		  alert("성별을 선택하셔야 합니다.");
 	   		  return;
 	   	  }
+	   	  
 	   	   
 	   	  if( !$("input:checkbox[id=agree]").prop("checked") ) {
 	   		  alert("이용약관에 동의하셔야 합니다.");
 	   		  return;
 	   	  } 
-	   	  
-	   	 /*  if( !bIdDuplicateCheck ) { // 아이디중복확인을 클릭했는지 클릭안했는지를 알아보기 위한 용도임.
-			alert("아이디중복확인 버튼을 클릭하여 ID중복 검사를 하세요!!");
-			return;
-	   	  } */
 	   	 
 	   	  var bRequiredInfo = false;
 	   	  $(".requiredInfo").each(function(){
@@ -599,7 +602,7 @@
 		  // 클래스가 requiredInfo 인 것마다 하나하나씩 반복업무를 해주는 것이다.
 	   	  
 		  if(!bRequiredInfo) {
-		   	  var frm = document.registerFrm;
+			  var frm = document.registerFrm;
 		   	  frm.method = "POST";
 		   	  frm.action = "memberRegister.sb";
 		   	  frm.submit();
@@ -622,17 +625,17 @@
 			  		<p style="margin-top:20px; color: gray;">회원정보를 입력해 주세요.</p>
 			  	</div>	
 			  <div id="box">
-				<ul id="able1">
+				<ul id="able1" class="body">
 					<li>
-						<label for="id"></label>
-						<input class="input1 requiredInfo" type="text" name="id" id="id" autofocus placeholder="아이디" /> 
-						<span class="error" id="id_error">아이디를 입력 하세요.</span>
-						<span class="success" id="id_success">사용 가능한 아이디 입니다.</span> 
+						<label for="userid"></label>
+						<input class="input1 requiredInfo" type="text" name="userid" id="userid" autofocus placeholder="아이디" /> 
+						<span class="error" id="userid_error">아이디를 입력 하세요.</span>
+						<span class="success" id="userid_success">사용 가능한 아이디 입니다.</span> 
 					</li>
 				</ul>		
 			  </div>	
 			  <div id="box" >
-			  	<ul id="able2">	
+			  	<ul id="able2" class="body">	
 					<li>
 						<label for="password"></label>
 						<input class="input1 requiredInfo" type="password" name="password" id="password" placeholder="비밀번호"/>
@@ -642,7 +645,7 @@
 				</ul>		
 			  </div>	
 			  <div id="box">
-			  	<ul id="able3">	
+			  	<ul id="able3" class="body">	
 					<li>
 						<label for="passwdCheck"></label>
 						<input class="input1 requiredInfo" type="password" id="passwordCheck" placeholder="비밀번호 확인"/>
@@ -653,7 +656,7 @@
 			 </div>
 			</div>
 			<div id="frame" class="2">	
-					<ul id="able4">	
+					<ul id="able4" class="body">	
 						<li>
 							<p style="font-weight: bold; margin-left: 10px; ">이름(필수)</p>
 							<label for="name"></label>
@@ -662,10 +665,10 @@
 							<!-- 남/여 성별선택하기 -->
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
 								<label class="btn btn-danger on">
-									<input type="radio" name="jb-radio" id="jb-radio-1"> 남
+									<input type="radio" name="gender" id="jb-radio jb-radio-1" value="1"> 남
 								</label>
 								<label class="btn btn-danger">
-									<input type="radio" name="jb-radio" id="jb-radio-2"> 여
+									<input type="radio" name="gender" id="jb-radio jb-radio-2" value="2"> 여
 								</label>
 							</div>
 							<br/>
@@ -673,29 +676,61 @@
 						</li>
 					</ul>	
 				<div id="box">
-					<ul>
+					<ul class="body">
 						<li>
 							<p style="font-weight: bold; margin-left: 10px;">생년월일(필수)</p>
 							<select name="Birthyyyy" id="Birthyyyy" onchange="selectYear();"></select>
-							<select name="Birthmm" id="Birthmm" onchange="selectMonth();">
-								<option>12월</option>
-						        <option>11월</option>
-						        <option>10월</option>
-						        <option>9월</option>
-						        <option>8월</option>
-						        <option>7월</option>
-						        <option>6월</option>
-						        <option>5월</option>
-						        <option>4월</option>
-						        <option>3월</option>
-						        <option>2월</option>
-						        <option>1월</option>
-							</select>
-							<select name="Birthdd" id="Birthdd" onchange="selectDay();">
-								<option>1일</option>
-								<option>2일</option>
-								<option>3일</option>
-							</select>
+							
+							<!-- <select name="Birthmm" id="Birthmm" onchange="selectMonth();"> -->
+							<select id="Birthmm" name="Birthmm" onchange="selectMonth();">
+								<option value ="01">01</option>
+								<option value ="02">02</option>
+								<option value ="03">03</option>
+								<option value ="04">04</option>
+								<option value ="05">05</option>
+								<option value ="06">06</option>
+								<option value ="07">07</option>
+								<option value ="08">08</option>
+								<option value ="09">09</option>
+								<option value ="10">10</option>
+								<option value ="11">11</option>
+								<option value ="12">12</option>
+							</select> 
+							
+							<!-- <select name="Birthdd" id="Birthdd" onchange="selectDay();"> -->
+								<select id="Birthdd" name="Birthdd" onchange="selectDay();">
+									<option value ="01">01</option>
+									<option value ="02">02</option>
+									<option value ="03">03</option>
+									<option value ="04">04</option>
+									<option value ="05">05</option>
+									<option value ="06">06</option>
+									<option value ="07">07</option>
+									<option value ="08">08</option>
+									<option value ="09">09</option>
+									<option value ="10">10</option>
+									<option value ="11">11</option>
+									<option value ="12">12</option>
+									<option value ="13">13</option>
+									<option value ="14">14</option>
+									<option value ="15">15</option>
+									<option value ="16">16</option>
+									<option value ="17">17</option>
+									<option value ="18">18</option>
+									<option value ="19">19</option>
+									<option value ="20">20</option>
+									<option value ="21">21</option>
+									<option value ="22">22</option>
+									<option value ="23">23</option>
+									<option value ="24">24</option>
+									<option value ="25">25</option>
+									<option value ="26">26</option>
+									<option value ="27">27</option>
+									<option value ="28">28</option>
+									<option value ="29">29</option>
+									<option value ="30">30</option>
+									<option value ="31">31</option>
+								</select> 
 							<!-- <select name="birthSol" id="birthSol" onchange="selectLuSol();">
 								<option>양</option>
 								<option>음</option>
@@ -705,22 +740,22 @@
 					</ul>
 				</div>
 				<div id="box">
-					<ul>
+					<ul class="body">
 						<li>
 						   <p style="font-weight: bold; margin-left: 10px;">휴대폰(필수)</p>
-							<select class="form-control-tel requiredInfo" id="sel1">
+							<select class="form-control-tel requiredInfo" id="sel1 hp1" name="hp1" >
 						      	<option>010</option>
 						        <option>011</option>
 						        <option>016</option>
 						        <option>017</option>
 						        <option>018</option>
 						        <option>019</option>
-						    </select> - <input class="form-control-tel requiredInfo" type="text" maxlength="4" /> - <input class="form-control-tel requiredInfo" type="text" maxlength="4" />
+						    </select> - <input class="form-control-tel requiredInfo" type="text" id="hp2" name="hp2" maxlength="4" /> - <input class="form-control-tel requiredInfo" type="text" id="hp3" name="hp3" maxlength="4" />
 		            	</li>
 	            	</ul>
 	            </div>	
 	            <div id="box">
-		            <ul id="able5">
+		            <ul class="body" id="able5">
 						<li>
 							<p style="font-weight: bold; margin-left: 10px;">메일(필수)</p>
 							<label for="email"></label>
@@ -731,7 +766,7 @@
 				</div>
 			</div>
 			<div id="frame" class="3">		
-				<ul>
+				<ul class="body">
 					<li style="width:500px; height: 60px;">
 						<label style="margin-left: 10px; padding-top:15px; font-weight: bold;" for="agree">이용약관 동의</label><input type="checkbox" name="agree" id="agree" /><label for="agree"></label>&nbsp;
 					</li>
@@ -741,7 +776,7 @@
 				</ul>
 			</div>
 			
-				<ul style="width:550px; height:40px; margin:0 auto; padding: 0px;">
+				<ul class="body" style="width:550px; height:40px; margin:0 auto; padding: 0px;">
 					<li>
 						<input type="button" id="btnRegister" value="가입하기" onClick="goRegister();"/>
 					</li>
