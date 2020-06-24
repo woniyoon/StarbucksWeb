@@ -100,7 +100,7 @@
 			<div id="header_2">
 				<nav class="nav_first index">
 					<ul class="index">
-						<li class="index"><a class="index">SIGN IN</a></li>
+						<li class="index"><a class="index" href="<%= ctxPath%>/login/loginIndex.sb">SIGN IN</a></li>
 						<li class="index"><a class="index">SHOPPING BASKET</a></li>
 						<li class="index"><a class="index">MY STARBUCS</a></li>
 						<li class="index"><a class="index">MANAGER PAGE</a></li>
