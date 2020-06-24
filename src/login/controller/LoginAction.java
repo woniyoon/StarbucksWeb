@@ -128,9 +128,9 @@ public class LoginAction extends AbstractController{
 			return;
 		}
 		*/
-			String id = loginuser.getUserid();
-			String message = id+"님 환영합니다";
-			String loc = "javascript:history.back()";
+			/* String id = loginuser.getUserid(); */
+			String message = loginuser.getUserid()+"님 환영합니다";
+			String loc = request.getContextPath()+"/index.sb";
 			
 			request.setAttribute("message", message);
 			request.setAttribute("loc", loc);  // msg.jsp
@@ -141,7 +141,7 @@ public class LoginAction extends AbstractController{
 		}
 		else {
 			// 로그인 실패시
-			String message = " 로그인에 실패했습니다. "+
+			String message = "  로그인에 실패했습니다. \\n " +
 							 " 정확한 아이디 또는 비밀번호를 입력해주시길 바랍니다. ";
 			String loc = "javascript:history.back()";
 			
