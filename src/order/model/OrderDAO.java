@@ -64,27 +64,21 @@ public class OrderDAO implements InterOrderDAO {
 			pstmt.setString(1, paramap.get("userid"));
 			rs = pstmt.executeQuery();
 		
-			
 			while(rs.next()) {
+				
 				String productID = rs.getString(1);
 				String parentTable = rs.getString(2);
 				
-				System.out.println("productID  : "+ productID);
-				System.out.println("parentTable  : "+ parentTable);
-				System.out.println("getShoppingCart() : " + items.size());
-				
-				if("food".equals(parentTable)) {
-					System.out.println("food!");
+				// Product의 타입에 따라 다른 테이블로 쿼리
+				if("food".equalsIgnoreCase(parentTable)) {
 					FoodVO fvo = getFoodInfo(productID);
 					items.add(fvo);
 				} else {
-					System.out.println("drink!");
-
 					DrinkVO dvo = getDrinkInfo(productID);
 					items.add(dvo);
 				}
 			}
-			
+
 		} finally {
 			close();
 		}
@@ -101,7 +95,7 @@ public class OrderDAO implements InterOrderDAO {
 		String sql = " select id, name, price, img from food where id = ? ";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, productID);
-		rs = pstmt.executeQuery();
+		ResultSet rs = pstmt.executeQuery();
 		
 		if(rs.next()) {
 			fvo = new FoodVO();
@@ -127,7 +121,7 @@ public class OrderDAO implements InterOrderDAO {
 		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, productID);
-		rs = pstmt.executeQuery();
+		ResultSet rs = pstmt.executeQuery();
 		
 		if(rs.next()) {
 			dvo = new DrinkVO();
@@ -178,7 +172,6 @@ public class OrderDAO implements InterOrderDAO {
 		} finally {
 			close();
 		}
-		
 		
 		return storeList;
 	}
