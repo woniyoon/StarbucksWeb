@@ -3,7 +3,6 @@ package common.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.MemberDAO;
 
 public class IndexController extends AbstractController {
 
@@ -12,6 +11,7 @@ public class IndexController extends AbstractController {
 		
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/index.jsp");
+	//	super.setViewPage("/WEB-INF/login/login.jsp");
 	}
 
 }
