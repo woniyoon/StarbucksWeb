@@ -14,7 +14,6 @@ public class ProductVO {
    private NutritionVO nutrition;
    private String custom = "";
    
-   
    public ProductVO() {
       
    }
@@ -112,3 +111,4 @@ public class ProductVO {
    }
 	
 }
+
