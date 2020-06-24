@@ -133,7 +133,7 @@ public class MemberDAO implements InterMemberDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, paraMap.get("userid"));
-			pstmt.setString(2, paraMap.get("password"));
+			pstmt.setString(2, Sha256.encrypt( paraMap.get("password")) );
 			
 			rs = pstmt.executeQuery();
 			
