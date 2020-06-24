@@ -256,8 +256,8 @@
 		$('label.on').css("border-color","#a6a6a6"); */
 		
 	
-		$("span#user_error").hide();
-		$("span#user_success").hide();
+		$("span#userid_error").hide();
+		$("span#userid_success").hide();
 		
 		$("#userid").blur(function(){
 			
@@ -287,16 +287,14 @@
 					
 					return;
 				} 
-				
-
-				bIdDuplicateCheck = true; // 아이디중복확인을 클릭했는지 클릭안했는지를 알아보기 위한 용도임.(클릭함)
-					
+	
 				$.ajax({
 					url:"<%= ctxPath%>/register/idDuplicateCheck.sb",
 					type:"post",
 					data:{"userid":$("#userid").val()},
 					dataType:"json",
 					success:function(json){
+						
 						if(json.isUse) {
 							
 							$("span#userid_success").html("사용 가능한 아이디 입니다.").show();
