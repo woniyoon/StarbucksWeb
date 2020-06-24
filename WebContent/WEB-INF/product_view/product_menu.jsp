@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="../header.jsp" />
 
 <style type="text/css">
 
 	/* 전체 */
-	#container {
+	#menu_container {
 	    width: 1100px;
 	    margin: 0 auto;
 	    /* border: solid 1px orange; */
@@ -71,23 +72,52 @@
 	    margin-bottom: 30px;
 	}
 	
-	button.category {
-	    width: 200px;
-	    height: 35px;
-	    margin: 20px 8px 0 0;
-	    border-style: none;
-	    border-radius: 5px;
-	    border: none;
-	    outline: none;
-	    cursor: pointer;
+	/* 카테고리 버튼 */
+	#category_btn_container {
+		height: 80px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 	}
 	
-	.button_on {
+	#category_btn_container > a {
+		text-decoration: none;
+		background: #006633;
+    	color: #fff;	
+	}
+	
+	a.category {
+		display: flex;
+	    width: 200px;
+	    height: 35px;
+ 	    margin: 0 8px 0 0;
+	    border-radius: 5px;
+	    text-align: center;
+	    align-items: center;
+   		justify-content: center;
+	    cursor: pointer;
+	    background: #f4f4f1;
+   		color: #222;
+	}
+	
+	/* 작은버튼 */
+	a.view_list {
+	    display: inline-block;
+	    height: 26px;
+	    line-height: 26px;
+	    font-size: 12px;
+	    border: 1px solid #ddd;
+	    border-radius: 3px;
+	    padding: 0 9px 0 25px;
+	    color: #666;
+	}
+	
+	a.category_btn_container:hover, a.button_on {
 	    color: #ffffff;
 	    background-color: #006633;
 	}
 	
-	button.category:hover, button.view_list:hover, div.li>a:hover, div.title>nav>ul>li>a:hover {
+	div.title>nav>ul>li>a:hover {
 	    text-decoration: underline;
 	}
 	
@@ -101,14 +131,14 @@
 	}
 	    
 	/* 메뉴 리스트 */
-	button.view_list{
+	a.view_list{
 	    /* background-color: #ffffff;
 	    color: #666666; */
 	    margin: 30px 10px 10px 0px;
 	    border: solid 1px #ccc;
 	}
 	
-	.button_on_list {
+	a.button_on_list {
 		color: #ffffff;
 	    background-color: #666666;
 	}
@@ -183,7 +213,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script type="text/javascript">
     
-var arr_coffee_list=[
+/* var arr_coffee_list=[
     {type:"product_coldbrew", name:"나이트로 바닐라 크림", filename:"/StarbucksWeb/images/bobae/1-1.jpg"},
     {type:"product_coldbrew", name:"초콜릿 블랙 콜드 브루", filename:"/StarbucksWeb/images/bobae/1-2.jpg"},
     {type:"product_brewed", name:"아이스 커피", filename:"/StarbucksWeb/images/bobae/1-3.jpg"},
@@ -196,41 +226,44 @@ var arr_coffee_list=[
     {type:"product_bakery", name:"다크 초콜릿 칩 머핀", filename:"/StarbucksWeb/images/bobae/2-2.jpg"},
     {type:"product_cake", name:"서머 베리 요거트 케이크", filename:"/StarbucksWeb/images/bobae/2-3.jpg"},
     {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"},
-    {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"}];
+    {type:"product_cake", name:"7 레이어 가나슈 케이크", filename:"/StarbucksWeb/images/bobae/2-4.jpg"}]; */
 
-var drink_category = ["product_coldbrew","product_brewed"];
+/* var drink_category = ["product_coldbrew","product_brewed"];
 var foods_category = ["product_bakery","product_cake"];
 
-
+ */
 
 
 
 $(document).ready(function(){
 
-	var selected = "view_photo";
+	//var selected = "view_photo";
 
     // 커피 & 이미지 html 추가해주기
     var html = "";
-    for(var n=0; n<drink_category.length; n++) {
+   /*  for(var n=0; n<drink_category.length; n++) {
 		$("div.view_photo_drink").append("<div class='sub_title' id='sub_title_"+drink_category[n]+"'>"+ drink_category[n] + "</div>");  // 음료 카테고리를 보여주는 div 	
 		$("div.view_photo_drink").append("<div class='grid_container' id='grid_"+drink_category[n]+"'>");									// 이미지들을 담을 grid 컨테이너 div
 	    for(var i=0; i<arr_coffee_list.length; i++){
 	    	if(arr_coffee_list[i].type == drink_category[n]) {
-		        html += "<div id='"+arr_coffee_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_coffee_list[i].filename +"'/></div>" + arr_coffee_list[i].name +"</div>";	    		
+	    		 html += "<div id='"+arr_coffee_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_coffee_list[i].filename +"' onclick='javascript:location.href=\"detail.sb\"'/></div>" + arr_coffee_list[i].name +"</div>";	    		
 	    	}
 	    }   
+		
+
+		
 	    $("div#grid_"+drink_category[n]).append(html);
 	    html = "";
 	    $("div.view_photo_drink").append("</div>")
     }
-
-    html = "";
-    for(var n=0; n<foods_category.length; n++){
+ */
+ /*    html = "";
+     for(var n=0; n<foods_category.length; n++){
     	$("div.view_photo_food").append("<div class='sub_title' id='sub_title_"+foods_category[n]+"'>"+ foods_category[n] + "</div>");  // 음식 카테고리를 보여주는 div 	
 		$("div.view_photo_food").append("<div class='grid_container' id='grid_"+foods_category[n]+"'>");									// 이미지들을 담을 grid 컨테이너 div
 		for(var i=0; i<arr_food_list.length; i++){
 	    	if(arr_food_list[i].type == foods_category[n]) {
-		        html += "<div id='"+arr_food_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_food_list[i].filename +"'/></div>" + arr_food_list[i].name +"</div>";	    		
+		        html += "<div id='"+arr_food_list[i].type+"' align='center'><div class='zoom'><img width='260px' heigh='270px' src='" + arr_food_list[i].filename +"' onclick='javascript:location.href=\"detail.sb\"'/></div>" + arr_food_list[i].name +"</div>";	    		
 	    	}
 	    }  
 		$("div#grid_"+foods_category[n]).append(html);
@@ -238,7 +271,7 @@ $(document).ready(function(){
 	    $("div.view_photo_food").append("</div>")
 	    $("div#grid_food_list").hide();
     } 
-
+ */
     
     
         
@@ -295,6 +328,9 @@ $(document).ready(function(){
         }
     });
  
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    
     
     // 분류보기 음료 체크박스(전체 선택/해제)      
     $("input:checkbox[name=coffee_select]").click(function(){
@@ -442,7 +478,7 @@ $(document).ready(function(){
 
 </head>
 
-<div id="container">
+<div id="menu_container">
 
     <!-- 타이틀 -->
     <div class="title">
@@ -460,11 +496,13 @@ $(document).ready(function(){
     
     <!-- 음료/푸드 분류보기 -->
     <section class="product_group"> 
-        <div class="group_sub_title">분류보기</div>
+        <div class="group_sub_title"><b>분류보기</b></div>
         <hr>
         <div class="product_category_set">
-        <button class="category" id="coffee_category_btn" title="카테고리별 음료 선택">음료</button>
-        <button class="category" id="food_category_btn" title="카테고리별 푸드 선택">푸드</button>
+        <div id="category_btn_container">
+	        <a href="#" class="category" id="coffee_category_btn" role="button" title="카테고리별 음료 선택">음료</a>
+	        <a href="#" class="category" id="food_category_btn" role="button" title="카테고리별 푸드 선택">푸드</a>
+        </div>
         <div class="product_select coffee_category">
             <input id="coffee_all" name="coffee_select" type="checkbox" checked><label for="coffee_all">전체상품보기</label>
             <input id="product_coldbrew" name="coffee_select" type="checkbox"><label for="product_coldbrew">콜드 브루 커피</label>
@@ -491,11 +529,20 @@ $(document).ready(function(){
     <!-- 메뉴 리스트 -->
     <section class="product_menulist">
         <div class="product_view">
-	        <button class="view_list" id="view_photo_btn">사진으로 보기</button>
-	        <button class="view_list" id="view_nutrition_btn">영양정보로 보기</button>
+  
+	        <a href="#" class="view_list" id="view_photo_btn" role="button">사진으로 보기</a>
+	        <a href="#" class="view_list" id="view_nutrition_btn" role="button">영양정보로 보기</a>
 	        
 	        <div id="coffee">
-	            <div class="view_photo_drink" id="grid_coffee_list"></div>
+	            <div class="view_photo_drink" id="grid_coffee_list">
+	            	<c:if test="${not empty productList}">
+	            		<div class="grid_container">
+		            		<c:forEach var="prod" items="${productList}" varStatus="status">
+	    						<div id="${prod.categoryID}" align='center'><div class='zoom'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></div>${prod.name}</div>	    		
+		            		</c:forEach>
+	            		</div>
+	            	</c:if>
+	            </div>
 	            <div class="nutrition_list view_nutrition_drink" id="coffee_table">커피영양정보
 	                <section>
 		            <table>
@@ -538,6 +585,13 @@ $(document).ready(function(){
 			
 	        <div id="food">
 	            <div class="view_photo_food" id="grid_food_list"></div>
+	           		<c:if test="${not empty productList}">
+	            		<div class="grid_container">
+		            		<c:forEach var="prod" items="${productList}" varStatus="status">
+	    						<div id="${prod.categoryID}" align='center'><div class='zoom'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></div>${prod.name}</div>	    		
+		            		</c:forEach>
+	            		</div>
+	            	</c:if>
 	            <div class="nutrition_list view_nutrition_food" id="food_table">푸드영양정보
 	                <section>
 			            <table>
