@@ -144,5 +144,43 @@ public class OrderDAO implements InterOrderDAO {
 		
 		return dvo;
 	}
+
+	
+	// 매장위치 가져오기
+	@Override
+	public List<LocationVO> getStoreList() throws SQLException {
+		List<LocationVO> storeList = new ArrayList<LocationVO>();
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " select store_id, store_name, address, latitude, longitude from store_location ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				LocationVO lvo = new LocationVO();
+				String storeID = rs.getString("store_id");
+				String storeName = rs.getString("store_name");
+				String address = rs.getString("address");
+				double latitude = rs.getDouble("latitude");
+				double longitude = rs.getDouble("longitude");
+				
+				lvo.setStoreID(storeID);
+				lvo.setStoreName(storeName);
+				lvo.setAddress(address);
+				lvo.setLatitude(latitude);
+				lvo.setLongitude(longitude);
+				
+				storeList.add(lvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		
+		return storeList;
+	}
 	
 }

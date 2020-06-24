@@ -13,4 +13,6 @@ public interface InterOrderDAO {
 	FoodVO getFoodInfo(String productID) throws SQLException;
 	
 	DrinkVO getDrinkInfo(String productID) throws SQLException;
+
+	List<LocationVO> getStoreList() throws SQLException;
 }
