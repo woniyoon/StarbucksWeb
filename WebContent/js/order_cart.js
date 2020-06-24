@@ -1,37 +1,8 @@
-var cart = [
-    {
-        name: "아이스 아메리카노",
-        price: 4100,
-        size: 1,
-        amount: 1,
-        shots: 3,
-    },
-    {
-        name: "아이스 아메리카노",
-        price: 4100,
-        size: 1,
-        amount: 1,
-        shots: 3,
-    },
-    {
-        name: "아이스 라떼",
-        price: 4500,
-        size: 1,
-        amount: 1,
-        shots: 3,
-    },
-    {
-        name: "돌체라떼",
-        price: 4500,
-        size: 1,
-        amount: 1,
-        shots: 3,
-    },
-];
 
-var size_dictionary = { 1: "톨", 2: "그란데", 3: "벤티" };
-var num_to_size = { 1: "tall", 2: "grande", 3: "venti" };
-var shot_dictionary = { tall: 3, grande: 4, venti: 5 };
+//
+//var size_dictionary = { 1: "톨", 2: "그란데", 3: "벤티" };
+//var num_to_size = { 1: "tall", 2: "grande", 3: "venti" };
+//var shot_dictionary = { tall: 3, grande: 4, venti: 5 };
 
 $(document).ready(function(){
     var path = window.location.pathname;
@@ -43,26 +14,26 @@ $(document).ready(function(){
 
     $("#current_nav_menu").text($("li#"+current_state+" > span").text());
 
-    show_items();
+//    show_items();
 
-    $("select.size").change(function(){
-        var selected_size = this.value;
-        var index= (this.id).substring(4);
-        console.log("사이즈 변경 시점");
-        console.log("장바구니 속 사이즈 " + cart[index].size);
-        console.log("실제 선택된 사이즈 " + selected_size);
-        
-        console.log(cart[index].price);
-        $("#shot"+index).val(shot_dictionary[num_to_size[selected_size]]);
-
-        $("input#shot"+index).trigger("change");
-    });
-
-    $("button#next").click(function(){
-        console.log("test");
-        location.href='../order_location.html';
-
-    });
+//    $("select.size").change(function(){
+//        var selected_size = this.value;
+//        var index= (this.id).substring(4);
+//        console.log("사이즈 변경 시점");
+//        console.log("장바구니 속 사이즈 " + cart[index].size);
+//        console.log("실제 선택된 사이즈 " + selected_size);
+//        
+//        console.log(cart[index].price);
+//        $("#shot"+index).val(shot_dictionary[num_to_size[selected_size]]);
+//
+//        $("input#shot"+index).trigger("change");
+//    });
+//
+//    $("button#next").click(function(){
+//        console.log("test");
+//        location.href='../order_location.html';
+//
+//    });
 
 });
 
@@ -138,14 +109,15 @@ function show_items(){
 }
 
 function remove_item(index){
-    var size = cart[index].size;
-    snackBar(size_dictionary[size]+" 사이즈 "+cart[index].name+"가 삭제됐습니다!");
-
-    cart.splice(index, 1);
+//    var size = cart[index].size;
+	var deletedItemName = $("#name"+index).prop("value");
+    snackBar(deletedItemName + "이/가 삭제됐습니다!");
+    
+    $("#card"+index).hide();
 
     // $("#card"+index).hide();
     // $("div#" + index).remove();
-    show_items();
+    // show_items();
 }
 
 // TODO: 수량은 계산할 필요 없는 것 같음...
