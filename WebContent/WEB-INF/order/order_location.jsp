@@ -57,22 +57,25 @@
 		#search_section {
 		    /* border: 5px solid red; */
 		    flex: 1;
+		    display: flex;
+		    flex-direction: column;
 		}
 		
 		#search_bar {
-		    display: inline-block;
+			flex: 1;
 		    height: 50px;
+		    box-sizing: content-box;
 		    width: -webkit-fill-available;
 		    padding: 0;
-		    /* border: solid 5px black; */
 		    background-image: url("https://img.icons8.com/material-outlined/24/000000/search.png");
 		    background-repeat: no-repeat;
 		    background-position: right;
 		}
 		
 		#store_locations {
+			flex: 7;
 		    width: -webkit-fill-available;
-		    height: 90%;
+		    height: 100%;
 		    /* border: 2px solid purple; */
 		    list-style-type: none;
 		    padding: 0;
@@ -92,8 +95,31 @@
 		}
 		
 		#store_locations td {
-		    /* border: 5px solid red; */
-		    height: 3em;
+		    height: 4em;
+		    padding: 10px;
+		    border: 1px solid grey;
+		}
+		
+		.store_row {
+			display: flex;
+			flex-direction: row;
+			cursor: pointer;
+		}
+		
+		.store_detail {
+			flex: 7;
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.store_detail > strong {
+			font-size: 14pt;
+			font-weight: bold;
+			padding: 0 0 5px 0;
+		}
+		
+		.store_row > img {
+			max-width: 100%;
 		}
 		
 		#map_section {
@@ -144,8 +170,7 @@
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7fa563027be4561a627edb8c3c2821f"></script>
-    <script type="text/javascript" src="/StarbucksWeb/js/order_location.js">
-    </script> 
+    <script type="text/javascript" src="/StarbucksWeb/js/order_location.js"></script>
     <title>스타벅스 코리아</title>
 </head>
     
@@ -163,20 +188,24 @@
         <div id="search_location_container" align="center">
             <aside id="search_section">
                 <input type="text" id="search_bar" placeholder="지역명을 입력하세요." />
-                <div  id="store_locations">
+                <div id="store_locations">
                     <table>
                         <thead>
                         	<tr><th>매장 목록</th></tr>
                         </thead>
                         <tbody>
                         	<!-- DB에서 받아오는 매장 정보 출력 -->
-	                        <tr><td>ㅎㅎ</td></tr>
-	                        <tr><td>ㅎㅎ</td></tr>
-	                        <tr><td>ㅎㅎ</td></tr>
-	                        <tr><td>ㅎㅎ</td></tr>
-	                        <tr><td>ㅎㅎ</td></tr>
-	                        <tr><td>ㅎㅎ</td></tr>
-	                        <tr><td>ㅎㅎ</td></tr>
+	                        <c:forEach var="store" items="${storeList}" varStatus="status">
+	                        	<tr>
+	                        		<td class="store_row" id="${store.storeID }" onclick="getLocOnMap(${store.latitude}, ${store.longitude })">
+	                        			<p class="store_detail">
+		                        			<strong>${store.storeName}</strong>
+		                        			<span>${store.address}</span>
+	                        			</p>
+	                        			<img src="/StarbucksWeb/images/j1/location_pin.png" />
+	                        		</td>
+	                        	</tr>
+	                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
