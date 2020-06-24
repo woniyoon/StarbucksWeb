@@ -103,6 +103,7 @@ public class OrderDAO implements InterOrderDAO {
 			fvo.setName(rs.getString("name"));
 			fvo.setPrice(rs.getInt("price"));
 			fvo.setImg(rs.getString("img"));
+			fvo.setParentTable("food");
 		}
 			
 		return fvo;
@@ -134,6 +135,12 @@ public class OrderDAO implements InterOrderDAO {
 			dvo.setWhippedCream(rs.getString("whipped_cream"));
 			dvo.setTemperature(rs.getString("temperature"));
 			dvo.setBase(rs.getString("base"));
+			dvo.setParentTable("drink");
+			
+			System.out.println(dvo.getShot());
+			System.out.println(dvo.getSyrup());
+			System.out.println(dvo.getWhippedCream());
+			System.out.println(dvo.getShot());
 		}
 		
 		return dvo;

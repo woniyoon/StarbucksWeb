@@ -113,7 +113,6 @@ h3#menu_name {
 
 form {
 	display: inline-block;
-	width: 150px;
 }
 
 div.card_detail_container>img {
@@ -138,11 +137,12 @@ div.card ul {
 
 div.card li {
 	display: block;
+	margin: 5px 0;
 }
 
 div.card label {
 	display: inline-block;
-	width: 70px;
+	width: 100px;
 	font-size: 1rem;
 	/* border: 1px solid red; */
 }
@@ -267,8 +267,9 @@ to {
 		<li id="confirmed"><span>결제완료</span></li>
 	</ul>
 	<div class="items_container">
+	
 		<c:if test="${not empty cart}">
-			<c:forEach var="item" varStatus="status" items="${cart }">
+			<c:forEach var="item" varStatus="status" items="${cart }">										
 				<div id="card${status.index}" class="card">
 					<p>
 						<button class="remove_button" id="${status.index}" onclick="remove_item(this.id)">×</button>
@@ -280,9 +281,11 @@ to {
 							<h3 id="menu_name">${item.name}</h3>
 							
 							<c:if test="${item.parentTable eq 'drink'}">
-							
 							<form id='order_form'>
 								<ul>
+									<li>
+										
+									</li>
 									<li>
 										<label>사이즈</label> 
 										<select class="size" id="size${status.index}" name="size">
@@ -293,43 +296,40 @@ to {
 									</li>
 									<li>
 										<label>샷</label>
-										<input class="shot" id="shot${status.index}" onchange="update_shot(this)" type="number" value="${item.shot }" min='${item.shot }' max='5'></li>
-									<li>
-										<label>우유</label> 
-										<select name='milk'>
-											<option name='milk' value='none' checked>없음</option>
-											<option name='milk' value='default'>일반</option>
-											<option name='milk' value='soy'>두유</option>
-											<option name='milk' value='lowfat'>저지방</option>
-										</select>
+										<input class="shot" id="shot${status.index}" onchange="update_shot(this)" type="number" value="${item.shot }" min='${item.shot }' max='5'>
 									</li>
+									<c:if test="${item.base ne '없음' }">
+										<li>
+											<label>${item.base }</label> 										
+											<select name='milk'>
+<!-- 												<option name='milk' value='none' checked>없음</option> -->
+												<option name='milk' value='less'>적음</option>
+												<option name='milk' value='regular' checked>보통</option>
+												<option name='milk' value='extra'>많이</option>
+											</select>
+										</li>									
+									</c:if>
 									<c:if test="${item.temperature eq 'iced' }">
 										<li>
 											<label>얼음</label> 
 											<select name='ice'>
-												<option name='ice' value='1' checked>적게</option>
-												<option name='ice' value='2'>보통</option>
-												<option name='ice' value='3'>많이</option>
+												<option name='milk' value='less'>적음</option>
+												<option name='milk' value='regular' checked>보통</option>
+												<option name='milk' value='extra'>많이</option>
 											</select>
 										</li>
 									</c:if>
-									<li>
-										<label>${item.syrup }</label> 
-										<select name='syrup'>
-											<option name='syrup' value='none' checked>없음</option>
-											<option name='syrup' value='classic'>클래식시럽</option>
-											<option name='syrup' value='vanilla'>바닐라시럽</option>
-											<option name='syrup' value='hazelnut'>헤이즐넛시럽</option>
-										</select>
-									</li>
-									<li>
-										<label>${item.whippedCream }</label> 
-										<select name='cream'>
-											<option name='cream' value='none' checked>없음</option>
-											<option name='cream' value='regular'>보통</option>
-											<option name='cream' value='extra'>많이</option>
-										</select>
-									</li>
+									<c:if test="${item.whippedCream ne 'none' }">
+										<li>
+											<label>${item.whippedCream }</label> 										
+											<select name='milk'>
+<!-- 												<option name='milk' value='none' checked>없음</option> -->
+												<option name='milk' value='less'>적음</option>
+												<option name='milk' value='regular' checked>보통</option>
+												<option name='milk' value='extra'>많이</option>
+											</select>
+										</li>									
+									</c:if>
 								</ul>
 							</form>
 							</c:if>
