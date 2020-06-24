@@ -36,7 +36,7 @@
 	}
 
 	div#frame {
-		width: 31%;
+		width: 41%;
 		/* height: 60%; */
 		margin: 10px auto;
 		padding: 0;
