@@ -23,7 +23,7 @@
 	div#container { 
 		width: 1440px;
 	    margin: 0 auto;
-	    padding: 50px 0;
+	    padding: 0;
 
 	    
 		/* text-align: center;	 */			
@@ -41,6 +41,7 @@
 
 	div#box {
 		border-top: solid 1px #cccccc;
+		margin: 10px auto;
 	}
 	
 	input {
@@ -247,7 +248,7 @@
 	<form name="loginFrm">
 		<fieldset>
 			<legend style="text-align: center;">로그인</legend>
-			<div id="form" >
+			<div id="form" style="text-align: center;">
 			<div id="frame" class="1" style="text-align: center;">
 			  	<div id="wlecome">
 			  		<span style="color: #006633;">Welcome!    </span><span style="color: #4d4d4d;">스타벅스커피 코리아에 오신 것을 환영합니다.</span>
