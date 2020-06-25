@@ -14,9 +14,9 @@ public class IdDuplicateCheckAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String id = request.getParameter("id");
+		String userid = request.getParameter("userid");
 		InterMemberDAO memberdao = new MemberDAO();
-		boolean isUse = memberdao.idDuplicateCheck(id);
+		boolean isUse = memberdao.idDuplicateCheck(userid);
 		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("isUse", isUse);
