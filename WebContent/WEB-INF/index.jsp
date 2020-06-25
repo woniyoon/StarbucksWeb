@@ -10,5 +10,7 @@
 <body>
 	<img width="100px" height="100px" src="/StarbucksWeb/images/common/starbucks_logo.png" />
 	스타벅스입니다.
+	
+	<button>로그인</button>
 </body>
 </html>
