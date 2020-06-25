@@ -13,7 +13,9 @@ public interface InterMemberDAO {
 
 	// 아이디와 암호를 입력받아서 그 회원에 대한 정보를 리턴(로그인처리)
 	MemberVO selectOneMember(HashMap<String, String> paraMap) throws SQLException;
-
+	
+	// 비밀번호 변경(update)
+	int updatePassword(String userid, String password) throws SQLException;
 
 	
 }

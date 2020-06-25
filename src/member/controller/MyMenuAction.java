@@ -5,12 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class myinfoEditPwdAction extends AbstractController {
+public class MyMenuAction extends AbstractController { 
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/member/myinfoEditPwd.jsp");
+		super.setViewPage("/WEB-INF/member/myMenu.jsp");
 	}
 
 }

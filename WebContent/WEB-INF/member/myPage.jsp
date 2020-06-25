@@ -248,6 +248,15 @@ $(document).ready(function(){
 		}
 	
 	}
+	
+	function goEditPersonal(userid) {
+		var frm = document.myinfoEditPwdFrm;
+		frm.userid.value = userid;
+		
+		frm.method = "POST";
+		frm.action = "/StarbucksWeb/member/myinfoEditPwd.sb";
+		frm.submit();
+	}
 
 
 </script>
@@ -289,7 +298,7 @@ $(document).ready(function(){
 	     		<div class="user_edit">
 		     		<ul>
 		     			<li class="btn_black"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보 수정</a></li>
-		     			<li class="btn_gray"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEditPwd.sb">비밀번호 변경</a></li>
+		     			<li class="btn_gray"><a href="javascript:goEditPersonal('${(sessionScope.loginuser).userid}');">비밀번호 변경</a></li>
 		     		</ul>
 	     		</div>
      		</div>
@@ -350,6 +359,10 @@ $(document).ready(function(){
      
     <!-- <footer></footer> -->
 </div>
+
+<form name="myinfoEditPwdFrm">
+	<input type="hidden" name="userid"/>
+</form>
 
 
 <jsp:include page="footer.jsp" />

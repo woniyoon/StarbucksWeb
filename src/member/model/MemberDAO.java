@@ -143,8 +143,8 @@ public class MemberDAO implements InterMemberDAO {
 				mvo.setName(rs.getString("name"));
 				mvo.setEmail(aes.decrypt(rs.getString("email"))); // 복호화
 				mvo.setHp1(rs.getString("hp1"));
-				mvo.setHp2(aes.decrypt(rs.getString("hp2"))); // 복호화
-				mvo.setHp3(aes.decrypt(rs.getString("hp3"))); // 복호화
+				mvo.setHp2(rs.getString("hp2")); 
+				mvo.setHp3(rs.getString("hp3")); 
 				mvo.setPoint(rs.getInt("point")); // int
 
 			    mvo.setGender(rs.getInt("gender"));
@@ -169,5 +169,35 @@ public class MemberDAO implements InterMemberDAO {
 		}
 		
 		return mvo;
+	}
+
+	
+	
+	// 비밀번호 변경
+	@Override
+	public int updatePassword(String userid, String password) throws SQLException {
+		
+		int result = 0;
+
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = " update starbucks_Member set password = ? "+
+						 " where userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Sha256.encrypt(password)); // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다.
+			pstmt.setString(2, userid);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+
+			close();
+		}
+		
+		return result;
+		
+	
 	}
 }

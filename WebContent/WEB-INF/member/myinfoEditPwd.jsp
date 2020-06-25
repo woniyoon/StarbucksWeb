@@ -116,14 +116,14 @@
 		border: solid 1px #EAEAEA;
 	}
 	
-	.newPasswd_error {
+	.newPassword_error {
 		font-size: 12pt;
 		float: left;
 		margin-top: 5px;
 		margin-bottom: 5px;
 	}
 	
-	.passwdCheck_error {
+	.passwordCheck_error {
 		font-size: 12pt;
 		text-align: left;
 		margin-top: 5px;
@@ -165,7 +165,7 @@
 $(document).ready(function(){
 
 	
-	$("input#newPasswd").blur(function(){
+	$("input#newPassword").blur(function(){
 		
 		var regExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,20}$/;    
 
@@ -173,7 +173,7 @@ $(document).ready(function(){
  		
  		if(!bool) {
  			
- 			$("span.newPasswd_error").html("영문, 숫자 혼합하여 10~20자리 이내로 입력하세요.").css('color', 'red');
+ 			$("span.newPassword_error").html("영문, 숫자 혼합하여 10~20자리 이내로 입력하세요.").css('color', 'red');
  			
  			$(this).val(""); 
 			$(this).focus();
@@ -181,35 +181,63 @@ $(document).ready(function(){
  		}
  		
  		else {
- 			$("span.newPasswd_error").html("사용가능한 비밀번호 입니다.").css('color', 'black');
+ 			$("span.newPassword_error").html("사용가능한 비밀번호 입니다.").css('color', 'black');
  		}
  		
 	});
 	
 
-	$("input#passwdCheck").blur(function () {
+	$("input#passwordCheck").blur(function () {
 		
-		if($(this).val() !=  $("input#newPasswd").val()){ // 올바르지 않을 때
+		if($(this).val() !=  $("input#newPassword").val()){ // 올바르지 않을 때
 			
-			$("span.passwdCheck_error").html("일치하지 않습니다.").css('color', 'red');
+			$("span.passwordCheck_error").html("일치하지 않습니다.").css('color', 'red');
 			
-			$("input#passwd").val("");
+			$("input#password").val("");
 			$(this).val(""); // 값 비움
 			
 		}
 		else { // 올바를 때
-			$("span.passwdCheck_error").html("일치합니다.").css('color', 'black');
+			$("span.passwordCheck_error").html("일치합니다.").css('color', 'black');
 			}
 		});
 	
 });
 
 
+function goEdit() {
+	
+	var flagBool = false;
+	
+	$(".requiredEditPW").each(function(){
+		var data = $(this).val().trim();
+		if(data=="") {
+			flagBool = true;
+			return false;
+		}
+	});
+	
+	
+	if(flagBool) {
+		alert("변경사항을 입력하세요");
+		return;
+	}
+	else {
+		var frm = document.updateFrm;
+		frm.method = "POST";
+		frm.action = "/StarbucksWeb/member/myinfoEditPwdEnd.sb";
+		frm.submit();
+	}
+
+}
+
+ 
 </script>
 
 </head>
 <body>
 	<div id="container">
+		<form name="updateFrm">
 		<header></header>
 		
 		<div id="title">
@@ -225,31 +253,32 @@ $(document).ready(function(){
 			
 			<div id="box2">
 				<strong>아이디</strong>			
-				<p class="id_text"><input type="text" /></p>
+				<p class="id_text"><input type="text" name="userid" id="userid" value="${userid}" readonly /></p>
 			</div>
 
 			<div id="box3">
 				<strong>현재 비밀번호</strong>			
-				<p class="id_text"><input type="password" name="passwd" id="passwd" value="" maxlength="20" placeholder="비밀번호를 입력해 주세요." /></p>
+				<p class="id_text"><input type="password" name="password" id="password" value="" class="requiredInfo" maxlength="20" placeholder="비밀번호를 입력해 주세요." /></p>
 			</div>
 			
 			<div id="box4">
 				<strong>새 비밀번호</strong>			
 				<p class="id_text">
-				<input type="password" id="newPasswd" value="" placeholder="영문, 숫자 혼합하여 10~20자리 이내로 입력하세요." />
-				<span class="error newPasswd_error"></span>
-				<input type="password" id="passwdCheck" value="" placeholder="비밀번호를 다시 한번 입력해 주세요." />
-				<span class="error passwdCheck_error"></span>
+				<input type="password" id="newPassword" name="newPassword" value="" class="requiredInfo" placeholder="영문, 숫자 혼합하여 10~20자리 이내로 입력하세요." />
+				<span class="error newPassword_error"></span>
+				<input type="password" id="passwordCheck" value="" class="requiredInfo" placeholder="비밀번호를 다시 한번 입력해 주세요." />
+				<span class="error passwordCheck_error"></span>
 				</p>
 			</div>
 		
 		</nav>
 		
 		<div class="con2">
-			<a class="btn_ok" href="my_page.html">확인</a>	
+			<a class="btn_ok" id="btnUpdate" onClick="goEdit();">확인</a>	
 		</div>
 		
 		<footer></footer>
+		</form>
 	</div>
 </body>
 </html>

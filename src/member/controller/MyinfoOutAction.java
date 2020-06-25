@@ -5,13 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class myinfoEditAction extends AbstractController {
+public class MyinfoOutAction extends AbstractController { 
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/member/myinfoEdit.jsp");
+		super.setViewPage("/WEB-INF/member/myinfoOut.jsp");
 	}
 
 }
