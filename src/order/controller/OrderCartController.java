@@ -23,8 +23,18 @@ public class OrderCartController extends AbstractController {
 		paramap.put("userid", userid);
 		
 		InterOrderDAO dao = new OrderDAO();
-		List<ProductVO> shoppingCart = dao.getShoppingCart(paramap);
+//		List<ProductVO> shoppingCart = dao.getShoppingCart(paramap);
+		List<ShoppingCartVO> shoppingCart = dao.getCart(paramap);
 		
+		request.setAttribute("cart", shoppingCart);
+		
+//		super.setRedirect(false);
+		super.setViewPage("/WEB-INF/order/order_cart.jsp");
+
+	}
+
+}
+
 //		System.out.println(shoppingCart.size());
 //		JSONArray jArray = new JSONArray();
 //		
@@ -47,11 +57,3 @@ public class OrderCartController extends AbstractController {
 //		}
 //		
 //		System.out.println(jArray.toString());
-		request.setAttribute("cart", shoppingCart);
-		
-//		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/order/order_cart.jsp");
-
-	}
-
-}
