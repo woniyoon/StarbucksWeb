@@ -48,11 +48,11 @@ public class OrderDAO implements InterOrderDAO {
 
 	@Override
 	public List<ProductVO> getShoppingCart(Map<String, String> paramap) throws SQLException {
-//		ShoppingCartVO shoppingCart = null;
+		//ShoppingCartVO shoppingCart = null;
 		List<ProductVO> items = new ArrayList<ProductVO>();
 		
 		try {
-//			shoppingCart = new ShoppingCartVO();
+			//shoppingCart = new ShoppingCartVO();
 
 			conn = ds.getConnection();
 			
@@ -181,6 +181,74 @@ public class OrderDAO implements InterOrderDAO {
 		}
 		
 		return storeList;
+	}
+
+	@Override
+	public List<ShoppingCartVO> getCart(Map<String, String> paramap) throws SQLException {
+		//ShoppingCartVO shoppingCart = null;
+		List<ShoppingCartVO> items = new ArrayList<ShoppingCartVO>();
+				
+			try {
+				//shoppingCart = new ShoppingCartVO();
+	
+				conn = ds.getConnection();
+				
+				String sql = " select a.product_id, b.parent_table, a.shoppingcart_seq " + 
+						" from shoppingcart a, nutrition b " + 
+						" where a.userid = ? and a.product_id = b.product_id ";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, paramap.get("userid"));
+				rs = pstmt.executeQuery();
+			
+				while(rs.next()) {
+					
+					String productID = rs.getString(1);
+					String parentTable = rs.getString(2);
+					
+					// Product의 타입에 따라 다른 테이블로 쿼리
+					if("food".equalsIgnoreCase(parentTable)) {
+						FoodVO fvo = getFoodInfo(productID);
+						ShoppingCartVO svo = new ShoppingCartVO();
+						svo.setCart(fvo);
+						svo.setItemSeq(rs.getString("shoppingcart_seq"));
+						items.add(svo);
+					} else {
+						DrinkVO dvo = getDrinkInfo(productID);
+						ShoppingCartVO svo = new ShoppingCartVO();
+						svo.setCart(dvo);
+						svo.setItemSeq(rs.getString("shoppingcart_seq"));
+						items.add(svo);
+					}
+				}
+	
+			} finally {
+				close();
+			}
+			
+			return items;
+	}
+
+	@Override
+	public Map<String, Integer> getCustomPrice() throws SQLException {
+		Map<String, Integer> priceMap = new HashMap<String, Integer>();
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " select name, price from custom_price ";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				priceMap.put(rs.getString("name"), rs.getInt("price"));
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return priceMap;
 	}
 	
 }
