@@ -92,7 +92,9 @@ public class OrderDAO implements InterOrderDAO {
 
 		conn = ds.getConnection();
 
-		String sql = " select id, name, price, img from food where id = ? ";
+		String sql = " select id, c.category_name, name, price, img " + 
+					" from food f, product_category c\n" + 
+					" where f.category_id = c.category_id and f.id = ?  ";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, productID);
 		ResultSet rs = pstmt.executeQuery();
@@ -100,6 +102,7 @@ public class OrderDAO implements InterOrderDAO {
 		if(rs.next()) {
 			fvo = new FoodVO();
 			fvo.setProductId(rs.getString("id"));
+			fvo.setCategoryName(rs.getString("category_name"));
 			fvo.setName(rs.getString("name"));
 			fvo.setPrice(rs.getInt("price"));
 			fvo.setImg(rs.getString("img"));
@@ -117,8 +120,9 @@ public class OrderDAO implements InterOrderDAO {
 		DrinkVO dvo = null;
 		
 		conn = ds.getConnection();
-		String sql = " select id, name, price, img, shot, syrup, whipped_cream, temperature, base "
-					+ "from drink where id = ? ";
+		String sql = " select id, c.category_name, name, description, price, img, shot, syrup, whipped_cream, temperature, base " + 
+					" from drink d, product_category c " + 
+					" where d.category_id = c.category_id and d.id = ? ";
 		
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, productID);
@@ -127,6 +131,7 @@ public class OrderDAO implements InterOrderDAO {
 		if(rs.next()) {
 			dvo = new DrinkVO();
 			dvo.setProductId(rs.getString("id"));
+			dvo.setCategoryName(rs.getString("category_name"));
 			dvo.setName(rs.getString("name"));
 			dvo.setPrice(rs.getInt("price"));
 			dvo.setImg(rs.getString("img"));
@@ -136,11 +141,6 @@ public class OrderDAO implements InterOrderDAO {
 			dvo.setTemperature(rs.getString("temperature"));
 			dvo.setBase(rs.getString("base"));
 			dvo.setParentTable("drink");
-			
-			System.out.println(dvo.getShot());
-			System.out.println(dvo.getSyrup());
-			System.out.println(dvo.getWhippedCream());
-			System.out.println(dvo.getShot());
 		}
 		
 		return dvo;
