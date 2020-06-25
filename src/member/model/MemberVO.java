@@ -170,11 +170,4 @@ public class MemberVO {
 	
 	
 	
-	
-<<<<<<< Updated upstream
-}
 
-=======
-
-	
->>>>>>> Stashed changes
