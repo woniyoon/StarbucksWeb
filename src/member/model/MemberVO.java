@@ -2,13 +2,16 @@ package member.model;
 
 public class MemberVO {
 
-	private String id;        // 회원아이디
-	private String password;           // 비밀번호 (SHA-256 암호화 대상  단방향암호화)
+	private int Member_seq;       // 회원번호(시퀀스로 데이터가 들어온다)
+	private String userid;        	  // 회원아이디
+	private String password;      // 비밀번호 (SHA-256 암호화 대상  단방향암호화)
 	private String name;          // 회원명
 	private String email;         // 이메일    (AES-256 암호화/복호화 대상  양방향암호화)
-	private String phone;           // 휴대폰
+	private String hp1;           // 휴대폰
+	private String hp2;           //       
+	private String hp3;           //       
 	private int point;            // 포인트	
-	private String gender;        // 성별     남자 : 1 / 여자 : 2
+	private int gender;        // 성별     남자 : 1 / 여자 : 2
 	private String Birthyyyy;     // 생년
 	private String Birthmm;       // 생월
 	private String Birthdd;       // 생일
@@ -17,29 +20,42 @@ public class MemberVO {
 	private int status;           // 회원탈퇴유무   1:사용가능(가입중) / 0:사용불능(탈퇴) 
 	
 	public MemberVO() {}
-	
-	public MemberVO(String id, String password, String name, String email, String phone, int point, String gender,
-			String Birthyyyy, String Birthmm, String Birthdd, String registerday, int status) {
-		this.id = id;
+
+	public MemberVO(int member_seq, String userid, String password, String name, String email, String hp1, String hp2,
+			String hp3, int point, int gender, String birthyyyy, String birthmm, String birthdd, String registerday,
+			int status) {
+		super();
+		Member_seq = member_seq;
+		this.userid = userid;
 		this.password = password;
 		this.name = name;
 		this.email = email;
-		this.phone = phone;
+		this.hp1 = hp1;
+		this.hp2 = hp2;
+		this.hp3 = hp3;
 		this.point = point;
 		this.gender = gender;
-		this.Birthyyyy = Birthyyyy;
-		this.Birthmm = Birthmm;
-		this.Birthdd = Birthdd;
+		Birthyyyy = birthyyyy;
+		Birthmm = birthmm;
+		Birthdd = birthdd;
 		this.registerday = registerday;
 		this.status = status;
 	}
-
-	public String getId() {
-		return id;
+	
+	public int getMember_seq() {
+		return Member_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMember_seq(int member_seq) {
+		Member_seq = member_seq;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getPassword() {
@@ -66,12 +82,28 @@ public class MemberVO {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getHp1() {
+		return hp1;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setHp1(String hp1) {
+		this.hp1 = hp1;
+	}
+
+	public String getHp2() {
+		return hp2;
+	}
+
+	public void setHp2(String hp2) {
+		this.hp2 = hp2;
+	}
+
+	public String getHp3() {
+		return hp3;
+	}
+
+	public void setHp3(String hp3) {
+		this.hp3 = hp3;
 	}
 
 	public int getPoint() {
@@ -82,11 +114,11 @@ public class MemberVO {
 		this.point = point;
 	}
 
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 
@@ -95,7 +127,7 @@ public class MemberVO {
 	}
 
 	public void setBirthyyyy(String birthyyyy) {
-		this.Birthyyyy = birthyyyy;
+		Birthyyyy = birthyyyy;
 	}
 
 	public String getBirthmm() {
@@ -103,7 +135,7 @@ public class MemberVO {
 	}
 
 	public void setBirthmm(String birthmm) {
-		this.Birthmm = birthmm;
+		Birthmm = birthmm;
 	}
 
 	public String getBirthdd() {
@@ -111,7 +143,7 @@ public class MemberVO {
 	}
 
 	public void setBirthdd(String birthdd) {
-		this.Birthdd = birthdd;
+		Birthdd = birthdd;
 	}
 
 	public String getRegisterday() {
@@ -129,11 +161,20 @@ public class MemberVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	
+	
+	
+
+}	
 	
 	
 	
 	
-	
-	
+<<<<<<< Updated upstream
 }
 
+=======
+
+	
+>>>>>>> Stashed changes
