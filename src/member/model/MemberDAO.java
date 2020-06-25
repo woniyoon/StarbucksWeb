@@ -170,4 +170,41 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return mvo;
 	}
+
+
+
+	// 아이디 찾기(성명, 휴대폰번호를 입력받아서 해당 사용자의 아이디를 알려준다.)
+	@Override
+	public String findUserid(HashMap<String, String> paraMap) throws SQLException {
+
+		String userid = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid " +
+						 " from starbucks_Member " + 
+						 " where status = 1 and " + 
+						 " name = ? and " + 
+						 " trim(hp1) || trim(hp2) || trim(hp3) = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("name"));
+
+			
+			pstmt.setString(2, paraMap.get("hp1")+paraMap.get("hp2")+paraMap.get("hp3"));
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userid = rs.getString("userid");
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return userid;
+	}
 }

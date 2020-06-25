@@ -224,7 +224,7 @@
 	    line-height: 0.5;
 	}
 
-	/*회원가입 버튼*/
+	/*아이디찾기 버튼*/
 
 	div#joinBtn {
 		width: 538px;
@@ -233,7 +233,7 @@
 		text-align: center;
 	}
 	
-	input#btnLogin {
+	input#btnFind {
 		width: 550px;
 		height: 40px;
 		margin: 0px;
@@ -252,51 +252,65 @@
 
 <script type="text/javascript">
 
-/* 
-	성별 남-checked 초기값 ㅇ
-	생년월일 값 초기화 - 선택값 없을시 선택하세요 error 띄우기 ㅇ
-	생년월일 각각 name값 검토 ㅇ, function 다시설정
-	휴대폰 input-text 삽입 ==> 고객의소리form 에서 들고오던지..ㅇ
-	이름, 메일 입력작업 ㅇ
-	
-	이용약관 내용바꾸기
-	체크박스 크기줄이기
-*/
 
 
-	function gologin() {
+	function goPwdFind() {
 
-		 
-		  var frm = document.registerFrm;
+
+		  var frm = document.findFrm;
 	   	  frm.method = "POST";
-	   	  frm.action = "<%= request.getContextPath()%>/login/loginIndex.sb";
+	   	  frm.action = "<%= request.getContextPath()%>/login/pwdFind.sb";
 	   	  frm.submit();
-		
-	   	  
-		}// end of function gologin(event)----------
+	
+		}// end of function goIdFind()----------
 
 
 </script>	
 
 <div id="container">
-	<form name="registerFrm" style="margin-top: 80px; margin-bottom: 80px;">
+	<form name="findFrm" style="margin-top: 80px; margin-bottom: 80px;">
 		<fieldset>
-			<legend style="text-align: center;">아이디 찾기</legend>
+			<legend style="text-align: center;">비밀번호 찾기</legend>
 			<div id="form" >
 			<div id="frame" class="1" style="text-align: center;">
 			  	<div id="headImg">
 			  		<img src="/StarbucksWeb/images/hyejeong/icon_find_sally.png" width="245px;" height="212px;"/>
 			  		<br/>
 			  		<p class="idFind">
-			  			<strong>고객님의 아이디는 <span style="color: #006633;">${userid}</span> 입니다.</strong>
+			  			<strong>비밀번호가 기억나지 않으세요?</strong>
+			  			<span class="text" style="margin-top:20px; color: gray;">아래 인증 방법을 통해 비밀번호를 재설정 하실 수 있습니다.</span>
 			  		</p>
 			  	</div>	
 
 			</div>
-			
+			<div id="frame" class="2">	
+					<ul id="able4" class="body">	
+						<li>
+							<p style="font-weight: bold; margin-left: 10px; ">아이디</p>
+							<label for="userid"></label>
+							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="userid" id="userid" class="requiredInfo" />
+
+							<br/>
+							
+						</li>
+					</ul>	
+
+				<div id="box">
+					<ul class="body">
+						<li>
+							<p style="font-weight: bold; margin-left: 10px; ">메일</p>
+							<label for="email"></label>
+							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="email" id="email" class="requiredInfo" />
+
+							<br/>
+							
+						</li>
+	            	</ul>
+	            </div>	
+			</div>
 				<ul class="body" style="width:550px; height:40px; margin:0 auto; padding: 0px;">
 					<li>
-						<input type="button" id="btnLogin" value="로그인" onClick="gologin();"/>
+						<input type="button" id="btnFind" value="비밀번호 찾기" onClick="goPwdFind()"/>
 					</li>
 				</ul>
 			</div>	

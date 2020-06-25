@@ -147,7 +147,7 @@
 		padding-left: 35px;
 	}
 	
-	input[id="storage"]:checked + label {
+	/* input[id="storage"]:checked + label {
 		 position: relative;
 		display: inline-block; 
 		margin: 10px 10px 0 20px;
@@ -158,7 +158,7 @@
 		background-size: 26px;
 		padding-left: 35px; 
 		background: url('/StarbucksWeb/images/hyejeong/mem_check_on.png') no-repeat;
-	} 
+	} */ 
 	
 	input#storage {
 		 position: absolute;
@@ -168,6 +168,7 @@
 		 border: 0 none;
 		 background: #fff;
 		 vertical-align: middle; 
+		 /* display: none; */
 	}  
 	
 	
@@ -293,6 +294,22 @@
 			$("#loginUserid").val(loginUserid);
 			$("input:checkbox[id=storage]").prop("checked",true);
 		} */
+		
+		$("#label").click(function(){
+			
+			var isChecked = $("#storage").is(":checked");
+		//	alert(isChecked); // 1.false // 3.true
+			
+			if(isChecked==true) {
+			   $("#storage").attr("checked",false);
+		//	   alert($("#storage").is(":checked")); // 4.false
+			}
+			else {
+				$("#storage").attr("checked",true); 
+		//		alert($("#storage").is(":checked")); // 2. true
+			}
+		});
+		
 	}
 	
 
@@ -329,7 +346,7 @@
 		//	alert("아이디저장 체크를 안 하셨네요");
 			localStorage.removeItem('saveid');
 		} */
-		
+
 		var frm = document.loginFrm;
 		frm.method = "POST";
 		frm.action = "<%= request.getContextPath()%>/login/login.sb";
@@ -337,6 +354,8 @@
 		
 	}// end of function goLogin()-----------------------------
 
+
+	
 </script>
 
 
@@ -362,10 +381,10 @@
 					</li>
 				</ul>	
 			  </div>	
-			   <div id="storage" style="text-align: left;">
+			   <div id="idStg" style="text-align: left;">
 				<ul id="input">
 					<li style="height: 50px;">
-						<input type="checkbox" name="storage" id="storage" style="margin-left: 20px; border: 0 none; background: #fff; "/><label for="storage">아이디 저장</label>
+						<input type="checkbox" name="storage" id="storage" style="margin-left: 20px; border: 0 none; background: #fff; "/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="label" for="storage" >아이디 저장</label>
 					</li>
 			  	</ul>
 			  </div> 
@@ -393,10 +412,10 @@
 						<a href="<%= ctxPath%>/register/memberRegister.sb" class="bottom btnJoin">회원가입</a>
 					</li>
 					<li>
-						<a href="" class="bottom btnSearchId">아이디 찾기</a>
+						<a href="<%= ctxPath%>/login/idFindIndex.sb" class="bottom btnSearchId">아이디 찾기</a>
 					</li>
 					<li class="last">
-						<a href="" class="bottom btnSearchPasswd">비밀번호 찾기</a>
+						<a href="<%= ctxPath%>/login/pwdFindIndex.sb" class="bottom btnSearchPasswd">비밀번호 찾기</a>
 					</li>
 				</ul>
 			  </div>
