@@ -205,7 +205,7 @@ $(document).ready(function(){
 });
 
 
-function goEdit() {
+function goUpdatePwd() {
 	
 	var flagBool = false;
 	
@@ -219,11 +219,12 @@ function goEdit() {
 	
 	
 	if(flagBool) {
-		alert("변경사항을 입력하세요");
+		alert("변경사항을 입력하세요!");
 		return;
 	}
+	
 	else {
-		var frm = document.updateFrm;
+		var frm = document.updatePwdFrm;
 		frm.method = "POST";
 		frm.action = "/StarbucksWeb/member/myinfoEditPwdEnd.sb";
 		frm.submit();
@@ -237,7 +238,7 @@ function goEdit() {
 </head>
 <body>
 	<div id="container">
-		<form name="updateFrm">
+		<form name="updatePwdFrm">
 		<header></header>
 		
 		<div id="title">
@@ -274,11 +275,13 @@ function goEdit() {
 		</nav>
 		
 		<div class="con2">
-			<a class="btn_ok" id="btnUpdate" onClick="goEdit();">확인</a>	
+			<a class="btn_ok" id="btnUpdate" onClick="goUpdatePwd();">확인</a>	
 		</div>
 		
 		<footer></footer>
 		</form>
 	</div>
+	
+	
 </body>
 </html>

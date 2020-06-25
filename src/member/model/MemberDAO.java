@@ -175,29 +175,47 @@ public class MemberDAO implements InterMemberDAO {
 	
 	// 비밀번호 변경
 	@Override
-	public int updatePassword(String userid, String password) throws SQLException {
+	public String selectPasswd(String userid) throws SQLException {
+		String password = null;
 		
-		int result = 0;
-
 		try {
-			
 			conn = ds.getConnection();
-			
-			String sql = " update starbucks_Member set password = ? "+
-						 " where userid = ? ";
+			String sql = " select password from starbucks_member where userid = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Sha256.encrypt(password)); // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다.
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				password = rs.getString("password");
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return password;
+	}
+
+	@Override
+	public int updatePasswd(String userid, String newPassword) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " update starbucks_member set password = ? where userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Sha256.encrypt(newPassword));
 			pstmt.setString(2, userid);
 			
 			result = pstmt.executeUpdate();
 			
 		} finally {
-
 			close();
 		}
 		
 		return result;
-		
-	
 	}
+
+
 }
