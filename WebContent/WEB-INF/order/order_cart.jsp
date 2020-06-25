@@ -16,240 +16,240 @@
 <script type="text/javascript" src="/StarbucksWeb/js/order_cart.js"></script>
 <title>스타벅스 코리아</title>
 <style type="text/css">
-nav#sub_nav {
-	display: flex;
-	justify-content: flex-end;
-	width: 50%;
-	margin: 30px auto;
-}
-
-ul.order_progress li {
-	/* display: inline-block; */
-	display: table-cell;
-	vertical-align: middle;
-	height: 50px;
-	min-width: 80px;
-	background-color: white;
-	color: black;
-	border: 1px solid lightgrey;
-	margin: 0;
-	text-align: center;
-}
-
-ul.order_progress {
-	display: table;
-	margin: 0 auto;
-	/* justify-content: center; */
-	padding-inline-start: 0px;
-}
-
-section {
-	margin: 30px auto;
-	width: 100%;
-	height: auto;
-	padding-bottom: 5rem;
-}
-
-div.card {
-	/* display: flex;
-	    align-items: row; */
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	max-width: 500px;
-	max-height: 600px;
-	margin: 50px auto;
-	padding: 30px;
-	border-radius: 2%;
-}
-
-@media ( max-width :650px) {
-	div.card {
-		min-width: 60vw;
-		max-width: 60vw;
-		max-height: 600px;
-		min-height: 40vh;
-		/* border: 2px solid black; */
-		overflow: inherit;
-		font-size: 0.8em;
-	}
-	div.card label {
-		display: inline-block;
-		width: 100px;
-		height: 80%;
-		font-size: 0.8em;
-	}
-	div.card_detail_container {
-		/* border: 2px solid black; */
+	nav#sub_nav {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
+		justify-content: flex-end;
+		width: 50%;
+		margin: 30px auto;
 	}
+	
+	ul.order_progress li {
+		/* display: inline-block; */
+		display: table-cell;
+		vertical-align: middle;
+		height: 50px;
+		min-width: 80px;
+		background-color: white;
+		color: black;
+		border: 1px solid lightgrey;
+		margin: 0;
+		text-align: center;
+	}
+	
+	ul.order_progress {
+		display: table;
+		margin: 0 auto;
+		/* justify-content: center; */
+		padding-inline-start: 0px;
+	}
+	
+	section {
+		margin: 30px auto;
+		width: 100%;
+		height: auto;
+		padding-bottom: 5rem;
+	}
+	
+	div.card {
+		/* display: flex;
+		    align-items: row; */
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 500px;
+		max-height: 600px;
+		margin: 50px auto;
+		padding: 30px;
+		border-radius: 2%;
+	}
+	
+	@media ( max-width :650px) {
+		div.card {
+			min-width: 60vw;
+			max-width: 60vw;
+			max-height: 600px;
+			min-height: 40vh;
+			/* border: 2px solid black; */
+			overflow: inherit;
+			font-size: 0.8em;
+		}
+		div.card label {
+			display: inline-block;
+			width: 100px;
+			height: 80%;
+			font-size: 0.8em;
+		}
+		div.card_detail_container {
+			/* border: 2px solid black; */
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		div.card_detail_container>img {
+			flex: 1;
+			max-width: 150px;
+			max-height: 180px;
+			/* border: 2px solid black; */
+		}
+		div#card_text {
+			display: flex;
+			flex: 3;
+			flex-direction: column;
+			/* border: 1px solid pink; */
+		}
+	}
+	
+	.remove_button {
+		font-size: 2rem;
+		background-color: transparent;
+		border: none;
+	}
+	
+	div.card_detail_container {
+		display: flex;
+	}
+	
+	h3#menu_name {
+		margin: 10px 0;
+	}
+	
+	form {
+		display: inline-block;
+	}
+	
 	div.card_detail_container>img {
 		flex: 1;
-		max-width: 150px;
-		max-height: 180px;
-		/* border: 2px solid black; */
+		width: 200px;
+		height: 220px;
 	}
+	
 	div#card_text {
 		display: flex;
 		flex: 3;
 		flex-direction: column;
+		align-items: center;
 		/* border: 1px solid pink; */
 	}
-}
-
-.remove_button {
-	font-size: 2rem;
-	background-color: transparent;
-	border: none;
-}
-
-div.card_detail_container {
-	display: flex;
-}
-
-h3#menu_name {
-	margin: 10px 0;
-}
-
-form {
-	display: inline-block;
-}
-
-div.card_detail_container>img {
-	flex: 1;
-	width: 200px;
-	height: 220px;
-}
-
-div#card_text {
-	display: flex;
-	flex: 3;
-	flex-direction: column;
-	align-items: center;
-	/* border: 1px solid pink; */
-}
-
-div.card ul {
-	/* border: 1px solid purple; */
-	text-align: start;
-	padding: 0px
-}
-
-div.card li {
-	display: block;
-	margin: 5px 0;
-}
-
-div.card label {
-	display: inline-block;
-	width: 100px;
-	font-size: 1rem;
-	/* border: 1px solid red; */
-}
-
-input, select {
-	margin: 2px 0;
-	width: 60px;
-	box-sizing: border-box;
-}
-
-span.price {
-	display: block;
-	font-size: 1.3rem;
-	font-weight: bold;
-	/* border: 1px solid red; */
-}
-
-p {
-	display: block;
-	text-align: end;
-	top: 0px;
-	right: 0px;
-	margin: 0;
-}
-
-.move_button {
-	width: 100px;
-	height: 50px;
-	margin: 0 5px 0 5px;
-	background-color: #f4f4f2;
-	border: none;
-	border-radius: 3px;
-	box-shadow: 1px 1px 1px 0 #b6b6b65a, 0 1px 1px 0
-		rgba(155, 155, 155, 0.337);
-}
-
-button#next {
-	background-color: #006633;
-	color: #fff;
-}
-
-/* section 끝 */
-#snackbar {
-	visibility: hidden;
-	min-width: 250px;
-	margin-left: -125px;
-	background-color: #006633;
-	color: #fff;
-	text-align: center;
-	border-radius: 2px;
-	padding: 16px;
-	position: fixed;
-	z-index: 1;
-	left: 50%;
-	bottom: 50px;
-	font-size: 17px;
-}
-
-hr {
-	max-width: 50%;
-}
-
-h2#total_price {
-	margin-right: 25vw;
-}
-
-#snackbar.show {
-	visibility: visible;
-	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-	animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@
--webkit-keyframes fadein {
-	from {bottom: 0;
-	opacity: 0;
-}
-
-to {
-	bottom: 50px;
-	opacity: 1;
-}
-
-}
-@
-keyframes fadein {
-	from {bottom: 0;
-	opacity: 0;
-}
-
-to {
-	bottom: 50px;
-	opacity: 1;
-}
-
-}
-@
--webkit-keyframes fadeout {
-	from {bottom: 50px;
-	opacity: 1;
-}
-
-to {
-	bottom: 0;
-	opacity: 0;
-}
-}
+	
+	div.card ul {
+		/* border: 1px solid purple; */
+		text-align: start;
+		padding: 0px
+	}
+	
+	div.card li {
+		display: block;
+		margin: 5px 0;
+	}
+	
+	div.card label {
+		display: inline-block;
+		width: 100px;
+		font-size: 1rem;
+		/* border: 1px solid red; */
+	}
+	
+	input, select {
+		margin: 2px 0;
+		width: 60px;
+		box-sizing: border-box;
+	}
+	
+	span.price {
+		display: block;
+		font-size: 1.3rem;
+		font-weight: bold;
+		/* border: 1px solid red; */
+	}
+	
+	p {
+		display: block;
+		text-align: end;
+		top: 0px;
+		right: 0px;
+		margin: 0;
+	}
+	
+	.move_button {
+		width: 100px;
+		height: 50px;
+		margin: 0 5px 0 5px;
+		background-color: #f4f4f2;
+		border: none;
+		border-radius: 3px;
+		box-shadow: 1px 1px 1px 0 #b6b6b65a, 0 1px 1px 0
+			rgba(155, 155, 155, 0.337);
+	}
+	
+	button#next {
+		background-color: #006633;
+		color: #fff;
+	}
+	
+	/* section 끝 */
+	#snackbar {
+		visibility: hidden;
+		min-width: 250px;
+		margin-left: -125px;
+		background-color: #006633;
+		color: #fff;
+		text-align: center;
+		border-radius: 2px;
+		padding: 16px;
+		position: fixed;
+		z-index: 1;
+		left: 50%;
+		bottom: 50px;
+		font-size: 17px;
+	}
+	
+	hr {
+		max-width: 50%;
+	}
+	
+	h2#total_price {
+		margin-right: 25vw;
+	}
+	
+	#snackbar.show {
+		visibility: visible;
+		-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	}
+	
+	@
+	-webkit-keyframes fadein {
+		from {bottom: 0;
+		opacity: 0;
+	}
+	
+	to {
+		bottom: 50px;
+		opacity: 1;
+	}
+	
+	}
+	@
+	keyframes fadein {
+		from {bottom: 0;
+		opacity: 0;
+	}
+	
+	to {
+		bottom: 50px;
+		opacity: 1;
+	}
+	
+	}
+	@
+	-webkit-keyframes fadeout {
+		from {bottom: 50px;
+		opacity: 1;
+	}
+	
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+	}
 </style>
 
 </head>
@@ -267,84 +267,99 @@ to {
 		<li id="confirmed"><span>결제완료</span></li>
 	</ul>
 	<div class="items_container">
-	
+
 		<c:if test="${not empty cart}">
-			<c:forEach var="item" varStatus="status" items="${cart }">										
+			<c:forEach var="item" varStatus="status" items="${cart }">
 				<div id="card${status.index}" class="card">
 					<p>
-						<button class="remove_button" id="${status.index}" onclick="remove_item(this.id)">×</button>
-						<input type="hidden" id="name${status.index }" value="${item.name}"/>
+						<button class="remove_button" id="${status.index}"
+							onclick="remove_item(this.id)">×</button>
+						<input type="hidden" id="name${status.index }"
+							value="${item.name}" />
 					</p>
 					<div class="card_detail_container">
-						<img width="120px" height="120px" src="/StarbucksWeb/images/products/${item.img}">
+						<img width="120px" height="120px"
+							src="/StarbucksWeb/images/products/${item.img}">
 						<div id="card_text">
 							<h3 id="menu_name">${item.name}</h3>
-							
-							<c:if test="${item.parentTable eq 'drink'}">
 							<form id='order_form'>
 								<ul>
-									<li>
-										
-									</li>
-									<li>
-										<label>사이즈</label> 
-										<select class="size" id="size${status.index}" name="size">
-											<option value='1' checked>톨</option>
-											<option value='2'>그란데</option>
-											<option value='3'>벤티</option>
-										</select>
-									</li>
-									<li>
-										<label>샷</label>
-										<input class="shot" id="shot${status.index}" onchange="update_shot(this)" type="number" value="${item.shot }" min='${item.shot }' max='5'>
-									</li>
-									<c:if test="${item.base ne '없음' }">
-										<li>
-											<label>${item.base }</label> 										
-											<select name='milk'>
-<!-- 												<option name='milk' value='none' checked>없음</option> -->
-												<option name='milk' value='less'>적음</option>
-												<option name='milk' value='regular' checked>보통</option>
-												<option name='milk' value='extra'>많이</option>
-											</select>
-										</li>									
-									</c:if>
-									<c:if test="${item.temperature eq 'iced' }">
-										<li>
-											<label>얼음</label> 
-											<select name='ice'>
-												<option name='milk' value='less'>적음</option>
-												<option name='milk' value='regular' checked>보통</option>
-												<option name='milk' value='extra'>많이</option>
-											</select>
-										</li>
-									</c:if>
-									<c:if test="${item.whippedCream ne 'none' }">
-										<li>
-											<label>${item.whippedCream }</label> 										
-											<select name='milk'>
-<!-- 												<option name='milk' value='none' checked>없음</option> -->
-												<option name='milk' value='less'>적음</option>
-												<option name='milk' value='regular' checked>보통</option>
-												<option name='milk' value='extra'>많이</option>
-											</select>
-										</li>									
-									</c:if>
+									<c:choose>
+										<c:when test="${item.parentTable eq 'drink'}">
+											<li>
+												<label>사이즈</label>
+												<select class="size" id="size${status.index}" name="size">
+													<option value='1' selected>톨</option>
+													<option value='2'>그란데</option>
+													<option value='3'>벤티</option>
+												</select>
+											</li>
+											<li>
+												<label>샷</label> 
+												<input class="shot"
+												id="shot${status.index}" onchange="update_shot(this)"
+												type="number" value="${item.shot }" min='${item.shot }'
+												max='5'>
+											</li>
+											<c:if test="${item.base ne '없음' }">
+												<li>
+													<label>${item.base }</label> 
+													<select name='base'>
+														<option id='base' value='less'>적음</option>
+														<option id='base' value='regular' selected>보통</option>
+														<option id='base' value='extra'>많이</option>
+													</select>
+												</li>
+											</c:if>
+											<c:if test="${item.temperature eq 'iced' }">
+												<li>	
+													<label>얼음</label>
+													<select name='ice'>
+														<option id="ice" value='less'>적음</option>
+														<option id='ice' value='regular' selected>보통</option>
+														<option id='ice' value='extra'>많이</option>
+													</select>
+												</li>
+											</c:if>
+											<c:if test="${item.whippedCream ne 'none' }">
+												<li>
+													<label>${item.whippedCream }</label> 
+													<select name='whippedCream'>
+														<option id='whippedCream' value='less'>적음</option>
+														<option id='whippedCream' value='regular' selected>보통</option>
+														<option id='whippedCream' value='extra'>많이</option>
+													</select>
+												</li>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+											<c:if test="${item.categoryName eq '따뜻한 푸드' }">
+												<li>
+													<label>워밍 옵션</label> 
+													<select style='width: 80px' name='warming'>
+														<option id='warming' value='warm' selected>따뜻하게 데움</option>
+														<option id='warming' value='none'>데우지 않음</option>
+													</select>
+												</li>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
 								</ul>
 							</form>
-							</c:if>
-							
 						</div>
 					</div>
-					<span class='price' id='price"+index+"' align='right'>${item.price}
-						원</span>
+					<span class="price" align="right"><span id="price${status.index}">${item.price}</span>원</span>
 				</div>
 			</c:forEach>
 		</c:if>
+		<c:if test="${ empty cart}">
+			<h3>장바구니가 비어있습니다.</h3>
+		</c:if>
+		
 	</div>
 	<div align="center">
 		<button class="move_button">뒤로</button>
-		<button class="move_button" id="next">다음</button>
+		<button class="move_button" >다음</button>
 	</div>
 </section>
 <div id="snackbar">알림용 스낵바입니다</div>
