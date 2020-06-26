@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
-import member.controller.GoogleMail;
+import login.controller.GoogleMail;
 import member.model.InterMemberDAO;
 import member.model.MemberDAO;
 
@@ -19,12 +19,14 @@ public class PwdFindAction extends AbstractController {
 		
 		String method = request.getMethod();
 		// "GET" or "POST"
+		String userid = request.getParameter("userid");
+		String email = request.getParameter("email");
 		
 		if("POST".equalsIgnoreCase(method)) {
 			// 비밀번호 찾기 모달창에서 찾기 버튼을 클릭했을 경우
 			
-			String userid = request.getParameter("userid");
-			String email = request.getParameter("email");
+			userid = request.getParameter("userid");
+			email = request.getParameter("email");
 			
 			InterMemberDAO memberdao = new MemberDAO();
 			

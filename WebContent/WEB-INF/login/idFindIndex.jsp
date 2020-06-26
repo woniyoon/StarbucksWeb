@@ -92,7 +92,7 @@
 		margin-left: 10px;
 		width: 85px;
 		height: 30px;
-		border-radius: none;
+		border-radius: 3px;
 		border: solid 1px #cccccc;
 	}
 	/*에러메시지*/
@@ -261,29 +261,7 @@
 	$(document).ready(function() {
 		
 	
-		// 이름 입력받기
-		$("span#name_error").hide();
-		
-		$("#name").blur(function(){
-			
-			var data = $(this).val().trim();
-			
-			if(data == "") {
-				// 입력하지 않거나 공백만 입력했을 경우
-				$("ul#able4").css("margin-bottom","40px");
-				$(this).parent().find("#name_error").show();
-				$("#name").addClass("bgcol"); 
-			}
-
-			else{
-				// 공백이 아닌 글자를 입력했을 경우
-				$("ul#able4").css("margin-bottom","16px");
-				$(this).parent().find("#name_error").hide();
-				$(":input").prop("disabled",false).removeClass("bgcol"); 
-				/* $("#id").addClas("successInput"); */
-			}
-			
-		}); // end of $("#name").blur(function()------------------------
+	
 
 	}); // end of window.onload = function()--------------
 	 
@@ -323,19 +301,19 @@
 			<div id="frame" class="2">	
 					<ul id="able4" class="body">	
 						<li>
-							<p style="font-weight: bold; margin-left: 10px; ">이름(필수)</p>
+							<p style="font-weight: bold; margin-left: 10px; ">이름</p>
 							<label for="name"></label>
 							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="name" id="name" class="requiredInfo" />
 
 							<br/>
-							<span class="error" id="name_error" style="margin-left: 15px; margin-top: 5px;">이름을 입력 하세요.</span>
+						
 						</li>
 					</ul>	
 
 				<div id="box">
 					<ul class="body">
 						<li>
-						   <p style="font-weight: bold; margin-left: 10px;">휴대폰(필수)</p>
+						   <p style="font-weight: bold; margin-left: 10px;">휴대폰</p>
 							<select class="form-control-tel requiredInfo" id="sel1 hp1" name="hp1" >
 						      	<option>010</option>
 						        <option>011</option>

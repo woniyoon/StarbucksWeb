@@ -147,18 +147,18 @@
 		padding-left: 35px;
 	}
 	
-	/* input[id="storage"]:checked + label {
-		 position: relative;
+	input[id="storage"]:checked + label {
+	 	position: relative;
 		display: inline-block; 
 		margin: 10px 10px 0 20px;
 		padding: 0;
 		cursor: pointer;
 		height: 26px;
 		vertical-align: top;
-		background-size: 26px;
-		padding-left: 35px; 
 		background: url('/StarbucksWeb/images/hyejeong/mem_check_on.png') no-repeat;
-	} */ 
+		background-size: 26px;
+		padding-left: 35px;
+	}  
 	
 	input#storage {
 		 position: absolute;
@@ -168,7 +168,7 @@
 		 border: 0 none;
 		 background: #fff;
 		 vertical-align: middle; 
-		 /* display: none; */
+		 display: none; 
 	}  
 	
 	
@@ -295,18 +295,22 @@
 			$("input:checkbox[id=storage]").prop("checked",true);
 		} */
 		
+		localStorage.removeItem('saveid');
+		
 		$("#label").click(function(){
 			
 			var isChecked = $("#storage").is(":checked");
 		//	alert(isChecked); // 1.false // 3.true
 			
 			if(isChecked==true) {
-			   $("#storage").attr("checked",false);
+			   $("#storage").attr("checked",false); 
 		//	   alert($("#storage").is(":checked")); // 4.false
+			   localStorage.removeItem('saveid');
 			}
 			else {
-				$("#storage").attr("checked",true); 
+				$("#storage").attr("checked",true);
 		//		alert($("#storage").is(":checked")); // 2. true
+				localStorage.setItem('saveid', $("#loginUserid").val());
 			}
 		});
 		
@@ -384,7 +388,7 @@
 			   <div id="idStg" style="text-align: left;">
 				<ul id="input">
 					<li style="height: 50px;">
-						<input type="checkbox" name="storage" id="storage" style="margin-left: 20px; border: 0 none; background: #fff; "/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="label" for="storage" >아이디 저장</label>
+						<input type="checkbox" name="storage" id="storage" style="margin-left: 20px; border: 0 none; background: #fff; "/><label id="label" for="storage" >아이디 저장</label>
 					</li>
 			  	</ul>
 			  </div> 

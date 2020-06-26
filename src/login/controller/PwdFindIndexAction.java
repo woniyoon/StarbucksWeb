@@ -11,7 +11,7 @@ public class PwdFindIndexAction extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/login/pwdFindIndex.jsp");
+			super.setViewPage("/WEB-INF/login/pwdFind.jsp");
 
 	}
 
