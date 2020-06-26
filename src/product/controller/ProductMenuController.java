@@ -20,8 +20,6 @@ public class ProductMenuController extends AbstractController {
 		
 		request.setAttribute("productList", productList);
 		
-//		request.setAttribute("nutritionList", nutritionList);
-		
 		super.setViewPage("/WEB-INF/product_view/product_menu.jsp");
 	} 
 

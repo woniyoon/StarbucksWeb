@@ -1,17 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MENU</title>
+<jsp:include page="../header.jsp" />
 
 <style type="text/css">
 
 	/* 전체 */
-	#container {
+	#detail_container {
 		/* border: solid 1px orange; */
 		width: 1100px;
 		margin: 0 auto;
@@ -468,7 +463,7 @@
 
 </head>
 <body>
-	<div id="container">
+	<div id="detail_container">
 		<!-- 타이틀 -->
 		<div class="title">
 			<h1>콜드 브루</h1>
@@ -610,5 +605,5 @@
 			</div>
 		</div>
 	</div>	
-</body>
-</html>
+	
+<jsp:include page="../footer.jsp" />

@@ -8,6 +8,4 @@ public interface InterProductDAO {
 	// product list
 	List<ProductVO> getProductList() throws SQLException;
 
-	List<ProductVO> getNutritionList() throws SQLException;
-
 }

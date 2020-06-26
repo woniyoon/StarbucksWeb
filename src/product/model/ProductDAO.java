@@ -91,7 +91,7 @@ public class ProductDAO implements InterProductDAO {
 				 
 				 ProductVO pvo = new ProductVO(parent_table, id, category_id, name, name_eng, description, price, img); 
 				 
-				 productList.add(pvo); //productList에 pco를 담아라 list에
+				 productList.add(pvo); //productList에 pvo를 담아라 list에
 			 }// end of while-----------------------------
 			 
 		} finally {
@@ -101,46 +101,5 @@ public class ProductDAO implements InterProductDAO {
 	}
 	
 	
-	@Override
-	public List<ProductVO> getNutritionList() throws SQLException {
-		
-		List<ProductVO> nutritionList = new ArrayList<>();
-		try {
-			conn = ds.getConnection();
-			String sql = " (select product_id,name,nutrition_seq,kcal,sodium,cholesterol,sugar,protein,allergy_triggers,parent_table "+
-					" from drink f join nutrition n "+
-					" on f.id = n.product_id) "+
-					" union all "+
-					" (select product_id,name,nutrition_seq,kcal,sodium,cholesterol,sugar,protein,allergy_triggers,parent_table "+
-					" from food f join nutrition n "+
-					" on f.id = n.product_id) ";
-			
-			pstmt = conn.prepareStatement(sql);
-			 
-			rs = pstmt.executeQuery(); 
-			
-			while(rs.next()) {
-				 String product_id = rs.getString("product_id");    
-				 String name = rs.getString("name");         
-				 int nutrition_seq = rs.getInt("nutrition_seq"); 
-				 int kcal = rs.getInt("kcal"); 
-				 int sodium = rs.getInt("sodium");          		
-				 int cholesterol = rs.getInt("cholesterol");          
-				 int    sugar = rs.getInt("sugar");                    
-				 int protein = rs.getInt("protein");  
-				 String allergy_triggers = rs.getString("allergy_triggers");          		
-				 String parent_table = rs.getString("parent_table");      
-				 
-			 	ProductVO pvo = new ProductVO(); 
-				 
-			 	nutritionList.add(pvo);
-			}
-		} finally {
-			close();
-		}
-		return nutritionList;
-		
 	
-	}
-
 }
