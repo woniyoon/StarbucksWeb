@@ -205,6 +205,7 @@ $(document).ready(function(){
 });
 
 
+// (비밀번호변경) 확인 버튼 클릭시
 function goUpdatePwd() {
 	
 	var flagBool = false;
@@ -254,20 +255,20 @@ function goUpdatePwd() {
 			
 			<div id="box2">
 				<strong>아이디</strong>			
-				<p class="id_text"><input type="text" name="userid" id="userid" value="${userid}" readonly /></p>
+				<p class="id_text"><input style="background-color: #f2f2f2; " type="text" name="userid" id="userid" value="${userid}" readonly /></p>
 			</div>
 
 			<div id="box3">
 				<strong>현재 비밀번호</strong>			
-				<p class="id_text"><input type="password" name="password" id="password" value="" class="requiredInfo" maxlength="20" placeholder="비밀번호를 입력해 주세요." /></p>
+				<p class="id_text"><input type="password" name="password" id="password" value="" class="requiredEditPW" maxlength="20" placeholder="비밀번호를 입력해 주세요." /></p>
 			</div>
 			
 			<div id="box4">
 				<strong>새 비밀번호</strong>			
 				<p class="id_text">
-				<input type="password" id="newPassword" name="newPassword" value="" class="requiredInfo" placeholder="영문, 숫자 혼합하여 10~20자리 이내로 입력하세요." />
+				<input type="password" id="newPassword" name="newPassword" value="" class="requiredEditPW" placeholder="영문, 숫자 혼합하여 10~20자리 이내로 입력하세요." />
 				<span class="error newPassword_error"></span>
-				<input type="password" id="passwordCheck" value="" class="requiredInfo" placeholder="비밀번호를 다시 한번 입력해 주세요." />
+				<input type="password" id="passwordCheck" value="" class="requiredEditPW" placeholder="비밀번호를 다시 한번 입력해 주세요." />
 				<span class="error passwordCheck_error"></span>
 				</p>
 			</div>

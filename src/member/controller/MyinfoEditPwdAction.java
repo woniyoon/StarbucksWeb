@@ -44,7 +44,7 @@ public class MyinfoEditPwdAction extends AbstractController {
 			membervo.setUserid(userid);
 			membervo.setPassword(password);
 			
-			System.out.println(userid);
+		//	System.out.println(userid);
 	     }
 	     
 	     

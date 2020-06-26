@@ -249,6 +249,8 @@ $(document).ready(function(){
 	
 	}
 	
+	
+	// 비밀번호 변경
 	function goEditPersonal(userid) {
 		var frm = document.myinfoEditPwdFrm;
 		frm.userid.value = userid;
@@ -258,10 +260,22 @@ $(document).ready(function(){
 		frm.submit();
 	}
 
+	
+	// 회원정보 변경
+	function goEditInfo(name) {
+ 		var frm = document.goEditInfoFrm;
+
+		frm.method = "POST";
+		frm.action = "/StarbucksWeb/member/myinfoEdit.sb";
+		frm.submit(); 
+		
+	//	alert("확인용 :"+ name);
+	}
 
 </script>
 </head>
 <body onload="showImage()">
+<form name="goEditInfoFrm">
 <div id="container">
      <header>
      	<div id="box1"></div>
@@ -297,7 +311,25 @@ $(document).ready(function(){
 	     		</p>
 	     		<div class="user_edit">
 		     		<ul>
-		     			<li class="btn_black"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보 수정</a></li>
+		     			<li class="btn_black"><a href="javascript:goEditInfo('${(sessionScope.loginuser).name}');">
+		     			<input type="hidden" name="name" value="${(sessionScope.loginuser).name}"/>
+		     			<input type="hidden" name="userid" value="${(sessionScope.loginuser).userid}"/>
+		     			<input type="hidden" name="gender" value="${(sessionScope.loginuser).gender}"/>
+		     			
+		     			<%-- >
+		     			
+ 		     			<input type="hidden" name="Birthyyyy" value="${(sessionScope.loginuser).Birthyyyy}"/>
+		     			<input type="hidden" name="Birthmm" value="${(sessionScope.loginuser).Birthmm}"/>
+		     			<input type="hidden" name="Birthdd" value="${(sessionScope.loginuser).Birthdd}"/>
+ 		     			<input type="hidden" name="birthSol" value="${(sessionScope.loginuser).birthSol}"/>
+ 		     			
+ 		     			--%>
+ 		     			
+		     			<input type="hidden" name="hp1" value="${(sessionScope.loginuser).hp1}"/>
+		     			<input type="hidden" name="hp2" value="${(sessionScope.loginuser).hp2}"/>
+		     			<input type="hidden" name="hp3" value="${(sessionScope.loginuser).hp3}"/>
+		     			<input type="hidden" name="email" value="${(sessionScope.loginuser).email}"/>
+		     			개인정보 수정</a></li>
 		     			<li class="btn_gray"><a href="javascript:goEditPersonal('${(sessionScope.loginuser).userid}');">비밀번호 변경</a></li>
 		     		</ul>
 	     		</div>
@@ -356,13 +388,11 @@ $(document).ready(function(){
      		</div>
      	</div>
      </nav>
-     
-    <!-- <footer></footer> -->
 </div>
+</form>
 
 <form name="myinfoEditPwdFrm">
 	<input type="hidden" name="userid"/>
 </form>
-
 
 <jsp:include page="footer.jsp" />

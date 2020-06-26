@@ -1,204 +1,218 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>개인정보 수정</title>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
+<%
+	String ctxPath = request.getContextPath();
+%> 
+
+<jsp:include page="../header.jsp" />    
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 <style type="text/css">
 	
+	body {
+		font-family: 'nbg', '맑은 고딕', HelveticaNeue, DroidSans, Sans-serif, Helvetica;
+	}
+	
 	* {
-		margin: 0px;
-		padding: 0px;
+		margin: 0;
 	}
 	
-	header {
-		/* position: fixed; */
-		height: 100px; 
-		background-color : green;
+	/* 전체 틀 & 중간항목 기본form 값*/
+
+	div#container { 
+		/* width: 100%;
+	    margin: 0 auto;
+	    padding: 0; */
+		/* text-align: center;	 */			
+		/* border: 1px solid red; */
+	}
+
+	div#frame {
+		width: 550px;
+		margin: 20px auto;
+		padding: 0;
+		border: solid 1px #cccccc;
+		border-radius: 3px;
+	}
+
+	div#box {
+		border-top: solid 1px #cccccc;
+		border-radius: 3px;
 	}
 	
-	#con1 {
+	input {
+		margin: 10px;
+		box-shadow: none;
+		border: solid 1px #cccccc;
+		border-radius: 3px;
+	}
+	
+	ul {
+		list-style-type: none;
+	}
+	
+	ul.body {
+		width: 510px;
+		padding: 10px 15px;
+		list-style-type: none;
+		padding-inline-start: 15px;
+	}
+	
+	
+	fieldset {
+         text-align: left;
+         border: 0px;
+	}
+	
+	legend {
+		font-size: 20pt;
+		font-weight: bold;	
+	}
+	
+	/* fieldset>ul#body {
+		padding: 30px;
+		list-style: none;
+	} */
+	
+	fieldset>ul#body>li>label:first-child {
+		display: inline-block;
+		width: 10%;
+		/* border: solid 1px green; */
+	} 
+	
+	p {
+		margin: 0;
+		margin-top: 10px;
+	}
+
+	select {
+		margin-top: 15px;
+		margin-left: 10px;
+		width: 100px;
+		height: 40px;
+		border-radius: none;
+		border: solid 1px #cccccc;
+	}
+	/*에러메시지*/
+	
+	span.error {
+		color: red;
+		font-size: 11pt;
+		float: left;
+		margin: 10px;
+		margin-top: 15px;
+	}
+	
+	/* 성공메시지 */
+	
+	span.success {
+		color: #444;
+		float: left;
+		margin: 10px;
+	}
+	
+	/* 입력 - 가능 */
+	
+	.successInput {
+		background: #f2f2f2;
+	}
+	
+	/* 입력 - 비활성화 */
+	
+	.bgcol {
+		border: solid 1px red;
+	}
+	
+	/*아이디~비밀번호확인*/
+	
+	div#headImg {
+		padding: 10px;
+		margin: 20px;
+	}
+	
+	input.input1 {
 		width: 500px;
 		height: 50px;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 50px;
-		font-size: 35px;
-		text-align: center;
-		/* border: solid 1px blue; */
-	} 	
+		margin: 0 10px;
+		padding-left: 8px;
+		border-radius: 3px;
+	}
+
+	/* 이름~메일 */
 	
-	nav {
-		width: 700px;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 20px;
-		/* border: solid 1px red; */	
+	input#name {
+		height: 40px;
+	} 
+	
+	.btn-danger {
+	    color: gray;
+	    background-color: white;
+	    /* background-color: #f2f2f2; */
+	    border-color: #a6a6a6;
 	}
 	
-	nav:after {
-		content: '';
-		clear: both;
-		display: block;
-	}
-	 
-	#box1 {
-		width: 700px;
-		height: 130px;
-		float: left;
-		border: solid 1px #EAEAEA;
+	.btn-danger:hover {
+	    color: black;
+	    background-color: #f2f2f2;
+	    border-color: #a6a6a6;
 	}
 	
-	strong { /* 아이디, 비밀번호 title */
-		font-size: 20pt;
-		padding-left: 20px;
+	.btn-danger:not(:disabled):not(.disabled).active, .btn-danger:not(:disabled):not(.disabled):active, .show>.btn-danger.dropdown-toggle{
+		color: black;
+	    background-color: #f2f2f2;
+	    border-color: #a6a6a6;
+	} 
+	
+	.btn-danger.focus {
+		box-shadow: none;
+	}
+	
+	.btn-group-vertical>.btn.active, .btn-group-vertical>.btn:active, .btn-group-vertical>.btn:focus, .btn-group>.btn.active, .btn-group>.btn:active, .btn-group>.btn:focus {
+		z-index: auto;
+	}
+	
+	input[id="agree"] + label {
+		float: right; 
 		margin-top: 10px;
-		display: block;
+		cursor: pointer; 
+		width: 50px; 
+		height: 50px;
+		background: url('/StarbucksWeb/images/hyejeong/mem_check_off.png') left center no-repeat;
 	}
 	
-	.id_text {
-		padding: 20px;
+	input[id="agree"]:checked + label {
+		background-image: url("/StarbucksWeb/images/hyejeong/mem_check_on.png");
+	} 
+	
+	input[id="agree"] {
+		 display: none; 
 	}
 	
-	#id {
-		width: 100%;
-		height: 40px;
-		font-size: 12pt;
-		display: inline-block;
-		max-width: 530px;
-		background-color: #F4F4F2;
-		border: 1px solid #ddd;
+	select#sel1 {
+		margin: 10px 0 10px 10px;
+		width: 70px;
+		height: 30px;
+		border-radius: 3px;
 	}
 	
-	#box2 {
-		width: 700px;
-		height: 800px;
-		margin-top: 20px;
-		float: left;
-		/* background-color: pink; */
+	input.form-control-tel {
+		width: 100px;
+		margin: 10px 0;
 	}
-	
-	#box2-1 {
-		width: 700px;
-		height: 130px;
-		float: left;
-		margin-top: 5px;
-		border: solid 1px #EAEAEA;
-	}
-	
-	#name {
-		width: 300px;
-		height: 40px;
-		font-size: 12pt;
-		display: inline-block;
-		max-width: 530px;
-		background-color: #F4F4F2;
-		border: 1px solid #ddd;
-	}
-	
-	#box2-1 input[type=radio] {
-		margin-left: 15px;
-		zoom: 2;
-	}
-	
-	a:hover {
-    	text-decoration: underline;
-	}
-	
-	.btn_change_name {
-		background: #666;
-	    border-radius: 3px;
-	    color: #fff;
-	    display: block;
-	    float: right;
-	    line-height: 46px;
-	    text-align: center;
-	    width: 24%;
-	}
-	
-	#box2-2 {
-		width: 700px;
-		height: 200px;
-		float: left;
-		border: solid 1px #EAEAEA;
-	}
-	
-	#birthday {
-		width: 100%;
-		height: 40px;
-		font-size: 12pt;
-		display: inline-block;
-		max-width: 530px;
-		background-color: #F4F4F2;
-		border: solid 1px navy;
-	}
-	
-	.select_birth_box2 {
-		font-size: 15pt;
-		margin-left: 20px;
-		margin-top: 20px;
-	}
-	
-	select {
-		font-size: 25pt;
-		margin-right: 5px;
-	}
-	
-	#box2-3 {
-		width: 700px;
-		height: 200px;
-		float: left;
-		border: solid 1px #EAEAEA;
-	}
-	
-	#phone {
-		width: 450px;
-		height: 40px;
-		font-size: 12pt;
-		display: inline-block;
-		max-width: 530px;
-		background-color: #F4F4F2;
-		border: 1px solid #ddd;
-	}
-	
-	.btn_change_phone {
-	    border-radius: 3px;
-	    color: #fff;
-	    float: right;
-	    margin-right: 50px;
-	    line-height: 46px;
-	    text-align: center;
-	    width: 20%;
-	    background: #006633;
-	}
-	
-	#box2-4 {
-		width: 700px;
-		height: 200px;
-		float: left;
-		border: solid 1px #EAEAEA;
-	}
-	
-	#mail {
-		width: 100%;
-		height: 40px;
-		font-size: 12pt;
-		display: inline-block;
-		max-width: 530px;
-		background-color: #F4F4F2;
-		border: 1px solid #ddd;
-	}
-	
+
 	#con2 {
 		width: 900px;
 		height: 50px;
-		margin-top: 30px;
+		margin-top: 50px;
 		margin-right: auto;
 		margin-left: auto;
 		font-weight: bold;
-		font-size: 16pt;
+		text-align: center;
+		font-size: 14pt;
 		/* background-color: yellow; */
 	}
 	
@@ -210,127 +224,427 @@
 		margin-left: auto;
 		border-radius: 3px;
 		background-color: #006633;
-	}	
-	
-	.line {
-    	border-top: 1px solid #ddd;
-	}
-	
-	label {
-		font-size: 12pt;
-		margin-top: 20px;
-		display: block;    
 	}
 	
 	.btn_ok {
-		color: white;
+		color: white !important;
 		text-decoration: none;
 		cursor: pointer;
 		font-size: 24pt;
 		line-height: 100px;
 		display: block;
 		text-align: center;
+	}		
+		
+	a:hover {
+    	text-decoration: underline !important;
 	}
 	
-	
-	footer {
-		margin-top: 80px;
-		height: 300px;
-		background-color: black;
+	input[type=radio]:checked {
+		border: solid 3px red;
 	}
-
 
 </style>
 
+<script type="text/javascript" src="/StarbucksWeb/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/StarbucksWeb/util/myutil.js"></script>
+
 <script type="text/javascript">
 
-</script>
+	$(document).ready(function() {
+		
+		var now = new Date();
+		// 자바스크립트에서 현재날짜시각을 알려주는 것이다.
+		var currentYear = now.getFullYear(); // 현재년도
+	
+		
+		// 이름 입력받기
+		$("span#name_error").hide();
+		
+		$("#name").blur(function(){
+			
+			var data = $(this).val().trim();
+			
+			if(data == "") {
+				// 입력하지 않거나 공백만 입력했을 경우
+				$("ul#able4").css("margin-bottom","40px");
+				$(this).parent().find("#name_error").show();
+				$("#name").addClass("bgcol"); 
+			}
 
-</head>
-<body>
-	<div id="container">
-		<header></header>
-		
-		<h2 id="con1">개인정보 확인 및 수정</h2>
-		
-		<nav>
-		
-			<div id="box1">
-				<strong>아이디</strong>			
-				<p class="id_text"><input type="text" id="id" /></p>
-			</div>
-			<div id="box2">
-				<div id="box2-1">
-					<strong>이름(필수)</strong>			
-					<p class="id_text">
-					<input type="text" id="name" />
-					<input type="radio" name="gender" value="남">남
-                    <input type="radio" name="gender" value="여" checked>여
-                    <a class="btn_change_name"><font size="4">변경</font></a>
-                    </p>
-				</div>
+			else{
+				// 공백이 아닌 글자를 입력했을 경우
+				$("ul#able4").css("margin-bottom","16px");
+				$(this).parent().find("#name_error").hide();
+				$(":input").prop("disabled",false).removeClass("bgcol"); 
+				/* $("#id").addClas("successInput"); */
+			}
 			
-				<div id="box2-2">
-					<strong>생년월일(필수)</strong>
-					<div class="select_birth_box">
-						<div class="select_birth_box2">			
-	                    <script type="text/javascript">
-	                         var today = new Date();
-	                         var toyear = parseInt(today.getFullYear ());
-	                         var start = toyear;
-	                         var end = toyear - 35;
-	
-	                         document.write("<select name=birth1> ");
-	                         document.write("<option value='2020' selected>");
-	                         for (i=start;i>=end;i--) document.write("<option>"+i);
-	                         document.write("</select>년  ");
-	
-	                         document.write("<select name=birth2>");
-	                         document.write("<option value='' selected>");
-	                         for (i=1;i<=12;i++) document.write("<option>"+i);
-	                         document.write("</select>월  ");
-	
-	                         document.write("<select name=birth3>");
-	                         document.write("<option value='' selected>");
-	                         for (i=1;i<=31;i++) document.write("<option>"+i);
-	                         document.write("</select>일  </font>");
-	                         
-	                         
-                         </script>
-                         </div>
-                    <font size="3.5"><br>생일 무료 음료 쿠폰은 1년에 1번만 발행되므로, 변경 후에도 해당 연도 내 발행 이력이 있는 경우 추가 발행되지 않습니다.</font>
-                   </div>
-				</div>
+		}); // end of $("#name").blur(function()------------------------
+		
+		
+		// 메일 입력받기
+		$("span#email_error").hide();	
+		
+		$("#email").blur(function(){
 			
-				<div id="box2-3">
-					<strong>휴대폰(필수)</strong>			
-					<p class="id_text">
-					<input type="text" id="phone" />
-					<a class="btn_change_phone"><font size="4">인증</font></a>
-					<label class="line"></label>
-					<label for="agreement1">SMS를 통한 이벤트 및 신규 매장 정보 수신에 동의합니다.[선택]</label>
-					</p>
-				</div>
+			var data = $(this).val().trim();
+			
+			if(data == "") {
+				// 입력하지 않거나 공백만 입력했을 경우
+				$("ul#able5").css("margin-bottom","40px");
+				$(this).parent().find("#email_error").show();
+				$("#email").addClass("bgcol"); 
+			}
+
+			else{
+				// 공백이 아닌 글자를 입력했을 경우
 				
-				<div id="box2-4">
-					<strong>메일(필수)</strong>			
-					<p class="id_text">
-					<input type="text" id="mail" /><br>
-					<label class="line"></label>
-					<label for="agreement3">이메일을 통한 이벤트 및 신규 매장 정보 수신에 동의합니다.[선택]</label>
-					</p>
-				</div>
+				// 이메일 정규식 : 
+				var regExp = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+				var bool = regExp.test($(this).val()); 
+
+				if(!bool) { 
+					// 조건에 맞지않으면
+					$("span#email_error").html("이메일 형식에 맞게 입력해주세요.").show();
+					$("ul#able5").css("margin-bottom","40px");
+					$("#email").addClass("bgcol");  
+					
+					return;
+				} 
+				
+				$("ul#able5").css("margin-bottom","16px");
+				$(this).parent().find("#email_error").hide();
+				$(":input").prop("disabled",false).removeClass("bgcol"); 	
+				
+			}
 			
+		 });// end of $("#email").blur()--------------
+	
+		 
+	   // 출생년도 옵션
+	   var yearOption = "<option>2020</option>"; //화살표 누르면 나올 년도 옵션
+	   for(var i=0; i<currentYear-1950+1; i++){ 
+		   yearOption += "<option>"+(1950+i)+"</option>";
+	   }
+	   
+	   document.getElementById("Birthyyyy").innerHTML = yearOption; //birthYear의 태그를 잡아서 옵션에 넣기
+		
+	}); // end of window.onload = function()--------------
+	 
+	function selectYear() {
+		
+		var sBirthYear = document.getElementById("Birthyyyy").value;
+
+		var bNaN = isNaN( Number(sBirthYear) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생년도를 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthYear) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectYear()-------------
+
+	function selectMonth() {
+		
+		var sBirthMonth = document.getElementById("Birthmm").value;
+
+		var bNaN = isNaN( Number(sBirthMonth) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생달을 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthMonth) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectMonth()-------------
+
+	function selectDay() {
+		
+		var sBirthYear = document.getElementById("Birthdd").value;
+		
+	//	alert(sBirthYear);
+	//	alert(typeof sBirthYear); ==> string
+	
+		var bNaN = isNaN( Number(sBirthYear) ); 
+				/* 
+	    			isNaN( Number(sBirthYear) )은 
+	    			Number(sBirthYear)이 숫자가 아니라면(출생년도) true이고,
+	    			Number(sBirthYear)이 숫자라면 false이다. 
+				*/ 
+		
+		if(bNaN) {
+			alert("출생년도를 선택하세요");
+			document.getElementById("currentAge").innerHTML = "";
+		}
+				
+		else {
+			 // 나이를 구하려면 -(빼기)를 해야하므로 string타입을 number타입으로 바꿔주기
+		    
+	    	var currentAge = currentYear - Number(sBirthYear) + 1; // 현재나이
+	    	
+	    	document.getElementById("currentAge").innerHTML = currentAge;
+		}
+	
+	}// end of function selectDay()------------- */
+	
+	
+	
+	function goRegister() {
+		  
+	   	  var bFlag = false;
+	   	  $("input:radio[name=gender]").each(function(){ // 반복문
+
+	   		var bChecked = $(this).prop("checked");
+	   		if(bChecked) {
+	   			console.log(bChecked);
+	   			bFlag = true;
+	   			return false;
+	   		} 
+	   	}); 
+	   	  
+	   	  if(!bFlag) {
+	   		  alert("성별을 선택하셔야 합니다.");
+	   		  return;
+	   	  }
+	   	  
+	   	   
+	   	  if( !$("input:checkbox[id=agree]").prop("checked") ) {
+	   		  alert("이용약관에 동의하셔야 합니다.");
+	   		  return;
+	   	  } 
+	   	 
+	   	  var bRequiredInfo = false;
+	   	  $(".requiredInfo").each(function(){
+		  	var data = $(this).val().trim();
+			if(data == "") {
+				bRequiredInfo = true;
+				$(this).focus();
+				return false;
+			}
+		  }); // end of $(".requiredInfo").each()-------
+		  // 선택자.each(); 은 선택자의 갯수만큼 반복처리를 해주는 것이다.
+		  // 그러므로 $(".requiredInfo").each(); 은
+		  // 클래스가 requiredInfo 인 것마다 하나하나씩 반복업무를 해주는 것이다.
+	   	  
+		  if(!bRequiredInfo) {
+			  var frm = document.registerFrm;
+		   	  frm.method = "POST";
+		   	  frm.action = "memberRegister.sb";
+		   	  frm.submit();
+		  }
+	   	  
+		}// end of function goRegister(event)----------
+
+	
+	// 정보수정 버튼 클릭시
+	function goUpdateInfo() {
 			
+		var flagBool = false;
+		
+		$(".requiredInfo").each(function(){
+			var data = $(this).val().trim();
+			if(data=="") {
+				flagBool = true;
+				return false;
+			}
+		});
+		
+		
+		if(flagBool) {
+			alert("변경사항을 입력하세요!");
+			return;
+		}
+		
+		else {
+			var frm = document.updatePwdFrm;
+			frm.method = "POST";
+			frm.action = "/StarbucksWeb/member/myinfoEditPwdEnd.sb";
+			frm.submit();
+		}	
+			
+	}
+
+</script>	
+
+<div id="container">
+	<form name="registerFrm" style="margin-top: 80px; margin-bottom: 80px;">
+		<fieldset>
+			<legend style="text-align: center;">개인정보 확인 및 수정</legend>
+			<div id="form" >
+			<div id="frame" class="1" style="text-align: center;">
+			  	
+			  <div id="box">
+				<ul id="able1" class="body">
+					<li>
+						<p style="font-weight: bold; float: left; margin-left: 10px; ">아이디</p>
+						<label for="userid"></label>
+						<input style="margin-top: 10px; background-color: #f2f2f2; " class="input1 requiredInfo" type="text" name="userid" id="userid" value="${userid}" readonly /> 
+					</li>
+				</ul>		
+			  </div>	
+			  
 			</div>
+			<div id="frame" class="2">	
+					<ul id="able4" class="body">	
+						<li>
+							<p style="font-weight: bold; margin-left: 10px; ">이름(필수)</p>
+							<label for="name"></label>
+							<input style="margin-top: 10px; background-color: #f2f2f2; border-radius: 3px;" type="text" name="name" id="name" value="${name}" class="requiredInfo" />
+
+							<!-- 남/여 성별선택하기 -->
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+								<c:choose>
+									<c:when test="${gender eq 1 }">
+										<label class="btn btn-danger on active focus">									
+									</c:when>
+									<c:otherwise>
+										<label class="btn btn-danger">									
+									</c:otherwise>
+								</c:choose>
+									<input type="radio" name="gender" id="jb-radio jb-radio-1" value="1" <c:if test="${gender eq '1'}">checked</c:if>>
+									남	
+								</label>
+								<c:choose>
+									<c:when test="${gender eq 2 }">
+										<label class="btn btn-danger on active focus">									
+									</c:when>
+									<c:otherwise>
+										<label class="btn btn-danger">									
+									</c:otherwise>
+								</c:choose>
+									<input type="radio" name="gender" id="jb-radio jb-radio-1" value="1" <c:if test="${gender eq '1'}">checked</c:if>>
+									여
+								</label>
+							</div>
+							<br/>
+							<span class="error" id="name_error" style="margin-left: 15px; margin-top: 5px;">이름을 입력 하세요.</span>
+						</li>
+					</ul>
+						
+				<div id="box">
+					<ul class="body">
+						<li>
+							<p style="font-weight: bold; margin-left: 10px;">생년월일(필수)</p>
+							<select name="Birthyyyy" id="Birthyyyy" onchange="selectYear();"></select>
+							
+							<select id="Birthmm" name="Birthmm" onchange="selectMonth();">
+								<option value ="01">01</option>
+								<option value ="02">02</option>
+								<option value ="03">03</option>
+								<option value ="04">04</option>
+								<option value ="05">05</option>
+								<option value ="06">06</option>
+								<option value ="07">07</option>
+								<option value ="08">08</option>
+								<option value ="09">09</option>
+								<option value ="10">10</option>
+								<option value ="11">11</option>
+								<option value ="12">12</option>
+							</select> 
+							
+								<select id="Birthdd" name="Birthdd" onchange="selectDay();">
+									<option value ="01">01</option>
+									<option value ="02">02</option>
+									<option value ="03">03</option>
+									<option value ="04">04</option>
+									<option value ="05">05</option>
+									<option value ="06">06</option>
+									<option value ="07">07</option>
+									<option value ="08">08</option>
+									<option value ="09">09</option>
+									<option value ="10">10</option>
+									<option value ="11">11</option>
+									<option value ="12">12</option>
+									<option value ="13">13</option>
+									<option value ="14">14</option>
+									<option value ="15">15</option>
+									<option value ="16">16</option>
+									<option value ="17">17</option>
+									<option value ="18">18</option>
+									<option value ="19">19</option>
+									<option value ="20">20</option>
+									<option value ="21">21</option>
+									<option value ="22">22</option>
+									<option value ="23">23</option>
+									<option value ="24">24</option>
+									<option value ="25">25</option>
+									<option value ="26">26</option>
+									<option value ="27">27</option>
+									<option value ="28">28</option>
+									<option value ="29">29</option>
+									<option value ="30">30</option>
+									<option value ="31">31</option>
+								</select> 
+								<select name="birthSol" id="birthSol" onchange="selectLuSol();">
+									<option>양</option>
+									<option>음</option>
+								</select>
+							<p style="font-size: 9pt; margin-left: 15px;">생일 무료 음료 쿠폰은 1년에 1번만 발행되므로, 변경 후에도 해당 연도 내 발행 이력이 있는 경우 추가 발행되지 않습니다.</p>
+						</li>
+					</ul>
+				</div>
+				<div id="box">
+					<ul class="body">
+						<li>
+						   <p style="font-weight: bold; margin-left: 10px;">휴대폰(필수)</p>
+							<select class="form-control-tel requiredInfo" id="sel1 hp1" name="hp1" value="${hp1}" >
+						      	<option>010</option>
+						        <option>011</option>
+						        <option>016</option>
+						        <option>017</option>
+						        <option>018</option>
+						        <option>019</option>
+						    </select> - <input class="form-control-tel requiredInfo" type="text" id="hp2" name="hp2" value="${hp2}" maxlength="4" /> - <input class="form-control-tel requiredInfo" type="text" id="hp3" name="hp3" value="${hp3}" maxlength="4" />
+		            	</li>
+	            	</ul>
+	            </div>	
+	            <div id="box">
+		            <ul class="body" id="able5">
+						<li>
+							<p style="font-weight: bold; margin-left: 10px;">메일(필수)</p>
+							<label for="email"></label>
+							<input class="input1 requiredInfo" type="email" name="email" id="email" value="${email}" placeholder="E-mail을 입력하세요." />
+							<span class="error" id="email_error">메일을 입력해주세요.</span>
+						</li>
+					</ul>	
+				</div>
+			</div>
+			
+			<div id="con2"><b>＊ 선택항목은 입력하지 않거나 동의하지 않아도 스타벅스 서비스를 이용하실 수 있습니다.</b></div>		
 		
-		</nav>
+			<div id="con3"><a class="btn_ok" onClick="goUpdateInfo();" >정보수정</a></div>
 		
-		<div id="con2"><b>＊ 선택항목은 입력하지 않거나 동의하지 않아도 스타벅스 서비스를 이용하실 수 있습니다.</b></div>		
-		
-		<div id="con3"><a class="btn_ok" href="myinfo_edit.html">정보수정</a></div>
-		
-		<footer></footer>
-	</div>
-</body>
-</html>
+
+			</div>	
+		</fieldset>
+	</form>
+</div>
+
+
+<jsp:include page="../footer.jsp" />

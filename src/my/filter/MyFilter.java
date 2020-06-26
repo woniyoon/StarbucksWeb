@@ -18,7 +18,7 @@ public class MyFilter implements Filter {
 	*/
 
 
-	   @Override
+	   @Override 
 	   public void destroy() {
 	      // 필터 인스턴스를 종료시키기 전에 호출되는 메소드 
 	      // 지금은 여기에 기술할 것이 없다.
