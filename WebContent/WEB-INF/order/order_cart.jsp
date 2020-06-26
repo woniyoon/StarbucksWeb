@@ -89,7 +89,7 @@
 			max-height: 180px;
 			/* border: 2px solid black; */
 		}
-		div#card_text {
+		div.card_text {
 			display: flex;
 			flex: 3;
 			flex-direction: column;
@@ -121,7 +121,7 @@
 		height: 220px;
 	}
 	
-	div#card_text {
+	div.card_text {
 		display: flex;
 		flex: 3;
 		flex-direction: column;
@@ -250,6 +250,8 @@
 		opacity: 0;
 	}
 	}
+	
+}
 </style>
 
 </head>
@@ -269,62 +271,86 @@
 	<div class="items_container">
 
 		<c:if test="${not empty cart}">
-			<c:forEach var="item" varStatus="status" items="${cart }">
+			<c:forEach var="cart" varStatus="status" items="${cart }">
 				<div id="card${status.index}" class="card">
 					<p>
 						<button class="remove_button" id="${status.index}"
 							onclick="remove_item(this.id)">×</button>
 						<input type="hidden" id="name${status.index }"
-							value="${item.name}" />
+							value="${cart.product.name}" />
 					</p>
 					<div class="card_detail_container">
 						<img width="120px" height="120px"
-							src="/StarbucksWeb/images/products/${item.img}">
-						<div id="card_text">
-							<h3 id="menu_name">${item.name}</h3>
-							<form id='order_form'>
-								<ul>
+							src="/StarbucksWeb/images/products/${cart.product.img}">
+						<div class="card_text" id="${cart.itemSeq }">
+							<h3 id="menu_name">${cart.product.name}</h3>
+<!-- 							<form id='order_form'>-->
+								<ul id="${cart.itemSeq }">
 									<c:choose>
-										<c:when test="${item.parentTable eq 'drink'}">
+										<c:when test="${cart.product.parentTable eq 'drink'}">
 											<li>
 												<label>사이즈</label>
-												<select class="size" id="size${status.index}" name="size">
-													<option value='1' selected>톨</option>
-													<option value='2'>그란데</option>
-													<option value='3'>벤티</option>
+												<select class="size" id="${cart.itemSeq }" name="size">
+													<option value="tall" selected>톨</option>
+													<option value="grande">그란데</option>
+													<option value="venti">벤티</option>
 												</select>
+												<span id="extra_size" style="display:none"></span>
 											</li>
 											<li>
 												<label>샷</label> 
 												<input class="shot"
-												id="shot${status.index}" onchange="update_shot(this)"
-												type="number" value="${item.shot }" min='${item.shot }'
+												id="${cart.itemSeq }" name="shot"
+												type="number" value="${cart.product.shot }" min='${cart.product.shot }'
 												max='5'>
+												<span id="extra_shot" style="display:none"></span>
 											</li>
-											<c:if test="${item.base ne '없음' }">
+											<li>
+											<c:choose>
+												<c:when test="${cart.product.syrup ne '없음' }">
+													<label>${cart.product.syrup }</label> 
+													<select id="syrup${cart.itemSeq }" name='defult_syrup'>
+														<option id='syrup' value='less'>적음</option>
+														<option id='syrup' value='regular' selected>보통</option>
+														<option id='syrup' value='extra'>많이</option>
+													</select>
+												</c:when>
+												<c:otherwise>
+													<label>시럽</label> 
+													<select id="syrup${cart.itemSeq }" name='syrup'>
+														<option id='syrup' value='none' selected>없음</option>
+														<option id='syrup' value='vanilla'>바닐라시럽</option>
+														<option id='syrup' value='hazelnut'>헤이즐넛시럽</option>
+														<option id='syrup' value='caramel'>카라멜시럽</option>
+													</select>
+													<span id="extra_syrup" style="display:none"></span>
+												</c:otherwise>
+											</c:choose>
+											</li>
+											<c:if test="${cart.product.base ne '없음' }">
 												<li>
-													<label>${item.base }</label> 
-													<select name='base'>
+													<label>${cart.product.base }</label> 
+													<select id="${cart.itemSeq }" name='base'>
 														<option id='base' value='less'>적음</option>
 														<option id='base' value='regular' selected>보통</option>
 														<option id='base' value='extra'>많이</option>
 													</select>
 												</li>
 											</c:if>
-											<c:if test="${item.temperature eq 'iced' }">
+											<c:if test="${cart.product.temperature eq 'iced' }">
 												<li>	
 													<label>얼음</label>
-													<select name='ice'>
+													<select id="${cart.itemSeq }" name='ice'>
 														<option id="ice" value='less'>적음</option>
 														<option id='ice' value='regular' selected>보통</option>
 														<option id='ice' value='extra'>많이</option>
 													</select>
 												</li>
 											</c:if>
-											<c:if test="${item.whippedCream ne 'none' }">
+											<c:if test="${cart.product.whippedCream ne 'none' }">
 												<li>
-													<label>${item.whippedCream }</label> 
-													<select name='whippedCream'>
+													<label>${cart.product.whippedCream }</label> 
+													<select id="${cart.itemSeq }" name='whippedCream'>
 														<option id='whippedCream' value='less'>적음</option>
 														<option id='whippedCream' value='regular' selected>보통</option>
 														<option id='whippedCream' value='extra'>많이</option>
@@ -333,10 +359,10 @@
 											</c:if>
 										</c:when>
 										<c:otherwise>
-											<c:if test="${item.categoryName eq '따뜻한 푸드' }">
+											<c:if test="${cart.product.categoryName eq '따뜻한 푸드' }">
 												<li>
 													<label>워밍 옵션</label> 
-													<select style='width: 80px' name='warming'>
+													<select style='width: 80px' id="${cart.itemSeq }" name='warming'>
 														<option id='warming' value='warm' selected>따뜻하게 데움</option>
 														<option id='warming' value='none'>데우지 않음</option>
 													</select>
@@ -345,10 +371,11 @@
 										</c:otherwise>
 									</c:choose>
 								</ul>
-							</form>
+	<!-- 						</form> -->
 						</div>
 					</div>
-					<span class="price" align="right"><span id="price${status.index}">${item.price}</span>원</span>
+					<span class="price" align="right"><span id="price${cart.itemSeq}">${cart.product.price}</span>원</span>
+					<input class="original_price" type="hidden" value="${cart.product.price }"/>
 				</div>
 			</c:forEach>
 		</c:if>
