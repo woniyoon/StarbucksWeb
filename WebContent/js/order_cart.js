@@ -54,9 +54,7 @@ $(document).ready(function(){
 			$("span#extra_size").prop("text", (Number(price_list["size"]) * (size_dictionary[value]-1)));
 			console.log("사이즈 아이템의 이름 :  " + selected_item.name);
 		} else if(selected_item.name == "shot") {
-			console.log(" shot minimum value : " + selected_item.min);
-			console.log("샷 아이템의 이름 :  " + selected_item.name);
-			
+
 			if(value == 5) {
 		        snackBar("에스프레소 샷은 최대 5개 입니다!");
 		    }
@@ -76,20 +74,17 @@ $(document).ready(function(){
 function getSum(cart_item_id){
 	var sum = 0;
 
-	console.log($("ul#" +cart_item_id +" > li > span"));
-	
 	$("ul#" +cart_item_id +" span").each((index, item)=>{
 		console.log(item.id + " : " + item.text);
 		
 		if(Number(item.text) > 0){
-			sum+= Number(item.text);    			
+			sum+= Number(item.text);    
+			console.log(Number(item.text));
 		}
 
 	});
-	
-	console.log(sum);
-	var original_price = Number($(".original_price").prop("value"));
-	console.log(original_price);
+		
+	var original_price = Number($("input#original_price"+cart_item_id).prop("value"));
 	$("span#price"+cart_item_id).text(sum + original_price);
 
 }

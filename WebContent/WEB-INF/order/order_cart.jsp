@@ -375,7 +375,7 @@
 						</div>
 					</div>
 					<span class="price" align="right"><span id="price${cart.itemSeq}">${cart.product.price}</span>원</span>
-					<input class="original_price" type="hidden" value="${cart.product.price }"/>
+					<input id="original_price${cart.itemSeq }" type="hidden" value="${cart.product.price }"/>
 				</div>
 			</c:forEach>
 		</c:if>
