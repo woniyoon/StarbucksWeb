@@ -2,6 +2,7 @@ package member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import member.model.MemberVO;
@@ -28,51 +29,24 @@ public class MyinfoEditAction extends AbstractController {
 		
 	     else {
 						
-	    	String userid = request.getParameter("userid");
-	    	String name = request.getParameter("name");
-	    	int gender = Integer.parseInt(request.getParameter("gender"));
-	  /*  	
-	    	String Birthyyyy = request.getParameter("Birthyyyy");
-	    	String Birthmm = request.getParameter("Birthmm");
-	    	String Birthdd = request.getParameter("Birthdd");
-	   */ 	
-	    	String hp1 = request.getParameter("hp1");
-	    	String hp2 = request.getParameter("hp2");
-	    	String hp3 = request.getParameter("hp3");
-	    	
-	    	String email = request.getParameter("email");
-	    	
-	    	request.setAttribute("userid", userid);
-	    	request.setAttribute("name", name);
-	    	request.setAttribute("gender", gender);
-	    	
-	    	request.setAttribute("hp2", hp2);
-	    	request.setAttribute("hp3", hp3);
-	   // 	request.setAttribute("Birthyyyy", Birthyyyy);
-	   // 	request.setAttribute("Birthmm", Birthmm);
-	   // 	request.setAttribute("Birthdd", Birthdd);
-	    	
-	    	request.setAttribute("email", email);
-	    	
-	    //	super.setRedirect(false);
-	    	super.setViewPage("/WEB-INF/member/myinfoEdit.jsp");	    	
-			
-			MemberVO membervo = new MemberVO();
-			membervo.setUserid(userid);
-			membervo.setName(name);
-			membervo.setGender(gender);
-			
-		//	membervo.setBirthyyyy(Birthyyyy);
-		//	membervo.setBirthmm(Birthmm);
-		//	membervo.setBirthdd(Birthdd);
-			
 
-			membervo.setHp1(hp1);
-			membervo.setHp1(hp2);
-			membervo.setHp1(hp3);
-			
-			membervo.setEmail(email);
+	    	HttpSession session = request.getSession();
+	    	
+	    	MemberVO membervo = (MemberVO) session.getAttribute("loginuser");
+
+	    	
+	    	request.setAttribute("userid", membervo.getUserid());
+	    	request.setAttribute("name", membervo.getName());
+	    	request.setAttribute("gender", membervo.getGender());
+	    	
+	    	request.setAttribute("hp2", membervo.getHp2());
+	    	request.setAttribute("hp3", membervo.getHp3());
+	    	request.setAttribute("Birthyyyy", membervo.getBirthyyyy());
+	    	request.setAttribute("Birthmm", membervo.getBirthmm());
+	    	request.setAttribute("Birthdd", membervo.getBirthdd());
+	    	request.setAttribute("email", membervo.getEmail());
 						
+	    	super.setViewPage("/WEB-INF/member/myinfoEdit.jsp");	    	
 	     }
 	}
 

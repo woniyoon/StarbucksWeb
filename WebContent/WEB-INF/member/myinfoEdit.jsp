@@ -323,12 +323,12 @@
 	
 		 
 	   // 출생년도 옵션
-	   var yearOption = "<option>2020</option>"; //화살표 누르면 나올 년도 옵션
+	  /*  var yearOption = "<option>2020</option>"; //화살표 누르면 나올 년도 옵션
 	   for(var i=0; i<currentYear-1950+1; i++){ 
 		   yearOption += "<option>"+(1950+i)+"</option>";
 	   }
 	   
-	   document.getElementById("Birthyyyy").innerHTML = yearOption; //birthYear의 태그를 잡아서 옵션에 넣기
+	   document.getElementById("Birthyyyy").innerHTML = yearOption; //birthYear의 태그를 잡아서 옵션에 넣기 */
 		
 	}); // end of window.onload = function()--------------
 	 
@@ -551,55 +551,42 @@
 					<ul class="body">
 						<li>
 							<p style="font-weight: bold; margin-left: 10px;">생년월일(필수)</p>
-							<select name="Birthyyyy" id="Birthyyyy" onchange="selectYear();"></select>
-							
+							<select name="Birthyyyy" id="Birthyyyy" onchange="selectYear();">
+								<c:forEach varStatus="status" begin="1950" end="2020" step="1">
+									<c:choose>
+										<c:when test="${Birthyyyy eq status.current }">
+											<option selected>${status.current}</option>									
+										</c:when>
+										<c:otherwise>
+											<option>${status.current}</option>									
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
 							<select id="Birthmm" name="Birthmm" onchange="selectMonth();">
-								<option value ="01">01</option>
-								<option value ="02">02</option>
-								<option value ="03">03</option>
-								<option value ="04">04</option>
-								<option value ="05">05</option>
-								<option value ="06">06</option>
-								<option value ="07">07</option>
-								<option value ="08">08</option>
-								<option value ="09">09</option>
-								<option value ="10">10</option>
-								<option value ="11">11</option>
-								<option value ="12">12</option>
+								<c:forEach varStatus="status" begin="01" end="12" step="1">
+									<c:choose>
+										<c:when test="${Birthmm eq status.current }">
+											<option selected>${status.current}</option>									
+										</c:when>
+										<c:otherwise>
+											<option>${status.current}</option>									
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
 							</select> 
 							
 								<select id="Birthdd" name="Birthdd" onchange="selectDay();">
-									<option value ="01">01</option>
-									<option value ="02">02</option>
-									<option value ="03">03</option>
-									<option value ="04">04</option>
-									<option value ="05">05</option>
-									<option value ="06">06</option>
-									<option value ="07">07</option>
-									<option value ="08">08</option>
-									<option value ="09">09</option>
-									<option value ="10">10</option>
-									<option value ="11">11</option>
-									<option value ="12">12</option>
-									<option value ="13">13</option>
-									<option value ="14">14</option>
-									<option value ="15">15</option>
-									<option value ="16">16</option>
-									<option value ="17">17</option>
-									<option value ="18">18</option>
-									<option value ="19">19</option>
-									<option value ="20">20</option>
-									<option value ="21">21</option>
-									<option value ="22">22</option>
-									<option value ="23">23</option>
-									<option value ="24">24</option>
-									<option value ="25">25</option>
-									<option value ="26">26</option>
-									<option value ="27">27</option>
-									<option value ="28">28</option>
-									<option value ="29">29</option>
-									<option value ="30">30</option>
-									<option value ="31">31</option>
+									<c:forEach varStatus="status" begin="01" end="31" step="1">
+									<c:choose>
+										<c:when test="${Birthdd eq status.current }">
+											<option selected>${status.current}</option>									
+										</c:when>
+										<c:otherwise>
+											<option>${status.current}</option>									
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
 								</select> 
 								<select name="birthSol" id="birthSol" onchange="selectLuSol();">
 									<option>양</option>
@@ -620,7 +607,7 @@
 						        <option>017</option>
 						        <option>018</option>
 						        <option>019</option>
-						    </select> - <input class="form-control-tel requiredInfo" type="text" id="hp2" name="hp2" value="${hp2}" maxlength="4" /> - <input class="form-control-tel requiredInfo" type="text" id="hp3" name="hp3" value="${hp3}" maxlength="4" />
+						    </select> - <input class="form-control-tel requiredInfo" type="text" id="hp2" name="hp2" value="${hp2}" maxlength="4" class="requiredInfo" /> - <input class="form-control-tel requiredInfo" type="text" id="hp3" name="hp3" value="${hp3}" maxlength="4" class="requiredInfo" />
 		            	</li>
 	            	</ul>
 	            </div>	
@@ -629,7 +616,7 @@
 						<li>
 							<p style="font-weight: bold; margin-left: 10px;">메일(필수)</p>
 							<label for="email"></label>
-							<input class="input1 requiredInfo" type="email" name="email" id="email" value="${email}" placeholder="E-mail을 입력하세요." />
+							<input class="input1 requiredInfo" type="email" name="email" id="email" value="${email}" class="requiredInfo" placeholder="E-mail을 입력하세요." />
 							<span class="error" id="email_error">메일을 입력해주세요.</span>
 						</li>
 					</ul>	
