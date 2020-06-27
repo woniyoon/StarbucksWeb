@@ -250,5 +250,26 @@ public class OrderDAO implements InterOrderDAO {
 		
 		return priceMap;
 	}
+
+	@Override
+	public int deleteCartItem(String itemSeqToDelete) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " delete from shoppingcart where shoppingcart_seq = ? ";
+			pstmt = conn.prepareStatement(sql);
+
+			int itemSeq = Integer.parseInt(itemSeqToDelete);
+			pstmt.setInt(1, itemSeq);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
 	
 }
