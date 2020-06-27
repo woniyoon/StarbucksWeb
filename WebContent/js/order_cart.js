@@ -19,8 +19,7 @@ $(document).ready(function(){
     $("#"+current_state).css({"color": "white", "background-color": "#006633"})
     $("#current_nav_menu").text($("li#"+current_state+" > span").text());
 
-
-    
+    // 커스텀 가격표를 가져옴
     $.ajax({
 		url: "/StarbucksWeb/order/sumExtraCustom.sb",
 		dataType: "json",
@@ -31,7 +30,6 @@ $(document).ready(function(){
 		error: function(request, status, error){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		},
-		
 	});
     
       
@@ -89,18 +87,32 @@ function getSum(cart_item_id){
 
 }
 
-function remove_item(index){
-//    var size = cart[index].size;
+function remove_item(index, item_seq){
 	var deletedItemName = $("#name"+index).prop("value");
-    snackBar(deletedItemName + "이/가 삭제됐습니다!");
     
-    $("#card"+index).hide();
+	$.ajax({
+		url: "/StarbucksWeb/order/deleteCartItem.sb",
+		data: {"itemSeq": item_seq, "itemName" : deletedItemName},
+		dataType: "json",
+		success: function(json){			
 
-    // $("#card"+index).hide();
-    // $("div#" + index).remove();
-    // show_items();
+			if(json.result != 0) {
+				$("#card"+index).hide();				
+			}
+			
+			snackBar(json.msg);
+		},
+		error: function(request, status, error){
+			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		},
+		
+	});
+	
 }
 
+function goSelectLocation(cart){
+	console.log(cart);
+}
 
 
 function snackBar(msg) {

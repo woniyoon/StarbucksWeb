@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<% 
+
+	
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -275,7 +280,7 @@
 				<div id="card${status.index}" class="card">
 					<p>
 						<button class="remove_button" id="${status.index}"
-							onclick="remove_item(this.id)">×</button>
+							onclick="remove_item(this.id, '${cart.itemSeq}')">×</button>
 						<input type="hidden" id="name${status.index }"
 							value="${cart.product.name}" />
 					</p>
@@ -284,7 +289,7 @@
 							src="/StarbucksWeb/images/products/${cart.product.img}">
 						<div class="card_text" id="${cart.itemSeq }">
 							<h3 id="menu_name">${cart.product.name}</h3>
-<!-- 							<form id='order_form'>-->
+ 							<form id='order_form'>
 								<ul id="${cart.itemSeq }">
 									<c:choose>
 										<c:when test="${cart.product.parentTable eq 'drink'}">
@@ -371,7 +376,7 @@
 										</c:otherwise>
 									</c:choose>
 								</ul>
-	<!-- 						</form> -->
+							</form>
 						</div>
 					</div>
 					<span class="price" align="right"><span id="price${cart.itemSeq}">${cart.product.price}</span>원</span>
@@ -379,14 +384,10 @@
 				</div>
 			</c:forEach>
 		</c:if>
-		<c:if test="${ empty cart}">
-			<h3>장바구니가 비어있습니다.</h3>
-		</c:if>
-		
 	</div>
 	<div align="center">
 		<button class="move_button">뒤로</button>
-		<button class="move_button" >다음</button>
+		<button class="move_button" id="next" onclick="goSelectLocation('${cart}')">다음</button>
 	</div>
 </section>
 <div id="snackbar">알림용 스낵바입니다</div>
