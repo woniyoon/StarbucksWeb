@@ -64,7 +64,7 @@ public class AdminDAO implements InterAdminDAO {
 						+ " hp1, hp2, hp3, point, gender, "
 						+ " substr(Birthday,1,4) AS Birthyyyy, "
 						+ " substr(Birthday,5,2) AS Birthmm, "
-						+ " substr(Birthday, 7) AS Birthdd "
+						+ " substr(Birthday, 7) AS Birthdd, "
 						+ " register_day, status "
 						+ " from STARBUCKS_MEMBER ";
 			
@@ -80,8 +80,8 @@ public class AdminDAO implements InterAdminDAO {
 				mvo.setName(rs.getString("name"));
 				mvo.setEmail(aes.decrypt(rs.getString("email"))); // 복호화
 				mvo.setHp1(rs.getString("hp1"));
-				mvo.setHp2(aes.decrypt(rs.getString("hp2"))); // 복호화
-				mvo.setHp3(aes.decrypt(rs.getString("hp3"))); // 복호화
+				mvo.setHp2(rs.getString("hp2")); // 복호화
+				mvo.setHp3(rs.getString("hp3")); // 복호화
 				mvo.setPoint(rs.getInt("point"));
 			    mvo.setGender(rs.getInt("gender"));
 			    mvo.setBirthyyyy(rs.getString("Birthyyyy"));
@@ -90,7 +90,7 @@ public class AdminDAO implements InterAdminDAO {
 			    mvo.setRegisterday(rs.getString("register_day"));
 			    mvo.setStatus(rs.getInt("status"));
 
-			    
+			    System.out.println(aes.encrypt("woniyoon@gmail.com"));
 			    memberList.add(mvo);
 			}
 			
