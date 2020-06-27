@@ -31,7 +31,7 @@ public class SumExtraCustomAction extends AbstractController {
 		
 		request.setAttribute("json", obj);
 		
-		super.setViewPage("/WEB-INF/order/custom_price.jsp");
+		super.setViewPage("/WEB-INF/order/result.jsp");
 	}
 
 }
