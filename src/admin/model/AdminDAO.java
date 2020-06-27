@@ -55,7 +55,7 @@ public class AdminDAO implements InterAdminDAO {
 
 	
 	@Override
-	public List<MemberVO> getAllMembers() throws SQLException {
+	public List<MemberVO> getAllMembers(String filterCondition) throws SQLException {
 		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		
 		try {
@@ -66,9 +66,11 @@ public class AdminDAO implements InterAdminDAO {
 						+ " substr(Birthday,5,2) AS Birthmm, "
 						+ " substr(Birthday, 7) AS Birthdd, "
 						+ " register_day, status "
-						+ " from STARBUCKS_MEMBER ";
+						+ " from STARBUCKS_MEMBER "
+						+ " order by ? ";
 			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, filterCondition);
 			
 			rs = pstmt.executeQuery();
 			

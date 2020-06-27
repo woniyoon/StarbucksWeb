@@ -6,21 +6,24 @@
 <%@ include file="head.jsp" %>  
 
 <article>
-	<table>
+	<table id="member_table">
 		<tr>
-			<td>회원번호</td>
-			<td>아이디</td>
-			<td>이름</td>
-			<td>이메일</td>
-			<td>연락처</td>
-			<td>성별</td>
-			<td>생년월일</td>
-			<td>나이</td>
-			<td>포인트</td>
-			<td>가입일자</td>
-			<td>탈퇴유무</td>
+			<td class="category" id="member_seq">회원번호</td>
+			<td class="category" id="userid">아이디</td>
+			<td class="category" id="name">이름</td>
+			<td class="category" id="email">이메일</td>
+			<td class="category" id="hp2">연락처</td>
+			<td class="category" id="gender">성별</td>
+			<td class="category" id="birthYYYY">생년월일</td>
+			<td class="category" id="">나이</td>
+			<td class="category" id="point">포인트</td>
+			<td class="category" id="registerday">가입일자</td>
+			<td class="category" id="status">탈퇴유무</td>
 		</tr>
-		<c:forEach var="mem" items="${memberList}" varStatus="status">
+		<tbody id="member_tb">
+		
+		</tbody>
+<%-- 		<c:forEach var="mem" items="${memberList}" varStatus="status">
 			<tr>
 				<td>${mem.member_seq }</td>
 				<td>${mem.userid }</td>
@@ -41,8 +44,9 @@
 					</c:otherwise>
 				</c:choose>
 			</tr>
-		</c:forEach>
+		</c:forEach> --%>
 	</table>
 </article>
 <%@ include file="tail.jsp" %>  
+<script type="text/javascript" src="/StarbucksWeb/js/member_management.js"></script>
 
