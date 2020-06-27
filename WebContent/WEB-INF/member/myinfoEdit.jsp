@@ -413,7 +413,7 @@
 	
 	}// end of function selectDay()------------- */
 	
-	
+/* 	
 	
 	function goRegister() {
 		  
@@ -461,6 +461,8 @@
 	   	  
 		}// end of function goRegister(event)----------
 
+		
+ */		
 	
 	// 정보수정 버튼 클릭시
 	function goUpdateInfo() {
@@ -482,18 +484,19 @@
 		}
 		
 		else {
-			var frm = document.updatePwdFrm;
+			
+			var frm = document.updateInfoFrm;
 			frm.method = "POST";
-			frm.action = "/StarbucksWeb/member/myinfoEditPwdEnd.sb";
-			frm.submit();
+			frm.action = "/StarbucksWeb/member/myinfoEditEnd.sb";
+			frm.submit(); 
+			
 		}	
 			
 	}
 
-</script>	
-
+</script>
 <div id="container">
-	<form name="registerFrm" style="margin-top: 80px; margin-bottom: 80px;">
+	<form name="updateInfoFrm" style="margin-top: 80px; margin-bottom: 80px;">
 		<fieldset>
 			<legend style="text-align: center;">개인정보 확인 및 수정</legend>
 			<div id="form" >
@@ -555,10 +558,10 @@
 								<c:forEach varStatus="status" begin="1950" end="2020" step="1">
 									<c:choose>
 										<c:when test="${Birthyyyy eq status.current }">
-											<option selected>${status.current}</option>									
+											<option selected disabled="disabled">${status.current}</option>									
 										</c:when>
 										<c:otherwise>
-											<option>${status.current}</option>									
+											<option disabled="disabled">${status.current}</option>									
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -567,10 +570,10 @@
 								<c:forEach varStatus="status" begin="01" end="12" step="1">
 									<c:choose>
 										<c:when test="${Birthmm eq status.current }">
-											<option selected>${status.current}</option>									
+											<option selected disabled="disabled">${status.current}</option>									
 										</c:when>
 										<c:otherwise>
-											<option>${status.current}</option>									
+											<option disabled="disabled">${status.current}</option>									
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -580,10 +583,10 @@
 									<c:forEach varStatus="status" begin="01" end="31" step="1">
 									<c:choose>
 										<c:when test="${Birthdd eq status.current }">
-											<option selected>${status.current}</option>									
+											<option selected disabled="disabled">${status.current}</option>									
 										</c:when>
 										<c:otherwise>
-											<option>${status.current}</option>									
+											<option disabled="disabled">${status.current}</option>									
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -627,11 +630,9 @@
 		
 			<div id="con3"><a class="btn_ok" onClick="goUpdateInfo();" >정보수정</a></div>
 		
-
 			</div>	
 		</fieldset>
 	</form>
 </div>
-
 
 <jsp:include page="../footer.jsp" />

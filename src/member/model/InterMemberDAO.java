@@ -17,7 +17,12 @@ public interface InterMemberDAO {
 	// 비밀번호 변경
 	String selectPasswd(String userid) throws SQLException;
 
+	// 비밀번호 변경
 	int updatePasswd(String userid, String newPassword) throws SQLException;
+
+	// 개인정보 수정
+	int updateInfo(MemberVO membervo) throws SQLException;
+
 
 	
 }

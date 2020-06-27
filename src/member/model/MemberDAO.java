@@ -197,13 +197,17 @@ public class MemberDAO implements InterMemberDAO {
 		return password;
 	}
 
+	
+	// 비밀번호 변경
 	@Override
 	public int updatePasswd(String userid, String newPassword) throws SQLException {
 		int result = 0;
 		
 		try {
 			conn = ds.getConnection();
+			
 			String sql = " update starbucks_member set password = ? where userid = ? ";
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Sha256.encrypt(newPassword));
 			pstmt.setString(2, userid);
@@ -216,6 +220,43 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return result;
 	}
-
-
+	
+	
+	
+	// 개인정보 수정
+	@Override
+	public int updateInfo(MemberVO membervo) throws SQLException {
+		
+		int result=0;
+	      
+	      try {
+	         
+	         conn = ds.getConnection();
+	         
+	         String sql = " update starbucks_member set name=?, hp2=?, hp3=?, email=? "
+	                  	 +" where userid = ? ";               
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, membervo.getName());
+	         pstmt.setString(2, membervo.getHp2());    
+	         pstmt.setString(3, membervo.getHp3());    
+	         pstmt.setString(4, aes.encrypt(membervo.getEmail()));
+	         pstmt.setString(5, membervo.getUserid());
+	              
+	         result = pstmt.executeUpdate();      
+	         
+	         System.out.println("정보수정:"+result);
+	         
+	      } catch(Exception e){
+	         e.printStackTrace();
+	      }finally {
+	         close();
+	      }
+	                        
+	      return result;   
+	}
+	
+	
+	
 }

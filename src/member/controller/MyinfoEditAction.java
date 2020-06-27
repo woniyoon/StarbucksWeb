@@ -29,11 +29,9 @@ public class MyinfoEditAction extends AbstractController {
 		
 	     else {
 						
-
 	    	HttpSession session = request.getSession();
 	    	
 	    	MemberVO membervo = (MemberVO) session.getAttribute("loginuser");
-
 	    	
 	    	request.setAttribute("userid", membervo.getUserid());
 	    	request.setAttribute("name", membervo.getName());
