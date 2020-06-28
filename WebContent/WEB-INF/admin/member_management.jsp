@@ -6,19 +6,20 @@
 <%@ include file="head.jsp" %>  
 
 <article>
-	<table id="member_table">
+	<h3>회원 목록</h3>
+	<table class="admin_table" id="member_table">
 		<tr>
-			<td class="category" id="member_seq">회원번호</td>
-			<td class="category" id="userid">아이디</td>
-			<td class="category" id="name">이름</td>
-			<td class="category" id="email">이메일</td>
-			<td class="category" id="hp2">연락처</td>
-			<td class="category" id="gender">성별</td>
-			<td class="category" id="birthYYYY">생년월일</td>
-			<td class="category" id="birthYYYY">나이</td>
-			<td class="category" id="point">포인트</td>
-			<td class="category" id="register_day">가입일자</td>
-			<td class="category" id="status">탈퇴유무</td>
+			<td class="category" id="member_seq">회원번호 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="userid">아이디 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="name">이름 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="email">이메일 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="hp2">연락처 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="gender">성별 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="birthYYYY">생년월일 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="birthYYYY">나이 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="point">포인트 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="register_day">가입일자 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
+			<td class="category" id="status">탈퇴유무 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
 		</tr>
 		<tbody id="member_tb">
 		
