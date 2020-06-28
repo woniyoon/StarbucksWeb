@@ -21,10 +21,10 @@
 			<td class="category" id="register_day">가입일자 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
 			<td class="category" id="status">탈퇴유무 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
 		</tr>
-		<tbody id="member_tb">
+<!-- 		<tbody id="member_tb">
 		
-		</tbody>
-<%-- 		<c:forEach var="mem" items="${memberList}" varStatus="status">
+		</tbody> -->
+		<c:forEach var="mem" items="${memberList}" varStatus="status">
 			<tr>
 				<td>${mem.member_seq }</td>
 				<td>${mem.userid }</td>
@@ -45,8 +45,11 @@
 					</c:otherwise>
 				</c:choose>
 			</tr>
-		</c:forEach> --%>
+		</c:forEach>
 	</table>
+	<div id="paging_container" align="center">
+		${pageBar}
+	</div>
 </article>
 <%@ include file="tail.jsp" %>  
 <script type="text/javascript" src="/StarbucksWeb/js/member_management.js"></script>

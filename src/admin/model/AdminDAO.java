@@ -2,19 +2,13 @@ package admin.model;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.naming.*;
 import javax.sql.DataSource;
 
-import member.model.EncryptMyKey;
-import member.model.MemberVO;
+import member.model.*;
 import util.security.AES256;
 
 public class AdminDAO implements InterAdminDAO {
@@ -55,22 +49,68 @@ public class AdminDAO implements InterAdminDAO {
 
 	
 	@Override
-	public List<MemberVO> getAllMembers(String filterCondition) throws SQLException {
+	public List<MemberVO> getAllMembers(HashMap<String, String> paraMap) throws SQLException {
 		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		
 		try {
 			conn = ds.getConnection();
-			String sql = " select member_seq, userid, name, email, "
-						+ " hp1, hp2, hp3, point, gender, "
-						+ " substr(Birthday,1,4) AS Birthyyyy, "
-						+ " substr(Birthday,5,2) AS Birthmm, "
-						+ " substr(Birthday, 7) AS Birthdd, "
-						+ " register_day, status "
-						+ " from STARBUCKS_MEMBER "
-						+ " order by " + filterCondition;
+//			String sql = " select rownum, member_seq, userid, name, email, "
+//						+ " hp1, hp2, hp3, point, gender, "
+//						+ " substr(Birthday,1,4) AS Birthyyyy, "
+//						+ " substr(Birthday,5,2) AS Birthmm, "
+//						+ " substr(Birthday, 7) AS Birthdd, "
+//						+ " register_day, status "
+//						+ " from STARBUCKS_MEMBER "
+//						+ " order by " + filterCondition
+//						+ " ";
+//			
+//			 
+//			String sql = " select * from "+
+//					" (select rownum as rn, member_seq, userid, name, email,  hp1, hp2, hp3 "+
+//					"     , point, gender,  substr(Birthday,1,4) AS Birthyyyy "+
+//					"     , substr(Birthday,5,2) AS Birthmm, substr(Birthday, 7) AS Birthdd "+
+//					"     , register_day, status  "+
+//					" from STARBUCKS_MEMBER "+
+//					" where userid != 'admin'" +
+//					" order by " + paraMap.get("filterCondition") +") m "+
+//					" where m.rn between ? and ? ";
+			
+//			String sql = " select * from "+
+//						" (select rownum as rn, member_seq, userid, name, email,  hp1, hp2, hp3 "+
+//						"     , point, gender,  substr(Birthday,1,4) AS Birthyyyy "+
+//						"     , substr(Birthday,5,2) AS Birthmm, substr(Birthday, 7) AS Birthdd "+
+//						"     , register_day, status "+
+//						" from STARBUCKS_MEMBER "+
+//						" where userid != 'admin' "+
+//						" order by "+ paraMap.get("filterCondition") +") m ) t"+
+//						" where m.rn between ? and ? ";
+			
+			String sql = " select * from "+
+					"( select rownum as rn, member_seq, userid, name, email,  hp1, hp2, hp3 "+
+					"     , point, gender, Birthyyyy "+
+					"     , Birthmm, Birthdd "+
+					"     , register_day, status "+
+					" from\n"+
+					" (select rownum, member_seq, userid, name, email,  hp1, hp2, hp3 "+
+					"     , point, gender,  substr(Birthday,1,4) AS Birthyyyy "+
+					"     , substr(Birthday,5,2) AS Birthmm, substr(Birthday, 7) AS Birthdd "+
+					"     , register_day, status  \n"+
+					" from STARBUCKS_MEMBER "+
+					" where userid != 'admin' "+
+					" order by "+ paraMap.get("filterCondition") +") m ) t"+
+					" where t.rn between ? and ? ";
+				
+			
+			int memsPerPage = Integer.parseInt(paraMap.get("memsPerPage"));
+			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
+			
+			System.out.println("sql : "+sql);
 			
 			pstmt = conn.prepareStatement(sql);
 //			pstmt.setString(1, filterCondition);
+			pstmt.setInt(1, (currentShowPageNo*memsPerPage)-memsPerPage+1);
+			pstmt.setInt(2, (currentShowPageNo)*memsPerPage);
+			
 			
 			rs = pstmt.executeQuery();
 			
@@ -103,6 +143,30 @@ public class AdminDAO implements InterAdminDAO {
 		}
 		
 		return memberList;
+	}
+
+	@Override
+	public int getNumOfMems() throws SQLException {
+		int numOfMems = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select count(*) from STARBUCKS_MEMBER ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				numOfMems = rs.getInt(1);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return numOfMems;
 	}
 
 }
