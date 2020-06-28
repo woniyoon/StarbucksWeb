@@ -67,10 +67,10 @@ public class AdminDAO implements InterAdminDAO {
 						+ " substr(Birthday, 7) AS Birthdd, "
 						+ " register_day, status "
 						+ " from STARBUCKS_MEMBER "
-						+ " order by ? ";
+						+ " order by " + filterCondition;
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, filterCondition);
+//			pstmt.setString(1, filterCondition);
 			
 			rs = pstmt.executeQuery();
 			
@@ -92,7 +92,7 @@ public class AdminDAO implements InterAdminDAO {
 			    mvo.setRegisterday(rs.getString("register_day"));
 			    mvo.setStatus(rs.getInt("status"));
 
-			    System.out.println(aes.encrypt("woniyoon@gmail.com"));
+			    System.out.println("유저아이디 : "+ mvo.getUserid());
 			    memberList.add(mvo);
 			}
 			

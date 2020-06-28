@@ -1,16 +1,19 @@
 $(document).ready(function(){
   
-	orderMembers();
+	// 처음 회원목록은 member_seq 기준으로 가져옴
+	orderMembers("member_seq");
 	
+	
+	// 클래스명이 category인 요소들의 id값을 이용하여 필터링 키워드 전달
 	$(".category").on("click", (event)=>{
 		var keyword = event.target.id;
-		
+	
 		orderMembers(keyword);
 	});
 	
 });
 
-function orderMembers(filter_condition = ""){
+function orderMembers(filter_condition){
 	
 	$.ajax({
 		url: "/StarbucksWeb/admin/memberManagement.sb",

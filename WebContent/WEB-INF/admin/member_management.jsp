@@ -15,9 +15,9 @@
 			<td class="category" id="hp2">연락처</td>
 			<td class="category" id="gender">성별</td>
 			<td class="category" id="birthYYYY">생년월일</td>
-			<td class="category" id="">나이</td>
+			<td class="category" id="birthYYYY">나이</td>
 			<td class="category" id="point">포인트</td>
-			<td class="category" id="registerday">가입일자</td>
+			<td class="category" id="register_day">가입일자</td>
 			<td class="category" id="status">탈퇴유무</td>
 		</tr>
 		<tbody id="member_tb">
