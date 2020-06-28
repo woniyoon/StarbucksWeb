@@ -1,5 +1,7 @@
 package notice.model;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.*;
 import java.util.*;
 import javax.naming.*;
@@ -77,17 +79,18 @@ public class NoticeDAO implements InterNoticeDAO {
 			
 			//////////////////////////////////////////////////////////////////////
 			String sql = " select rno, notice_seq, title, write_day, hit " + 
-					" from  " + 
-					" ( " + 
-					"   select rownum AS RNO, notice_seq, title, write_day , hit " + 
-					"   from  " + 
-					"   ( " + 
-					"    select notice_seq, title, to_char(write_day,'yyyy-mm-dd') AS write_day , hit " + 
-					"    from notice_post " + 
-					"    order by 1 asc " + 
-					"   ) V " + 
-					"  ) T " + 
-					"  order by T.rno desc ";
+						 " from  " + 
+						 " ( " + 
+						 "   select rownum AS RNO, notice_seq, title, write_day , hit " + 
+						 "   from  " + 
+						 "   ( " + 
+						 "    select notice_seq, title, to_char(write_day,'yyyy-mm-dd') AS write_day , hit " + 
+						 "    from notice_post " + 
+						 "    order by 1 asc " + 
+						 "   ) V " + 
+						 "  ) T " + 
+						 "  order by T.rno desc ";
+						 
 
 			pstmt = conn.prepareStatement(sql);
 			
@@ -148,6 +151,117 @@ public class NoticeDAO implements InterNoticeDAO {
 		return map;
 		
 	} // end of public NoticeVO selectOneNotice(String notice_seq)
+
+	
+	// 페이징 처리를 한 모든 글 정보 조회해주기
+	@Override
+	public List<NoticeVO> selectOneNotice(HashMap<String, String> paraMap) throws SQLException {
+		List<NoticeVO> noticeList = new ArrayList<NoticeVO>();
+		
+		try {
+			conn = ds.getConnection();
+						
+			String sql = "select (select count(*) from notice_post) - rowno + 1 AS RNO, notice_seq, title, write_day, hit "+
+					"from  "+
+					" ( "+
+					"   select rownum AS ROWNO, notice_seq, title, write_day , hit "+
+					"   from  "+
+					"   ( "+
+					"    select notice_seq, title, to_char(write_day,'yyyy-mm-dd') AS write_day , hit "+
+					"    from notice_post ";
+			
+			String searchWord = paraMap.get("searchWord");
+			
+			if (searchWord != null && !searchWord.trim().isEmpty()) {
+				sql += " where title like '%' || ? || '%' ";
+			}
+	
+			sql +=  "    order by notice_seq desc "+
+					"   ) V "+
+					" ) T "+
+					"where T.ROWNO between ? and ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
+			int sizePerPage = Integer.parseInt(paraMap.get("sizePerPage"));
+			
+			
+			if (searchWord != null && !searchWord.trim().isEmpty()) { // 검색어가 있는 경우
+				pstmt.setString(1, searchWord);	
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage -1 ) );// 공식
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage) );// 공식
+			}
+			
+			else { // 검색어가 없는 경우
+				pstmt.setInt(1, (currentShowPageNo * sizePerPage) - (sizePerPage -1 ) );// 공식
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) );// 공식
+			}
+			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoticeVO nvo = new NoticeVO();
+				nvo.setRno(rs.getInt("RNO"));
+				nvo.setNotice_seq(rs.getInt("notice_seq"));
+				nvo.setTitle(rs.getString("title"));
+				nvo.setWrite_day(rs.getString("write_day"));
+				nvo.setHit(rs.getInt("hit"));
+				
+				noticeList.add(nvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return noticeList;
+	}
+	
+	// 페이징 처리를 위한 전체회원에 대한 총 페이지개수 알아오기(select)
+	@Override
+	public int getTotalPage(HashMap<String, String> paraMap) throws SQLException {
+
+		int totalPage = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select ceil(count(*)/10) AS totalPage " +
+						 " from notice_post ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			totalPage = rs.getInt("totalPage");
+			
+		} finally {
+			close();
+		}
+		
+		return totalPage;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
 

@@ -344,7 +344,7 @@
 			
 			<div id="section_recommended_menu">
 				<img id="section_recommended_text" src="images/nari/section_recommended_text1.png" />
-				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"/>
+				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="location.href='product/menu.sb'"/>
 			</div>
 			
 			<div id="section_reserve">

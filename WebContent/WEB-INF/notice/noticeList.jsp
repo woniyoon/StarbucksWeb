@@ -46,7 +46,7 @@
 	}
 
 	
-	input#search_input {
+	input#searchWord {
 		margin-top: 20px;
 		display: inline;
 		width: 321px;
@@ -141,6 +141,11 @@
 	td.noticeTitle:hover {
 		cursor: pointer;
 	}
+	
+	div#pageBar {
+		text-align: center;
+		
+	}
 
 </style>
 
@@ -148,21 +153,43 @@
 	
 	$(document).ready(function(){ 
 		
+		//console.log("searchWord : " + "${searchWord}");
+		
 		$("td.notice_seq").hide();
+		
+		if("${searchWord}" != "") {
+	    	  $("#searchWord").val("${searchWord}");
+	      }
+		
+		// 검색어 작성 후 엔터치면 검색되게 하기
+		$("#searchWord").bind("keydown", function(event){ 
+			if(event.keyCode == 13) {
+				goSearch();
+			}			
+		});
 		
 		$(".noticeTitle").click(function(){ 
 			
 			var notice_seq = $(this).prev().text();
 			
 		//	alert(notice_seq);
-		
             location.href="noticeView.sb?notice_seq="+notice_seq;    		
-			
 		});
-		
 		
 	}); // end of $(document).ready(function()-----------------------------
 	
+	function goSearch() {
+		// alert("검색버튼 클릭");
+		var frm = document.seachFrm;
+		frm.method = "GET";
+		frm.action = "noticeList.sb";
+		frm.submit();
+	}
+	
+	
+			
+			
+			
 </script>
 
 
@@ -173,15 +200,17 @@
 					<img src="/StarbucksWeb/images/nari/notice_title.jpg" alt="공지사항" />
 				</h2>
 			</div>
-			<div id="search_header">
-				<div id="search_bar">
-					<div id="search_bar_right">
-
-						<input id="search_input" type="text" placeholder="검색어를 입력해 주세요."/>
-						<input id="search_button" onclick="alert('검색')" type="button" value="검색" /> 
+			<form name="seachFrm">
+				<div id="search_header">
+					<div id="search_bar">
+						<div id="search_bar_right">
+	
+							<input id="searchWord" name="searchWord" type="text" placeholder="검색어를 입력해 주세요." />
+							<input id="search_button" onclick="goSearch();" type="button" value="검색" /> 
+						</div>
 					</div>
-				</div>
-			</div>
+				</div>	
+			</form>
 		</header>
 		
 		<!-- -------------------------------- 헤더 끝 ---------------------------------- -->
@@ -213,6 +242,12 @@
 			
 			</table>
 			</form>
+			</br></br>
+			${totalPage}
+			<div id="pageBar">
+				${pageBar}
+			</div>
+			</br></br>
 			
 			<div id="notice_button_wrap">
 				<p id="notice_button">

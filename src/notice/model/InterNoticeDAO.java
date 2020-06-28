@@ -15,6 +15,12 @@ public interface InterNoticeDAO {
 	// 글번호를 가지고 특정 게시글 조회하기
 	HashMap<String, String> selectOneNotice(String notice_seq) throws SQLException;
 
+	// 페이징 처리를 한 모든 글 정보 조회해주기
+	List<NoticeVO> selectOneNotice(HashMap<String, String> paraMap) throws SQLException;
+
+	// 페이징 처리를 위한 전체회원에 대한 총 페이지개수 알아오기(select)
+	int getTotalPage(HashMap<String, String> paraMap) throws SQLException;
+
 	
 
 	
