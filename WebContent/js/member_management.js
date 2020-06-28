@@ -24,6 +24,8 @@ function orderMembers(filter_condition){
 			var html = "";
 			$.each(json, function(index, item) {
 				console.log(item);
+				var isMember = item.status == 1 ? "<td>회원</td>" : "<td>탈퇴</td>";
+				
 			    html += "<tr> " +
 			    			"<td>"+item.member_seq+"</td> " +
 			    			"<td>"+item.userid+"</td>" +
@@ -35,6 +37,7 @@ function orderMembers(filter_condition){
 			    			"<td>"+item.age+"</td>" +
 			    			"<td>"+item.point+"</td>" +
 			    			"<td>"+item.registerday+"</td>" +
+			    			isMember +			    			
 			    		"</tr>";
 			});
 			
