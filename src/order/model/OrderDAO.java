@@ -154,7 +154,7 @@ public class OrderDAO implements InterOrderDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = " select store_id, store_name, address, latitude, longitude from store_location ";
+			String sql = " select store_id, store_name, address, latitude, longitude, url, zIndex from store_location ";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -166,12 +166,16 @@ public class OrderDAO implements InterOrderDAO {
 				String address = rs.getString("address");
 				double latitude = rs.getDouble("latitude");
 				double longitude = rs.getDouble("longitude");
+				String url = rs.getString("url");
+				int zIndex = rs.getInt("zIndex");
 				
 				lvo.setStoreID(storeID);
 				lvo.setStoreName(storeName);
 				lvo.setAddress(address);
 				lvo.setLatitude(latitude);
 				lvo.setLongitude(longitude);
+				lvo.setUrl(url);
+				lvo.setzIndex(zIndex);
 				
 				storeList.add(lvo);
 			}
