@@ -5,9 +5,9 @@
 
 <%@ include file="head.jsp" %>  
 
-<article>
+<article align="center">
 	<h3>회원 목록</h3>
-	<table class="admin_table" id="member_table">
+	<table align="center" class="admin_table" id="member_table">
 		<tr>
 			<td class="category" id="member_seq">회원번호 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
 			<td class="category" id="userid">아이디 <img src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 1rem;"></td>
