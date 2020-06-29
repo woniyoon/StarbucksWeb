@@ -136,8 +136,8 @@ public class ProductDAO implements InterProductDAO {
 	}
 	
 	// 제품번호를 가지고서 해당 제품의 정보를 조회해오기
-	@Override
-	public ProductVO selectOneProductByProductId(String productId) throws SQLException{
+	/*@Override
+	public ProductVO selectOneProductByProductId(String type, String productId) throws SQLException{
 		ProductVO pvo = null;
 		
 		try {
@@ -173,42 +173,174 @@ public class ProductDAO implements InterProductDAO {
 		
 		return pvo;		
 		
-	}
-
-	// 제품번호를 가지고서 해당 제품의 추가된 이미지 정보를 조회해오기
-	@Override
-	public List<String> getImagesByProductId(String productId) throws SQLException {
-		List<String> imgList = null;
-		
-		try {
-			conn = ds.getConnection();
+	}*/
+	
+	// 제품번호를 가지고서 해당 제품의 정보를 조회해오기
+		@Override
+		public ProductVO selectOneDrinkByID(String type, String productId) throws SQLException{
 			
-			String sql = " select img "+
-			 		 " from drink D, nutrition N "+
-					 " where id = ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, productId);
-			
-			rs = pstmt.executeQuery();
-			
-			int cnt = 0;
-			
-			while(rs.next()) {
-				cnt++;
-				if(cnt==1) {
-					imgList = new ArrayList<String>();
-				}
-				
-				String img = rs.getString("img"); // 이미지파일명 
-				
-				imgList.add(img); 
+			DrinkVO pvo = new DrinkVO();
+			String sql = "";
+			try {
+				 conn = ds.getConnection();
+				 
+				 
+				sql = " select C.category_name, A.product_id, A.kcal, A.sodium, A.cholesterol, A.sugar, A.protein, A.caffein, A.allergy_triggers, A.name, A.name_eng, A.description, A.img "+
+					 " from "+
+					 " (select * "+
+					 " from drink D, nutrition N "+
+					 " where D.id = N.product_id and D.id = ? ) A, product_category C "+
+					 " where A.category_id = C.category_id ";
+					 
+					 
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, productId);
+				 
+				 rs = pstmt.executeQuery();
+				 
+				 if(rs.next()) {
+					 
+					 String category_name = rs.getString("category_name");    
+					 String product_id = rs.getString("product_id");         
+					 int 	kcal = rs.getInt("kcal"); 
+					 int 	sodium = rs.getInt("sodium"); 
+					 int 	cholesterol = rs.getInt("cholesterol");          		
+					 int 	sugar = rs.getInt("sugar");          
+					 int 	protein= rs.getInt("protein");                    
+					 int 	caffein = rs.getInt("caffein");  
+					 String allergy_triggers = rs.getString("allergy_triggers");  
+					 String name = rs.getString("name");  
+					 String name_eng = rs.getString("name_eng");  
+					 String description = rs.getString("description");  
+					 String img = rs.getString("img");  
+					
+					 pvo.setParentTable(type); 
+					 pvo.setCategoryName(category_name);
+					 pvo.setProductId(product_id);
+					 pvo.setCaffein(caffein);
+					 pvo.setName(name);
+					 pvo.setNameEng(name_eng);
+					 pvo.setDescription(description);
+					 pvo.setImg(img);
+					
+					 NutritionVO nvo = new NutritionVO();
+					 nvo.setKcal(kcal);
+					 nvo.setSodium(sodium);
+					 nvo.setCholesterol(cholesterol);
+					 nvo.setSugar(sugar);
+					 nvo.setProtein(protein);
+					 nvo.setAllergyTriggers(allergy_triggers);
+					 
+					 pvo.setNutrition(nvo);
+					 
+				 }// end of while-----------------------------
+				 
+			} finally {
+				close();
 			}
 			
+			return pvo;		
+			
+		}
+
+	// 제품번호를 가지고서 해당 제품의 추가된 이미지 정보를 조회해오기
+//	@Override
+//	public List<String> getImagesByProductId(String productId) throws SQLException {
+//		List<String> imgList = null;
+//		
+//		try {
+//			conn = ds.getConnection();
+//			
+//			String sql = " select img "+
+//			 		 " from drink D, nutrition N "+
+//					 " where id = ? ";
+//			
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, productId);
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			int cnt = 0;
+//			
+//			while(rs.next()) {
+//				cnt++;
+//				if(cnt==1) {
+//					imgList = new ArrayList<String>();
+//				}
+//				
+//				String img = rs.getString("img");
+//				
+//				imgList.add(img); 
+//			}
+//			
+//		} finally {
+//			close();
+//		}
+//		
+//		return imgList;
+//	}
+
+	@Override
+	public ProductVO selectOneFoodByID(String type, String productId) throws SQLException {
+		FoodVO pvo = new FoodVO();
+		String sql = "";
+		try {
+			 conn = ds.getConnection();
+			 
+			 
+			 sql = " select C.category_name, A.product_id, A.kcal, A.sodium, A.cholesterol, A.sugar, A.protein, A.allergy_triggers, A.name, A.name_eng, A.description, A.img\n"+
+					 " from "+
+					 " (select * "+
+					 " from food F, nutrition N "+
+					 " where F.id = N.product_id and F.id = ? ) A, product_category C "+
+					 " where A.category_id = C.category_id ";
+				 
+				 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, productId);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 
+				 String category_name = rs.getString("category_name");    
+				 String product_id = rs.getString("product_id");         
+				 int 	kcal = rs.getInt("kcal"); 
+				 int 	sodium = rs.getInt("sodium"); 
+				 int 	cholesterol = rs.getInt("cholesterol");          		
+				 int 	sugar = rs.getInt("sugar");          
+				 int 	protein= rs.getInt("protein");                    
+				 String allergy_triggers = rs.getString("allergy_triggers");  
+				 String name = rs.getString("name");  
+				 String name_eng = rs.getString("name_eng");  
+				 String description = rs.getString("description");  
+				 String img = rs.getString("img");  
+				
+				 pvo.setParentTable(type); 
+				 pvo.setCategoryName(category_name);
+				 pvo.setProductId(product_id);
+				 pvo.setName(name);
+				 pvo.setNameEng(name_eng);
+				 pvo.setDescription(description);
+				 pvo.setImg(img);
+				
+				 NutritionVO nvo = new NutritionVO();
+				 nvo.setKcal(kcal);
+				 nvo.setSodium(sodium);
+				 nvo.setCholesterol(cholesterol);
+				 nvo.setSugar(sugar);
+				 nvo.setProtein(protein);
+				 nvo.setAllergyTriggers(allergy_triggers);
+				 
+				 pvo.setNutrition(nvo);
+				 
+			 }// end of while-----------------------------
+			 
 		} finally {
 			close();
 		}
 		
-		return imgList;
+		return pvo;		
+		
 	}	
 }
