@@ -2,11 +2,14 @@ package order.model;
 
 public class LocationVO {
 
-	public String storeID;
-	public String storeName;
-	public String address;
-	public Double latitude;
-	public Double longitude;
+	private String storeID;
+	private String storeName;
+	private String address;
+	private Double latitude;
+	private Double longitude;
+	private String url;
+	private int zIndex;
+
 	
 	public LocationVO() {}
 
@@ -49,6 +52,23 @@ public class LocationVO {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getzIndex() {
+		return zIndex;
+	}
+
+	public void setzIndex(int zIndex) {
+		this.zIndex = zIndex;
+	}
+	
 	
 	
 }
