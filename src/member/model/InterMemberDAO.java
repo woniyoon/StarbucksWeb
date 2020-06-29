@@ -24,5 +24,6 @@ public interface InterMemberDAO {
 	int updateInfo(MemberVO membervo) throws SQLException;
 
 
+
 	
 }

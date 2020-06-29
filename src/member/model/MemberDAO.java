@@ -257,6 +257,4 @@ public class MemberDAO implements InterMemberDAO {
 	      return result;   
 	}
 	
-	
-	
 }
