@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <jsp:include page="../header.jsp" />
 
 <style type="text/css">
@@ -105,7 +105,7 @@
 	/* 돋보기 사진 */
 	div.product_magnifier {
 		position: absolute;
-		top: 470px;
+		top: 460px;
 		left: 435px;
 	}
 	
@@ -216,6 +216,9 @@
 	/* 제품 영양정보_테이블_이름 右 */
 	p.nutrition_title2 {
 		flex: 1;
+		align-items: flex-end;
+		margin: 16px 0;
+		padding: 0 10px;
 	}
 	
 	#nutrition_left {
@@ -295,17 +298,18 @@
 	div.productView_footmenu {
 		clear: both;
 		display: flex;
-   		flex-direction: row;
+-webkit-justify-content: space-around;
+justify-content: space-around;
+   		
 		padding: 30px 0 100px 0;
    		background: #f4f4f2;
-		border: solid 1px green;
 	}
 	
 	/* 하단 공통부분 푸터 左 */
 	div.productView_top_left {
 	    position: relative;
+ 		float: left;
    	    flex: 1;
-   	    float: left;
 	    width: 550px;
 		border-right: 1px solid #ddd;
 	}
@@ -316,7 +320,7 @@
 	
 	div.productView_top_left ul li { 
 		padding-left: 0px;
-		margin-bottom: 10px; 
+		margin: 16px 0 50px 0; 
 		font-size: 14px;
 		background: url("#") 0 center no-repeat; 
 	}
@@ -331,7 +335,8 @@
 	div.productView_top_left p.more {
 		position: absolute;
 		float: right;
-		left: 435px;
+		top: 0px;
+		left: 470px;
 	}
 	
 	/* 하단 공통부분 푸터 右  */
@@ -341,7 +346,7 @@
 	}
 	
 	div.productView_top_right p.tit { 
-		margin: 0 0 15px 0;
+		margin: 0;
 		font-size:18px;
 		font-weight:bold;
 		color:#222;
@@ -365,7 +370,7 @@
 	    position: relative;
 	    width: 300px;
 		float: left; 
-	   /*  text-align: center; */
+		font-size:14px;
 	}
 	
 </style>
@@ -470,11 +475,16 @@
 				<ul>
 					<li><a href="#"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
 					<li>></li>
-					<li><a href="#">MENU</a></li>
+					<li><a href="/StarbucksWeb/product/menu.sb">MENU</a></li>
 					<li>></li>
-					<li><a href="#">${pvo.parentTable}</a></li>
+					<li><a href="/StarbucksWeb/product/menu.sb">
+						<c:choose>
+							<c:when test="${pvo.parentTable eq 'food'}">푸드</c:when>
+							<c:otherwise>음료</c:otherwise>
+						</c:choose>					
+					</a></li>
 					<li>></li>
-					<li><a href="#">${pvo.categoryID}</a></li> <!-- 전페이지 해당하는 type으로 이동 -->
+					<li><a href="/StarbucksWeb/product/menu.sb">${pvo.categoryName}</a></li> <!-- 전페이지 해당하는 type으로 이동 -->
 					<li>></li>
 					<li><a href="#">${pvo.name}</a></li>	 <!-- 현페이지 -->
 				</ul>
@@ -512,7 +522,12 @@
 						</h3>
 					</div>
 					<div class="product_button">
-						<a href="#" role="button" class="register" title="나만의 음료 등록 옵션 열기">나만의 음료로 등록</a>
+						<c:choose>
+							<c:when test="${pvo.parentTable eq 'drink'}">
+								<a href="#" role="button" class="register" title="나만의 음료 등록 옵션 열기">나만의 음료로 등록</a>
+							</c:when>
+							<c:otherwise><a href="#" role="button" class="register" title="나만의 푸드 등록 옵션 열기">나만의 푸드로 등록</c:otherwise>
+						</c:choose>		
 						<a href="#" role="button" class="payment" title="장바구니 옵션 열기">장바구니</a>
 					</div>
 					<br>
@@ -525,26 +540,31 @@
 					<fieldset>
 					<div class="product_nutrition_title">
 						<p class="nutrition_title1">제품 영양 정보</p>
-						<p class="nutrition_title2">Tall(톨)/355ml(12 fl oz)</p>
+						<c:choose>
+                            <c:when test="${pvo.parentTable eq 'drink'}">
+								<p class="nutrition_title2" align="right">Tall(톨)/355ml(12 fl oz)</p>
+	                        </c:when>
+	                        <c:otherwise><p class="nutrition_title2"align="right">100g</p></c:otherwise>
+						</c:choose>							
 					</div>
 					<div class="product_info_content">
 						<ul id="nutrition_left">
 							<li class="kcal">
                             	<dl>
                                 	<dt>1회 제공량 (kcal)</dt>
-                                    <dd>${prod.nutrition.kcal}</dd>
+                                    <dd>${pvo.nutrition.kcal}</dd>
                                 </dl>
                             </li>
                             <li class="cholesterol">
                                 <dl>
                                     <dt>포화지방 (g)</dt>
-                                    <dd>2</dd>
+                                    <dd>${pvo.nutrition.cholesterol}</dd>
                                 </dl>
                             </li>
                             <li class="protein">
                                 <dl>
                                     <dt>단백질 (g)</dt>
-                                    <dd>1</dd>
+                                    <dd>${pvo.nutrition.protein}</dd>
                                 </dl>
                             </li>       
                         </ul>
@@ -552,26 +572,31 @@
                             <li class="sodium">
                                 <dl>
                                     <dt>나트륨 (mg)</dt>
-                                    <dd>20</dd>
+                                    <dd>${pvo.nutrition.sodium}</dd>
                                 </dl>
                             </li>
                             <li class="sugar">
                                 <dl>
                                     <dt>당류 (g)</dt>
-                                    <dd>10</dd>
+                                    <dd>${pvo.nutrition.sugar}</dd>
                                 </dl>
                             </li>
-                            <li class="caffein">
-                                <dl>
-                                    <dt>카페인 (mg)</dt>
-                                    <dd>245</dd>
-                                </dl>
-                            </li>
+                            <c:choose>
+	                            <c:when test="${pvo.parentTable eq 'drink'}">
+									<li class="caffein">
+		                                <dl>
+		                                    <dt>카페인 (mg)</dt>
+		                                    <dd>${pvo.caffein}</dd>
+		                                </dl>
+		                            </li>
+		                        </c:when>
+		                        <c:otherwise></c:otherwise>
+							</c:choose>	
                         </ul>
 					</div>
 				
 					<div class="allergy_triggers">
-						<p>알레르기 유발요인 : 우유</p>
+						<p>알레르기 유발요인 : ${pvo.nutrition.allergyTriggers}</p>
 					</div>
 					</fieldset>
 				</form>
@@ -579,8 +604,7 @@
 			<div id="myresult" class="img-zoom-result" data-zoom-image="/StarbucksWeb/images/bobae/big1-1.jpg" alt=""></div>
 		</div>
 		<div class="title2" >${pvo.description}</div>		
-		
-			
+	</div>		
 		
 		<div class="productView_footmenu">
 			<div class="productView_footmenu_inner">
@@ -603,6 +627,6 @@
 			</div>
 		</div>
 		
-	</div>	
+	
 	
 <jsp:include page="../footer.jsp" />

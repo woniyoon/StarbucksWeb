@@ -151,7 +151,6 @@
 	    grid-row-gap: 50px;
 	    grid-template-columns: 25% 25% 25% 25%;
 	    margin-bottom: 50px;
-	    padding: 10px;
 	}
 	    
 	/* 메뉴 리스트 */
@@ -273,7 +272,6 @@ $(window).ready(function(){
     $("#view_photo_btn").trigger("click");
     
     /////////////////////////////////////////////////////////////////////////////////////
-    
     
  	// 푸드 카테고리 버튼 눌렀을 때
     $("#food_category_btn").click(function(){
@@ -397,9 +395,9 @@ $(window).ready(function(){
             <ul>
                 <li><a href="#"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
                 <li>></li>
-                <li><a href="#">MENU</a></li>
+                <li><a href="/StarbucksWeb/product/menu.sb">MENU</a></li>
                 <li>></li>
-                <li><a href="#">음료</a></li>
+                <li><a href="/StarbucksWeb/product/menu.sb">음료</a></li>
             </ul>
         </nav>  
     </div>
@@ -449,7 +447,7 @@ $(window).ready(function(){
 	            		<div class="grid_container">
 		            		<c:forEach var="prod" items="${productList}" varStatus="status">
 		            			<c:if test="${prod.parentTable eq 'drink'}">
-		    						<div id="${prod.categoryID}" align='center'><div class='zoom'><a href='/StarbucksWeb/product/detail.sb?productId=${prod.productId}'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img} " /></a></div>${prod.name}</div>	    				            			
+		    						<div id="${prod.categoryID}" align='center'><div class='zoom'><a href='/StarbucksWeb/product/detail.sb?type=${prod.parentTable}&productId=${prod.productId}'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img} " /></a></div>${prod.name}</div>	    				            			
 		            			</c:if>
 		            		</c:forEach>
 	            		</div>
@@ -499,7 +497,7 @@ $(window).ready(function(){
 	            		<div class="grid_container">
 		            		<c:forEach var="prod" items="${productList}" varStatus="status">
 		            			<c:if test="${prod.parentTable eq 'food'}">
-	    							<div id="${prod.categoryID}" align='center'><div class='zoom'><a href='/StarbucksWeb/product/detail.sb?productId=${prod.productId}'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></a></div>${prod.name}</div>	    		
+	    							<div id="${prod.categoryID}" align='center'><div class='zoom'><a href='/StarbucksWeb/product/detail.sb?type=${prod.parentTable}&productId=${prod.productId}'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></a></div>${prod.name}</div>	    		
 		            			</c:if>
 		            		</c:forEach>
 	            		</div>
