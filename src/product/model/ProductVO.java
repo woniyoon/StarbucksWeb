@@ -109,5 +109,5 @@ public class ProductVO {
    public void setCustom(String custom) {
       this.custom = custom;
    }
-   
+	
 }
