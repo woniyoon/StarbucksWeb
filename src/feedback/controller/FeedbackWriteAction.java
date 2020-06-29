@@ -9,7 +9,9 @@ public class FeedbackWriteAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
+
+	//	super.setRedirect(false);
+		super.setViewPage("/WEB-INF/feedback/feedbackWrite.jsp");
 
 	}
 
