@@ -240,6 +240,9 @@
 	  to {bottom: 0; opacity: 0;}
 	}
 	
+	form {
+		display: block;
+	}
 }
 </style>
 
@@ -258,9 +261,10 @@
 		<li id="confirmed"><span>결제완료</span></li>
 	</ul>
 	<div class="items_container">
-
-		<c:if test="${not empty cart}">
+		<c:set var="cart" value="${cart }"></c:set>
+		<c:if test="${fn:length(cart) > 0}">
 			<c:forEach var="cart" varStatus="status" items="${cart }">
+				<form class="order_form" id="${cart.itemSeq }">
 				<div id="card${status.index}" class="card">
 					<p>
 						<button class="remove_button" id="${status.index}"
@@ -273,13 +277,13 @@
 							src="/StarbucksWeb/images/products/${cart.product.img}">
 						<div class="card_text" id="${cart.itemSeq }">
 							<h3 id="menu_name">${cart.product.name}</h3>
- 							<form id='order_form'>
+ 							<form id="order_form">
 								<ul id="${cart.itemSeq }">
 									<c:choose>
 										<c:when test="${cart.product.parentTable eq 'drink'}">
 											<li>
-												<label>사이즈</label>
-												<select class="size" id="${cart.itemSeq }" name="size">
+												<label for="size">사이즈</label>
+												<select id="${cart.itemSeq }" name="size">
 													<option value="tall" selected>톨</option>
 													<option value="grande">그란데</option>
 													<option value="venti">벤티</option>
@@ -288,8 +292,7 @@
 											</li>
 											<li>
 												<label>샷</label> 
-												<input class="shot"
-												id="${cart.itemSeq }" name="shot"
+												<input id="${cart.itemSeq }" name="shot"
 												type="number" value="${cart.product.shot }" min='${cart.product.shot }'
 												max='5'>
 												<span id="extra_shot" style="display:none"></span>
@@ -298,7 +301,7 @@
 											<c:choose>
 												<c:when test="${cart.product.syrup ne '없음' }">
 													<label>${cart.product.syrup }</label> 
-													<select id="syrup${cart.itemSeq }" name='defult_syrup'>
+													<select id="syrup${cart.itemSeq }" name='default_syrup'>
 														<option id='syrup' value='less'>적음</option>
 														<option id='syrup' value='regular' selected>보통</option>
 														<option id='syrup' value='extra'>많이</option>
@@ -366,12 +369,20 @@
 					<span class="price" align="right"><span id="price${cart.itemSeq}">${cart.product.price}</span>원</span>
 					<input id="original_price${cart.itemSeq }" type="hidden" value="${cart.product.price }"/>
 				</div>
+				</form>
 			</c:forEach>
 		</c:if>
+		<c:if test="${fn:length(cart) == 0}">
+			<div>
+				<h1> 장바구니가 비어있습니다. </h1>
+			</div>
+		</c:if>
 	</div>
+	<form name="form_checkout" id="form_checkout">
+	</form>
 	<div align="center">
 		<button class="move_button">뒤로</button>
-		<button class="move_button" id="next" onclick="goSelectLocation('${cart}')">다음</button>
+		<button class="move_button" id="next" onclick="checkout()">다음</button>
 	</div>
 </section>
 <div id="snackbar">알림용 스낵바입니다</div>

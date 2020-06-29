@@ -3,10 +3,16 @@
 //var size_dictionary = { 1: "톨", 2: "그란데", 3: "벤티" };
 //var num_to_size = { 1: "tall", 2: "grande", 3: "venti" };
 var size_dictionary = { tall: 1, grande: 2, venti: 3 };
+var dictionary = {"size=tall": "톨 사이즈", "size=grande": "그란데 사이즈", "size=venti": "벤티 사이즈",
+				  "default_syrup=less": "시럽 적게", "default_syrup=regular": "시럽 보통", "default_syrup=extra": "시럽 많이",
+				  "shot=0":"샷 없음","shot=1":"샷 1개","shot=2":"샷 2개","shot=3":"샷 3개","shot=4":"샷 4개","shot=5":"샷 5개",
+				  "warming=warm":"워밍옵션 : 따뜻하게 데움", "warming=none":"워밍옵션 : 데우지 않음",
+				  "syrup=none":"시럽 : 없음", "syrup=vanilla":"시럽 : 바닐라시럽","syrup=hazelnut":"시럽 : 헤이즐넛시럽","syrup=caramel":"시럽 : 카라멜시럽",
+				  "base=less":"베이스음료 : 적게", "base=regular":"베이스음료: 보통","base=extra":"베이스음료: 많이",
+				  "ice=less":"얼음 : 적음","ice=regular":"얼음 : 보통","ice=extra":"얼음 : 많이",};
 
-var custom_fee = {
-};
 
+// size=grande&shot=0&default_syrup=regular&base=regular&ice=regular
 var price_list = {};
 
 $(document).ready(function(){
@@ -31,7 +37,7 @@ $(document).ready(function(){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		},
 	});
-    
+  
       
     $("div.card_text li > :nth-child(2n)").bind("change", (event)=>{
     	var selected_item = event.target;
@@ -39,10 +45,11 @@ $(document).ready(function(){
 		var name = selected_item.name;
     	var cart_item_id = event.currentTarget.parentNode.parentNode.id;  
     	
+    	
     	if(name == "syrup") {
     		var price = 0;
     		if(value == "vanilla" || value == "hazelnut" || value == "caramel"){
-    			price = Number(price_list["syrup"]);    			
+    			price = Number(price_list["syrup"]);    	
     		} else {
     			price = 0;
     		}
@@ -51,6 +58,7 @@ $(document).ready(function(){
 		} else if(name == "size") {
 			$("span#extra_size").prop("text", (Number(price_list["size"]) * (size_dictionary[value]-1)));
 			console.log("사이즈 아이템의 이름 :  " + selected_item.name);
+
 		} else if(selected_item.name == "shot") {
 
 			if(value == 5) {
@@ -79,13 +87,36 @@ function getSum(cart_item_id){
 			sum+= Number(item.text);    
 			console.log(Number(item.text));
 		}
-
 	});
 		
 	var original_price = Number($("input#original_price"+cart_item_id).prop("value"));
 	$("span#price"+cart_item_id).text(sum + original_price);
 
 }
+
+
+function update_custom(){
+	
+	$(".order_form").each((index, item)=>{
+		var queryString = $("form#"+item.id).serialize();
+		var custom = "";
+		var custom_arr = queryString.split("&");
+		
+		for(var i=0; i<custom_arr.length; i++) {
+			var comma = i <custom_arr.length-1 ? ", " : " ";
+			var option = dictionary[custom_arr[i]] != null ? dictionary[custom_arr[i]] : "없음";
+			
+			custom += option + comma;
+		}
+		
+//		$("#custom_option"+item.id).prop("value", custom);
+		console.log(custom);
+		
+		$("#form_checkout").css("display", "none").append("<input id='"+item.id+"' name='custom' type='text' value='"+custom+"' />");
+	});
+	
+}
+
 
 function remove_item(index, item_seq){
 	var deletedItemName = $("#name"+index).prop("value");
@@ -110,8 +141,13 @@ function remove_item(index, item_seq){
 	
 }
 
-function goSelectLocation(cart){
-	console.log(cart);
+function checkout(){
+	update_custom();
+	
+	var form = document.form_checkout;
+	form.action = "/StarbucksWeb/order/storeLocation.sb";
+	form.method = "POST";
+	form.submit();
 }
 
 

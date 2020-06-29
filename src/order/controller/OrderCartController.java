@@ -21,7 +21,7 @@ public class OrderCartController extends AbstractController {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("loginuser");
 //		String userid = (String) request.getSession().getAttribute("userid");
 
-		if(user == null) {
+		if(user != null) {
 			
 			String msg = "로그인부터 해야합니다.";
 			String loc = "javascript:history.go(-1)";
