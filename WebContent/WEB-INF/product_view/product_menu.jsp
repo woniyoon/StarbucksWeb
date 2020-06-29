@@ -152,7 +152,6 @@
 	    grid-template-columns: 25% 25% 25% 25%;
 	    margin-bottom: 50px;
 	    padding: 10px;
-	    border: 1px solid green;
 	}
 	    
 	/* 메뉴 리스트 */
@@ -328,7 +327,7 @@ $(window).ready(function(){
 	            this.checked = false;
 	        });
 	            
-	        if(isBtnOn) { // 전체선택됐다면  
+	       if(isBtnOn) { // 전체선택됐다면  
 	            $(this).prop("checked", true); // 그런데 name이 coffee_select인 체크박스에 전체선택도 포함되있으므로 한 번 더 참으로 바꿔줌 체크박스 체크해라!      
 	            $("div#grid_coffee_list").children().children().show(); // 전체선택됐으면 내용 보여줘
 	            $(".nutrition_list").hide();
@@ -449,8 +448,8 @@ $(window).ready(function(){
 	            	<c:if test="${not empty productList}">
 	            		<div class="grid_container">
 		            		<c:forEach var="prod" items="${productList}" varStatus="status">
-		            			<c:if test="${prod.parentTable eq 'drink' }">
-		    						<div id="${prod.categoryID}" align='center'><div class='zoom'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></div>${prod.name}</div>	    				            			
+		            			<c:if test="${prod.parentTable eq 'drink'}">
+		    						<div id="${prod.categoryID}" align='center'><div class='zoom'><a href='/StarbucksWeb/product/detail.sb?productId=${prod.productId}'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img} " /></a></div>${prod.name}</div>	    				            			
 		            			</c:if>
 		            		</c:forEach>
 	            		</div>
@@ -459,59 +458,8 @@ $(window).ready(function(){
 	            <div class="nutrition_list view_nutrition_drink" id="coffee_table">
 	                <section>
 		            <table>
-		                <thead>
-		                    <tr>
-		                        <th>메뉴</th>
-			                    <th>칼로리(Kcal)</th>
-			                    <th>당류(g)</th>
-			                    <th>단백질(g)</th>
-			                    <th>나트륨(mg)</th>
-			                    <th>포화지방(g)</th>
-			                    <th>카페인(mg)</th>
-		                    </tr>
-		                </thead>
-		                
-		                <tbody>
-		                    <tr>
-			                    <td>아메리카노</td>
-			                    <td>435</td>
-			                    <td>37</td>
-			                    <td>12</td>
-			                    <td>114</td>
-			                    <td>16</td>
-			                    <td>15</td>
-		                    </tr>
-		                    <tr>
-			                    <td>커피 어쩌거</td>
-			                    <td>435</td>
-			                    <td>37</td>
-			                    <td>12</td>
-			                    <td>114</td>
-			                    <td>16</td>
-			                    <td>15</td>
-		                    </tr>
-		                </tbody>
-		            </table>
-		            </section>
-		        </div> 	
-        </div>
-        <!-- coffee end -->
-        
-         <div id="food">
-	            <div class="view_photo_food" id="grid_food_list">
-	           		<c:if test="${not empty productList}">
-	            		<div class="grid_container">
-		            		<c:forEach var="prod" items="${productList}" varStatus="status">
-		            			<c:if test="${prod.parentTable eq 'food' }">
-	    							<div id="${prod.categoryID}" align='center'><div class='zoom'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></div>${prod.name}</div>	    		
-		            			</c:if>
-		            		</c:forEach>
-	            		</div>
-	            	</c:if>
-	            </div>
-	            <div class="nutrition_list view_nutrition_food" id="food_table">
-	                <section>
-			            <table>
+<%--          	        <c:if test="${not empty nutritionList}"> --%>
+		            	<c:if test="${not empty productList}">
 			                <thead>
 			                    <tr>
 			                        <th>메뉴</th>
@@ -520,31 +468,77 @@ $(window).ready(function(){
 				                    <th>단백질(g)</th>
 				                    <th>나트륨(mg)</th>
 				                    <th>포화지방(g)</th>
-				                    <th>카페인(mg)</th>
 			                    </tr>
 			                </thead>
+		                
+		                	<c:forEach var="prod" items="${productList}" varStatus="status">
+		                	 	<c:if test="${prod.parentTable eq 'drink'}">
+					                <tbody>
+					                    <tr>
+						                    <td>${prod.name}</td>
+						                    <td>${prod.nutrition.kcal}</td>
+						                    <td>${prod.nutrition.sugar}</td>
+						                    <td>${prod.nutrition.protein}</td>
+						                    <td>${prod.nutrition.sodium}</td>
+						                    <td>${prod.nutrition.cholesterol}</td>
+					                    </tr>
+					                </tbody>
+					            </c:if>
+				            </c:forEach>
+				                
+		                </c:if>
+		            </table>
+		            </section>
+		        </div> 	
+         </div>
+         <!-- coffee end -->
+        
+         <div id="food">
+	            <div class="view_photo_food" id="grid_food_list">
+	           		<c:if test="${not empty productList}">
+	            		<div class="grid_container">
+		            		<c:forEach var="prod" items="${productList}" varStatus="status">
+		            			<c:if test="${prod.parentTable eq 'food'}">
+	    							<div id="${prod.categoryID}" align='center'><div class='zoom'><a href='/StarbucksWeb/product/detail.sb?productId=${prod.productId}'><img width='260px' height='270px' src="/StarbucksWeb/images/products/${prod.img}" /></a></div>${prod.name}</div>	    		
+		            			</c:if>
+		            		</c:forEach>
+	            		</div>
+	            	</c:if>
+	            </div>
+	            <div class="nutrition_list view_nutrition_food" id="food_table">
+	                <section>
+			            <table>
+	<%--          	        <c:if test="${not empty nutritionList}"> --%>
+			            	<c:if test="${not empty productList}">
+				                <thead>
+				                    <tr>
+				                        <th>메뉴</th>
+					                    <th>칼로리(Kcal)</th>
+					                    <th>당류(g)</th>
+					                    <th>단백질(g)</th>
+					                    <th>나트륨(mg)</th>
+					                    <th>포화지방(g)</th>
+				                    </tr>
+				                </thead>
 			                
-			                <tbody>
-			                    <tr>
-				                    <td>케이크 어쩌거</td>
-				                    <td>435</td>
-				                    <td>37</td>
-				                    <td>12</td>
-				                    <td>114</td>
-				                    <td>16</td>
-				                    <td>15</td>
-			                    </tr>
-			                    <tr>
-				                    <td>빵 어쩌거</td>
-				                    <td>435</td>
-				                    <td>37</td>
-				                    <td>12</td>
-				                    <td>114</td>
-				                    <td>16</td>
-				                    <td>15</td>
-			                    </tr>
-			                </tbody>
-			            </table>
+			                	<c:forEach var="prod" items="${productList}" varStatus="status">
+			                	 	<c:if test="${prod.parentTable eq 'food'}">
+						                <tbody>
+						                    <tr>
+							                    <td>${prod.name}</td>
+							                    <td>${prod.nutrition.kcal}</td>
+							                    <td>${prod.nutrition.sugar}</td>
+							                    <td>${prod.nutrition.protein}</td>
+							                    <td>${prod.nutrition.sodium}</td>
+							                    <td>${prod.nutrition.cholesterol}</td>
+						                    </tr>
+						                </tbody>
+						            </c:if>
+					            </c:forEach>
+					                
+			                </c:if>
+		            	</table>
+		            
 	        		</section>
 		        </div>
 	    	</div>

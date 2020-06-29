@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
-import product.model.InterProductDAO;
-import product.model.ProductDAO;
-import product.model.ProductVO;
+import product.model.*;
 public class ProductMenuController extends AbstractController {
 
 	@Override
@@ -16,9 +14,19 @@ public class ProductMenuController extends AbstractController {
 		
 		InterProductDAO pdao = new ProductDAO();
 		
-		List<ProductVO> productList = pdao.getProductList();
+		List<ProductVO> productList = pdao.getProductList();		
+		
+		for(ProductVO pvo : productList) {
+			NutritionVO nvo = pdao.getNutritionInfo(pvo.getProductId());
+			pvo.setNutrition(nvo);
+			//System.out.println(nvo.getKcal());
+		}
+		
+		
+	//	List<NutritionVO> nutritionList = new ArrayList<>();
 		
 		request.setAttribute("productList", productList);
+	//	request.setAttribute("nutritionList", nutritionList);
 		
 		super.setViewPage("/WEB-INF/product_view/product_menu.jsp");
 	} 

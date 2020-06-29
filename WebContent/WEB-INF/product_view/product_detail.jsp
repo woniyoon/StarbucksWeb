@@ -370,8 +370,8 @@
 	
 </style>
 <script type="text/javascript" src="/JqueryStudy/js/jquery-3.3.1.min.js"></script>
+
 <script type="text/javascript">
-		
 	$(document).ready(function(){
 		
 		var product_details = document.getElementsByClassName("product_details")[0];
@@ -461,23 +461,22 @@
 		}
 </script>
 
-</head>
-<body>
+	
 	<div id="detail_container">
 		<!-- 타이틀 -->
 		<div class="title">
-			<h1>콜드 브루</h1>
+			<h1>${pvo.name}</h1>
 			<nav>
 				<ul>
 					<li><a href="#"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
 					<li>></li>
 					<li><a href="#">MENU</a></li>
 					<li>></li>
-					<li><a href="#">음료</a></li>
+					<li><a href="#">${pvo.parentTable}</a></li>
 					<li>></li>
-					<li><a href="#">콜드 브루</a></li> <!-- 전페이지 해당하는 type으로 이동 -->
+					<li><a href="#">${pvo.categoryID}</a></li> <!-- 전페이지 해당하는 type으로 이동 -->
 					<li>></li>
-					<li><a href="#">나이트로 바닐라 크림</a></li>	 <!-- 현페이지 -->
+					<li><a href="#">${pvo.name}</a></li>	 <!-- 현페이지 -->
 				</ul>
 			</nav>	
 		</div>
@@ -486,10 +485,9 @@
 		<div class="product_view"> 	
 			<div class="product_picture">
 				
-					<div class="product_img img-zoom-container myimagediv">
-						<img id="myimage" src="/StarbucksWeb/images/bobae/1-1.jpg" alt="상세이미지" style="weight: 400px; height: 530px;">
-					</div>
-				 
+				<div class="product_img img-zoom-container myimagediv">
+					<img id="myimage" src="/StarbucksWeb/images/products/${pvo.img}" alt="상세이미지" style="weight: 400px; height: 530px;">
+				</div>
 
 				<p>
 					<div class="product_magnifier">
@@ -499,7 +497,7 @@
 				<p>
 					<div>
 						<div class="product_img_small">
-							<img src="/StarbucksWeb/images/bobae/1-1.jpg" alt="상세이미지" style="width: 106px; height: 110px;">
+							<img src="/StarbucksWeb/images/products/${pvo.img}" alt="상세이미지" style="width: 106px; height: 110px;">
 						</div>
 					</div>
 				</p>
@@ -508,9 +506,9 @@
 			<div class="product_details">
 				<div class="product_details_title">
 					<div class="product_title">
-						<h3>나이트로 바닐라 크림
+						<h3>${pvo.name}
 						<br>
-						<span>Nitro Vanilla Cream</span>
+						<span>${pvo.nameEng}</span>
 						</h3>
 					</div>
 					<div class="product_button">
@@ -520,7 +518,7 @@
 					<br>
 				</div>
 				<hr>
-					<p class="title1">부드러운 목넘김의 나이트로 커피와 바닐라 크림의 매력을 한번에 느껴보세요!</p>
+					<p class="title1">${pvo.description}</p>
 				
 		
 				<form name="product_nutrition" method="post">
@@ -534,7 +532,7 @@
 							<li class="kcal">
                             	<dl>
                                 	<dt>1회 제공량 (kcal)</dt>
-                                    <dd>75</dd>
+                                    <dd>${prod.nutrition.kcal}</dd>
                                 </dl>
                             </li>
                             <li class="cholesterol">
@@ -579,10 +577,10 @@
 				</form>
 			</div>	
 			<div id="myresult" class="img-zoom-result" data-zoom-image="/StarbucksWeb/images/bobae/big1-1.jpg" alt=""></div>
-			
 		</div>
+		<div class="title2" >${pvo.description}</div>		
 		
-		<div class="title2" >부드러운 목넘김의 나이트로 커피와 바닐라 크림의 매력을 한번에 느껴보세요!</div>		
+			
 		
 		<div class="productView_footmenu">
 			<div class="productView_footmenu_inner">
@@ -604,6 +602,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>	
 	
 <jsp:include page="../footer.jsp" />

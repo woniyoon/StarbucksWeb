@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
@@ -100,6 +99,116 @@ public class ProductDAO implements InterProductDAO {
 		return productList;
 	}
 	
+	// nutrition list
+	@Override
+	public NutritionVO getNutritionInfo(String productId) throws SQLException {
+		NutritionVO nvo = new NutritionVO();
+		
+		try {
+			conn = ds.getConnection();
+			 
+			String sql = " select product_id,nutrition_Seq,kcal,sodium,cholesterol,sugar, protein,allergy_Triggers " +
+					" from nutrition " +
+					" where product_id = ? ";
+			 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, productId);
+			 
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				nvo.setProductId(rs.getString("product_id"));
+				nvo.setNutritionSeq(rs.getInt("nutrition_seq"));
+				nvo.setKcal(rs.getInt("kcal"));
+				nvo.setSodium(rs.getInt("sodium"));
+				nvo.setCholesterol(rs.getInt("cholesterol"));
+				nvo.setSugar(rs.getInt("sugar"));
+				nvo.setProtein(rs.getInt("protein"));
+				nvo.setAllergyTriggers(rs.getString("allergy_Triggers"));
+			}
+			
+			
+		} finally {
+			close();
+		}
+		
+		return nvo;
+	}
 	
-	
+	// 제품번호를 가지고서 해당 제품의 정보를 조회해오기
+	@Override
+	public ProductVO selectOneProductByProductId(String productId) throws SQLException{
+		ProductVO pvo = null;
+		
+		try {
+			 conn = ds.getConnection();
+			 
+			 String sql = " select N.parent_table, id, category_id, name, name_eng, description, price, img " + 
+			 		 " from drink D, nutrition N "+
+					 " where id = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, productId);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 
+				 String parent_table = rs.getString("parent_table");    
+				 String id = rs.getString("id");         
+				 String category_id = rs.getString("category_id"); 
+				 String name = rs.getString("name"); 
+				 String name_eng = rs.getString("name_eng");          		
+				 String description = rs.getString("description");          
+				 int    price= rs.getInt("price");                    
+				 String img = rs.getString("img");  
+				 
+				 pvo = new ProductVO(parent_table, id, category_id, name,name_eng, description, price, img); 
+
+			 }// end of while-----------------------------
+			 
+		} finally {
+			close();
+		}
+		
+		return pvo;		
+		
+	}
+
+	// 제품번호를 가지고서 해당 제품의 추가된 이미지 정보를 조회해오기
+	@Override
+	public List<String> getImagesByProductId(String productId) throws SQLException {
+		List<String> imgList = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select img "+
+			 		 " from drink D, nutrition N "+
+					 " where id = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, productId);
+			
+			rs = pstmt.executeQuery();
+			
+			int cnt = 0;
+			
+			while(rs.next()) {
+				cnt++;
+				if(cnt==1) {
+					imgList = new ArrayList<String>();
+				}
+				
+				String img = rs.getString("img"); // 이미지파일명 
+				
+				imgList.add(img); 
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return imgList;
+	}	
 }
