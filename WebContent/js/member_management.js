@@ -1,22 +1,16 @@
-var filter_condition = "member_seq";
-var current_page = 1;
-
 $(document).ready(function(){
-  
-//	// 처음 회원목록은 member_seq 기준으로 가져오고, 페이지는 1
-//	orderMembers();
-	
+  	
 	// 클래스명이 category인 요소들의 id값을 이용하여 필터링 키워드 전달
 	$(".category").on("click", (event)=>{
 		var keyword = event.target.id;
-//		filter_condition = keyword;
-//		orderMembers();
-		alert(keyword);
+
 		window.location.href = "memberManagement.sb?currentShowPageNo="+1+"&filterCondition="+keyword;
 	});
 	
 });
 
+
+// 안 쓸 것 같음
 function orderMembers(){
 	console.log("filter_condition : " + filter_condition);
 	console.log("current_page : " + current_page);
