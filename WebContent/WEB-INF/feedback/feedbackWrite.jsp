@@ -153,7 +153,7 @@
 		padding: 15px;
 	}
 	
-	div#text2>ul#feed {
+	div#text2> ul#feed {
 		padding-left: 25px;
 		list-style-type: disc;
 		color: gray;
@@ -231,15 +231,15 @@
 	    margin-left: 9px;
 	}
 	
-	div.plus {
+	.plus {
 		background: url("/StarbucksWeb/images/hyejeong/file_add.gif") no-repeat;
 		border: 1px solid #ddd;
 	    border-radius: 3px;
-	    float: right;
-	    margin-right: 482px;
+	    /* float: right; */
+	   /*  margin-right: 482px; */
 	    height: 26px;
 	    margin-left: 10px;
-	    margin-top: 1px;
+	    vertical-align: middle;
 	    overflow: hidden;
 	   /*  text-indent: -20000px; */
 	    width: 26px;
@@ -281,95 +281,92 @@
 	}
 
 </style>
-
 <script type="text/javascript">
 
 
-	window.onload = function() {
-		
-		$("#loginBtn").click(function(){
-			goLogin(); // 로그인 시도한다.
-		});
-		
-		$("#loginPwd").keydown(function(){
-			if(event.keyCode == 13) { // 암호입력란에 엔터를 했을 경우
-				goLogin(); // 로그인 시도한다.
-			}
-			
-		});
 
-		// === 로컬스토리지(localStorage)에 저장된 userid 값을 불러와서 input 태그 userid에 넣어주기 === //
+	$(document).ready(function() {
+
+		// 내용 용량제한시키기
+		function fnChkByte(obj, maxByte) {
+		    var str = obj.value;
+		    var str_len = str.length;
+	
+		    var rbyte = 0;
+		    var rlen = 0;
+		    var one_char = "";
+		    var str2 = "";
+	
+		    for(var i=0; i<str_len; i++) {
+			        one_char = str.charAt(i);
+			        
+			        if(escape(one_char).length > 4){
+			            rbyte += 2;                                         //한글2Byte
+			        }
+			        else {
+			            rbyte++;                                            //영문 등 나머지 1Byte
+			        }
 		
-		/* var loginUserid = localStorage.getItem('saveid');
+			        if(rbyte <= maxByte){
+			            rlen = i+1;                                          //return할 문자열 갯수
+			        }
+		     }
 		
-		if( loginUserid != null) {
-			$("#loginUserid").val(loginUserid);
-			$("input:checkbox[id=storage]").prop("checked",true);
-		} */
+		     if(rbyte > maxByte){
+				  // alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+				  alert("메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.")
+				  str2 = str.substr(0,rlen);                                  //문자열 자르기
+				  obj.value = str2;
+				  fnChkByte(obj, maxByte);
+		     }
+		     else {
+		        document.getElementById('byteInfo').innerText = rbyte;
+		     }
+		}
 		
-		localStorage.removeItem('saveid');
 		
-		$("#label").click(function(){
-			
-			var isChecked = $("#storage").is(":checked");
-		//	alert(isChecked); // 1.false // 3.true
-			
-			if(isChecked==true) {
-			   $("#storage").attr("checked",false); 
-		//	   alert($("#storage").is(":checked")); // 4.false
-			   localStorage.removeItem('saveid');
-			}
-			else {
-				$("#storage").attr("checked",true);
-		//		alert($("#storage").is(":checked")); // 2. true
-				localStorage.setItem('saveid', $("#loginUserid").val());
-			}
-		});
+		$(".novisit").click(function(){
+			$(".search").hide();
+		}); 
 		
+		$(".visit").click(function(){
+			$(".search").show();
+		}); 
+
+
+	});
+	
+	function fileAdd() {
+		
+		var html = "";
+		html += "<input type='text' id='file' maxlength='50'><input id='addfile' type='file' style='display:none' /><div class='button' onclick='document.all.file.click()'>찾아보기</div>";
+		$("#fileattach").append(html);
 	}
 	
+	function goRegister() {
+		  
 
-	/* === 로그인 처리 함수 === */
-	function goLogin() {
-		
-	//	alert("확인용 로그인 처리");
-	
-		var loginUserid = $("#loginUserid").val().trim();
-		var loginPwd = $("#loginPwd").val().trim();
-		
-		if(loginUserid == "") {
-			alert("아이디를 입력해 주세요.");
-			$("#loginUserid").val("");
-			$("#loginUserid").focus();
-			return; // goLogin() 함수 종료.
-		}
-		
-		
-		if(loginPwd == "") {
-			alert("비밀번호를 입력해 주세요.");
-			$("#loginPwd").val("");
-			$("#loginPwd").focus();
-			return; // goLogin() 함수 종료.
-		}
-
-		/* // === 로컬 스토리지(localStorage)에 userid 값 저장시키기 === //
-		if( $("input:checkbox[id=storage]").prop("checked") ) {
-		//	alert("아이디저장 체크를 하셨네요");
-			
-			localStorage.setItem('saveid', $("#loginUserid").val());
-		}
-		else {
-		//	alert("아이디저장 체크를 안 하셨네요");
-			localStorage.removeItem('saveid');
-		} */
-
-		var frm = document.loginFrm;
-		frm.method = "POST";
-		frm.action = "<%= request.getContextPath()%>/login/login.sb";
-		frm.submit();
-		
-	}// end of function goLogin()-----------------------------
-
+	   	  var bRequiredInfo = false;
+	   	  $(".requiredInfo").each(function(){
+		  	var data = $(this).val().trim();
+			if(data == "") {
+				bRequiredInfo = true;
+				$(this).focus();
+				return false;
+			}
+		  }); // end of $(".requiredInfo").each()-------
+		  // 선택자.each(); 은 선택자의 갯수만큼 반복처리를 해주는 것이다.
+		  // 그러므로 $(".requiredInfo").each(); 은
+		  // 클래스가 requiredInfo 인 것마다 하나하나씩 반복업무를 해주는 것이다.
+	   	  
+		  if(!bRequiredInfo) {
+			  var frm = document.registerFrm;
+		   	  frm.method = "POST";
+		   	  frm.action = "feedbackPost.sb";
+		   	  frm.submit();
+		  }
+	   	  
+		}// end of function goRegister(event)----------
 
 	
 </script>
@@ -397,15 +394,15 @@
 		<button id="viewMyComplain">나의 문의 내역 보기</button>
 	</div>
 		<p style="text-align:right; font-size: 8pt;"><span style="color: red;">*</span>표시 항목은 필수 입력 사항입니다.</p>
+	<form name="registerFrm" >
 	<table class="type05" style="border-top: solid 1px black;">
 	    <tr>
 	        <th scope="row">분야 <span style="color: red;">*</span></th>
 	        <td>
-				<form>
 			    <div class="radio">
-			      <label><input type="radio" id="section" name="section" value="1" checked> 문의 </label><label><input type="radio" id="section" name="section" value="2" > 칭찬 </label><label><input type="radio" id="section" name="section" value="3"> 제안 </label><label><input type="radio" id="section" name="section" value="4" > 불만 </label>
+			      <label><input type="radio" id="section" name="section" value="1" checked > 문의 </label><label><input type="radio" id="section" name="section" value="2" > 칭찬 </label><label><input type="radio" id="section" name="section" value="3"> 제안 </label><label><input type="radio" id="section" name="section" value="4" > 불만 </label>
 			    </div>
-			    </form>
+			    
 			</td>
 	    </tr>
 	    <tr>
@@ -425,31 +422,33 @@
 	        <th scope="row">장소 <span style="color: red;">*</span></th>
 	        <td>
 	        	<div class="radio">
-      				<label><input type="radio" name="optradio" checked> 매장 방문 </label><label><input type="radio" name="optradio"> 매장 방문 외 </label>
+      				<label><input type="radio" class="visit" name="optradio" checked> 매장 방문 </label><label><input type="radio" class="novisit" name="optradio"> 매장 방문 외 </label>
     			</div>
     			<div class="search">
-		        	&nbsp;방문매장&nbsp;<button id="searchChain" style="width: 64px; height:28px; margin:5px 3px; margin-bottom:6px; background-color: #666; color: white; border-radius: 3px; font-size: 12px; font-weight: bold;">매장찾기</button><br/>
-		        	&nbsp;방문일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="calendar"><input type="text"> <input id="calendar" type="date"><label id="calendar" for="calendar"></label></span>
+		        	&nbsp;방문매장&nbsp;<button id="searchChain" class="requiredInfo" style="width: 64px; height:28px; margin:5px 3px; margin-bottom:6px; background-color: #666; color: white; border-radius: 3px; font-size: 12px; font-weight: bold;" >매장찾기</button><span id="pickStore">선택하진 매장은 {} 입니다.</span><br/>
+		        	&nbsp;방문일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="calendar"><input type="text"> <input id="calendar" type="date" class="requiredInfo"><label id="calendar" for="calendar"></label></span>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">제목 <span style="color: red;">*</span></th>
 	        <td>
-	        	<input type="text" class="subject" maxlength="50">
+	        	<input class="requiredInfo" type="text" class="subject" maxlength="50">
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">내용 <span style="color: red;">*</span></th>
 	        <td>
-	        	<textarea placeholder="관계 법령에 저촉되거나 사회통념 등에 어긋나는 내용(예: 개인정보 보안, 불충분한 증거/ 귀책 사유에 대한 개인 음해성/음란성 비방, 의도적인 업무 방해 등) 또는 광고성 게시물은 별도의 사전 통보 없이 답변이 되지 않을 수 있으며, 등록된 의견은 처리가 시작되면 수정이 불가하오니 이 점 양지하여 주시기 바랍니다."></textarea>
+	        	<textarea class="requiredInfo" name="messagebox" placeholder="관계 법령에 저촉되거나 사회통념 등에 어긋나는 내용(예: 개인정보 보안, 불충분한 증거/ 귀책 사유에 대한 개인 음해성/음란성 비방, 의도적인 업무 방해 등) 또는 광고성 게시물은 별도의 사전 통보 없이 답변이 되지 않을 수 있으며, 등록된 의견은 처리가 시작되면 수정이 불가하오니 이 점 양지하여 주시기 바랍니다." onKeyUp="javascript:fnChkByte(this,'2500')"></textarea><br/>
+	        	<span id="byteInfo">0</span> /2500bytes
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">파일첨부</th>
 	        <td id="file" style="height: 120px;">
-	        	<input type="text" id="file" maxlength="50"><input id="addfile" type="file" style="display:none" /><div class="button" onclick="onclick=document.all.file.click()">찾아보기</div><div class="plus" onclick="onclick=document.all.fileAdd.click()"></div>
-	        	<ul  id="feed" style="padding-left:18px; list-style: disc; color: #444; line-height: 16px;">
+	        	<input type="text" id="file" maxlength="50"><input id="addfile" type="file" style="display:none" /><div class="button" onclick="find()">찾아보기</div><button class="plus" onclick="fileAdd()"></button>
+	        	<div id="fileattach"></div>
+	        	<ul id="feed" style="padding-left:18px; list-style: disc; color: #444; line-height: 16px;">
   					<li class="file">
   						파일첨부는 아래의 파일만 등록이 가능하며 최대 2개(1개당 최대5MB), 총 10MB까지 등록이 가능합니다.<br/>
   						(등록 가능 확장자 : jpg, jpeg, png, gif)
@@ -472,10 +471,11 @@
   <div id="writeBtn" style="text-align: right;">
 	<ul id="feed">
 		<li>
-			<input type="button" id="btnWrite" value="고객의 소리 등록하기" />
+			<input type="button" id="btnWrite" value="고객의 소리 등록하기" onclick="goRegister();"/>
 		</li>
 	</ul>
   </div>
+  </form>
   </div>
 </div>
 
