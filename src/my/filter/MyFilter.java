@@ -3,7 +3,7 @@ package my.filter;
 import java.io.IOException;
 import javax.servlet.*;
 
-public class MyFilter implements Filter {
+public class MyFilter implements Filter { 
 
 	
 	/*

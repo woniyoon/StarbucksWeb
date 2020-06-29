@@ -212,7 +212,7 @@ $(document).ready(function(){
 	$("#random").click(function(){		
 		showImage();
 	});
-	
+		
 	
 });
 
@@ -271,6 +271,8 @@ $(document).ready(function(){
 		
 	//	alert("확인용 :"+ name);
 	}
+	
+	
 
 </script>
 </head>
@@ -340,7 +342,7 @@ $(document).ready(function(){
      		<div class="panel panel-default">
 	     		 <div class="panel-heading">
 			     <h4 class="panel-title"> 
-	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'">My 메뉴</a>
+	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'" >My 메뉴</a>
 	     	 	 </h4>
 			    </div>
 		    </div> 

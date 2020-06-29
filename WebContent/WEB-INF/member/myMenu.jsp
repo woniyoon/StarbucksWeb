@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,7 +137,7 @@
 		display: block;
 	}
 	
-	#allCheck, #box9 {
+	#allCheck, #btnDelete {
 		border: solid 1px gray;
 	    width: 100px;
         height: 20px;
@@ -254,7 +257,29 @@ $(document).ready(function(){
 		 */
     	
 		 
-    	
+		// 체크박스에 선택된 회원들 삭제하기
+		$("button#btnDelete").click(function() {
+			
+			// == 체크박스에서 체크된 value 값 (each사용) == //
+			var arrCheckedVal = new Array();
+			
+			$("input:checkbox[name=favoriteFood]:checked").each(function(){
+				arrCheckedVal.push($(this).val());
+			});
+			
+			arrCheckedVal = arrCheckedVal.join(",");
+			
+			alert("확인용 : "+arrCheckedVal);
+
+			var frm = document.deleteFrm;
+			frm.no.value = arrCheckedVal;
+			frm.action = "/StarbucksWeb/member/deleteFood.sb";
+			frm.method = "post";
+			frm.submit();
+			
+		});
+		 
+		 
 });
 	
 </script>
@@ -304,11 +329,16 @@ $(document).ready(function(){
 		    </div>
 		  </div>
 			
+			
+			
+			
+			
 			<div id="drink_list">
+			<form action="mymenuListFrm">
 			<table>
 				<thead>
 					 <tr>
-					 	<th><input type="checkbox" name="favorite"/></th>
+					 	<th><input type="checkbox" name="favoriteDrink"/></th>
 					 	<th>No</th>
 					 	<th>음료명</th>
 					 	<th>등록일</th>
@@ -316,33 +346,34 @@ $(document).ready(function(){
 				</thead>
 				<tbody>
 					
-					<!-- 
+					<!--  
 					<tr>
 						<td colspan="4">데이터가 없습니다.</td>
 					</tr>
-					
-					 -->
-					<tr>
-						<td><input type="checkbox" name="favorite"/></td>
-						<td>1</td>
-						<td>콜드브루</td>
-						<td>2020-06-20</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="favorite"/></td>
-						<td>2</td>
-						<td>자몽허니블랙티</td>
-						<td>2020-06-21</td>
-					</tr>
+					 -->		
+				
+					<c:forEach var="mymenu" items="${menuList}" >
+						<c:if test="${mymenu.section == 0 }">
+							<tr class="menuInfo">
+								<td><input type="checkbox" name="favoriteDrink"/></td>
+								<td class="mymenu_seq">${mymenu.my_menu_seq}</td>
+								<td class="pname">${mymenu.pname}</td>
+								<td>${mymenu.register_day}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+				
 				</tbody>
 			</table>
+			</form>
 			</div>
+			
 
 			<div id="food_list">
 			<table>
 				<thead>
 					 <tr>
-					 	<th><input type="checkbox" name="favorite"/></th>
+					 	<th><input type="checkbox" name="favoriteFood"/></th>
 					 	<th>No</th>
 					 	<th>푸드명</th>
 					 	<th>등록일</th>
@@ -355,19 +386,23 @@ $(document).ready(function(){
 						<td colspan="4">데이터가 없습니다.</td>
 					</tr>
 					
-					 -->
-					<tr>
-						<td><input type="checkbox" name="favorite"/></td>
-						<td>1</td>
-						<td>베이글</td>
-						<td>2020-06-21</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="favorite"/></td>
-						<td>2</td>
-						<td>샐러드</td>
-						<td>2020-06-22</td>
-					</tr>
+					-->
+					
+					
+					<c:forEach var="myFood" items="${menuList}" >
+						<c:if test="${myFood.section == 1 }">
+							<tr class="menuInfo">
+								<td><input type="checkbox" name="favoriteFood"/></td>
+								<td class="mymenu_seq">${myFood.my_menu_seq}</td>
+								<td class="pname">${myFood.pname}</td>
+								<td>${myFood.register_day}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+					
+					
+					
+					
 				</tbody>
 			</table>
 			</div>
@@ -375,12 +410,15 @@ $(document).ready(function(){
      	
      	<div id="con2">	
 			<label for="allCheck"></label><input type="button" id="allCheck" value="전체선택" />
-		    <button id="box9">선택삭제</button>
+		    <button id="btnDelete">선택삭제</button>
 		</div>	 		
      </nav>
-     
     <footer></footer>
-    
 </div>
+
+<form name="deleteFrm">
+	<input type="hidden" name="no" />
+</form>
+
 </body>
 </html>

@@ -259,27 +259,4 @@ public class MemberDAO implements InterMemberDAO {
 	      return result;   
 	}
 	
-	// 나의 메뉴 보여주기
-	public List<MemberVO> selectMenu() throws SQLException {
-
-		List<MemberVO> menuList = new ArrayList<MemberVO>();
-		
-		try {
-		
-			conn = ds.getConnection();
-
-			String sql = " select product_name, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss') "+
-						 " from favorite_menu "+
-						 " order by sysdate desc ";
-						
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-		} finally {
-			close();
-		}
-		
-		return menuList;
-	}
 }
