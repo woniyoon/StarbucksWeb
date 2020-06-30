@@ -3,6 +3,14 @@
 
 <jsp:include page="header.jsp" />
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+
+		
+	});
+
+</script>
 
 
 <style type="text/css">
@@ -280,8 +288,6 @@
 		height: 710px;
 		background-color: #ffe6ff;
 	}
-	
-	
 	/* ---------------------------- 바디 끝 -------------------------- */
 	
 	footer {
@@ -296,20 +302,9 @@
 	}
 	
 	/* ---------------------------- 푸터 끝 -------------------------- */
+	
 
-</style>	
-
-<script type="text/javascript">
-
-	$(document).ready(function(){
-		
-		
-		
-	});
-</script>
-
-
-
+</style>		
 		<section>
 			<div id="section_new_product" class="new_back_size">
 				<div id="section_new_product_slogan">
@@ -357,7 +352,8 @@
 			</div>
 			
 			<div id="section_map">
-			    <jsp:include page="location.jsp"/>
+			지도
+				<div id="map" style="width:90%; height:450px; border: solid 1px red;"></div>
 			</div>
 		
 		</section>
