@@ -61,7 +61,7 @@
 		    flex-direction: column;
 		}
 		
-		#search_bar {
+		/* #search_bar {
 			flex: 1;
 		    height: 50px;
 		    box-sizing: content-box;
@@ -76,7 +76,7 @@
 			flex: 7;
 		    width: -webkit-fill-available;
 		    height: 100%;
-		    /* border: 2px solid purple; */
+		    border: 2px solid purple;
 		    list-style-type: none;
 		    padding: 0;
 		    border-collapse: collapse;
@@ -98,9 +98,9 @@
 		    height: 4em;
 		    padding: 10px;
 		    border: 1px solid grey;
-		}
+		} */
 		
-		.store_row {
+		/* .store_row {
 			display: flex;
 			flex-direction: row;
 			cursor: pointer;
@@ -120,7 +120,7 @@
 		
 		.store_row > img {
 			max-width: 100%;
-		}
+		} */
 		
 		#map_section {
 		    border: 5px solid #006633;
@@ -131,6 +131,19 @@
 		    width: 100%;
 		    height: 100%;
 		}
+		
+		.store_info {
+			border: none;
+			width: 200px;
+			height: 140px;
+		}
+		
+		.store_info_header {
+			width: 100%;
+			height: 20%;
+			background-color: #f6f5ef;
+		}
+		
 		
 		/* 페이지 이동 버튼 */
 		
@@ -186,14 +199,14 @@
             <li id="confirmed"><span>결제완료</span></li>
         </ul>
         <div id="search_location_container" align="center">
-            <aside id="search_section">
+<%--             <aside id="search_section">
                 <input type="text" id="search_bar" placeholder="지역명을 입력하세요." />
                 <div id="store_locations">
                     <table>
                         <thead>
                         	<tr><th>매장 목록</th></tr>
                         </thead>
-                        <tbody>
+                        <tbody id="store_list">
                         	<!-- DB에서 받아오는 매장 정보 출력 -->
 	                        <c:forEach var="store" items="${storeList}" varStatus="status">
 	                        	<tr>
@@ -209,7 +222,7 @@
                         </tbody>
                     </table>
                 </div>
-            </aside>
+            </aside> --%>
             <aside id="map_section">       <!-- 카카오맵 지도 -->
                 <div id="map"></div>
             </aside>
