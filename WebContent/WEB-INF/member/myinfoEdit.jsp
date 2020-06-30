@@ -523,7 +523,7 @@
 							<!-- 남/여 성별선택하기 -->
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
 								<c:choose>
-									<c:when test="${gender eq 1 }">
+									<c:when test="${ gender eq 1 }">
 										<label class="btn btn-danger on active focus">									
 									</c:when>
 									<c:otherwise>
@@ -534,7 +534,7 @@
 									남	
 								</label>
 								<c:choose>
-									<c:when test="${gender eq 2 }">
+									<c:when test="${ gender eq 2 }">
 										<label class="btn btn-danger on active focus">									
 									</c:when>
 									<c:otherwise>

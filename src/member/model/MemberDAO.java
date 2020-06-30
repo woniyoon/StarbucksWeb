@@ -3,9 +3,7 @@ package member.model;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.naming.*;
 import javax.sql.DataSource;
@@ -258,5 +256,33 @@ public class MemberDAO implements InterMemberDAO {
 	                        
 	      return result;   
 	}
+
+	
+	
+	// 나의 음료 삭제하는 메소드
+	public int menuDelete(String my_menu_seq) throws SQLException {
+		
+		int result = 0 ;
+		
+		try {
+		
+			conn = ds.getConnection();
+			
+			String sql = " delete from favorite_menu where my_menu_seq = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(my_menu_seq));
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+	
+	
 	
 }

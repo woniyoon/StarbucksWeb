@@ -127,7 +127,7 @@
 		width: 1300px;
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 20px;
+		margin-top: 200px;
 		/* border: solid 1px red; */	
 	}	
 	
@@ -165,12 +165,12 @@ $(document).ready(function(){
 		// 체크박스 전체선택/전체해제
 		$("#allCheck").click(function(){
 		
-			if($("input:checkbox[name=favorite]").is(":checked")==true) {
+			if($("input:checkbox[name=favoriteDrink]").is(":checked")==true) {
 
-				$("input:checkbox[name=favorite]").attr("checked", false);
+				$("input:checkbox[name=favoriteDrink]").attr("checked", false);
 			}
 			else {
-				$("input:checkbox[name=favorite]").attr("checked", true);
+				$("input:checkbox[name=favoriteDrink]").attr("checked", true);
 			}
 			
 		}); 	
@@ -262,18 +262,20 @@ $(document).ready(function(){
 			
 			// == 체크박스에서 체크된 value 값 (each사용) == //
 			var arrCheckedVal = new Array();
+			var id;
 			
-			$("input:checkbox[name=favoriteFood]:checked").each(function(){
+			$("input:checkbox[name=favorite]:checked").each(function(){
 				arrCheckedVal.push($(this).val());
+				id = $(this).prop("id");
 			});
 			
 			arrCheckedVal = arrCheckedVal.join(",");
 			
-			alert("확인용 : "+arrCheckedVal);
+		//	alert("확인용 : "+id);
 
 			var frm = document.deleteFrm;
-			frm.no.value = arrCheckedVal;
-			frm.action = "/StarbucksWeb/member/deleteFood.sb";
+			frm.seq.value = id;
+			frm.action = "/StarbucksWeb/member/deleteDrink.sb";
 			frm.method = "post";
 			frm.submit();
 			
@@ -329,10 +331,6 @@ $(document).ready(function(){
 		    </div>
 		  </div>
 			
-			
-			
-			
-			
 			<div id="drink_list">
 			<form action="mymenuListFrm">
 			<table>
@@ -346,23 +344,24 @@ $(document).ready(function(){
 				</thead>
 				<tbody>
 					
-					<!--  
-					<tr>
-						<td colspan="4">데이터가 없습니다.</td>
-					</tr>
-					 -->		
-				
-					<c:forEach var="mymenu" items="${menuList}" >
-						<c:if test="${mymenu.section == 0 }">
+					<c:set var="flag" value="0" />
+					<c:forEach var="myDrink" items="${menuList}" varStatus="status" >                                                                           
+						<c:if test="${myDrink.section == 0 }">
+							<c:set var="flag" value="1" />
 							<tr class="menuInfo">
-								<td><input type="checkbox" name="favoriteDrink"/></td>
-								<td class="mymenu_seq">${mymenu.my_menu_seq}</td>
-								<td class="pname">${mymenu.pname}</td>
-								<td>${mymenu.register_day}</td>
+								<td><input type="checkbox" name="favorite" id="${myDrink.my_menu_seq}"/></td>
+								<td class="mymenu_seq">${status.count}</td>
+								<td class="pname">${myDrink.pname}</td>
+								<td>${myDrink.register_day}</td>
 							</tr>
 						</c:if>
 					</c:forEach>
-				
+					
+					<c:if test="${flag == 0}">
+					<tr>
+						<td colspan="4">데이터가 없습니다.</td>
+					</tr>
+					</c:if>	
 				</tbody>
 			</table>
 			</form>
@@ -380,28 +379,17 @@ $(document).ready(function(){
 					 </tr>
 				</thead>
 				<tbody>
-					
-					<!-- 
-					<tr>
-						<td colspan="4">데이터가 없습니다.</td>
-					</tr>
-					
-					-->
-					
-					
-					<c:forEach var="myFood" items="${menuList}" >
+			
+					<c:forEach var="myFood" items="${menuList}" varStatus="status" >
 						<c:if test="${myFood.section == 1 }">
 							<tr class="menuInfo">
-								<td><input type="checkbox" name="favoriteFood"/></td>
-								<td class="mymenu_seq">${myFood.my_menu_seq}</td>
+								<td><input type="checkbox" name="favorite" id="${myFood.my_menu_seq}"/></td>
+								<td class="mymenu_seq">${status.count}</td>
 								<td class="pname">${myFood.pname}</td>
 								<td>${myFood.register_day}</td>
 							</tr>
 						</c:if>
 					</c:forEach>
-					
-					
-					
 					
 				</tbody>
 			</table>
@@ -417,7 +405,7 @@ $(document).ready(function(){
 </div>
 
 <form name="deleteFrm">
-	<input type="hidden" name="no" />
+	<input type="hidden" name="seq" />
 </form>
 
 </body>
