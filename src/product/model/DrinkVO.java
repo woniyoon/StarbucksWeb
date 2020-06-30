@@ -69,4 +69,6 @@ public class DrinkVO extends ProductVO {
 	public void setBase(String base) {
 		this.base = base;
 	}
+	
+	
 }
