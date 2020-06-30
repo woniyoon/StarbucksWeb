@@ -135,14 +135,39 @@
 		.store_info {
 			border: none;
 			width: 200px;
-			height: 140px;
+			height: 120px;
+			
 		}
 		
 		.store_info_header {
 			width: 100%;
 			height: 20%;
-			background-color: #f6f5ef;
+			background-color: #8c8279;
+			color: white;
+			padding: 5px;
+			box-sizing: border-box;
 		}
+		
+		.store_info_body {
+			box-sizing: border-box;
+			padding: 5px;
+		}
+		
+		.select_btn {
+			background-color: #222;
+			color: white;
+			display: inline-block;
+			border-radius: 5px;
+			padding: 5px;
+			margin: 0 10px 0 0;
+		}
+		
+		.select_btn:hover {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		
+		
 		
 		
 		/* 페이지 이동 버튼 */
@@ -224,7 +249,8 @@
                 </div>
             </aside> --%>
             <aside id="map_section">       <!-- 카카오맵 지도 -->
-                <div id="map"></div>
+                <div id="map">
+                </div>
             </aside>
         </div>
         <div align="center">

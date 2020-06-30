@@ -57,13 +57,15 @@ $(document).ready(function(){
 				    map.setCenter(locPosition);	
 				} 			    
 				
+				console.log(item);
 				position.content = "<div class='store_info'>"+ 
-					        	   "  <div class='store_info_header'>"+ 
-							       "    <a href='"+item.url+"' target='_blank'><strong>"+item.store_name+"</strong></a>"+  
+					        	   "  <div class='store_info_header' align='left'>"+ 
+							       "    <strong>"+item.store_name.substring(4)+"</strong>"+  
 							       "  </div>"+
-							       "  <div class='desc'>"+  
+							       "  <div class='store_info_body'>"+  
 							       "    <span class='address'>"+item.address+"</span>"+ 
 							       "  </div>"+ 
+							       " <div align='right'><div class='select_btn' id='"+item.store_id+"' onclick='selectLocation(this)'>선택</div></div>"
 							       "</div>";
 				
 				position.latlng = new kakao.maps.LatLng(item.latitude, item.longitude);
@@ -76,8 +78,6 @@ $(document).ready(function(){
 		error: function(request, status, error){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 	    }
-
-		
 		
 	});
     
@@ -116,6 +116,8 @@ $(document).ready(function(){
 			zIndex: i+1
 		});
 		
+		
+		
 		// 인포윈도우를 가지고 있는 객체배열에 넣기
 		infowindowArr.push(infowindow);	
 		
@@ -133,6 +135,13 @@ $(document).ready(function(){
 }); // end of $(document).ready() ----------------------------------------
     
   
+
+function selectLocation(obj){
+	console.log(obj.id);
+	
+	location.href= "/StarbucksWeb/order/payment.sb";
+	
+}
     
     
 
