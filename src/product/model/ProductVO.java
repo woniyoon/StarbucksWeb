@@ -5,7 +5,6 @@ public class ProductVO {
    private String parentTable;
    private String productId;
    private String categoryID;
-   /* private String productSeq; */
    private String name;
    private String nameEng;
    private String description;
@@ -13,7 +12,7 @@ public class ProductVO {
    private String img;
    private NutritionVO nutrition;
    private String custom = "";
-   
+   private String categoryName;
    
    public ProductVO() {
       
@@ -46,12 +45,12 @@ public class ProductVO {
    public void setProductId(String productId) {
       this.productId = productId;
    }
-
-   public String getcategoryID() {
+   
+   public String getCategoryID() {
       return categoryID;
    }
 
-   public void setcategoryID(String categoryID) {
+   public void setCategoryID(String categoryID) {
       this.categoryID = categoryID;
    }
 
@@ -104,11 +103,19 @@ public class ProductVO {
    }
    
    public String getCustom() {
-	   return custom;
+      return custom;
    }
-	
+   
    public void setCustom(String custom) {
-	   this.custom = custom;
+      this.custom = custom;
    }
-	
+   
+   public String getCategoryName() {
+	  return categoryName;
+   }
+   
+   public void setCategoryName(String categoryName) {
+	   this.categoryName = categoryName;
+   }
+   
 }

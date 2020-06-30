@@ -1,5 +1,14 @@
 package common.controller;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import product.model.InterProductDAO;
+import product.model.ProductDAO;
+import product.model.ProductVO;
+
 public abstract class AbstractController implements InterCommand {
 
 	private boolean isRedirect = false;
@@ -16,5 +25,6 @@ public abstract class AbstractController implements InterCommand {
 	}
 	public void setViewPage(String viewPage) {
 		this.viewPage = viewPage;
-	}	
+	}
+	
 }
