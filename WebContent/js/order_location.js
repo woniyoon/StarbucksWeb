@@ -1,5 +1,5 @@
 
-    
+var store_id = "";    
 
 $(document).ready(function(){
     var path = window.location.pathname;
@@ -7,10 +7,10 @@ $(document).ready(function(){
     var current_state = path.substring(start_point, path.length-3);
     console.log(current_state);
 
+    // 현재 진행중인 프로세스에 따라 상태옵션 색 변경
     $("#"+current_state).css({"color": "white", "background-color": "#006633"})
     $("#current_nav_menu").text($("li#"+current_state+" > span").text());
     
-
     var usesOwnLocation = confirm("현재 위치를 이용하겠습니까?");
     
     var coordinates = { // 디폴트 위치
@@ -18,19 +18,30 @@ $(document).ready(function(){
     	"lng":126.570667
     };
     
-    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-    var options = { //지도를 생성할 때 필요한 기본 옵션
-    		center: new kakao.maps.LatLng(coordinates.lat, coordinates.lng), //지도의 중심좌표.
-    		level: 3 //지도의 레벨(확대, 축소 정도)
+    var container = document.getElementById('map');
+    var options = { 
+    		center: new kakao.maps.LatLng(coordinates.lat, coordinates.lng),
+    		level: 3,
     };
     
-    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    var map = new kakao.maps.Map(container, options); 
     	
+    
+//    var rect = container.getBoundingClientRect();
+//    console.log("rect.right : " + rect.right);
+//    console.log("rect.bottom : " + rect.bottom);
+//    
+//    var height = $("div#test").css("height");
+//    var width = $("div#test").css("width");
+//        
+//    $("div#test").css({"z-index": 1000, "left": rect.right - 380 , "top": rect.bottom - 140 });
+
+    
 	var positionArr = [];
     
     $.ajax({ 
 		url: "/StarbucksWeb/location.sb",
-		async: false, // 동기 // 지도는 비동기 통신이 아닌 동기 통신을 해야 한다! ★중요
+		async: false,
 		dataType: "json",
 		success: function(json){ 
 			
@@ -58,14 +69,17 @@ $(document).ready(function(){
 				} 			    
 				
 				console.log(item);
-				position.content = "<div class='store_info'>"+ 
+				
+				// 마커 위에 나타낼 인포 element 만들기
+				position.content = "<div class='store_info' id='store_info"+item.store_id+"'>"+ 
 					        	   "  <div class='store_info_header' align='left'>"+ 
-							       "    <strong>"+item.store_name.substring(4)+"</strong>"+  
+							       "    <strong>"+item.store_name.substring(5)+"</strong>"+  
 							       "  </div>"+
 							       "  <div class='store_info_body'>"+  
 							       "    <span class='address'>"+item.address+"</span>"+ 
 							       "  </div>"+ 
-							       " <div align='right'><div class='select_btn' id='"+item.store_id+"' onclick='selectLocation(this)'>선택</div></div>"
+							       " <div align='right'><div class='select_btn' id='"+item.store_id+"' onclick='selectLocation(this)'>선택</div></div>"+
+							       "<input id='store_name"+item.store_id+"' type='hidden' value='"+item.store_name.substring(4)+"'/>"
 							       "</div>";
 				
 				position.latlng = new kakao.maps.LatLng(item.latitude, item.longitude);
@@ -82,11 +96,6 @@ $(document).ready(function(){
 	});
     
  
-    
-    
-    
-    
-   
     
  // 인포윈도우를 가지고 있는 객체 배열의 용도 
 	var infowindowArr = new Array(); 
@@ -117,12 +126,9 @@ $(document).ready(function(){
 		});
 		
 		
-		
 		// 인포윈도우를 가지고 있는 객체배열에 넣기
 		infowindowArr.push(infowindow);	
 		
-		// == 마커위에 인포윈도우를 표시하기
-		// infowindow.open(mapobj, marker);
 		
 		// == 마커위에 인포윈도우를 표시하기
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
@@ -134,21 +140,41 @@ $(document).ready(function(){
 
 }); // end of $(document).ready() ----------------------------------------
     
-  
+//window.onresize = function(event) {
+//
+//	var map_container = document.getElementById("map_container");
+//	console.log(map_container);
+//    var rect = map_container.getBoundingClientRect();
+//    console.log("rect.right : " + rect.right);
+//    console.log("rect.bottom : " + rect.bottom);
+//    var height = $("div#option_viewer").css("height");
+//    var width = $("div#option_viewer").css("width");
+//    console.log(height);
+//    
+//    $("div#option_viewer").css({"left": rect.right - width , "top": rect.bottom - height});
+//    
+//    console.log("test");
+//};
+//  
+
 
 function selectLocation(obj){
-	console.log(obj.id);
+	// 구매 매장 확정시 store_id를 전달하기 위해 숨겨진 form의 input에 저장
+	$("#store_id").prop("value", obj.id);
+	store_id = obj.id;
+//	console.log("선택한 매장의 아이디 : " + store_id);
+//	console.log($("input#store_name"+obj.id).prop("value"));
 	
-	location.href= "/StarbucksWeb/order/payment.sb";
-	
+	// 지도 밑에 선택된 매장명을 보여줌
+	$("span#selected_store_name").text($("input#store_name"+store_id).prop("value"));
+	$("#selected_store_container").show();
+//	$("div#option_viewer").show();	
 }
     
     
 
 function makeOverListener(map, marker, infowindow, infowindowArr) {
-    return function() {
-    	// alert("infowindow.getZIndex()-1:"+ (infowindow.getZIndex()-1));
-    	
+    return function() {    	
     	for(var i=0; i<infowindowArr.length; i++) {
     		if(i == infowindow.getZIndex()-1) {
     			infowindowArr[i].open(map, marker);
@@ -158,4 +184,21 @@ function makeOverListener(map, marker, infowindow, infowindowArr) {
     		}
     	}
     };
+}
+
+
+function checkout(){
+	if(store_id == "") {
+		alert("매장을 선택해주세요!");
+	} else {
+		var form = document.loc_form;
+		
+		form.method = "POST";
+		form.action = "/StarbucksWeb/order/payment.sb";
+		form.submit();
+
+	}
+	
+	
+	//javascript:location.href='order_payment.html
 }

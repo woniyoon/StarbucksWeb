@@ -46,10 +46,10 @@
 		    padding-bottom: 3rem;
 		}
 		
-		#search_location_container {
+		#map_container {
 		    display: flex;
-		    width: 60vw;
-		    height: 50vh;
+		    width: 50vw;
+		    height: 60vh;
 		    margin: 50px auto;
 		    border: 1px solid rgb(21, 21, 44);
 		}
@@ -122,14 +122,13 @@
 			max-width: 100%;
 		} */
 		
-		#map_section {
+/* 		#map_section {
 		    border: 5px solid #006633;
 		    flex: 1;
-		}
+		} */
 		
 		#map {
-		    width: 100%;
-		    height: 100%;
+		    flex: 1;
 		}
 		
 		.store_info {
@@ -167,8 +166,23 @@
 			cursor: pointer;
 		}
 		
+		#selected_store_container {
+			margin: 60px auto;
+			border: 1px solid red;
+			font-size: 20pt;
+			display: none;
+		}
 		
-		
+/* 		#option_viewer {
+			position: fixed;
+			height: 10%;
+			width: 15%;
+			border-radius: 10px;
+			background-color: #006633;
+			color: white;
+			display: none;
+		}
+		 */
 		
 		/* 페이지 이동 버튼 */
 		
@@ -223,40 +237,16 @@
             <li id="payment"><span>결제하기</span></li>
             <li id="confirmed"><span>결제완료</span></li>
         </ul>
-        <div id="search_location_container" align="center">
-<%--             <aside id="search_section">
-                <input type="text" id="search_bar" placeholder="지역명을 입력하세요." />
-                <div id="store_locations">
-                    <table>
-                        <thead>
-                        	<tr><th>매장 목록</th></tr>
-                        </thead>
-                        <tbody id="store_list">
-                        	<!-- DB에서 받아오는 매장 정보 출력 -->
-	                        <c:forEach var="store" items="${storeList}" varStatus="status">
-	                        	<tr>
-	                        		<td class="store_row" id="${store.storeID }" onclick="getLocOnMap(${store.latitude}, ${store.longitude })">
-	                        			<p class="store_detail">
-		                        			<strong>${store.storeName}</strong>
-		                        			<span>${store.address}</span>
-	                        			</p>
-	                        			<img src="/StarbucksWeb/images/j1/location_pin.png" />
-	                        		</td>
-	                        	</tr>
-	                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </aside> --%>
-            <aside id="map_section">       <!-- 카카오맵 지도 -->
-                <div id="map">
-                </div>
-            </aside>
+        <div id="map_container" align="center">
+	        <div id="map"></div>
         </div>
+<!--         <div id="option_viewer"><label>선택된 매장 : </label><br><span id="selected_store_name"></span></div> -->
+        <div id="selected_store_container" align="center"><label>선택된 매장 : </label><span id="selected_store_name"></span></div>
+        <form name="loc_form"><input id="store_id" name="store_id" type="hidden" /></form>
         <div align="center">
             <button class="move_button" onclick="history.back()">뒤로</button>
-            <button class="move_button" id="next" onclick="javascript:location.href='order_payment.html'">다음</button>
+            <button class="move_button" id="next" onclick="checkout()">다음</button>
         </div>
     </section>
-
+   
     <jsp:include page="../footer.jsp" />   
