@@ -1,4 +1,4 @@
-package member.controller;
+package member.model;
 
 public class MenuVO {
 

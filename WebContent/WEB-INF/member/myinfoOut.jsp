@@ -151,7 +151,7 @@
    		width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 100px;
+		margin-top: 50px;
 		/* border: solid 1px red; */	
     }
     
@@ -218,37 +218,49 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
 	
 	var date = new Date();
 	$('#now_date').html(moment(date).format('YYYY년 MM월 DD일 '));
 
-	
-	
-	$("div#delAccount").click(function () {
-		
-		// 약관동의
-		var bAgree = $("input:checkbox[id=ck_agree]").prop("checked"); 
-		
-		if(bAgree == 0) {
-		
-			alert("회원탈퇴 후 마이 스타벅스 리워드 혜택 및 등록한 스타벅스 카드의 소유권 상실에 대해 동의하여야 합니다.");
-			
-			return;
-		}
-		
-		else {
-			alert("동의함");
-		}
-	
-	
-	});
-	
-
-
-
-	
 });
+
+
+function goDel(userid) {
+    
+    var $target = $(event.target);
+    
+    var bAgree = $("input:checkbox[id=ck_agree]").prop("checked"); 
+	
+	if(bAgree == 0) {
+	
+		alert("회원탈퇴 후 마이 스타벅스 리워드 혜택 및 등록한 스타벅스 카드의 소유권 상실에 대해 동의하여야 합니다.");
+		
+		return;
+	}
+	else if(bAgree == 1) {
+		
+		var bool = confirm("ŏ̥̥̥̥םŏ̥̥̥̥ 정말 회원탈퇴 하시겠습니까?");
+       	
+	    if(bool) {
+	    //	alert("탈퇴 완료");
+	    //	location.href = "http://localhost:9090/StarbucksWeb/login/loginIndex.sb";
+	    	
+	    	var frm = document.delMemFrm;
+	    	frm.userid.value = userid;
+			frm.action = "/StarbucksWeb/member/delMember.sb";
+			frm.method = "post";
+			frm.submit();
+			
+	    }
+	    else {
+	    	alert("회원탈퇴를 취소하셨습니다 (๑❛ڡ❛๑)☆ ");
+	    	var bAgree = $("input:checkbox[id=ck_agree]").prop("checked", false);
+	    }
+	}
+}
+
 </script>
 
 </head>
@@ -321,10 +333,13 @@ $(document).ready(function(){
      		<div id="box7" ><input type="checkbox" id="ck_agree" /><label id="agree" for="ck_agree">회원탈퇴 후 마이 스타벅스 리워드 혜택 및 등록한 스타벅스 카드의 소유권 상실에 대해 동의합니다.</label></div>
      	</div>
      </nav>
-     
-     <div id="delAccount"><p><a>마이 스타벅스 리워드 서비스 이용내역 일괄삭제</a></p></div>
+     <div id="delAccount" onClick="goDel('${(sessionScope.loginuser).userid}');"><p><a>마이 스타벅스 리워드 서비스 이용내역 일괄삭제</a></p></div>
      
     <footer></footer>
+
+<form name="delMemFrm">
+	<input type="hidden" name="userid"/>
+</form>
     
 </div>
 </body>

@@ -23,7 +23,8 @@ public interface InterMemberDAO {
 	// 개인정보 수정
 	int updateInfo(MemberVO membervo) throws SQLException;
 
-
+	// 회원탈퇴
+	int deleteMember(MemberVO membervo) throws SQLException;
 
 	
 }

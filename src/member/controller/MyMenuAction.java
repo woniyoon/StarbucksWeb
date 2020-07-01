@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import member.model.MemberVO;
+import member.model.MenuVO;
+import member.model.MyMenuDAO;
 
 public class MyMenuAction extends AbstractController { 
 

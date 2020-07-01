@@ -1,4 +1,4 @@
-package member.controller;
+package member.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import member.controller.InterMyMenuDAO;
 
 
 public class MyMenuDAO implements InterMyMenuDAO {

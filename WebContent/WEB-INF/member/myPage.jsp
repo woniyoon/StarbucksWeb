@@ -272,8 +272,19 @@ $(document).ready(function(){
 	//	alert("확인용 :"+ name);
 	}
 	
+	// 회원탈퇴
+	function goinfoOut(userid) {
+		var frm = document.myinfoOutFrm;
+		frm.userid.value = userid;
+		
+		frm.method = "POST";
+		frm.action = "/StarbucksWeb/member/myinfoOut.sb";
+		frm.submit();
+		
+		alert("확인용 user : "+ userid);
+	} 
 	
-
+	
 </script>
 </head>
 <body onload="showImage()">
@@ -342,7 +353,7 @@ $(document).ready(function(){
      		<div class="panel panel-default">
 	     		 <div class="panel-heading">
 			     <h4 class="panel-title"> 
-	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'" >My 메뉴</a>
+	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'">My 메뉴</a>
 	     	 	 </h4>
 			    </div>
 		    </div> 
@@ -354,7 +365,8 @@ $(document).ready(function(){
 		      	  </div>
 		      	  <div id="collapse2" class="panel-collapse collapse">
 			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보확인 및 수정</a></div>
-			        <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/StarbucksWeb/member/myinfoOut.sb">회원 탈퇴</a></div>
+			        <%-- <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/StarbucksWeb/member/myinfoOut.sb" value="${(sessionScope.loginuser).email}">회원 탈퇴</a></div> --%>
+			        <div class="panel-body" style="background-color: white;"><a href="javascript:goinfoOut('${(sessionScope.loginuser).userid}');">회원 탈퇴</a></div>
 			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEditPwd.sb">비밀번호 변경</a></div>
 		         </div>
 		    </div>
@@ -394,6 +406,10 @@ $(document).ready(function(){
 </form>
 
 <form name="myinfoEditPwdFrm">
+	<input type="hidden" name="userid"/>
+</form>
+
+<form name="myinfoOutFrm">
 	<input type="hidden" name="userid"/>
 </form>
 

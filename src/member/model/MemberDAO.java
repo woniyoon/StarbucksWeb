@@ -284,5 +284,36 @@ public class MemberDAO implements InterMemberDAO {
 	}
 	
 	
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(MemberVO membervo) throws SQLException {
+		  
+		  int result=0;
+	      
+	      try {
+	         
+	         conn = ds.getConnection();
+	         
+	         String sql = " update starbucks_member set status='0' "
+	                  	 +" where userid = ? ";               
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, membervo.getUserid());
+	         
+	         result = pstmt.executeUpdate();      
+	         
+	      } catch(Exception e){
+	         e.printStackTrace();
+	      }finally {
+	         close();
+	      }
+	                        
+	      return result;   
+	
+	
+	}
+	
+	
 	
 }
