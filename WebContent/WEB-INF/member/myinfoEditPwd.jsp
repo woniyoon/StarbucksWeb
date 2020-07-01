@@ -1,26 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>비밀번호 변경</title>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<!-- 
-
-	2020.05.27 -- 곽지원
-	
-	비밀번호 변경 폼
-	
-	아이디 (readonly) 
-	현재 비밀번호
-	새비밀번호  			-> 영문,숫자 혼합 10~20자리 
-	새비밀번호 확인
-	
-	확인버튼
-	
- -->
- 
+<jsp:include page="../header.jsp" />  
+    
 <style type="text/css">
 	
 	* {
@@ -240,7 +224,6 @@ function goUpdatePwd() {
 <body>
 	<div id="container">
 		<form name="updatePwdFrm">
-		<header></header>
 		
 		<div id="title">
 		<strong>비밀번호 변경</strong>
@@ -255,7 +238,7 @@ function goUpdatePwd() {
 			
 			<div id="box2">
 				<strong>아이디</strong>			
-				<p class="id_text"><input style="background-color: #f2f2f2; " type="text" name="userid" id="userid" value="${userid}" readonly /></p>
+				<p class="id_text"><input style="background-color: #f2f2f2; padding-left: 10px;" type="text" name="userid" id="userid" value="${userid}" readonly /></p>
 			</div>
 
 			<div id="box3">
@@ -279,10 +262,7 @@ function goUpdatePwd() {
 			<a class="btn_ok" id="btnUpdate" onClick="goUpdatePwd();">확인</a>	
 		</div>
 		
-		<footer></footer>
 		</form>
 	</div>
-	
-	
-</body>
-</html>
+
+<jsp:include page="../footer.jsp" />

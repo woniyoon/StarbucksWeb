@@ -3,12 +3,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<jsp:include page="../header.jsp" />   
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -21,12 +17,7 @@
 		padding: 0px;
 	}
 	
-	#box1 {
-		height: 100px; 
-		margin: 0;
-		padding: 0;
-		background-color : green;
-	}
+
 	
 	#box2 {
 		overflow: hidden;	/* div를 벗어나는 부분을 가려주는 역할 */
@@ -36,7 +27,7 @@
         height: 150px;
 	}
 	
-	img {
+	#box2 img {
 		width: 100%;
 	}
 	
@@ -289,15 +280,15 @@ $(document).ready(function(){
 </head>
 <body>
 <div id="container">
-     <header>
+     <div>
      	<div id="box1"></div>
      	<div id="box2">
      	<img src="../images/jiwon/coffeeBeans.jpg">
-     		<div style="padding-right: 1000px; top: 150px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
+     		<div style="padding-right: 1000px; top: 165px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
 			 My 메뉴
 			</div>
      	</div>
-     </header>
+     </div>
      
      <nav>
     
@@ -401,12 +392,10 @@ $(document).ready(function(){
 		    <button id="btnDelete">선택삭제</button>
 		</div>	 		
      </nav>
-    <footer></footer>
 </div>
 
 <form name="deleteFrm">
 	<input type="hidden" name="seq" />
 </form>
 
-</body>
-</html>
+<jsp:include page="../footer.jsp" />

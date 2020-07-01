@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+    
+<jsp:include page="header.jsp" /> 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -18,13 +16,6 @@
 		padding: 0px;
 	}
 	
-	#box1 {
-		height: 100px; 
-		margin: 0;
-		padding: 0;
-		background-color : green;
-	}
-	
 	#box2 {
 		overflow: hidden;	/* div를 벗어나는 부분을 가려주는 역할 */
 		display: flex;
@@ -35,12 +26,6 @@
 	
 	#box2 img {
 		width: 100%;
-	}
-	
-	footer {
-		margin-top: 80px;
-		height: 300px;
-		background-color: black;
 	}
 	
 	#con1 {
@@ -197,6 +182,7 @@
 		margin-top: 30px;
 		margin-right: auto;
 		margin-left: auto;
+		margin-bottom: 50px;
 		background-color: #e2c383;
 	}
 	
@@ -335,12 +321,10 @@ function goDel(userid) {
      </nav>
      <div id="delAccount" onClick="goDel('${(sessionScope.loginuser).userid}');"><p><a>마이 스타벅스 리워드 서비스 이용내역 일괄삭제</a></p></div>
      
-    <footer></footer>
-
 <form name="delMemFrm">
 	<input type="hidden" name="userid"/>
 </form>
     
 </div>
-</body>
-</html>
+
+<jsp:include page="footer.jsp" />

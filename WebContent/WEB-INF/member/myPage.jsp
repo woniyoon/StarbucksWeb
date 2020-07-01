@@ -3,7 +3,6 @@
     
 <jsp:include page="header.jsp" /> 
     
-
     
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -40,13 +39,7 @@
 	#box2 img {
 		width: 100%;
 	}
-	
-	footer {
-		margin-top: 80px;
-		height: 300px;
-		background-color: black;
-	}
-	
+
 	#con1 {
 		width: 1200px;
 		margin-left: auto;
@@ -280,8 +273,6 @@ $(document).ready(function(){
 		frm.method = "POST";
 		frm.action = "/StarbucksWeb/member/myinfoOut.sb";
 		frm.submit();
-		
-		alert("확인용 user : "+ userid);
 	} 
 	
 	
