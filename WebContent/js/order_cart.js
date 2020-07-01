@@ -22,7 +22,7 @@ $(document).ready(function(){
     console.log(current_state);
     
     // 현재 위치한 페이지에 해당하는 nav_menu 항목의 컬러만 변경
-    $("#"+current_state).css({"color": "white", "background-color": "#006633"})
+    $("#"+current_state).css({"color": "white", "background-color": "#006633", "border-color": "#006633"})
     $("#current_nav_menu").text($("li#"+current_state+" > span").text());
 
     // 커스텀 가격표를 가져옴
@@ -112,7 +112,17 @@ function update_custom(){
 //		$("#custom_option"+item.id).prop("value", custom);
 		console.log(custom);
 		
+		var final_price = $("#price"+item.id).text();
+		
+		console.log($("#price"+item.id).text());
+		console.log($("#price"+item.id));
+		// 커스텀 내역 저장
 		$("#form_checkout").css("display", "none").append("<input id='"+item.id+"' name='custom' type='text' value='"+custom+"' />");
+		// 쇼핑카트 시퀀스 저장
+		$("#form_checkout").css("display", "none").append("<input name='cart_seq' type='text' value='"+item.id+"' />");
+		// 최종가격 저장
+		$("#form_checkout").css("display", "none").append("<input id='final_price"+item.id+"' name='final_price' type='text' value='"+final_price+"' />");
+		
 	});
 	
 }
