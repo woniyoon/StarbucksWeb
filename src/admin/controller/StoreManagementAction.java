@@ -10,6 +10,7 @@ public class StoreManagementAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		
 		super.setViewPage("/WEB-INF/admin/store_management.jsp");
 	}
 

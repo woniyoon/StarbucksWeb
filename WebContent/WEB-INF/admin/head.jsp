@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
     	body {
 		    height: auto;
@@ -61,6 +62,7 @@
 		article {
 		    height: 100vh;
 		    flex: 10;
+			padding: 50px auto;
 		}
 		
 		a {
@@ -73,6 +75,16 @@
             justify-content: center;
             align-content: space-between;
         }
+        
+        #member_table, #member_table tr, #member_table td {
+        	border: 1px solid black;
+        	border-collapse: collapse;
+        }
+        
+        #paging_container {
+        	margin: 10px;
+        }
+        
     </style>
 </head>
 <body>
@@ -101,7 +113,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <a class="side_menu_item" onclick="">회원관리</a>
+                            <a class="side_menu_item" href="<%= ctxPath%>/admin/memberManagement.sb" onclick="">회원관리</a>
                         </td>
                     </tr>
                 </table>
