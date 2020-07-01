@@ -250,7 +250,25 @@
 		
 		
 		// 성별 기본값 - 남 (체크)
-		/* $("input:radio[name=jb-radio-1]").prop("checked",true); */
+		/*  $("input:radio[name=jb-radio-1]").prop("checked",true); 
+		
+		 var isChecked = $("input:radio[name=jb-radio-1]").is(":checked");
+			//	alert(isChecked); // 1.false // 3.true
+				
+				if(isChecked==true) {
+				   $("input:radio[name=jb-radio-1]").attr("checked",false); 
+				   alert($("input:radio[name=jb-radio-1]").is(":checked")); // 4.false
+				//   localStorage.removeItem('saveid');
+				}
+				else {
+					$("input:radio[name=jb-radio-1]").attr("checked",true);
+					alert($("input:radio[name=jb-radio-1]").is(":checked")); // 2. true
+			//		localStorage.setItem('saveid', $("#loginUserid").val());
+				} */
+		
+		
+		
+		
 		/* $('label.on').css("color","black");
 		$('label.on').css("background-color","#f2f2f2");
 		$('label.on').css("border-color","#a6a6a6"); */
@@ -346,14 +364,14 @@
 			else{
 				// 공백이 아닌 글자를 입력했을 경우
 				
-				// 비밀번호 정규식 : 영문, 숫자 혼합하여 10~20자리 이내로 입력하세요.
-				var regExp = /^[a-zA-Z0-9]{10,20}$/;
+				// 비밀번호 정규식 : 숫자,영문자,특수문자가 포함된 형태의 8~15글자 이내로 입력하세요.
+				var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
 				var bool = regExp.test($(this).val()); 
 
 				if(!bool) { 
 					// 조건에 맞지않으면
 					$("span#password_success").hide();
-					$("span#password_error").html("영문, 숫자 혼합하여 10~20자리 이내로 입력하세요.").show();
+					$("span#password_error").html("숫자,영문자,특수문자가 포함된 형태의 8~15글자 이내로 입력하세요.").show();
 					$("ul#able2").css("margin-bottom","40px");
 					$("#password").addClass("bgcol");  
 					
