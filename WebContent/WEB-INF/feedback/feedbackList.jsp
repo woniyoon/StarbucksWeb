@@ -170,10 +170,10 @@
 		
 		$(".noticeTitle").click(function(){ 
 			
-			var notice_seq = $(this).prev().text();
+			var feedback_board_seq = $(this).prev().text();
 			
 		//	alert(notice_seq);
-            location.href="noticeView.sb?notice_seq="+notice_seq;    		
+            location.href="feedbackView.sb?feedback_board_seq="+feedback_board_seq;    
 		});
 		
 	}); // end of $(document).ready(function()-----------------------------
@@ -182,7 +182,7 @@
 		// alert("검색버튼 클릭");
 		var frm = document.seachFrm;
 		frm.method = "GET";
-		frm.action = "noticeList.sb";
+		frm.action = "feedbackList.sb";
 		frm.submit();
 	}
 	
@@ -228,14 +228,14 @@
 				</thead>
 				
 				<tbody>
-					<c:forEach var="notice" items="${noticeList}">
+					<c:forEach var="feedback" items="${feedbackList}">
 					<tr>
-						<td>${notice.rno}</td>
-						<td class="notice_seq">${notice.notice_seq}</td>
-						<td class="noticeTitle">${notice.title}</td>
+						<td>${feedback.rno}</td>
+						<td class="notice_seq">${feedback.feedback_board_seq}</td>
+						<td class="noticeTitle">${feedback.title}</td>
 						<%-- <a href="/notice/noticeView.sb?notice_seq=${notice.notice_seq}"> --%>
-						<td>${notice.write_day}</td>
-						<td>${notice.hit}</td>
+						<td>${feedback.write_day}</td>
+						<td>${feedback.hit}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
