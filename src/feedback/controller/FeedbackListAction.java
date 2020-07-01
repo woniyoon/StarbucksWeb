@@ -7,16 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
-import notice.model.InterNoticeDAO;
-import notice.model.NoticeDAO;
-import notice.model.NoticeVO;
+import feedback.model.FeedbackDAO;
+import feedback.model.FeedbackListVO;
+import feedback.model.InterFeedbackDAO;
+
 
 public class FeedbackListAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		InterNoticeDAO dao = new NoticeDAO();
+		InterFeedbackDAO dao = new FeedbackDAO();
 		// *** 페이징 처리 안한 전체 글 목록 보여주기 ***
 		// List<NoticeVO> noticeList = dao.noticeTitleList();
 		// request.setAttribute("noticeList", noticeList);
@@ -46,9 +47,9 @@ public class FeedbackListAction extends AbstractController {
 			
 		}
 
-		List<NoticeVO> noticeList = dao.selectOneNotice(paraMap);
+		List<FeedbackListVO> feedbackList = dao.selectOneFeedback(paraMap);
 
-		request.setAttribute("noticeList", noticeList);
+		request.setAttribute("feedbackList", feedbackList);
 		request.setAttribute("sizePerPage", sizePerPage);		
 		
 		// 페이징 처리를 위한 공지사항에 대한 총 페이지개수 알아오기(select) --------------------------------
@@ -73,7 +74,7 @@ public class FeedbackListAction extends AbstractController {
 		
 		// *** [이전] 만들기 *** //
 		if( pageNo != 1 ) {
-			pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
+			pageBar += "&nbsp;<a href='feedbackList.sb?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
 		}
 		
 		while( !(loop > blockSize || pageNo > totalPage) ) {
@@ -84,7 +85,7 @@ public class FeedbackListAction extends AbstractController {
 			}
 			
 			else {
-				pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>"+pageNo+"</a>&nbsp;";
+				pageBar += "&nbsp;<a href='feedbackList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>"+pageNo+"</a>&nbsp;";
 			}
 			
 			pageNo++; // 1 2 3 4 5 6 7 8 9 10 11 12 ... 40 41 42
@@ -93,7 +94,7 @@ public class FeedbackListAction extends AbstractController {
 		
 		// *** [다음] 만들기 *** //
 		if( !(pageNo > totalPage) ) {
-			pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
+			pageBar += "&nbsp;<a href='feedbackList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
 		}
 
 		
