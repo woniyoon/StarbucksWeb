@@ -27,4 +27,7 @@ public interface InterOrderDAO {
 
 	// 전체 매장 리스트를 가져옴
 	List<LocationVO> getStoreList() throws SQLException;
+
+	// 커스텀 옵션과 최종가격을 업데이트
+	int updateShoppingCart(HashMap<String, String> paraMap) throws SQLException;
 }

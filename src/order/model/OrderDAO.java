@@ -210,6 +210,7 @@ public class OrderDAO implements InterOrderDAO {
 					String productID = rs.getString(1);
 					String parentTable = rs.getString(2);
 					
+					
 					// Product의 타입에 따라 다른 테이블로 쿼리
 					if("food".equalsIgnoreCase(parentTable)) {
 						FoodVO fvo = getFoodInfo(productID);
@@ -266,6 +267,28 @@ public class OrderDAO implements InterOrderDAO {
 
 			int itemSeq = Integer.parseInt(itemSeqToDelete);
 			pstmt.setInt(1, itemSeq);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updateShoppingCart(HashMap<String, String> paraMap) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " update shoppingcart set custom = ?, final_price = ? "+
+					" where shoppingcart_seq = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("customOption"));
+			pstmt.setInt(2, Integer.parseInt(paraMap.get("finalPrice")));
+			pstmt.setString(3, paraMap.get("cart_seq"));
 			
 			result = pstmt.executeUpdate();
 			
