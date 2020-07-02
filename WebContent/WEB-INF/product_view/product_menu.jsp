@@ -131,7 +131,7 @@
 	}
 	
 	/* 작은버튼 클릭 됐을 때 */
-	.button_on_mini {
+ 	.button_on_mini {
 	    display: inline-block;
 	    height: 26px;
 	    margin: 30px 10px 10px 0px;
@@ -142,8 +142,7 @@
 	    border: 1px solid #ddd;
 	    background-color: #666;
 	    color: #fff;
-	}
-	
+	} 
 
 	
 	div.grid_container {
@@ -251,6 +250,7 @@ $(window).ready(function(){
  	    	$("#category_btn_container_mini > a").removeClass();
 	 		$("#view_photo_btn").addClass("button_on_mini");
 			$("#view_nutrition_btn").addClass("button_off_mini"); 
+			
 			
 			var $target = $(event.target);
 			if ($target.prop("id")=="view_photo_btn"){
@@ -397,7 +397,15 @@ $(window).ready(function(){
                 <li>></li>
                 <li><a href="/StarbucksWeb/product/menu.sb">MENU</a></li>
                 <li>></li>
-                <li><a href="/StarbucksWeb/product/menu.sb">음료</a></li>
+                <li>
+					<li><a href="/StarbucksWeb/product/menu.sb">
+						<c:choose>
+							<c:when test="${pvo.parentTable eq 'food'}">푸드</c:when>
+							<c:otherwise>음료</c:otherwise>
+						</c:choose>					
+					</a></li>
+				</li>
+					
             </ul>
         </nav>  
     </div>

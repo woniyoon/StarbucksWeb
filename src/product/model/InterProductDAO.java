@@ -1,7 +1,7 @@
 package product.model;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 public interface InterProductDAO {
 
@@ -18,6 +18,12 @@ public interface InterProductDAO {
 	
 	// 제품번호를 가지고서 해당 푸드의 정보를 조회해오기
 	ProductVO selectOneFoodByID(String type, String productId) throws SQLException;
+	
+	// 마이메뉴
+	int addMyMenu(HashMap<String, String> paraMap) throws SQLException;
+	
+	// 장바구니
+	int addCart(String userid, String product_id) throws SQLException;
 
 	
 	// 제품번호를 가지고서 해당 제품의 추가된 이미지 정보를 조회해오기

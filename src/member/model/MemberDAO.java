@@ -143,8 +143,8 @@ public class MemberDAO implements InterMemberDAO {
 				mvo.setName(rs.getString("name"));
 				mvo.setEmail(aes.decrypt(rs.getString("email"))); // 복호화
 				mvo.setHp1(rs.getString("hp1"));
-				mvo.setHp2(aes.decrypt(rs.getString("hp2"))); // 복호화
-				mvo.setHp3(aes.decrypt(rs.getString("hp3"))); // 복호화
+				mvo.setHp2(rs.getString("hp2")); // 복호화
+				mvo.setHp3(rs.getString("hp3")); // 복호화
 				mvo.setPoint(rs.getInt("point")); // int
 
 			    mvo.setGender(rs.getInt("gender"));
