@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,11 +165,27 @@
                 <table class="table">
                     <tr>
                         <th><input type="checkbox" /></th>
+                        <th>no</th>
                         <th>메뉴명</th>
                         <th>변경사항</th>
                         <th>가격</th>
                     </tr>
-                    <tr>
+                    <c:choose>
+                    	<c:when test="${not empty cartList }">
+                    		<c:forEach var="cart" items="${cartList }" varStatus="status">
+	                    		<tr>
+		                    		<td><input type="checkbox" id="${cart.itemSeq }"/></td>
+		                    		<td>${status.count }</td>
+		                    		<td>${cart.product.name }</td>
+		                    		<td>${cart.product.custom }</td>                    		
+		                    		<td><fmt:formatNumber  value="${cart.product.price }" pattern="#,###" />원</td>
+	                    		</tr>
+                    		</c:forEach>
+                    	</c:when>
+                    </c:choose>
+                    
+                    
+                    <!-- <tr>
                         <td><input type="checkbox" /></td>
                         <td>아이스 아메리카노</td>
                         <td>얼음 적게 얼음 적게 얼음 적게</td>
@@ -177,7 +196,7 @@
                         <td>아이스 아메리카노</td>
                         <td>얼음 많이, 물 적게</td>
                         <td>4100원</td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <section id="price_info">
                     <ul id="point_usage">
@@ -193,7 +212,7 @@
                             <br>
                         </li>
                         <li><span>주문 매장 : </span><span>을지로입구역 스타벅스</span></li>
-                        <li><span>총 금액 : </span><span>8200원</span></li>
+                        <li><span>총 금액 : </span><span><fmt:formatNumber value="20000" pattern="#,###" />원</span></li>
                     </ul>    
                 </section>
             </article>
