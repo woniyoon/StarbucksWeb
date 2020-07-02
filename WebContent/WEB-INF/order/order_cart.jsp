@@ -371,6 +371,12 @@
 				</div>
 				</form>
 			</c:forEach>
+			<form name="form_checkout" id="form_checkout">
+			</form>
+			<div align="center">
+				<button class="move_button">뒤로</button>
+				<button class="move_button" id="next" onclick="checkout()">다음</button>
+			</div>
 		</c:if>
 		<c:if test="${fn:length(cart) == 0}">
 			<div>
@@ -378,12 +384,7 @@
 			</div>
 		</c:if>
 	</div>
-	<form name="form_checkout" id="form_checkout">
-	</form>
-	<div align="center">
-		<button class="move_button">뒤로</button>
-		<button class="move_button" id="next" onclick="checkout()">다음</button>
-	</div>
+	
 </section>
 <div id="snackbar">알림용 스낵바입니다</div>
 
