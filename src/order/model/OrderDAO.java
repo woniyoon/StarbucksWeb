@@ -350,5 +350,28 @@ public class OrderDAO implements InterOrderDAO {
 		
 		return cart;
 	}
+
+	@Override
+	public String getStoreName(HashMap<String, String> paramap) throws SQLException {
+		String storeName = "";
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " select store_name, address from store_location where store_id = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramap.get("storeID"));
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				storeName = rs.getString("store_name");
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return storeName;
+	}
 	
 }

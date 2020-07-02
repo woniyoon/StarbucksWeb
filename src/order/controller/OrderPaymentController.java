@@ -56,12 +56,15 @@ public class OrderPaymentController extends AbstractController {
 			InterOrderDAO dao = new OrderDAO();
 			
 			List<ShoppingCartVO> cartList = dao.getCartWithCustoms(paramap);
+			String storeName = dao.getStoreName(paramap);
+			
 			
 			for(ShoppingCartVO c : cartList) {
 				System.out.println(c.getProduct().getName());
 			}
 			
 			request.setAttribute("cartList", cartList);
+			request.setAttribute("store_name", storeName);
 		//		super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/order_payment.jsp");
 

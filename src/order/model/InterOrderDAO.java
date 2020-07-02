@@ -34,4 +34,7 @@ public interface InterOrderDAO {
 	// 커스텀&최종가격이 업데이트 된 카트를 가져오기
 	List<ShoppingCartVO> getCartWithCustoms(HashMap<String, String> paramap) throws SQLException;
 
+	// 매장 이름 가져오기
+	String getStoreName(HashMap<String, String> paramap) throws SQLException;
+
 }
