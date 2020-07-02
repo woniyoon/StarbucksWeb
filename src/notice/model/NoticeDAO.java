@@ -245,6 +245,44 @@ public class NoticeDAO implements InterNoticeDAO {
 		
 		return totalPage;
 	}
+
+	// store_location 테이블에 있는 정보 가져오기
+	@Override
+	public List<HashMap<String, String>> selectStoreMap() throws SQLException {
+
+		List<HashMap<String, String>> storeList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select store_id, store_sequence, store_name, address, url, latitude, longitude, zindex "+
+						 " from store_location	"+
+						 " order by zindex asc ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HashMap<String, String> map = new HashMap<>();
+				map.put("STORE_ID", rs.getString("STORE_ID"));
+				map.put("STORE_SEQUENCE", rs.getString("STORE_SEQUENCE"));
+				map.put("STORE_NAME", rs.getString("STORE_NAME"));
+				map.put("ADDRESS", rs.getString("ADDRESS"));
+				map.put("URL", rs.getString("URL"));
+				map.put("LATITUDE", rs.getString("LATITUDE"));
+				map.put("LONGITUDE", rs.getString("LONGITUDE"));
+				map.put("ZINDEX", rs.getString("ZINDEX"));
+								
+				storeList.add(map); 
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return storeList;
+	}
 	
 	
 	

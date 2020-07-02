@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
+<%
+	String ctxPath = request.getContextPath();
+	// ctxPath = /StarbucksWeb
+%>
+
+
 <jsp:include page="header.jsp" />
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		
-
-		
-	});
-
-</script>
 
 
 <style type="text/css">
@@ -288,6 +287,8 @@
 		height: 710px;
 		background-color: #ffe6ff;
 	}
+	
+	
 	/* ---------------------------- 바디 끝 -------------------------- */
 	
 	footer {
@@ -302,19 +303,30 @@
 	}
 	
 	/* ---------------------------- 푸터 끝 -------------------------- */
-	
 
-</style>		
+</style>	
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		
+		
+	});
+</script>
+
+
+
 		<section>
 			<div id="section_new_product" class="new_back_size">
 				<div id="section_new_product_slogan">
 					<div class="section_new_product_emblem back_size_eb"></div> 
 					
-					<button class="section_new_product_more" onclick="location.href='notice/noticeList.sb'" >자세히보기</button>
+					<button class="section_new_product_more" onclick="alert('자세히보기')" >자세히보기</button>
 				</div>
-				<div class="section_new_product_limemojito back_size_lm" style="cursor: pointer;" onclick="location.href='notice/noticeList.sb'"></div>
-				<div class="section_new_product_doubleexpresso back_size_de" style="cursor: pointer;" onclick="location.href='notice/noticeList.sb'"></div>
-				<div class="section_new_product_applemango back_size_am" style="cursor: pointer;" onclick="location.href='notice/noticeList.sb'"></div>
+				<div class="section_new_product_limemojito back_size_lm" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"></div>
+				<div class="section_new_product_doubleexpresso back_size_de" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"></div>
+				<div class="section_new_product_applemango back_size_am" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"></div>
 			</div>
 			
 			<div id="section_notice">
@@ -334,17 +346,17 @@
 				<img id="section_reward_txt1" src="images/nari/section_reward_txt1.png" />
 				<img id="section_reward_txt2" src="images/nari/section_reward_txt2.png" />
 				<div id="reward_button">
-					<button class="reward_button reward_btn_signup" type="button" onclick="location.href='register/memberRegister.sb'" >회원가입</button>
-					<button class="reward_button reward_btn_login" type="button" onclick="location.href='login/loginIndex.sb'" >로그인</button>
+					<button class="reward_button reward_btn_signup" type="button" onclick="window.location.href='<%= ctxPath%>/register/memberRegister.sb'">회원가입</button>
+					<button class="reward_button reward_btn_login" type="button" onclick="window.location.href='<%= ctxPath%>/login/loginIndex.sb'">로그인</button>
 					<br/>
-					<button class="reward_button reward_btn_product" type="button" onclick="location.href='product/menu.sb'" >더 많은 상품보기</button>
+					<button class="reward_button reward_btn_product" type="button" onclick="window.location.href='/product/menu.sb'">더 많은 상품보기</button>
 				</div>	
 			</div>
 			</section>
 			
 			<div id="section_recommended_menu">
 				<img id="section_recommended_text" src="images/nari/section_recommended_text1.png" />
-				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="location.href='product/menu.sb'"/>
+				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"/>
 			</div>
 			
 			<div id="section_reserve">
@@ -352,7 +364,7 @@
 			</div>
 			
 			<div id="section_map">
-			지도
+			    <jsp:include page="location.jsp"/>
 			</div>
 		
 		</section>
@@ -360,3 +372,4 @@
 		<!-- --------------------------------- 바디 끝 ---------------------------------- -->
 		
 <jsp:include page="footer.jsp" />
+

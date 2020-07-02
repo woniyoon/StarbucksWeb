@@ -21,6 +21,9 @@ public interface InterNoticeDAO {
 	// 페이징 처리를 위한 전체회원에 대한 총 페이지개수 알아오기(select)
 	int getTotalPage(HashMap<String, String> paraMap) throws SQLException;
 
+	// store_location 테이블에 있는 정보 가져오기
+	List<HashMap<String, String>> selectStoreMap() throws SQLException;
+
 	
 
 	

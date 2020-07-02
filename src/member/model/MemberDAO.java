@@ -143,8 +143,9 @@ public class MemberDAO implements InterMemberDAO {
 				mvo.setName(rs.getString("name"));
 				mvo.setEmail(aes.decrypt(rs.getString("email"))); // 복호화
 				mvo.setHp1(rs.getString("hp1"));
-				mvo.setHp2(rs.getString("hp2")); // 복호화
-				mvo.setHp3(rs.getString("hp3")); // 복호화
+				mvo.setHp2(rs.getString("hp2")); 
+				mvo.setHp3(rs.getString("hp3")); 
+
 				mvo.setPoint(rs.getInt("point")); // int
 
 			    mvo.setGender(rs.getInt("gender"));
@@ -169,5 +170,238 @@ public class MemberDAO implements InterMemberDAO {
 		}
 		
 		return mvo;
+	}
+
+
+	// 아이디 찾기(성명, 휴대폰번호를 입력받아서 해당 사용자의 아이디를 알려준다.)
+	@Override
+	public String findUserid(HashMap<String, String> paraMap) throws SQLException {
+
+		String userid = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid " +
+						 " from starbucks_Member " + 
+						 " where status = 1 and " + 
+						 " name = ? and " + 
+						 " trim(hp1) || trim(hp2) || trim(hp3) = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paraMap.get("name"));
+
+			
+			pstmt.setString(2, paraMap.get("hp1")+paraMap.get("hp2")+paraMap.get("hp3"));
+			
+		} finally {
+			close();
+		}
+		
+		return userid;
+	}
+
+
+
+	// 비밀번호 변경
+	@Override
+	public String selectPasswd(String userid) throws SQLException {
+		String password = null;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " select password from starbucks_member where userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userid = rs.getString("userid");
+				password = rs.getString("password");
+			}
+		} finally {
+			close();
+		}
+	
+		return password;
+	}
+
+
+
+
+	// 비밀번호 찾기(아이디, 이메일을 입력받아서 해당 사용자가 존재하는지 유무를 알려준다.)
+	   @Override
+	   public boolean isUserExist(HashMap<String, String> paraMap) throws SQLException {
+	      
+	      boolean isUserExist = false;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select userid " +
+	                   	  " from starbucks_Member " + 
+	                   	  " where status = 1 and " + 
+	                   	  " userid = ? and " + 
+	                   	  " email = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, paraMap.get("userid"));
+	         pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+
+	         rs = pstmt.executeQuery();
+	         
+	         isUserExist = rs.next();
+	         
+	      } catch(UnsupportedEncodingException | GeneralSecurityException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      
+	      return isUserExist;
+	   }
+	   
+	   
+	// 암호 변경 하기
+	   @Override
+	   public int pwdUpdate(String password, String userid) throws SQLException {
+	      
+	      int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " update starbucks_Member set password = ? " + 
+	                   	  " where userid = ? ";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, Sha256.encrypt(password)); // 암호를 SHA256 알고리즘으로 단방향암호화 시킨다.
+	         pstmt.setString(2, userid);
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	   } 
+	
+	// 비밀번호 변경
+	@Override
+	public int updatePasswd(String userid, String newPassword) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update starbucks_member set password = ? where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Sha256.encrypt(newPassword));
+			pstmt.setString(2, userid);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+	
+	
+	
+	// 개인정보 수정
+	@Override
+	public int updateInfo(MemberVO membervo) throws SQLException {
+		
+		int result=0;
+	      
+	      try {
+	         
+	         conn = ds.getConnection();
+	         
+	         String sql = " update starbucks_member set name=?, hp2=?, hp3=?, email=? "
+	                  	 +" where userid = ? ";               
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, membervo.getName());
+	         pstmt.setString(2, membervo.getHp2());    
+	         pstmt.setString(3, membervo.getHp3());    
+	         pstmt.setString(4, aes.encrypt(membervo.getEmail()));
+	         pstmt.setString(5, membervo.getUserid());
+	              
+	         result = pstmt.executeUpdate();      
+	         
+	         System.out.println("정보수정:"+result);
+	         
+	      } catch(Exception e){
+	         e.printStackTrace();
+	      }finally {
+	         close();
+	      }
+	                        
+	      return result;   
+	}
+
+	
+	
+	// 나의 음료 삭제하는 메소드
+	public int menuDelete(String my_menu_seq) throws SQLException {
+		
+		int result = 0 ;
+		
+		try {
+		
+			conn = ds.getConnection();
+			
+			String sql = " delete from favorite_menu where my_menu_seq = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(my_menu_seq));
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+	
+	
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(MemberVO membervo) throws SQLException {
+		  
+		  int result=0;
+	      
+	      try {
+	         
+	         conn = ds.getConnection();
+	         
+	         String sql = " update starbucks_member set status='0' "
+	                  	 +" where userid = ? ";               
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, membervo.getUserid());
+	         
+	         result = pstmt.executeUpdate();      
+	         
+	      } catch(Exception e){
+	         e.printStackTrace();
+	      }finally {
+	         close();
+	      }
+	                        
+	      return result;   
+	
 	}
 }
