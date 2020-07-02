@@ -6,20 +6,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import member.model.EncryptMyKey;
+import member.model.*;
 import util.security.AES256;
 
 public class ProductDAO implements InterProductDAO {
-	private DataSource ds; 
-	// DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection Pool)이다. 
-	
+	private DataSource ds; 	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -28,7 +30,6 @@ public class ProductDAO implements InterProductDAO {
 	
 	// 생성자 
 	public ProductDAO() {
-		// 암호화/복호화 키 (양방향암호화) ==> 이메일,휴대폰의 암호화/복호화
 		String key = EncryptMyKey.KEY;
 		
 		try {
@@ -90,7 +91,7 @@ public class ProductDAO implements InterProductDAO {
 				 
 				 ProductVO pvo = new ProductVO(parent_table, id, category_id, name, name_eng, description, price, img); 
 				 
-				 productList.add(pvo); //productList에 pvo를 담아라 list에
+				 productList.add(pvo); 
 			 }// end of while-----------------------------
 			 
 		} finally {
@@ -175,7 +176,7 @@ public class ProductDAO implements InterProductDAO {
 		
 	}*/
 	
-	// 제품번호를 가지고서 해당 제품의 정보를 조회해오기
+		// 제품번호를 가지고서 해당 제품의 정보를 조회해오기 (드링크) 
 		@Override
 		public ProductVO selectOneDrinkByID(String type, String productId) throws SQLException{
 			
@@ -279,7 +280,8 @@ public class ProductDAO implements InterProductDAO {
 //		
 //		return imgList;
 //	}
-
+		
+	
 	@Override
 	public ProductVO selectOneFoodByID(String type, String productId) throws SQLException {
 		FoodVO pvo = new FoodVO();
@@ -341,6 +343,137 @@ public class ProductDAO implements InterProductDAO {
 		}
 		
 		return pvo;		
-		
 	}	
+	
+	
+	// 마이메뉴 추가하기
+	@Override
+	public int addMyMenu(HashMap<String, String> paraMap)  throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			 conn = ds.getConnection();
+			 
+			 String sql = " insert into favorite_menu(userid, product_id, my_menu_seq, product_name, register_day, section) "+
+					 " values(?, ?, favorite_menu_seq.nextval, ?, sysdate, ?) ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, paraMap.get("userid"));
+			 pstmt.setString(2, paraMap.get("productId"));
+			 pstmt.setString(3, paraMap.get("productName"));
+			 pstmt.setInt(4, Integer.parseInt(paraMap.get("section")));
+
+			 
+			 result = pstmt.executeUpdate();
+			 
+		/*	 if(rs.next()) {
+				 // 어떤 제품을 추가로 마이메뉴에 넣고자 하는 경우
+				 
+				 int cartno = rs.getInt("product_id");
+				 
+				 sql = " update favorite_menu set userid = userid + ? "
+				 	 + " where userid = ? ";
+				 
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, userid);
+				 pstmt.setString(2, productId);
+				 
+				 result = pstmt.executeUpdate();
+			 }
+			 else {
+				// 마이메뉴에 존재하지 않는 새로운 제품을 넣고자 하는 경우
+				 
+				 sql = " insert into favorite_menu(userid, product_id, my_menu_seq, product_name, register_day, section) "
+				 	 + " values(?, ?, ?, ?, ?, ?) ";
+				 
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, userid);
+				 pstmt.setString(2, product_id);
+				 pstmt.setInt(3, my_menu_seq);
+				 pstmt.setString(4, product_name);
+				 pstmt.setString(5, register_day);
+				 pstmt.setInt(6, section);
+				 
+				 result = pstmt.executeUpdate();
+			 }		*/
+			 
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	// 장바구니 추가하기
+	@Override
+	public int addCart(String userid, String product_id)  throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			 conn = ds.getConnection();
+			 
+			 /*
+			     먼저 장바구니 테이블(shopping_cart)에 어떤 회원이 새로운 제품을 넣는 것인지,
+			     아니면 또 다시 제품을 추가로 더 구매하는 것인지를 알아야 한다.
+			     이것을 알기위해서 어떤 회원이 어떤 제품을  장바구니 테이블(shopping_cart) 넣을때
+			     그 제품이 이미 존재하는지 select 를 통해서 알아와야 한다.
+			     
+			   ----------------------------------------------------
+			    cartno   fk_userid     fk_pnum   oqty  status
+			   -----------------------------------------------------
+			      1      leess          7         2     1
+			      2      leess          6         3     1
+			      3      hongkd         7         5     1
+			  */
+			 
+			 String sql = " select shoppingcart_seq,  "
+			 		    + " from shoppingcart "
+			 		    + " where status = 1 and "
+			 		    + " userid = ? and product_id = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, userid);
+			 pstmt.setString(2, product_id);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 // 어떤 제품을 추가로 장바구니에 넣고자 하는 경우
+				 
+				 int shoppingcart_seq = rs.getInt("shoppingcart_seq");
+				 
+				 sql = " update shoppingcart "
+				 	 + " where userid = ? and product_id = ? ";
+				 
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, userid);
+				 pstmt.setString(2, product_id);
+				 
+				 result = pstmt.executeUpdate();
+			 }
+			 else {
+				// 장바구니에 존재하지 않는 새로운 제품을 넣고자 하는 경우
+				 
+				 sql = " insert into shoppingcart(shoppingcart_seq, userid, product_id, status) "
+				 	 + " values(shoppingcart_seq.nextval, ?, ?, default) ";
+				 
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, userid);
+				 pstmt.setString(2, product_id);
+
+				 result = pstmt.executeUpdate();
+			 }
+			 
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+	
 }

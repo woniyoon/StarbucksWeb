@@ -15,7 +15,7 @@ import javax.servlet.http.*;
 			@WebInitParam(name = "propertyConfig", value = "C:/myjsp/StarbucksWeb/WebContent/WEB-INF/Command.properties", description = "*.sb에 대한 클래스의 매핑파일")
 		
 		})
-public class FrontController extends HttpServlet {
+public class FrontController extends HttpServlet { 
 	private static final long serialVersionUID = 1L;
 
 	Map<String, Object> cmdMap = new HashMap<String, Object>();

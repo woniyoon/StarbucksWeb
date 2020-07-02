@@ -28,7 +28,7 @@
 		height: 120px !important;
 		background-color: #f6f5ef !important;
 		border-bottom: 1px solid #e5e5e5 !important;
-		z-index: 10000 !important; /* 헤더가 제일 앞으로 오도록 해줌  */
+		z-index: 1 !important; /* 헤더가 제일 앞으로 오도록 해줌  */
 	} 
 	
 	div#header_1 {
@@ -97,10 +97,8 @@
 			<div id="header_2">
 				<nav class="nav_first index">
 					<ul class="index">
-						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.up"  class="index">SIGN IN</a></li>
-						
-						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.up"  class="index">SIGN OUT</a></li>
-						
+						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN IN</a></li>
+						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN OUT</a></li>						
 						<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
 						<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>
 						<li class="index"><a href="<%= ctxPath%>/notice/noticeList.sb"  class="index">MANAGER PAGE(임시)</a></li>
@@ -110,7 +108,7 @@
 					<ul class="index">
 						<li class="index"><a href="<%= ctxPath%>/product/menu.sb"  class="index">MENU</a></li>
 						<li class="index"><a href="<%= ctxPath%>/notice/noticeList.sb" class="index">NOTICE</a></li>
-						<li class="index"><a href="<%= ctxPath%>/feedback/feedbackList.up"  class="index">QNA</a></li>
+						<li class="index"><a href="<%= ctxPath%>/feedback/feedbackList.sb"  class="index">QNA</a></li>
 					</ul>
 				</nav>
 			</div>

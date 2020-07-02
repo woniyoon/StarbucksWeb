@@ -22,6 +22,7 @@ public interface InterFeedbackDAO {
 
 		// 페이징 처리를 위한 전체회원에 대한 총 페이지개수 알아오기(select)
 		int getTotalPage(HashMap<String, String> paraMap) throws SQLException;
+		
 
 
 	

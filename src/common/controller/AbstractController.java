@@ -1,5 +1,15 @@
 package common.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import member.model.MemberVO;
+
+import product.model.InterProductDAO;
+import product.model.ProductDAO;
+import product.model.ProductVO;
+
+
 public abstract class AbstractController implements InterCommand {
 
 	private boolean isRedirect = false;
@@ -17,4 +27,18 @@ public abstract class AbstractController implements InterCommand {
 	public void setViewPage(String viewPage) {
 		this.viewPage = viewPage;
 	}	
+	
+
+	public boolean checkLogin(HttpServletRequest request) {		
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		if(loginuser != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
 }
