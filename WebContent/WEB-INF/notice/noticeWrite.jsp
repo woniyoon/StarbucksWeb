@@ -199,6 +199,7 @@
 				</p>
 			</div>
 		</form>
+		<%-- 
 			<div>
 				<table>
 					<tr>
@@ -213,6 +214,7 @@
 			</div>
 		
 			<br/><br/><br/>
+			--%>
 		</section>
 
 	</div>

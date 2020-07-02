@@ -28,7 +28,7 @@
 		height: 120px !important;
 		background-color: #f6f5ef !important;
 		border-bottom: 1px solid #e5e5e5 !important;
-		z-index: 1 !important; /* 헤더가 제일 앞으로 오도록 해줌  */
+		z-index: 10000 !important; /* 헤더가 제일 앞으로 오도록 해줌  */
 	} 
 	
 	div#header_1 {
