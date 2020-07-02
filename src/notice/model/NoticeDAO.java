@@ -88,7 +88,7 @@ public class NoticeDAO implements InterNoticeDAO {
 						 "    from notice_post " + 
 						 "    order by 1 asc " + 
 						 "   ) V " + 
-						 "  ) T " + 
+						 "  ) T " + 			 
 						 "  order by T.rno desc ";
 						 
 
@@ -282,6 +282,169 @@ public class NoticeDAO implements InterNoticeDAO {
 		}
 		
 		return storeList;
+	}
+
+	
+	// 글번호를 가지고 특정 글 삭제하기
+	@Override
+	public int delNotice(String notice_seq) throws SQLException {
+	      int n = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " delete from notice_post " + 
+	                      " where notice_seq = ? ";
+	                  
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, notice_seq);
+	         
+	         n = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return n;
+
+	}
+
+	// 윗글 불러오기
+	@Override
+	public HashMap<String, String> selectPostNotice(String rno) throws SQLException {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		try {
+			conn = ds.getConnection();			
+			
+			/*
+			 * String sql = " update notice_post set hit = hit + 1 " +
+			 * " where to_char(notice_seq) = ? ";
+			 * 
+			 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, notice_seq);
+			 * 
+			 * pstmt.executeUpdate();
+			 */
+			
+			String sql = "   select rno, notice_seq, title, contents, write_day, hit "+
+					"  from  "+
+					"  ( "+
+					"        select rno, notice_seq, title, contents, write_day, hit "+
+					"     from   "+
+					"     (  "+
+					"       select rownum AS RNO, notice_seq, title, contents,write_day , hit "+
+					"       from  "+
+					"       ( "+
+					"        select notice_seq, title, contents, to_char(write_day,'yyyy-mm-dd') AS write_day , hit "+
+					"        from notice_post  "+
+					"        order by 1 asc "+
+					"       ) V  "+
+					"      ) T  "+
+					"      order by T.rno desc "+
+					"  ) p "+
+					"  where P.rno = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rno);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				map.put("title", rs.getString("title"));
+				map.put("contents", rs.getString("contents"));
+			}
+	
+		} finally {
+			close();
+		}
+		
+		return map;
+	}
+
+	
+	// 윗글 제목 불러오기
+	@Override
+	public HashMap<String, String> selectPostNoticeTitle(String rno) throws SQLException {
+		HashMap<String, String> titlemap = new HashMap<String, String>();
+		
+		try {
+			conn = ds.getConnection();			
+
+			
+			String sql = "   select title "+
+					"  from  "+
+					"  ( "+
+					"        select rno, notice_seq, title, contents, write_day, hit "+
+					"     from   "+
+					"     (  "+
+					"       select rownum AS RNO, notice_seq, title, contents,write_day , hit "+
+					"       from  "+
+					"       ( "+
+					"        select notice_seq, title, contents, to_char(write_day,'yyyy-mm-dd') AS write_day , hit "+
+					"        from notice_post  "+
+					"        order by 1 asc "+
+					"       ) V  "+
+					"      ) T  "+
+					"      order by T.rno desc "+
+					"  ) p "+
+					"  where P.rno = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(rno)+1);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				titlemap.put("title", rs.getString("title"));
+			}
+	
+		} finally {
+			close();
+		}
+		
+		return titlemap;
+	}
+
+	@Override
+	public HashMap<String, String> selectPreNoticeTitle(String rno) throws SQLException {
+		HashMap<String, String> titlemap = new HashMap<String, String>();
+		
+		try {
+			conn = ds.getConnection();			
+
+			
+			String sql = "   select title "+
+					"  from  "+
+					"  ( "+
+					"        select rno, notice_seq, title, contents, write_day, hit "+
+					"     from   "+
+					"     (  "+
+					"       select rownum AS RNO, notice_seq, title, contents,write_day , hit "+
+					"       from  "+
+					"       ( "+
+					"        select notice_seq, title, contents, to_char(write_day,'yyyy-mm-dd') AS write_day , hit "+
+					"        from notice_post  "+
+					"        order by 1 asc "+
+					"       ) V  "+
+					"      ) T  "+
+					"      order by T.rno desc "+
+					"  ) p "+
+					"  where P.rno = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(rno)-1);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				titlemap.put("title", rs.getString("title"));
+			}
+	
+		} finally {
+			close();
+		}
+		
+		return titlemap;
 	}
 	
 	
