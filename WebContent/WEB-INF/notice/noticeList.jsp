@@ -172,8 +172,10 @@
 			
 			var notice_seq = $(this).prev().text();
 			
-		//	alert(notice_seq);
-            location.href="noticeView.sb?notice_seq="+notice_seq;    		
+			var rno = $(this).prev().prev().text();
+			// alert(rno);
+			// alert(notice_seq);
+            location.href="noticeView.sb?notice_seq="+notice_seq+"&rno="+rno;    		
 		});
 		
 	}); // end of $(document).ready(function()-----------------------------
@@ -230,10 +232,9 @@
 				<tbody>
 					<c:forEach var="notice" items="${noticeList}">
 					<tr>
-						<td>${notice.rno}</td>
+						<td name="rno">${notice.rno}</td>
 						<td class="notice_seq">${notice.notice_seq}</td>
 						<td class="noticeTitle">${notice.title}</td>
-						<%-- <a href="/notice/noticeView.sb?notice_seq=${notice.notice_seq}"> --%>
 						<td>${notice.write_day}</td>
 						<td>${notice.hit}</td>
 					</tr>

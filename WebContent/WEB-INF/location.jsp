@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-  
-    
  	<%-- 
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY(JavaScript 키)를 넣으시면 됩니다."></script> 
 	--%>
@@ -19,8 +17,9 @@
   	div.mycontent>.title {
   		font-size: 12pt;
   		font-weight: bold;
-  		background-color: #d95050;
+  		background-color: #006633;
   		color: #fff;
+  		text-align: center;
   	}
   	
   	div.mycontent>.title>a {
@@ -31,7 +30,7 @@
   	
   	div.mycontent>.desc {
   	 /* border: solid 1px red; */
-  		padding: 10px 0 0 0;
+  		padding: 5px 0 0 0;
   		color: #000;
   		font-weight: normal;
   		font-size: 9pt;
@@ -40,6 +39,19 @@
   	div.mycontent>.desc>img {
   		width: 50px;
   		height: 50px;
+  	}
+  	
+  	div#map {
+  		margin: 0 auto;
+  		position: relative;
+  		top: 55px;
+  		
+  	}
+  	
+  	.address {
+  		display: inline-block;
+  		position: relative;
+  		top: -20px;
   	}
 
 </style>    
@@ -150,58 +162,6 @@
 			
 		} // end of if~else -----------------------
 
-		// ================== 지도에 클릭 이벤트를 등록하기 ======================= //
-		// 지도를 클릭하면 클릭한 위치에 마커를 표시하면서 위,경도를 보여주도록 한다.
-		
-		// == 마커 생성하기 == //
-		// 1. 마커이미지 변경
-		var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';       
-		        
-		// 2. 마커이미지의 크기 
-	    var imageSize = new kakao.maps.Size(34, 39);   
-			      
-	    // 3. 마커이미지의 옵션. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정한다. 
-	    var imageOption = {offset: new kakao.maps.Point(15, 39)};   
-          
-	    // 4. 이미지정보를 가지고 있는 마커이미지를 생성한다. 
-	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-			    
-	    var movingMarker = new kakao.maps.Marker({ 
-			map: mapobj, 
-	        image: markerImage  // 마커이미지 설정
-		});
-        
-	    // === 인포윈도우(텍스트를 올릴 수 있는 말풍선 모양의 이미지) 생성하기 === //
-		var movingInfowindow = new kakao.maps.InfoWindow({
-		    removable : false
-		  //removable : true   // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됨
-		});
-		
-	    
-		kakao.maps.event.addListener(mapobj, 'click', function(mouseEvent) {         
-			    
-			 // 클릭한 위도, 경도 정보를 가져옵니다 
-			 var latlng = mouseEvent.latLng;
-			 
-			 // 마커 위치를 클릭한 위치로 옮긴다.
-			 movingMarker.setPosition(latlng);
-			 
-			 // 인포윈도우의 내용물 변경하기 
-			 movingInfowindow.setContent("<div style='padding:5px; font-size:9pt;'>여기가 어디에요?<br/><a href='https://map.kakao.com/link/map/여기,"+latlng.getLatitude()+","+latlng.getLongitude()+"' style='color:blue;' target='_blank'>큰지도</a> <a href='https://map.kakao.com/link/to/여기,"+latlng.getLatitude()+","+latlng.getLongitude()+"' style='color:blue' target='_blank'>길찾기</a></div>");  
-			 
-			 // == 마커 위에 인포윈도우를 표시하기 == //
-			 movingInfowindow.open(mapobj, movingMarker);
-			 
-			 var htmlMessage = '클릭한 위치의 위도는 ' + latlng.getLatitude() + ' 이고, '; 
-			     htmlMessage += '경도는 ' + latlng.getLongitude() + ' 입니다';
-			    
-			 var resultDiv = document.getElementById("latlngResult"); 
-			 resultDiv.innerHTML = htmlMessage;
-		});
-
-		////////////////////////////////////////////////////////////////////////////
-		
-
 		// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열 
 		var positionArr = [];
 		
@@ -239,9 +199,17 @@
 			
 		});
 		
+		// 여기를 수정하면 된다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 		// 인포윈도우를 가지고 있는 객체 배열의 용도 
 		var infowindowArr = new Array(); 
+		
+		
+		var imageSrc = "/StarbucksWeb/images/nari/map_pin.png";       
+	    var imageSize = new kakao.maps.Size(38, 60);   
+	    var imageOption = {offset: new kakao.maps.Point(15, 39)};         
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
 		
 		// == 객체 배열 만큼 마커 및 인포윈도우를 생성하여 지도위에 표시한다. == //
 		for(var i=0; i<positionArr.length; i++) {
@@ -249,7 +217,8 @@
 			// == 마커 생성하기
 			var marker = new kakao.maps.Marker({ 
 				map: mapobj,
-				position: positionArr[i].latlng					
+				position: positionArr[i].latlng		,
+				image: markerImage,
 			});
 			
 			// 지도에 마커를 표시한다.
@@ -298,7 +267,7 @@
 </script>	
 
 
-<div id="map" style="width:60%; height:600px; margin: 0 auto; margin-top: 55px;"></div>
+<div id="map" style="width:60%; height:600px; ] "></div>
  
 <%-- 위/경도 값을 보여줄 곳 --%>
 <div id="latlngResult" style="margin: 20px 0;"></div>
