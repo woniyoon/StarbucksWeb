@@ -33,7 +33,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 20px;
-		border: solid 1px red;	
+		border: solid 1px #ddd;
 	}	
 	
 	#con1:after {
@@ -123,7 +123,6 @@
     #box4 {
     	 width: 300px;
          height: 200px;
-         background-color: pink;
          float: right;
     }
     
@@ -256,7 +255,7 @@ function goDel(userid) {
      	<div id="box1"></div>
      	<div id="box2">
      		<img src="../images/jiwon/coffeeBeans.jpg">
-     		<div style="padding-right: 1000px; top: 150px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
+     		<div style="padding-right: 1000px; top: 160px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
 			 회원탈퇴
 			</div>
      	</div>
@@ -269,7 +268,7 @@ function goDel(userid) {
      		<div class="txt_zone">
      			<p class="p1">
      				<!-- <span class="s1 userName">GOLD37</span>님의 <span class="year">2020</span>년 <span class="month">6</span>월 <span class="date">17</span>일 <span class="end">현재 스타벅스 서비스 현황입니다.</span><br> -->
-     				<span class="s1 userName">GOLD37</span>님의 <span id="now_date"></span><span class="end">현재 스타벅스 서비스 현황입니다.</span><br>
+     				<span class="s1 userName">${(sessionScope.loginuser).name}</span>님의 <span id="now_date"></span><span class="end">현재 스타벅스 서비스 현황입니다.</span><br>
      				<span class="s2">아래 사항들을 확인하시고, 회원탈퇴에 대해 다시 한번 신중히 결정해주세요.</span>
      			</p>
      			<ul class="mem_level">

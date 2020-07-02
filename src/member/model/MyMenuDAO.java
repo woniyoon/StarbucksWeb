@@ -12,8 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import member.controller.InterMyMenuDAO;
-
 
 public class MyMenuDAO implements InterMyMenuDAO {
 

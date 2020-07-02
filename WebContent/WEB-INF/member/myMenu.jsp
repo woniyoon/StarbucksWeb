@@ -42,7 +42,6 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 50px;
-		/* border: solid 1px red; */	
 	}	
 	
 	#con1:after {
@@ -70,10 +69,11 @@
 	}
 
     #box6 {
-        /* background-color: pink; */
    	 	width: 300px;
         height: 200px;
         float: right;
+        position: relative;
+        top: -50px;
     }
     
     .panel-body {
@@ -156,12 +156,12 @@ $(document).ready(function(){
 		// 체크박스 전체선택/전체해제
 		$("#allCheck").click(function(){
 		
-			if($("input:checkbox[name=favoriteDrink]").is(":checked")==true) {
+			if($("input:checkbox[name=favorite]").is(":checked")==true) {
 
-				$("input:checkbox[name=favoriteDrink]").attr("checked", false);
+				$("input:checkbox[name=favorite]").attr("checked", false);
 			}
 			else {
-				$("input:checkbox[name=favoriteDrink]").attr("checked", true);
+				$("input:checkbox[name=favorite]").attr("checked", true);
 			}
 			
 		}); 	
@@ -284,7 +284,7 @@ $(document).ready(function(){
      	<div id="box1"></div>
      	<div id="box2">
      	<img src="../images/jiwon/coffeeBeans.jpg">
-     		<div style="padding-right: 1000px; top: 165px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
+     		<div style="padding-right: 1150px; top: 165px; font-size: 3em; font-weight: bold; position: absolute; color: white;">
 			 My 메뉴
 			</div>
      	</div>
@@ -304,7 +304,7 @@ $(document).ready(function(){
      		<div class="panel panel-default">
 	     		 <div class="panel-heading">
 			     <h4 class="panel-title">
-	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/Starbucks/mypage/my_menu.html'">My 메뉴</a>
+	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'">My 메뉴</a>
 	     	 	 </h4>
 			    </div>
 		    </div>  
@@ -315,9 +315,9 @@ $(document).ready(function(){
 			        </h4>
 		      	  </div>
 		      	  <div id="collapse2" class="panel-collapse collapse">
-			        <div class="panel-body"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit.html">개인정보확인 및 수정</a></div>
-			        <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/Starbucks/mypage/myinfo_out.html">회원 탈퇴</a></div>
-			        <div class="panel-body"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit_pwd.html">비밀번호 변경</a></div>
+			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보확인 및 수정</a></div>
+			        <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/StarbucksWeb/member/myinfoOut.sb">회원 탈퇴</a></div>
+			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEditPwd.sb">비밀번호 변경</a></div>
 		         </div>
 		    </div>
 		  </div>
@@ -334,7 +334,7 @@ $(document).ready(function(){
 					 </tr>
 				</thead>
 				<tbody>
-					
+
 					<c:set var="flag" value="0" />
 					<c:forEach var="myDrink" items="${menuList}" varStatus="status" >                                                                           
 						<c:if test="${myDrink.section == 0 }">

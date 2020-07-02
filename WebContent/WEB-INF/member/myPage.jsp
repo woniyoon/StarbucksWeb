@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
+   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
     
 <jsp:include page="header.jsp" /> 
     
@@ -45,7 +47,6 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 20px;
-		border: solid 1px red;
 	}	
 	
 	#con1:after {
@@ -89,14 +90,14 @@
     	/* border: solid 1px blue; */
     	position: absolute;
     	margin-left: -143px;
-    	margin-top: 23px;
+    	margin-top: 25px;
     	
     }
     
     #box3 p {
-  		margin-top: 30px;  
+  		margin-top: 40px;  
     	text-align: center;
-    	font-size: 12pt;
+    	font-size: 14pt;
     }
     
     .level {
@@ -108,7 +109,7 @@
         height: 250px;
         margin-right: 3px;
         float: left;
-        border: solid 1px deeppink;
+		border: solid 1px #ddd;
      }
      
      #box4 p {
@@ -165,7 +166,6 @@
     #box5 {
    	 	width: 300px;
         height: 200px;
-        background-color: pink;
         float: right;
     }
     
@@ -174,13 +174,14 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 20px;
-		border: solid 1px red;	
     }
 	
 	#box6 {
 		width: 803px;
 		height: 400px;
-		border: solid 1px orange;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		border: solid 1px #ddd;
 	}
 	
 	.rank_head {
@@ -298,10 +299,10 @@ $(document).ready(function(){
      		<h5>My 리워드</h5>
      		
      		<figure class="star_reward"><img src="../images/jiwon/star_reward.png">
-     			<span class="totalStar">2</span>
+     			<span class="totalStar">S</span> 
      		</figure>
      		
-     		<p><strong>3</strong>개의 별★이 더 모이면<br><strong class="level">Green Level</strong>만의 특별한 혜택이!</p>
+     		<p>${(sessionScope.loginuser).name}님의 현재 포인트 : <strong class="level">${(sessionScope.loginuser).point}P</strong></p>
      		
      		</div>
      		
@@ -309,8 +310,18 @@ $(document).ready(function(){
      		<div id="box4"> 
      			<p>
 	     		<span>
-		     		<strong class="userName">GOLD37</strong>님은<br>
-		     		현재 <strong class="userGrade">Welcome Level</strong>이십니다.
+		     		<strong class="userName">${(sessionScope.loginuser).userid}</strong>님은<br>
+		     		현재 
+		     			<c:if test="${(sessionScope.loginuser).point>=10000}">
+		     				<strong class="userGrade" style="color: gold;">Gold Level</strong>
+		     			</c:if>
+		     			<c:if test="${(sessionScope.loginuser).point>=5000 && (sessionScope.loginuser).point<10000}">
+		     				<strong class="userGrade" style="color: green;">Green Level</strong>
+		     			</c:if>
+		     			<c:if test="${(sessionScope.loginuser).point<5000}">
+		     				<strong class="userGrade" style="color: brown;">Welcome Level</strong>
+		     			</c:if>
+		     		이십니다.
 	     		</span>
 	     		</p>
 	     		<div class="user_edit">

@@ -1,9 +1,7 @@
-package member.controller;
+package member.model;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import member.model.MenuVO;
 
 public interface InterMyMenuDAO {
 
