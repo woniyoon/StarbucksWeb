@@ -48,8 +48,8 @@
 		
 		#map_container {
 		    display: flex;
-		    width: 50vw;
-		    height: 60vh;
+		    width: 80vw;
+		    height: 70vh;
 		    margin: 50px auto;
 		    border: 1px solid rgb(21, 21, 44);
 		}

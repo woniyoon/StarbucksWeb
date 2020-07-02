@@ -253,5 +253,9 @@ public class FeedbackDAO implements InterFeedbackDAO{
 			
 			return totalPage;
 		}
+		
+		
+		
+		
 
 }

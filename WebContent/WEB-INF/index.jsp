@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
+<%
+	String ctxPath = request.getContextPath();
+	// ctxPath = /StarbucksWeb
+%>
+
+
 <jsp:include page="header.jsp" />
 
 
@@ -339,8 +346,8 @@
 				<img id="section_reward_txt1" src="images/nari/section_reward_txt1.png" />
 				<img id="section_reward_txt2" src="images/nari/section_reward_txt2.png" />
 				<div id="reward_button">
-					<button class="reward_button reward_btn_signup" type="button" onclick="window.location.href='/register/memberRegister.up'">회원가입</button>
-					<button class="reward_button reward_btn_login" type="button" onclick="window.location.href='/login/login.up'">로그인</button>
+					<button class="reward_button reward_btn_signup" type="button" onclick="window.location.href='<%= ctxPath%>/register/memberRegister.sb'">회원가입</button>
+					<button class="reward_button reward_btn_login" type="button" onclick="window.location.href='<%= ctxPath%>/login/loginIndex.sb'">로그인</button>
 					<br/>
 					<button class="reward_button reward_btn_product" type="button" onclick="window.location.href='/product/menu.sb'">더 많은 상품보기</button>
 				</div>	
