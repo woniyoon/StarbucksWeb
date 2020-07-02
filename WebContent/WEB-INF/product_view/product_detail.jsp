@@ -121,6 +121,9 @@
 		/* border: solid 1px  blue; */
 	}
 	
+	form {
+		dow
+	}
 	/* 제품설명_타이틀 */
 	div.product_details_title {
 		display: flex;
@@ -298,9 +301,8 @@
 	div.productView_footmenu {
 		clear: both;
 		display: flex;
--webkit-justify-content: space-around;
-justify-content: space-around;
-   		
+		-webkit-justify-content: space-around;
+		justify-content: space-around;
 		padding: 30px 0 100px 0;
    		background: #f4f4f2;
 	}
@@ -373,6 +375,21 @@ justify-content: space-around;
 		font-size:14px;
 	}
 	
+	.register_cl {
+	    width: 111px;
+	    height: 28px;
+	    margin-bottom: 0;
+	    line-height: 28px;
+	    font-size: 12px;
+	    text-align: center;
+	    text-decoration: none;
+   	    vertical-align: baseline;
+   	    border-radius: 3px;
+	    background: #006633;
+	    color: #fff; 
+   	    cursor: pointer;
+	}
+	
 </style>
 <script type="text/javascript" src="/JqueryStudy/js/jquery-3.3.1.min.js"></script>
 
@@ -393,7 +410,7 @@ justify-content: space-around;
 		$(".myimagediv").bind("mouseover", function(event){
 			var $target = $(event.target); 
 			if($target.is("div .img-zoom-lens")){  	
-				console.log("이미지에서 마우스 오버");
+				//console.log("이미지에서 마우스 오버");
 				$(".img-zoom-result").show();
 			}			
 		});
@@ -401,13 +418,72 @@ justify-content: space-around;
 		$(".myimagediv").bind("mouseout", function(event){
 			var $target = $(event.target); 
 			if($target.is("div .img-zoom-lens")){  	
-				console.log("이미지에서 마우스 아웃");
+				//console.log("이미지에서 마우스 아웃");
 				$(".img-zoom-result").hide();
 			}
 		});
 	
 	}); // ----- end of $(document).ready(function(){} -----
-
+		
+		
+		// 나만의 메뉴
+		function addMyMenu() {
+		
+		    $.ajax({
+				   url:"/StarbucksWeb/product/addMyMenu.sb",
+				   type:"POST",
+				   data:{"productId":"${pvo.productId}",
+					    "productName": "${pvo.name}",
+					    "parentTable": "${pvo.parentTable}"},
+				   dataType: "JSON",	
+				   success:function(json) {
+					   if(json.result > 0) {
+						   alert("마이 메뉴에 등록됐습니다!");
+						   $(".register").replaceWith('<p href="#" role="button" class="register_cl" title="등록된 나만의 음료 등록 옵션 열기"> '+"등록된 나의 메뉴"+' </p>');
+					   } else if(json.result == 0) {
+						   alert("해제");
+					   
+					   } else {
+						   alert("다시 시도해주세요.");
+					   }
+				   },
+				   error: function(request, status, error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				   }
+			   });	   
+		}
+		
+	
+	
+		// 장바구니
+		/* function goCart(productId) {
+			 
+			$.ajax({
+				   url:"/StarbucksWeb/product/addCart";
+				   .sb",
+				   type:"POST",
+				   data:{"productId":"${pvo.productId}",
+					    "productName": "${pvo.name}",
+					    "parentTable": "${pvo.parentTable}"},
+				   dataType: "JSON",	
+				   success:function(json) {
+					   if(json.result > 0) {
+						   alert("마이 메뉴에 등록됐습니다!");
+						   $(".register").replaceWith('<p href="#" role="button" class="register_cl" title="등록된 나만의 음료 등록 옵션 열기"> '+"등록된 나의 메뉴"+' </p>');
+					   } else if(json.result == 0) {
+						   alert("해제");
+					   
+					   } else {
+						   alert("다시 시도해주세요.");
+					   }
+				   },
+				   error: function(request, status, error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				   }
+			   });	   
+		} */
+			
+			
 	
 		function imageZoom(imgID, resultID) {
 		  var img, lens, result, cx, cy;
@@ -524,18 +600,18 @@ justify-content: space-around;
 					<div class="product_button">
 						<c:choose>
 							<c:when test="${pvo.parentTable eq 'drink'}">
-								<a href="#" role="button" class="register" title="나만의 음료 등록 옵션 열기">나만의 음료로 등록</a>
+								<a href="#" role="button" class="register" title="나만의 음료 등록 옵션 열기" onClick="addMyMenu()">나만의 음료로 등록</a>
 							</c:when>
-							<c:otherwise><a href="#" role="button" class="register" title="나만의 푸드 등록 옵션 열기">나만의 푸드로 등록</c:otherwise>
+							<c:otherwise><a href="#" role="button" class="register" title="나만의 푸드 등록 옵션 열기" onClick="addMyMenu()" >나만의 푸드로 등록</a></c:otherwise>
 						</c:choose>		
-						<a href="#" role="button" class="payment" title="장바구니 옵션 열기">장바구니</a>
+						<a href="#" role="button" class="payment" title="장바구니 옵션 열기" onClick="goCart('${pvo.productId}');">장바구니</a>
 					</div>
 					<br>
 				</div>
 				<hr>
 					<p class="title1">${pvo.description}</p>
 				
-		
+			
 				<form name="product_nutrition" method="post">
 					<fieldset>
 					<div class="product_nutrition_title">
