@@ -404,4 +404,10 @@ public class MemberDAO implements InterMemberDAO {
 	      return result;   
 	
 	}
+
+	@Override
+	public int checkPoints(HashMap<String, String> paramap) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
