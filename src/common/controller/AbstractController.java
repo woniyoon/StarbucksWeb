@@ -5,6 +5,15 @@ import javax.servlet.http.HttpSession;
 
 import member.model.MemberVO;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import product.model.InterProductDAO;
+import product.model.ProductDAO;
+import product.model.ProductVO;
+
 public abstract class AbstractController implements InterCommand {
 
 	private boolean isRedirect = false;
@@ -33,7 +42,7 @@ public abstract class AbstractController implements InterCommand {
 		}
 		else {
 			return false;
-		}
-		
+		}		
 	}
+	
 }
