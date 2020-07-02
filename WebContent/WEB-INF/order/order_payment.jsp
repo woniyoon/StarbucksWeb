@@ -161,61 +161,63 @@
         </ul>
         <div id="payment_container" align="center">
             <h2>장바구니</h2>
-            <article id="payment_detail">  <!-- 결제 요약정보 -->
-                <table class="table">
-                    <tr>
-                        <th><input type="checkbox" /></th>
-                        <th>no</th>
-                        <th>메뉴명</th>
-                        <th>변경사항</th>
-                        <th>가격</th>
-                    </tr>
-                    <c:choose>
-                    	<c:when test="${not empty cartList }">
-                    		<c:forEach var="cart" items="${cartList }" varStatus="status">
-	                    		<tr>
-		                    		<td><input type="checkbox" id="${cart.itemSeq }"/></td>
-		                    		<td>${status.count }</td>
-		                    		<td>${cart.product.name }</td>
-		                    		<td>${cart.product.custom }</td>                    		
-		                    		<td><fmt:formatNumber  value="${cart.product.price }" pattern="#,###" />원</td>
-	                    		</tr>
-                    		</c:forEach>
-                    	</c:when>
-                    </c:choose>
-                    
-                    
-                    <!-- <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>아이스 아메리카노</td>
-                        <td>얼음 적게 얼음 적게 얼음 적게</td>
-                        <td>4100원</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>아이스 아메리카노</td>
-                        <td>얼음 많이, 물 적게</td>
-                        <td>4100원</td>
-                    </tr> -->
-                </table>
-                <section id="price_info">
-                    <ul id="point_usage">
-                        <li>
-                            <label>보유 적립금</label>
-                            <input type="number" readonly />
-                            <button>확인</button>            
-                        </li>
-                        <li>
-                            <label>사용 적립금</label>
-                            <input type="number" value="0"/>
-                            <button>적용</button>
-                            <br>
-                        </li>
-                        <li><span>주문 매장 : </span><span>을지로입구역 스타벅스</span></li>
-                        <li><span>총 금액 : </span><span><fmt:formatNumber value="20000" pattern="#,###" />원</span></li>
-                    </ul>    
-                </section>
-            </article>
+            <form>
+	            <article id="payment_detail">  <!-- 결제 요약정보 -->
+	                <table class="table">
+	                    <tr>
+	                        <th><input id="selectAll" type="checkbox" /></th>
+	                        <th>no</th>
+	                        <th>메뉴명</th>
+	                        <th>변경사항</th>
+	                        <th>가격</th>
+	                    </tr>
+	                    <c:choose>
+	                    	<c:when test="${not empty cartList }">
+	                    		<c:forEach var="cart" items="${cartList }" varStatus="status">
+		                    		<tr>
+			                    		<td><input class="item_checkbox" type="checkbox" id="${cart.itemSeq }"/></td>
+			                    		<td>${status.count }</td>
+			                    		<td>${cart.product.name }</td>
+			                    		<td>${cart.product.custom }</td>                    		
+			                    		<td><span id="price${cart.itemSeq }">${cart.product.price }</span>원</td>
+		                    		</tr>
+	                    		</c:forEach>
+	                    	</c:when>
+	                    </c:choose>
+	                    
+	                    
+	                    <!-- <tr>
+	                        <td><input type="checkbox" /></td>
+	                        <td>아이스 아메리카노</td>
+	                        <td>얼음 적게 얼음 적게 얼음 적게</td>
+	                        <td>4100원</td>
+	                    </tr>
+	                    <tr>
+	                        <td><input type="checkbox" /></td>
+	                        <td>아이스 아메리카노</td>
+	                        <td>얼음 많이, 물 적게</td>
+	                        <td>4100원</td>
+	                    </tr> -->
+	                </table>
+	                <section id="price_info">
+	                    <ul id="point_usage">
+	                        <li>
+	                            <label>보유 적립금</label>
+	                            <input type="number" readonly />
+	                            <button type="button" onclick="checkPoints()">확인</button>            
+	                        </li>
+	                        <li>
+	                            <label>사용 적립금</label>
+	                            <input type="number" value="0" min="0"/>
+	                            <button>적용</button>
+	                            <br>
+	                        </li>
+	                        <li><span>주문 매장 : </span><span id="store_name"></span></li>
+	                        <li><span>총 금액 : </span><span id="final_price"></span>원</li>
+	                    </ul>    
+	                </section>
+	            </article>
+            </form>
             <div>
                 <button class="move_button" onclick="history.back()">뒤로</button>
                 <button class="move_button" id="next" onclick="javascript:location.href='order_confirmed.html'">다음</button>
