@@ -200,19 +200,19 @@
 	                    </tr> -->
 	                </table>
 	                <section id="price_info">
-	                    <ul id="point_usage">
+	                    <ul id="point_usage" align="left">
 	                        <li>
 	                            <label>보유 적립금</label>
-	                            <input type="number" readonly />
-	                            <button type="button" onclick="checkPoints()">확인</button>            
+	                            <input id="my_point" type="number" readonly />
+<!-- 	                            <button type="button" onclick="check_points()">확인</button>        -->     
 	                        </li>
 	                        <li>
 	                            <label>사용 적립금</label>
-	                            <input type="number" value="0" min="0"/>
-	                            <button>적용</button>
+	                            <input id="point_to_use" type="number" value="0" min="0" step="100"/>
+	                            <button type="button" onclick="apply_points()">적용</button>
 	                            <br>
 	                        </li>
-	                        <li><span>주문 매장 : </span><span id="store_name"></span></li>
+	                        <li><span>주문 매장 : </span><span id="store_name">${store_name }</span></li>
 	                        <li><span>총 금액 : </span><span id="final_price"></span>원</li>
 	                    </ul>    
 	                </section>

@@ -1,3 +1,6 @@
+var deducted_points = 0;
+var price_to_pay = 0;
+
 $(document).ready(function(){
     var path = window.location.pathname;
     var start_point = path.lastIndexOf("/")+1;
@@ -10,43 +13,46 @@ $(document).ready(function(){
     // 처음 들어오면 전체 선택 및 가격 업데이트!    
     var checkboxes = $(":checkbox");
     checkboxes.prop("checked", true);
-    updatePrice();
+    update_price();
     
     
     // 전체선택 버튼 선택에 따른 변화
     $("#selectAll").bind("change", function(){
-    	var isAllChecked = $(this).prop("checked");
+    	var is_all_checked = $(this).prop("checked");
     	
     	$(".item_checkbox").each(function(){
-    		$(this).prop("checked", isAllChecked);
+    		$(this).prop("checked", is_all_checked);
     	});
     });
     
     
     // 체크박스가 선택될 때마다 변경되는 총액을 업데이트
     $("input[type=checkbox]").bind("change", function(){
-    	var isAllChecked = true;
+    	var is_all_checked = true;
     	
     	$(".item_checkbox").each(function(){
     		if(!$(this).prop("checked")) {
     			$("#selectAll").prop("checked", false);
-    			isAllChecked = false;
+    			is_all_checked = false;
     			
     			return;
     		}
     	});
     	
-    	if(isAllChecked) {
+    	if(is_all_checked) {
     		$("#selectAll").prop("checked", true);
     	}
 
-    	updatePrice();
+    	update_price();
     	
     });
     
+    // 자동으로 포인트를 불러와서 저장
+    check_points();
+    
 });
 
-function updatePrice(){
+function update_price(){
 	console.log("가격변동!");
 	var sum = 0;
 	$(".item_checkbox").each(function(index, item){
@@ -62,12 +68,33 @@ function updatePrice(){
 	
 	$("#final_price").prop("textContent", sum);
 	console.log(sum);
-}
-
-function checkPoints(){
+	price_to_pay = sum;
 	
+	$("#point_to_use").prop("value", 0);
 }
 
+function check_points(){
+	$.ajax({
+		url: "/StarbucksWeb/order/getPoints.sb",
+		dataType: "json",
+		success: function(json){			
+			console.log(json);
+			$("#my_point").prop("value", json.point);
+			$("#point_to_use").prop("max", json.point);
+		},
+		error: function(request, status, error){
+			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		},
+	});
+}
+
+
+function apply_points(){
+	var points_to_use = Number($("#point_to_use").prop("value"));
+	console.log("사용 포인트 " + points_to_use);
+	console.log("총 금액 " + Number(price_to_pay));
+	console.log(price_to_pay - points_to_use);
+}
 
 
 function removeItem(){
