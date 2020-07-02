@@ -13,6 +13,15 @@ public interface InterMemberDAO {
 
 	// 아이디와 암호를 입력받아서 그 회원에 대한 정보를 리턴(로그인처리)
 	MemberVO selectOneMember(HashMap<String, String> paraMap) throws SQLException;
+	
+	// 비밀번호 변경
+	String selectPasswd(String userid) throws SQLException;
+
+	// 비밀번호 변경
+	int updatePasswd(String userid, String newPassword) throws SQLException;
+
+	// 개인정보 수정
+	int updateInfo(MemberVO membervo) throws SQLException;
 
 	// 아이디 찾기(성명, 휴대폰번호를 입력받아서 해당 사용자의 아이디를 알려준다.)
 	String findUserid(HashMap<String, String> paraMap) throws SQLException;
@@ -23,6 +32,8 @@ public interface InterMemberDAO {
 	// 암호 변경 하기
 	int pwdUpdate(String pwd, String userid) throws SQLException;
 
+	// 회원탈퇴
+	int deleteMember(MemberVO membervo) throws SQLException;
 
 	
 }

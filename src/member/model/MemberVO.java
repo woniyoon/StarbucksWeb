@@ -161,9 +161,6 @@ public class MemberVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
-	
-	
 	
 
 }	

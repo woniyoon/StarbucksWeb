@@ -98,9 +98,7 @@
 				<nav class="nav_first index">
 					<ul class="index">
 						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN IN</a></li>
-						
-						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN OUT</a></li>
-						
+						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN OUT</a></li>						
 						<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
 						<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>
 						<li class="index"><a href="<%= ctxPath%>/notice/noticeList.sb"  class="index">MANAGER PAGE(임시)</a></li>
