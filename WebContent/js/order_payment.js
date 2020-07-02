@@ -1,5 +1,6 @@
 var deducted_points = 0;
 var price_to_pay = 0;
+var my_points = 0;
 
 $(document).ready(function(){
     var path = window.location.pathname;
@@ -70,6 +71,7 @@ function update_price(){
 	console.log(sum);
 	price_to_pay = sum;
 	
+	$("#my_point").prop("value", my_points);
 	$("#point_to_use").prop("value", 0);
 }
 
@@ -79,6 +81,7 @@ function check_points(){
 		dataType: "json",
 		success: function(json){			
 			console.log(json);
+			my_points = json.point;
 			$("#my_point").prop("value", json.point);
 			$("#point_to_use").prop("max", json.point);
 		},
@@ -94,6 +97,9 @@ function apply_points(){
 	console.log("사용 포인트 " + points_to_use);
 	console.log("총 금액 " + Number(price_to_pay));
 	console.log(price_to_pay - points_to_use);
+	
+	$("#my_point").prop("value", my_points - points_to_use);
+	$("#final_price").prop("textContent", price_to_pay - points_to_use);
 }
 
 
