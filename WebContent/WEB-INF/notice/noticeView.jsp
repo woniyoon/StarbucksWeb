@@ -91,8 +91,99 @@
 	.pre_post {
 		border-bottom: 1px solid #333333;
 	}
+	
+	.titlePointer:hover {
+		cursor: pointer;
+	}
 
 </style>    
+
+<script>
+
+
+	$(document).ready(function(){ 
+	
+		$(".noticeNO").hide();
+		
+		
+
+		// 윗글 보기 
+		$(".postNotice").click(function(){ 
+			
+			var notice_seq = $(this).prev().prev().text();
+			// alert(notice_seq);
+			var rno = $(this).prev().text();
+			rno = parseInt(rno);
+			// alert(rno);
+			// $(".postNotice").val("${postTitlemap.title}");
+			
+			// 만약 더이상 윗글이 없는 경우
+			if ( $(".postNotice").val() == "" ) {
+				// location.href="postNotice.sb?rno="+(rno+1);
+				$(".postNotice").text("글이 없습니다.");
+				$(this).removeClass("titlePointer");
+			}
+			else {
+				location.href="postNotice.sb?rno="+(rno+1);
+				 
+			} 
+			
+
+		});
+		
+		// 아랫글 보기
+		$(".preNotice").click(function(){ 
+			var notice_seq = $(this).prev().prev().text();
+			// alert(notice_seq);
+			var rno = $(this).prev().text();
+			rno = parseInt(rno);
+			// alert(rno);
+			
+			location.href="postNotice.sb?rno="+(rno-1);
+
+		});
+		
+
+		
+		
+		
+	});
+
+	function deleteNotice() {
+		
+		var notice_seq = $(".delNotice").val();
+		//alert(notice_seq);
+		
+		var bool = confirm("글을 삭제하시겠습니까?");
+		
+		if(bool) {
+			
+			$.ajax({ 
+				url: "/StarbucksWeb/notice/noticeDel.sb",
+				type: "POST",
+				data: {"notice_seq":notice_seq},
+				dataType: "JSON",
+				success:function(json){
+					if(json.n == 1) {
+						// alert("삭제성공!");
+						location.href="/StarbucksWeb/notice/noticeList.sb"; // 페이지 넘어가기
+					}
+					
+				},
+				error: function(request, status, error){
+					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			    }
+				
+			}); 
+		}
+		else {
+			alert("삭제 취소!");
+		}
+		
+	}
+
+
+</script>
     
 	<div class="notice_view">
 		<header>
@@ -110,6 +201,7 @@
 				<thead>
 					 <tr>
 					 	<th>${map.title}</th>
+					 	<input type="hidden" class="delNotice" value="${notice_seq}"/>
 					 </tr>
 				</thead>
 				
@@ -128,7 +220,7 @@
 					<a href="noticeList.sb" class="notice_view">목록</a>
 				</p>
 				<p id="notice_button">
-					<a class="delete notice_view" onclick="alert('삭제')">삭제</a>
+					<a class="delete notice_view" onclick="deleteNotice();">삭제</a>
 				</p>
 			</div>
 			
@@ -136,11 +228,15 @@
 				<table>
 					<tr>
 						<th class="next_post th">윗글</th>
-						<td class="next_post">BC카드 ISP/페이북 시스템 점검 안내</td>
+						<td class="noticeNO" >${notice_seq}</td>
+						<td class="noticeNO postrno" >${rno}</td>
+						<td class="next_post postNotice titlePointer">${postTitlemap.title}</td>
 					</tr>
 					<tr>
 						<th class="pre_post th">아랫글</th>
-						<td class="pre_post">스타벅스 앱 내 e-Coupon / Gift Shop의 e-Gift Item 수량 표기 미노출 안내</td>
+						<td class="noticeNO" >${notice_seq}</td>
+						<td class="noticeNO prerno" >${rno}</td>
+						<td class="pre_post preNotice titlePointer">${preTitlemap.title}</td>
 					</tr>
 				</table>
 			</div>
