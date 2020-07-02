@@ -4,8 +4,6 @@ import java.util.*;
 
 import javax.servlet.http.*;
 
-import org.json.*;
-
 import common.controller.AbstractController;
 import member.model.MemberVO;
 import order.model.*;
@@ -21,10 +19,11 @@ public class OrderCartController extends AbstractController {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("loginuser");
 //		String userid = (String) request.getSession().getAttribute("userid");
 
-		if(user != null) {
+//		System.out.println(user.getUserid());
+		if(user == null) {
 			
 			String msg = "로그인부터 해야합니다.";
-			String loc = "javascript:history.go(-1)";
+			String loc = "/StarbucksWeb/index.sb";
 			
 			request.setAttribute("message", msg);
 			request.setAttribute("loc", loc);
@@ -32,7 +31,7 @@ public class OrderCartController extends AbstractController {
 			super.setViewPage("/WEB-INF/msg.jsp");
 			
 		} else {
-			String userid = "woniyoon";
+			String userid =user.getUserid();
 
 			Map<String, String> paramap = new HashMap<String, String>();
 			paramap.put("userid", userid);
@@ -50,26 +49,3 @@ public class OrderCartController extends AbstractController {
 	}
 
 }
-
-//		System.out.println(shoppingCart.size());
-//		JSONArray jArray = new JSONArray();
-//		
-//		for(ProductVO pvo : shoppingCart) {
-//			JSONObject obj = new JSONObject();
-//			obj.put("id", pvo.getProductId());
-//			obj.put("name", pvo.getName());
-//			obj.put("price", pvo.getPrice());
-//			obj.put("img", pvo.getImg());
-//			
-//			if(pvo instanceof DrinkVO) {
-//				obj.put("shot", ((DrinkVO) pvo).getShot());
-//				obj.put("syrup", ((DrinkVO) pvo).getSyrup());
-//				obj.put("whipped_cream", ((DrinkVO) pvo).getWhippedCream());
-//				obj.put("temperature", ((DrinkVO) pvo).getTemperature());
-//				obj.put("base", ((DrinkVO) pvo).getBase());
-//			}
-//
-//			jArray.put(obj);
-//		}
-//		
-//		System.out.println(jArray.toString());
