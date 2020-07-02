@@ -8,6 +8,9 @@ import javax.naming.*;
 import javax.sql.DataSource;
 
 import feedback.model.InterFeedbackDAO;
+import member.model.InterMemberDAO;
+import member.model.MemberDAO;
+import member.model.MemberVO;
 import feedback.model.FeedbackListVO;
 
 public class FeedbackDAO implements InterFeedbackDAO{
@@ -40,7 +43,7 @@ public class FeedbackDAO implements InterFeedbackDAO{
 
 		// 고객의소리 글쓰기 메소드 생성하기
 		@Override
-		public int feedbackWrite(HashMap<String, String> map) throws SQLException {
+		public int feedbackPost(HashMap<String, String> map) throws SQLException {
 
 			int n = 0;
 			
@@ -48,21 +51,25 @@ public class FeedbackDAO implements InterFeedbackDAO{
 				conn = ds.getConnection();
 				
 				//////////////////////////////////////////////////////////////////////
-				String sql = "insert into feedback_post (feedback_board_seq, store_id, userid, category, title, contents, hp1, hp2, hp3, file_attached, file_attached2, username, write_day, status) "+
-						     "values (feedback_board_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default, ?, sysdate, ?)";
+				String sql = "insert into feedback_post (feedback_board_seq, category, hp1, hp2, hp3, store_id, visit_day, title, contents, file_attached, file_attached2, userid, hit, username, write_day, status) "+
+						     "values (feedback_board_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default, ?, sysdate, default)";
 				
 				
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, map.get("store_id"));
-				pstmt.setString(2, map.get("userid"));
-				pstmt.setString(3, map.get("category"));
-				pstmt.setString(4, map.get("title"));
-				pstmt.setString(5, map.get("hp1"));
-				pstmt.setString(6, map.get("hp2"));
-				pstmt.setString(7, map.get("hp3"));
-				pstmt.setString(8, map.get("file_attached"));
-				pstmt.setString(9, map.get("file_attached2"));
-				pstmt.setString(10, map.get("status"));
+				pstmt.setString(1, map.get("category"));
+				pstmt.setString(2, map.get("hp1"));
+				pstmt.setString(3, map.get("hp2"));
+				pstmt.setString(4, map.get("hp3"));
+				pstmt.setString(5, map.get("store_id"));
+				pstmt.setString(6, map.get("visit_day"));
+				pstmt.setString(7, map.get("title"));
+				pstmt.setString(8, map.get("contents"));
+				pstmt.setString(9, map.get("file_attached"));
+				pstmt.setString(10, map.get("file_attached2"));
+				pstmt.setString(11, map.get("userid"));
+				pstmt.setString(12, map.get("username"));
+				
+				
 				
 				n = pstmt.executeUpdate();
 				
@@ -253,7 +260,7 @@ public class FeedbackDAO implements InterFeedbackDAO{
 			
 			return totalPage;
 		}
-		
+
 		
 		
 		

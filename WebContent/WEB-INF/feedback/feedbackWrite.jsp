@@ -67,6 +67,12 @@
 		border-radius: 3px;
 		height: 27px;
 	}
+	
+	/* input#selectChain {
+		width: 130px;
+		border: none;
+		font-weight: bold;
+	} */
 
 	/* 상단(제목) */
 	div#top {
@@ -329,9 +335,11 @@
 
 
 	
+	
 
 	$(document).ready(function() {
-	console.log("asdasdas");
+
+		$("span#pickStore").hide();
 		
 		$("div#fileattach").hide();
 		
@@ -362,39 +370,33 @@
 			var file2 = $(this).val();
 			$("input#file2").val(file2);
 		});
+		
+		
 			
+	/* 	$("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'  //Input Display Format 변경
+           ,showOtherMonths: true   //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+           ,changeYear: true        //콤보박스에서 년 선택 가능
+           ,changeMonth: true       //콤보박스에서 월 선택 가능                
+           ,showOn: "both"          //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true   //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+           ,buttonText: "선택"       //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+           ,yearSuffix: "년"         //달력의 년도 부분 뒤에 붙는 텍스트
+           ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+         //,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+         //,maxDate: "+1M" //최대 선택일자(+1D:하루후, +1M:한달후, +1Y:일년후)                
+       });                    
+       
+       //초기값을 오늘 날짜로 설정
+       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)  */
 	});
-	
-	
 
-/* 	$("#calendar").datepicker({
-        dateFormat: 'yy-mm-dd'  //Input Display Format 변경
-       ,showOtherMonths: true   //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-       ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-       ,changeYear: true        //콤보박스에서 년 선택 가능
-       ,changeMonth: true       //콤보박스에서 월 선택 가능                
-       ,showOn: "both"          //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-       ,buttonImage: "/StarbucksWeb/images/hyejeong/icon_calendar.gif" //버튼 이미지 경로
-       ,buttonImageOnly: true   //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-       ,buttonText: "선택"       //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
-       ,yearSuffix: "년"         //달력의 년도 부분 뒤에 붙는 텍스트
-       ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-       ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-       ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-       ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-     //,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-       ,maxDate: "TODAY" //최대 선택일자(+1D:하루후, +1M:한달후, +1Y:일년후)                
-   });       */              
-   
-	
-   //초기값을 오늘 날짜로 설정
-  // $('#calendar').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후) 
-   
-  /*  $("button#fileadd").click(function(){
-	   
-	   $("div#fileattach").show();
-   
-   }); */
+
 	   
    
    
@@ -439,14 +441,20 @@
    
    
    function findchain() {
-		
-		// 팝업창 띄우기
+	
+		// window.name = "부모창 이름"; 
+	       window.name = "parentForm";
+	       // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+	       openWin = window.open("<%= request.getContextPath()%>/feedback/chainFind.sb",
+	               "childForm", "left=350px, top=100px, width=800px, height=700px, resizable = no, scrollbars = no"); 
+
+	       
+		<%-- // 팝업창 띄우기
 		var url = "<%= request.getContextPath()%>/feedback/chainFind.sb";
 		
 		window.open(url, "chainfind",
-					"left=350px, top=100px, width=480px, height=352px"); // 팝업창 띄움(view단주소, 팝업창이름, 위치)
-		
-		
+					"left=350px, top=100px, width=800px, height=600px, resizable = no, scrollbars = no"); // 팝업창 띄움(view단주소, 팝업창이름, 위치) --%>
+
 	}
    
    
@@ -484,8 +492,14 @@
 		  // 그러므로 $(".requiredInfo").each(); 은
 		  // 클래스가 requiredInfo 인 것마다 하나하나씩 반복업무를 해주는 것이다.
 	   	  
+		//  alert(document.getElementById("store_id").innertext);
+		  
+		  // var storeid = $('#store_id').prop("value");
+		  
+		 //  alert(storeid);
+		  
 		  if(!bRequiredInfo) {
-			  var frm = document.registerFrm;
+			  var frm = document.writeFrm;
 		   	  frm.method = "POST";
 		   	  frm.action = "feedbackPost.sb";
 		   	  frm.submit();
@@ -519,13 +533,13 @@
 		<button id="viewMyComplain">나의 문의 내역 보기</button>
 	</div>
 		<p style="text-align:right; font-size: 8pt;"><span style="color: red;">*</span>표시 항목은 필수 입력 사항입니다.</p>
-	<form name="registerFrm" >
+	<form name="writeFrm" >
 	<table class="type05" style="border-top: solid 1px black;">
 	    <tr>
 	        <th scope="row">분야 <span style="color: red;">*</span></th>
 	        <td>
 			    <div class="radio">
-			      <label><input type="radio" id="section" name="section" value="1" checked > 문의 </label><label><input type="radio" id="section" name="section" value="2" > 칭찬 </label><label><input type="radio" id="section" name="section" value="3"> 제안 </label><label><input type="radio" id="section" name="section" value="4" > 불만 </label>
+			      <label><input type="radio" id="section" name="category" value="문의" checked > 문의 </label><label><input type="radio" id="section" name="category" value="칭찬" > 칭찬 </label><label><input type="radio" id="section" name="category" value="제안"> 제안 </label><label><input type="radio" id="section" name="category" value="불만" > 불만 </label>
 			    </div>
 			    
 			</td>
@@ -533,25 +547,27 @@
 	    <tr>
 	        <th scope="row">연락처</th>
 	        <td>
-				<select class="form-control-tel" id="sel1">
+				<select class="form-control-tel" id="sel1" name="hp1">
 			      	<option>010</option>
 			        <option>011</option>
 			        <option>016</option>
 			        <option>017</option>
 			        <option>018</option>
 			        <option>019</option>
-			    </select> - <input class="form-control-tel" type="text" maxlength="4" /> - <input class="form-control-tel" type="text" maxlength="4" />
+			    </select> - <input class="form-control-tel" name="hp2" type="text" maxlength="4" /> - <input class="form-control-tel" name="hp3" type="text" maxlength="4" />
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">장소 <span style="color: red;">*</span></th>
 	        <td>
 	        	<div class="radio">
-      				<label><input type="radio" class="visit" name="optradio" checked> 매장 방문 </label><label><input type="radio" class="novisit" name="optradio"> 매장 방문 외 </label>
+      				<label><input type="radio" class="visit" name="visit" value="visit" checked> 매장 방문 </label><label><input type="radio" class="novisit" name="visit" value="novisit"> 매장 방문 외 </label>
     			</div>
     			<div class="search">
-		        	&nbsp;방문매장&nbsp;<button id="findChain" onclick="findchain()" type="button" style="width: 64px; height:28px; margin:5px 3px; margin-bottom:6px; background-color: #666; color: white; border-radius: 3px; font-size: 12px; font-weight: bold; cursor: pointer;">매장찾기</button><span id="pickStore">선택하신 매장은 {} 입니다.</span><br/>
-		        	&nbsp;방문일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="calendar"><!-- <input type="text"> --><input id="calendar datepicker" type="date" max="today" class="requiredInfo"> <!-- <label id="calendar" for="calendar"></label> --></span> 
+<!-- 		        	&nbsp;방문매장&nbsp;<button id="findChain" onclick="findchain()" type="button" style="width: 64px; height:28px; margin:5px 3px; margin-bottom:6px; background-color: #666; color: white; border-radius: 3px; font-size: 12px; font-weight: bold; cursor: pointer;">매장찾기</button><span id="pickStore">선택하신 매장은 <strong id="selectChain"></strong>입니다.</span><br/> -->
+		        	&nbsp;방문매장&nbsp;<button id="findChain" onclick="findchain()" type="button" style="width: 64px; height:28px; margin:5px 3px; margin-bottom:6px; margin-right:10px; background-color: #666; color: white; border-radius: 3px; font-size: 12px; font-weight: bold; cursor: pointer;">매장찾기</button><span id="pickStore" style="margin-left:10px; font-size:14px; color: #666;">선택하신 매장은 <span id="selectChain" style="font-weight: bold;"></span>입니다.</span><input type="text" style="color: white; border: none;" id="store_id" name="store_id" /><br/>
+		        	
+		        	&nbsp;방문일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="calendar"><input type="date" id="datepicker" name="visit_day" max="today"><!-- <input id="calendar datepicker" type="date" max="today" class="requiredInfo"> --> <!-- <label id="calendar" for="calendar"></label> --></span> 
 					
 				</div>
 			</td>
@@ -559,22 +575,22 @@
 	    <tr>
 	        <th scope="row">제목 <span style="color: red;">*</span></th>
 	        <td>
-	        	<input style="width: 515px;" class="requiredInfo" type="text" class="subject" maxlength="50">
+	        	<input style="width: 515px;" class="requiredInfo" type="text" class="subject" name="title" maxlength="50">
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">내용 <span style="color: red;">*</span></th>
 	        <td>
-	        	<textarea class="requiredInfo" name="messagebox" placeholder="관계 법령에 저촉되거나 사회통념 등에 어긋나는 내용(예: 개인정보 보안, 불충분한 증거/ 귀책 사유에 대한 개인 음해성/음란성 비방, 의도적인 업무 방해 등) 또는 광고성 게시물은 별도의 사전 통보 없이 답변이 되지 않을 수 있으며, 등록된 의견은 처리가 시작되면 수정이 불가하오니 이 점 양지하여 주시기 바랍니다." onKeyUp="javascript:fnChkByte(this,'2500')"></textarea><br/>
+	        	<textarea class="requiredInfo" name="contents" placeholder="관계 법령에 저촉되거나 사회통념 등에 어긋나는 내용(예: 개인정보 보안, 불충분한 증거/ 귀책 사유에 대한 개인 음해성/음란성 비방, 의도적인 업무 방해 등) 또는 광고성 게시물은 별도의 사전 통보 없이 답변이 되지 않을 수 있으며, 등록된 의견은 처리가 시작되면 수정이 불가하오니 이 점 양지하여 주시기 바랍니다." onKeyUp="javascript:fnChkByte(this,'2500')"></textarea><br/>
 	        	<span id="byteInfo">0</span> /2500bytes
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">파일첨부</th>
 	        <td id="file" style="height: 120px;">
-	        	<input type="text" id="file" maxlength="50"><input id="addfile" type="file" style="display:none" /><div class="button" id="addfile" onclick="find(this.id)">찾아보기</div><button id="fileadd" class="plus" type="button" onclick="fileAdd()"></button>
+	        	<input type="text" id="file" maxlength="50" name="file_attached"><input id="addfile" type="file" style="display:none" /><div class="button" id="addfile" onclick="find(this.id)">찾아보기</div><button id="fileadd" class="plus" type="button" onclick="fileAdd()"></button>
 	        	<div id="fileattach">
-	        		<input type="text" id="file2" maxlength="50"><input id="removefile" type="file" style="display:none" /><div class="button" id="removefile" onclick="find(this.id)">찾아보기</div><button id="fileminus" class="minus" type="button" onclick="fileMinus()"></button>
+	        		<input type="text" id="file2" maxlength="50" name="file_attached2"><input id="removefile" type="file" style="display:none" /><div class="button" id="removefile" onclick="find(this.id)">찾아보기</div><button id="fileminus" class="minus" type="button" onclick="fileMinus()"></button>
 	        	</div>
 	        	<ul id="feed" style="padding-left:18px; list-style: disc; color: #444; line-height: 16px;">
   					<li class="file">
@@ -605,7 +621,11 @@
   </div>
   </form>
   </div>
+ 
+  
 </div>
+
+
 
 <%--  ****** 매장 찾기 Modal ****** 
  <div class="modal fade" id="chainfind" role="dialog">

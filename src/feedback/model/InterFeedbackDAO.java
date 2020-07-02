@@ -4,12 +4,10 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-import notice.model.NoticeVO;
-
 public interface InterFeedbackDAO {
 
-		// 고객의소리 글쓰기
-		int feedbackWrite(HashMap<String, String> map) throws SQLException;
+		// 고객의소리 글쓰기(포스팅)
+		int feedbackPost(HashMap<String, String> map) throws SQLException;
 
 		// 고객의소리 글목록 불러오기
 		List<FeedbackListVO> feedbackTitleList() throws SQLException;
@@ -21,7 +19,9 @@ public interface InterFeedbackDAO {
 		List<FeedbackListVO> selectOneFeedback(HashMap<String, String> paraMap) throws SQLException;
 
 		// 페이징 처리를 위한 전체회원에 대한 총 페이지개수 알아오기(select)
-		int getTotalPage(HashMap<String, String> paraMap) throws SQLException;
+		int getTotalPage(HashMap<String, String> paraMap) throws SQLException;		
+
+		
 		
 
 
