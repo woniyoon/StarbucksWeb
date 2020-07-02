@@ -30,4 +30,6 @@ public interface InterOrderDAO {
 
 	// 커스텀 옵션과 최종가격을 업데이트
 	int updateShoppingCart(HashMap<String, String> paraMap) throws SQLException;
+
+	List<ShoppingCartVO> getCartWithCustoms(HashMap<String, String> paramap) throws SQLException;
 }

@@ -141,6 +141,8 @@ public class OrderDAO implements InterOrderDAO {
 			dvo.setTemperature(rs.getString("temperature"));
 			dvo.setBase(rs.getString("base"));
 			dvo.setParentTable("drink");
+		
+			System.out.println(" getDrinkInfo method :  " + dvo.getName());
 		}
 		
 		return dvo;
@@ -297,6 +299,56 @@ public class OrderDAO implements InterOrderDAO {
 		}
 		
 		return result;
+	}
+	
+	
+
+	@Override
+	public List<ShoppingCartVO> getCartWithCustoms(HashMap<String, String> paramap) throws SQLException {
+		List<ShoppingCartVO> cart = new ArrayList<>();
+		
+		try {
+			// storeID로 매장명 가져오기
+			// userid로 장바구니 목록 가져오기
+			conn = ds.getConnection();
+			String sql = " select a.product_id, b.parent_table, a.shoppingcart_seq, a.final_price, a.custom "+
+						" from shoppingcart a, nutrition b "+
+						" where a.userid = ? and a.product_id = b.product_id ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramap.get("userid"));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ShoppingCartVO svo = new ShoppingCartVO();
+				svo.setItemSeq(rs.getString("shoppingcart_seq"));
+				svo.setUserid(paramap.get("userid"));
+				ProductVO pvo = null;
+				
+				System.out.println(rs.getString("product_id"));
+				System.out.println(rs.getString("parent_table"));
+				
+				
+				if("DRINK".equalsIgnoreCase(rs.getString("parent_table"))) {
+					pvo = getDrinkInfo(rs.getString("product_id"));
+				} else {
+					pvo = getFoodInfo(rs.getString("product_id"));
+				}
+								
+				// 기본 가격 대신에 커스텀이 적용된 최종가격을 넣어줌
+				pvo.setPrice(rs.getInt("final_price"));
+				pvo.setCustom(rs.getString("custom"));
+				
+				svo.setCart(pvo);
+				
+				cart.add(svo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return cart;
 	}
 	
 }
