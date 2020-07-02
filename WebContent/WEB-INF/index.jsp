@@ -10,11 +10,6 @@
 
 <jsp:include page="header.jsp" />
 
-<%
-	String ctxPath = request.getContextPath();
-	// ctxPath = /StarbucksWeb
-%>
-
 <style type="text/css">
 
 	body {
