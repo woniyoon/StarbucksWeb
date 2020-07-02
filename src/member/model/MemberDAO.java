@@ -145,6 +145,7 @@ public class MemberDAO implements InterMemberDAO {
 				mvo.setHp1(rs.getString("hp1"));
 				mvo.setHp2(rs.getString("hp2")); 
 				mvo.setHp3(rs.getString("hp3")); 
+
 				mvo.setPoint(rs.getInt("point")); // int
 
 			    mvo.setGender(rs.getInt("gender"));
