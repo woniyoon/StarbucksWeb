@@ -10,6 +10,7 @@ $(document).ready(function(){
     $("#"+current_state).css({"color": "white", "background-color": "#006633"})
     $("#current_nav_menu").text($("li#"+current_state+" > span").text());
     
+    $("#overlay").hide();
     
     // 처음 들어오면 전체 선택 및 가격 업데이트!    
     var checkboxes = $(":checkbox");
@@ -116,31 +117,31 @@ function goToPay(){
 //	$("#payment_form").method = "POST";
 	pop_up_window = "payment";
 
-	var price_per_item = [];
-	var product_id = [];
-	var item_seq = [];
-
-	// 숨겨져있는 input의 값들을 sessionStorage에 전달 -> paymentGateway.jsp에 전달
-	$("tr.items").each(function(index, item){
-		price_per_item[index] = $("#price_per_item"+index).prop("value");
-		product_id[index] = $("#product_id"+index).prop("value");
-		item_seq[index] = $("#item_seq"+index).prop("value");
-	});
+//	var price_per_item = [];
+//	var product_id = [];
+//	var item_seq = [];
+//
+//	// 숨겨져있는 input의 값들을 sessionStorage에 전달 -> paymentGateway.jsp에 전달
+//	$("tr.items").each(function(index, item){
+//		price_per_item[index] = $("#price_per_item"+index).prop("value");
+//		product_id[index] = $("#product_id"+index).prop("value");
+//		item_seq[index] = $("#item_seq"+index).prop("value");
+//	});
 
 	var price_to_pay = $("input#price_to_pay").prop("value");
-	console.log(price_to_pay);
-	console.log();
-	var deducted_point = $("#point_to_use").prop("value");
-	var store_id = $("#store_id").prop("value");
+//	console.log(price_to_pay);
+//	console.log();
+//	var deducted_point = $("#point_to_use").prop("value");
+//	var store_id = $("#store_id").prop("value");
 	
 	console.log(price_to_pay);
 
 	sessionStorage.setItem("price_to_pay", price_to_pay);
-	sessionStorage.setItem("price_per_item", price_per_item);
-	sessionStorage.setItem("store_id", store_id);
-	sessionStorage.setItem("deducted_point", deducted_point);
-	sessionStorage.setItem("product_id", product_id);
-	sessionStorage.setItem("item_seq", item_seq);
+//	sessionStorage.setItem("price_per_item", price_per_item);
+//	sessionStorage.setItem("store_id", store_id);
+//	sessionStorage.setItem("deducted_point", deducted_point);
+//	sessionStorage.setItem("product_id", product_id);
+//	sessionStorage.setItem("item_seq", item_seq);
 
 	// slip_no값을 난수로 만들어서 파라미터로 전송
 	var slipNo = Math.random().toString(36).substr(2,11);
@@ -152,17 +153,43 @@ function goToPay(){
 }
 
 function update_database(){	
+	$("#overlay").show();	
+	
+	var price_per_item = [];
+	var product_id = [];
+	var item_seq = [];
+
+	// 숨겨져있는 input의 값들을 sessionStorage에 전달 -> paymentGateway.jsp에 전달
+	$("tr.items").each(function(index, item){
+		price_per_item[index] = $("#price_per_item"+index).prop("value");
+		product_id[index] = $("#product_id"+index).prop("value");
+		item_seq[index] = $("#item_seq"+index).prop("value");
+	});
+	
+	var price_paid = $("input#price_to_pay").prop("value");
+	var deducted_point = $("#point_to_use").prop("value");
+	var store_id = $("#store_id").prop("value");
+	
 	$.ajax({
-		url: "/StarbucksWeb/order/getPoints.sb",
+		url: "/StarbucksWeb/order/updatePurchase.sb",
 		dataType: "json",
+		data: {
+			"storeId": store_id,
+			"pricePerItems": price_per_item,
+			"prouctIds": product_id,
+			"itemSeqArr": item_seq,
+			"pricePaid": price_paid,
+			"deductedPoint": deducted_point,
+			"slipNo": $("#slip_no").prop("value"),
+		},
 		success: function(json){			
-			console.log(json);
-			my_points = json.point;
-			$("#my_point").prop("value", json.point);
-			$("#point_to_use").prop("max", json.point);
+			setTimeout(function() {
+				$("#overlay").hide();}
+			,2000);
 		},
 		error: function(request, status, error){
 			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			$("#overlay").hide();
 		},
 	});
 }
