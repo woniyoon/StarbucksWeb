@@ -144,7 +144,8 @@ function goToPay(){
 
 	// slip_no값을 난수로 만들어서 파라미터로 전송
 	var slipNo = Math.random().toString(36).substr(2,11);
-
+	$("#slip_no").prop("value", slipNo);
+	
 	// 팝업창으로 결제페이지 띄움
 	window.open("/StarbucksWeb/paymentPage.sb?amount="+price_to_pay+"&slipNo="+slipNo, pop_up_window, "toolbar=no, location=no, width=745, height=705");
 

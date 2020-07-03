@@ -216,6 +216,7 @@
 	                    </ul>    
 	                </section>
 	            </article>
+	            <input type="hidden" name="slip_no" />
             </form>
             <div>
                 <button class="move_button" onclick="history.back()">뒤로</button>
