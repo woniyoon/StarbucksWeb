@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,8 +145,8 @@
 		}
     	
     </style>
-    
-    
+
+</script>    
 </head>
 	<jsp:include page="../header.jsp" />   
 	
@@ -160,8 +159,8 @@
             <li id="confirmed"><span>결제완료</span></li>
         </ul>
         <div id="payment_container" align="center">
-            <h2>장바구니</h2>
-            <form>
+            <h2>결제사항</h2>
+            <form id="payment_form" name="payment_form">
 	            <article id="payment_detail">  <!-- 결제 요약정보 -->
 	                <table class="table">
 	                    <tr>
@@ -174,12 +173,12 @@
 	                    <c:choose>
 	                    	<c:when test="${not empty cartList }">
 	                    		<c:forEach var="cart" items="${cartList }" varStatus="status">
-		                    		<tr>
-			                    		<td><input class="item_checkbox" type="checkbox" id="${cart.itemSeq }"/></td>
+		                    		<tr class="items">
+			                    		<td><input class="item_checkbox" type="checkbox" id="${cart.itemSeq }"/><input type="hidden" id="item_seq${status.index}" name="item_seq" value="${cart.itemSeq }" /></td>
 			                    		<td>${status.count }</td>
-			                    		<td>${cart.product.name }</td>
+			                    		<td>${cart.product.name }<input type="hidden" id="product_id${status.index}" value="${cart.product.productId }" /></td>
 			                    		<td>${cart.product.custom }</td>                    		
-			                    		<td><span id="price${cart.itemSeq }">${cart.product.price }</span>원</td>
+			                    		<td><span id="price${cart.itemSeq }">${cart.product.price }<input type="hidden" id="price_per_item${status.index}" name="price_per_item" value="${cart.product.price }" /></span>원</td>
 		                    		</tr>
 	                    		</c:forEach>
 	                    	</c:when>
@@ -208,19 +207,19 @@
 	                        </li>
 	                        <li>
 	                            <label>사용 적립금</label>
-	                            <input id="point_to_use" type="number" value="0" min="0" step="100"/>
+	                            <input id="point_to_use" name="deducted_point" type="number" value="0" min="0" step="100"/>
 	                            <button type="button" onclick="apply_points()">적용</button>
 	                            <br>
 	                        </li>
-	                        <li><span>주문 매장 : </span><span id="store_name">${store_name }</span></li>
-	                        <li><span>총 금액 : </span><span id="final_price"></span>원</li>
+	                        <li><span>주문 매장 : </span><span id="store_name">${store_name }<input type="hidden" id="store_id" name="store_id" value="${store_id }" /></span></li>
+	                        <li><span>총 금액 : </span><span id="final_price"></span>원<input type="hidden" id="price_to_pay" name="price_to_pay" /></li>
 	                    </ul>    
 	                </section>
 	            </article>
             </form>
             <div>
                 <button class="move_button" onclick="history.back()">뒤로</button>
-                <button class="move_button" id="next" onclick="javascript:location.href='order_confirmed.html'">다음</button>
+                <button class="move_button" id="next" onclick="goToPay()">결제</button>
             </div>
         </div>
     </section>
