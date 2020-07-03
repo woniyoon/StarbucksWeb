@@ -24,6 +24,7 @@ $(document).ready(function() {
 	/* var slip_no = ${slipNo}; */
 	/* console.log(slip_no); */
 	
+	amount /= 100;
 	//	여기 링크를 꼭 참고하세용 http://www.iamport.kr/getstarted
    var IMP = window.IMP;     // 생략가능
    IMP.init('imp38336214');  // 중요!!  아임포트에 가입시 부여받은 "가맹점 식별코드". 
@@ -34,7 +35,7 @@ $(document).ready(function() {
        pay_method : 'card',	// 결제 수단
        merchant_uid : 'merchant_' + new Date().getTime(), // 가맹점에서 생성/관리하는 고유 주문번호
        name : "asdasd",	 // 전표아이디
-       amount : amount/100,	  // '${coinmoney}'  결제 금액 number 타입. 필수항목. 
+       amount : amount,	  // '${coinmoney}'  결제 금액 number 타입. 필수항목. 
        buyer_email : "${sessionScope.email}",  // 구매자 email
        buyer_name : "${sessionScope.name}",	  // 구매자 이름 
        buyer_tel : "${sessionScope.phone}",    // 구매자 전화번호 (필수항목)
