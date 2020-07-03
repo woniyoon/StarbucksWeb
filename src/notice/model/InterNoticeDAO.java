@@ -24,6 +24,19 @@ public interface InterNoticeDAO {
 	// store_location 테이블에 있는 정보 가져오기
 	List<HashMap<String, String>> selectStoreMap() throws SQLException;
 
+	// 글번호를 가지고 특정 글 삭제하기
+	int delNotice(String notice_seq) throws SQLException;
+
+	// 윗글 불러오기
+	HashMap<String, String> selectPostNotice(String rno) throws SQLException;
+
+	// 윗글 제목 불러오기
+	HashMap<String, String> selectPostNoticeTitle(String rno) throws SQLException;
+
+	// 아랫글 제목 불러오기
+	HashMap<String, String> selectPreNoticeTitle(String rno) throws SQLException;
+	
+
 	
 
 	

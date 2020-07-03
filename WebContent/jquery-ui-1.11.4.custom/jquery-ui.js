@@ -12902,7 +12902,7 @@ var tabs = $.widget( "ui.tabs", {
 			anchor = anchor.cloneNode( false );
 
 			anchorUrl = anchor.href.replace( rhash, "" );
-			locationUrl = location.href.replace( rhash, "" );
+			locationUrl = .replace( rhash, "" );
 
 			// decoding may throw an error if the URL isn't UTF-8 (#9518)
 			try {
