@@ -25,7 +25,15 @@ public interface InterFeedbackDAO {
 		List<FeedbackListVO> selectMyFeedback(HashMap<String, String> paraMap) throws SQLException;
 
 		// 나의 문의내역 삭제하기
-		int delFeedback(String feedback_board_seq) throws SQLException;		
+		int delFeedback(String feedback_seq) throws SQLException;
+
+		// 나의 문의내역 수정하기
+		public int feedbackEdit(String feedback_board_seq, HashMap<String, String> map) throws SQLException;
+
+		// 수정할 글 정보 조회해주기
+		HashMap<String, String> updateOneFeedback(String feedback_board_seq) throws SQLException;
+
+			
 
 		
 		

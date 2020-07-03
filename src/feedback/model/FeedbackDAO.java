@@ -11,6 +11,7 @@ import feedback.model.InterFeedbackDAO;
 import member.model.InterMemberDAO;
 import member.model.MemberDAO;
 import member.model.MemberVO;
+import util.security.Sha256;
 import feedback.model.FeedbackListVO;
 
 public class FeedbackDAO implements InterFeedbackDAO{
@@ -377,6 +378,80 @@ public class FeedbackDAO implements InterFeedbackDAO{
              
              return n;
 		}
+
+		
+		// 나의 문의내역 수정하기
+		@Override
+		public int feedbackEdit(String feedback_board_seq, HashMap<String, String> map) throws SQLException {
+			
+			int result = 0;
+
+		      try {
+		          conn = ds.getConnection();
+		          
+		          String sql = "update feedback_post set title=?, contents=? "       
+		                   + " where feedback_board_seq = ? ";
+		          
+		          pstmt = conn.prepareStatement(sql);
+		            
+		          pstmt.setString(1, map.get("title"));
+		          pstmt.setString(2, map.get("contents"));
+		          pstmt.setString(3, feedback_board_seq);
+
+		          result = pstmt.executeUpdate();
+		          
+		      } finally {
+		         close();
+		      }
+		      
+		      return result;
+		}
+		
+		
+		// 수정할 글 정보 조회해주기
+		@Override
+		public HashMap<String, String> updateOneFeedback(String feedback_board_seq) throws SQLException {
+			
+			HashMap<String, String> map = new HashMap<String, String>();
+			
+			try {
+				conn = ds.getConnection();			
+				
+				
+				String sql = " select category, hp1, hp2, hp3, store_id, visit_day, title, contents, file_attached, file_attached2 "+
+					  " from feedback_post "+
+					  " where to_char(feedback_board_seq) = ? "; // SQL문 오류 방지를 위해 문자열로 바꿔준다.	
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, feedback_board_seq);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				System.out.println(rs);
+				if(rs.next()) {
+					map.put("category", rs.getString("category"));
+					map.put("hp1", rs.getString("hp1"));
+					map.put("hp2", rs.getString("hp2"));
+					map.put("hp3", rs.getString("hp3"));
+					map.put("store_id", rs.getString("store_id"));
+					map.put("visit_day", rs.getString("visit_day"));
+					map.put("title", rs.getString("title"));
+					map.put("contents", rs.getString("contents"));
+					map.put("file_attached", rs.getString("file_attached"));
+					map.put("file_attached2", rs.getString("file_attached2"));
+					map.put("feedback_board_seq", feedback_board_seq);
+					
+					System.out.println("FeedbackDAO에 " +map.get("category"));
+				}
+		
+			} finally {
+				close();
+			}
+			
+			return map;
+		}
+
+		
 
 		
 		
