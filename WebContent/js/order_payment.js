@@ -151,11 +151,27 @@ function goToPay(){
 
 }
 
+function update_database(){	
+	$.ajax({
+		url: "/StarbucksWeb/order/getPoints.sb",
+		dataType: "json",
+		success: function(json){			
+			console.log(json);
+			my_points = json.point;
+			$("#my_point").prop("value", json.point);
+			$("#point_to_use").prop("max", json.point);
+		},
+		error: function(request, status, error){
+			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		},
+	});
+}
+
 function confirm_payment(){
 	var form = document.payment_form;
 	form.method = "POST";
 	
-	location.href="/StarbucksWeb/order/confirmed.sb";
+	location.href="/StarbucksWeb/order/.sb";
 }
 
 

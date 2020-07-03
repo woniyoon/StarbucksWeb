@@ -55,7 +55,7 @@ $(document).ready(function() {
 			$(opener.location).attr("href", "javascript:부모창스크립트 함수명();");
 		*/
 		//	opener.location.href = "javascript:goCoinUpdate('${idx}','${coinmoney}');";
-			window.opener.confirm_payment();
+			window.opener.update_database();
 		//  $(opener.location).attr("href", "javascript:goCoinUpdate('${idx}','${coinmoney}');");
 			
 		    self.close();
