@@ -144,12 +144,49 @@
 		    to {bottom: 0; opacity: 0;}
 		}
     	
+    	#overlay {
+		  position: fixed; /* Sit on top of the page content */
+		  display: flex;
+		  align-items: center;
+		  width: 100%; /* Full width (cover the whole page) */
+		  height: 100%; /* Full height (cover the whole page) */
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+		  z-index: 1000; /* Specify a stack order in case you're using a different order for other elements */
+		}
+		
+		@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+		
+		#loading {
+		  display: inline-block;
+		  margin: auto;
+		  width: 50px;
+		  height: 50px;
+		  border: 3px solid rgba(255,255,255,.3);
+		  border-radius: 50%;
+		  border-top-color: #fff;
+		  animation: spin 1s ease-in-out infinite;
+		  -webkit-animation: spin 1s ease-in-out infinite;
+		}
+		
+		@keyframes spin {
+		  to { -webkit-transform: rotate(360deg); }
+		}
+		@-webkit-keyframes spin {
+		  to { -webkit-transform: rotate(360deg); }
+		}
+    	
     </style>
 
 </script>    
 </head>
 	<jsp:include page="../header.jsp" />   
-	
+	<div id="overlay" align="center">
+		<div id="loading"></div>
+	</div>
     <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
 	<section>
         <ul class="order_progress">
