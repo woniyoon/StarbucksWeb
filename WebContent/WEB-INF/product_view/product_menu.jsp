@@ -116,8 +116,8 @@
     	color: #fff;	
 	} 
 	
-	/* 작은버튼 클릭 안됐을 때 */
-	.button_off_mini {
+	/* 작은버튼 클릭 안됐을 때 기본값*/
+	.button_bogi {
 	    display: inline-block;
 	    height: 26px;
 	    margin: 30px 10px 10px 0px;
@@ -126,24 +126,9 @@
 	    font-size: 12px;
 	    border-radius: 3px;
 	    border: 1px solid #ddd;
-	    background-color: #fff;
-	    color: #666;
+	 /* background-color: #fff; */
+	 /* color: #666; */
 	}
-	
-	/* 작은버튼 클릭 됐을 때 */
- 	.button_on_mini {
-	    display: inline-block;
-	    height: 26px;
-	    margin: 30px 10px 10px 0px;
-   	    padding: 0 10px;
-	    line-height: 26px;
-	    font-size: 12px;
-	    border-radius: 3px;
-	    border: 1px solid #ddd;
-	    background-color: #666;
-	    color: #fff;
-	} 
-
 	
 	div.grid_container {
 	    display: grid;
@@ -211,18 +196,8 @@
 	    border-bottom: 1px solid #dddddd;
 	    line-height: 1.8;
 	}
+
 	
-	/* 수정해야 됨*/
-	
-	div.sub_title {
-		padding: 20px;
-	    background: #f4f4f2;
-	    margin-bottom: 10px;
-	    border-radius: 3px;
-	    overflow: hidden;
-	    font-size: 20pt;
-	    font-weight: bold;
-	}
 	
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -243,23 +218,33 @@ $(window).ready(function(){
 		$(".coffee_category").show();
 		$(".food_category").hide();
 		
+		
+			
+// ☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★  작은 버튼 수정하기 ~! ☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★
+	
+		
 		// 음료 카테고리 내 작은 버튼 눌렀을 때
 		$("#category_btn_container_mini").click(function(event){
-			
-			// 작은버튼 색깔 바꾸기
- 	    	$("#category_btn_container_mini > a").removeClass();
-	 		$("#view_photo_btn").addClass("button_on_mini");
-			$("#view_nutrition_btn").addClass("button_off_mini"); 
-			
 			
 			var $target = $(event.target);
 			if ($target.prop("id")=="view_photo_btn"){
 				$("#grid_coffee_list").show();
 				$("#coffee_table").hide();	
+				
+			    $(".button_bogi").css({"background-color":"#fff"
+	                                  ,"color":"#666"}); // 기본값			                          
+				$target.css({"background-color":"#666"
+					        ,"color":"#fff"}); 
+
 			} else {
 				$("#coffee_table").show();
-				$("#grid_coffee_list").hide();	
-			}
+				$("#grid_coffee_list").hide();
+
+		    	$(".button_bogi").css({"background-color":"#fff"
+                                      ,"color":"#666"}); // 기본값	
+				$target.css({"background-color":"#666"
+	        				,"color":"#fff"});
+			}	
 		});
     }); 
     $("#coffee_category_btn").trigger("click");
@@ -288,21 +273,25 @@ $(window).ready(function(){
 		
 		// 푸드 카테고리 내 작은 버튼 눌렀을 때
 		$("#category_btn_container_mini").click(function(event){
-
-			// 작은버튼 색깔 바꾸기
- 	    	$("#category_btn_container_mini > a").removeClass();
-	 		$("#view_photo_btn").addClass("button_on_mini");
-			$("#view_nutrition_btn").addClass("button_off_mini"); 
-				
+			
 			var $target = $(event.target);
 			if ($target.prop("id")=="view_photo_btn"){
 				$("#grid_food_list").show();
 				$("#food_table").hide();	
-				console.log("푸드 사진보기");
+				
+			    $(".button_bogi").css({"background-color":"#fff"
+                    ,"color":"#666"}); // 기본값			                          
+				$target.css({"background-color":"#666"
+					        ,"color":"#fff"}); 
+				
 			} else {
 				$("#food_table").show();
 				$("#grid_food_list").hide();	
-				console.log("푸드 영양정보");
+				
+		    	$(".button_bogi").css({"background-color":"#fff"
+                    ,"color":"#666"}); // 기본값	
+				$target.css({"background-color":"#666"
+							,"color":"#fff"});
 			}
 		});
     }); 
@@ -380,6 +369,7 @@ $(window).ready(function(){
 	        })
         }    
     });
+    
 }); // ----- end of $(document).ready(function(){} -----
 
 </script>
@@ -393,17 +383,12 @@ $(window).ready(function(){
         <h1>음료/푸드</h1>
         <nav>
             <ul>
-                <li><a href="#"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
+                <li><a href="/StarbucksWeb/index.sb"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
                 <li>></li>
                 <li><a href="/StarbucksWeb/product/menu.sb">MENU</a></li>
                 <li>></li>
                 <li>
-					<li><a href="/StarbucksWeb/product/menu.sb">
-						<c:choose>
-							<c:when test="${pvo.parentTable eq 'food'}">푸드</c:when>
-							<c:otherwise>음료</c:otherwise>
-						</c:choose>					
-					</a></li>
+				<li><a href="/StarbucksWeb/product/menu.sb">음료/푸드</a>
 				</li>
 					
             </ul>
@@ -445,9 +430,9 @@ $(window).ready(function(){
         <div class="product_view">
         
   			<div id="category_btn_container_mini">
-		        <a href="#" class="button_on_mini" id="view_photo_btn" role="button">사진으로 보기</a>
-		        <a href="#" class="button_off_mini" id="view_nutrition_btn" role="button">영양정보로 보기</a>
-	        </div>
+		        <a href="#" class="button_bogi" id="view_photo_btn" role="button">사진으로 보기</a>
+		        <a href="#" class="button_bogi" id="view_nutrition_btn" role="button">영양정보로 보기</a>
+	    	</div>
 	        
 	        <div id="coffee">
 	            <div class="view_photo_drink" id="grid_coffee_list">
