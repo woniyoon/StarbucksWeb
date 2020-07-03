@@ -73,6 +73,8 @@ function update_price(){
 	
 	$("#my_point").prop("value", my_points);
 	$("#point_to_use").prop("value", 0);
+	$("input#price_to_pay").prop("value", sum);
+
 }
 
 function check_points(){
@@ -100,6 +102,7 @@ function apply_points(){
 	
 	$("#my_point").prop("value", my_points - points_to_use);
 	$("#final_price").prop("textContent", price_to_pay - points_to_use);
+	$("#price_to_pay").prop("value", price_to_pay - points_to_use);
 }
 
 
@@ -107,7 +110,45 @@ function removeItem(){
 	
 }
 
+function goToPay(){
+	
+//	$("#payment_form").attr("action", "/paymentPage.sb");
+//	$("#payment_form").method = "POST";
+	pop_up_window = "payment";
 
+	var price_per_item = [];
+	var product_id = [];
+	var item_seq = [];
+
+	// 숨겨져있는 input의 값들을 sessionStorage에 전달 -> paymentGateway.jsp에 전달
+	$("tr.items").each(function(index, item){
+		price_per_item[index] = $("#price_per_item"+index).prop("value");
+		product_id[index] = $("#product_id"+index).prop("value");
+		item_seq[index] = $("#item_seq"+index).prop("value");
+	});
+
+	var price_to_pay = $("input#price_to_pay").prop("value");
+	console.log(price_to_pay);
+	console.log();
+	var deducted_point = $("#point_to_use").prop("value");
+	var store_id = $("#store_id").prop("value");
+	
+	console.log(price_to_pay);
+
+	sessionStorage.setItem("price_to_pay", price_to_pay);
+	sessionStorage.setItem("price_per_item", price_per_item);
+	sessionStorage.setItem("store_id", store_id);
+	sessionStorage.setItem("deducted_point", deducted_point);
+	sessionStorage.setItem("product_id", product_id);
+	sessionStorage.setItem("item_seq", item_seq);
+
+	// slip_no값을 난수로 만들어서 파라미터로 전송
+	var slipNo = Math.random().toString(36).substr(2,11);
+
+	// 팝업창으로 결제페이지 띄움
+	window.open("/StarbucksWeb/paymentPage.sb?slipNo="+slipNo, pop_up_window, "toolbar=no, location=no, width=745, height=705");
+
+}
 
 
 
