@@ -150,6 +150,14 @@ function goToPay(){
 
 }
 
+function confirm_payment(){
+	var form = document.payment_form;
+	form.method = "POST";
+	
+	location.href="/StarbucksWeb/order/confirmed.sb";
+}
+
+
 
 
 
