@@ -373,5 +373,34 @@ public class OrderDAO implements InterOrderDAO {
 		
 		return storeName;
 	}
+
+	@Override
+	public int insertSlip(SlipVO slip) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " insert into slip (slip_num, userid, store_id, purchase_day, slip_seq) " + 
+						" values(?, ?, ?, sysdate, slip_seq.nextval) ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, slip.getSlipNum());
+			pstmt.setString(2, slip.getUserid());
+			pstmt.setString(3, slip.getStoreId());
+			
+			result = pstmt.executeUpdate();
+			
+			// 업데이트 성공시 다른 트랜잭션 실행
+			if(result == 1) {
+				
+			} else {
+				return 0;
+			}
+			
+		} finally {
+			close();
+		}
+
+		return result;
+	}
 	
 }

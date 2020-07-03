@@ -36,5 +36,8 @@ public interface InterOrderDAO {
 
 	// 매장 이름 가져오기
 	String getStoreName(HashMap<String, String> paramap) throws SQLException;
+	
+	// 전표 업데이트
+	int insertSlip(SlipVO slip) throws SQLException;
 
 }
