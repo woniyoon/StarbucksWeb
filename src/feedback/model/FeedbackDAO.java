@@ -145,7 +145,7 @@ public class FeedbackDAO implements InterFeedbackDAO{
 				
 				pstmt.executeUpdate();
 				
-				sql = " select title, contents "+
+				sql = " select category, hp1, hp2, hp3, store_id, visit_day, title, contents, file_attached, file_attached2 "+
 					  " from feedback_post "+
 					  " where to_char(feedback_board_seq) = ? "; // SQL문 오류 방지를 위해 문자열로 바꿔준다.	
 				
@@ -155,8 +155,17 @@ public class FeedbackDAO implements InterFeedbackDAO{
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
+					map.put("category", rs.getString("category"));
+					map.put("hp1", rs.getString("hp1"));
+					map.put("hp2", rs.getString("hp2"));
+					map.put("hp3", rs.getString("hp3"));
+					map.put("store_id", rs.getString("store_id"));
+					map.put("visit_day", rs.getString("visit_day"));
 					map.put("title", rs.getString("title"));
 					map.put("contents", rs.getString("contents"));
+					map.put("file_attached", rs.getString("file_attached"));
+					map.put("file_attached2", rs.getString("file_attached2"));
+					map.put("feedback_board_seq", feedback_board_seq);
 				}
 		
 			} finally {
@@ -176,14 +185,14 @@ public class FeedbackDAO implements InterFeedbackDAO{
 			try {
 				conn = ds.getConnection();
 							
-				String sql = "select (select count(*) from feedback_post) - rowno + 1 AS RNO, feedback_board_seq, title, write_day, hit "+
-						" from  "+
-						" ( "+
-						"   select rownum AS ROWNO, feedback_board_seq, title, write_day , hit "+
-						"   from  "+
-						"   ( "+
-						"    select feedback_board_seq, title, to_char(write_day,'yyyy-mm-dd') AS write_day , hit "+
-						"    from feedback_post ";
+				String sql = " select (select count(*) from feedback_post) - rowno + 1 AS RNO, feedback_board_seq, status, title, username, write_day, hit " + 
+							 " from " + 
+							 " ( " + 
+							 " select rownum AS ROWNO, feedback_board_seq, status, title, username, write_day, hit " + 
+							 " from " + 
+							 " ( " + 
+							 " select feedback_board_seq, status, title, username, to_char(write_day,'yyyy-mm-dd') AS write_day , hit " + 
+							 " from feedback_post ";
 				
 				String searchWord = paraMap.get("searchWord");
 				
@@ -219,8 +228,10 @@ public class FeedbackDAO implements InterFeedbackDAO{
 				while(rs.next()) {
 					FeedbackListVO fvo = new FeedbackListVO();
 					fvo.setRno(rs.getInt("RNO"));
+					fvo.setStatus(rs.getString("status"));
 					fvo.setFeedback_board_seq(rs.getInt("feedback_board_seq"));
 					fvo.setTitle(rs.getString("title"));
+					fvo.setUsername(rs.getString("username"));
 					fvo.setWrite_day(rs.getString("write_day"));
 					fvo.setHit(rs.getInt("hit"));
 					
@@ -233,6 +244,86 @@ public class FeedbackDAO implements InterFeedbackDAO{
 			
 			return feedbackList;
 		}
+		
+		
+			// 페이징 처리를 한 나의 글 정보 조회해주기
+			@Override
+			public List<FeedbackListVO> selectMyFeedback(HashMap<String, String> paraMap) throws SQLException {
+				List<FeedbackListVO> feedbackList = new ArrayList<FeedbackListVO>();
+				
+				try {
+					conn = ds.getConnection();
+								
+					String sql = " select (select count(*) from feedback_post) - rowno + 1 AS RNO, feedback_board_seq, status, title, username, write_day, hit " + 
+								 " from " + 
+								 " ( " + 
+								 " select rownum AS ROWNO, feedback_board_seq, status, title, username, write_day, hit " + 
+								 " from " + 
+								 " ( " + 
+								 " select feedback_board_seq, status, title, username, to_char(write_day,'yyyy-mm-dd') AS write_day , hit " + 
+								 " from feedback_post " +
+								 " where userid = ? ";
+					
+					
+					String searchWord = paraMap.get("searchWord");
+					String userid = paraMap.get("userid");
+					System.out.println(userid);
+					
+					
+					
+					if (searchWord != null && !searchWord.trim().isEmpty()) {
+						sql += " where title like '%' || ? || '%' ";
+					}
+			
+					sql +=  "    order by feedback_board_seq desc "+
+							"   ) V "+
+							" ) T "+
+							"where T.ROWNO between ? and ?";
+					
+					pstmt = conn.prepareStatement(sql);
+					
+					int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
+					int sizePerPage = Integer.parseInt(paraMap.get("sizePerPage"));
+					
+					
+					if (searchWord != null && !searchWord.trim().isEmpty()) { // 검색어가 있는 경우
+						pstmt.setString(1, userid);
+						pstmt.setString(2, searchWord);	
+						pstmt.setInt(3, (currentShowPageNo * sizePerPage) - (sizePerPage -1 ) );// 공식
+						pstmt.setInt(4, (currentShowPageNo * sizePerPage) );// 공식
+					}
+					
+					else { // 검색어가 없는 경우
+						pstmt.setString(1, userid);
+						pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage -1 ) );// 공식
+						pstmt.setInt(3, (currentShowPageNo * sizePerPage) );// 공식
+					}
+					
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						FeedbackListVO fvo = new FeedbackListVO();
+						fvo.setRno(rs.getInt("RNO"));
+						fvo.setStatus(rs.getString("status"));
+						fvo.setFeedback_board_seq(rs.getInt("feedback_board_seq"));
+						fvo.setTitle(rs.getString("title"));
+						fvo.setUsername(rs.getString("username"));
+						fvo.setWrite_day(rs.getString("write_day"));
+						fvo.setHit(rs.getInt("hit"));
+						
+						feedbackList.add(fvo);
+					}
+					
+				} finally {
+					close();
+				}
+				
+				return feedbackList;
+			}
+		
+		
+		
 		
 		// 페이징 처리를 위한 전체회원에 대한 총 페이지개수 알아오기(select)
 		@Override
@@ -261,6 +352,33 @@ public class FeedbackDAO implements InterFeedbackDAO{
 			return totalPage;
 		}
 
+		
+		
+		// 나의 문의내역 삭제하기
+		@Override
+		public int delFeedback(String feedback_board_seq) throws SQLException {
+			
+			 int n = 0;
+             
+             try {
+                conn = ds.getConnection();
+                
+                String sql = " delete feedback_post "
+                           + " where feedback_board_seq = ? ";
+                         
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, feedback_board_seq);
+                
+                n = pstmt.executeUpdate();
+                
+             } finally {
+                close();
+             }
+             
+             return n;
+		}
+
+		
 		
 		
 		

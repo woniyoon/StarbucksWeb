@@ -101,7 +101,7 @@
 	/* 텍스트박스 */
 	
 	div#text {
-		height: 200px;
+		height: 150 px;
 		margin-top: 40px;
 		margin-bottom: 20px;
 		padding: 20px;
@@ -360,17 +360,28 @@
 				frm.submit();
 			}); --%>
 			
+		
+
+
+			
 		$("input#addfile").bind("change", function(){
 			var file = $(this).val();
+			/* var lastIndex = file.lastIndexOf("\\");
+		//	console.log(lastIndex);
+			var fileName = file.substring(lastIndex+1, file.length);
+		//	console.log(fileName); */
 			$("input#file").val(file);
 		});
 		
-		$("input#removefile").bind("change", function(){
-			console.log($(this));
-			var file2 = $(this).val();
-			$("input#file2").val(file2);
+		 $("input#removefile").bind("change", function(){
+			var file2 = $("#removefile").val();
+			/* var lastIndex2 = file2.lastIndexOf("\\");
+			console.log(lastIndex2);
+			var fileName2 = file2.substring(lastIndex2+1, file.length);
+			console.log(fileName2);
+ */			$("input#file2").val(file2);
 		});
-		
+		 
 		
 			
 	/* 	$("#datepicker").datepicker({
@@ -502,6 +513,7 @@
 			  var frm = document.writeFrm;
 		   	  frm.method = "POST";
 		   	  frm.action = "feedbackPost.sb";
+		   	  frm.enctype= "multipart/form-data";
 		   	  frm.submit();
 		  }
 	   	  
@@ -530,7 +542,7 @@
 		<p>　</p>
 		<p>· 고객의 소리 운영시간 : 월~일 09:00 ~ 18:00 (연중무휴)</p>
 		<br/>
-		<button id="viewMyComplain">나의 문의 내역 보기</button>
+		<!-- <button id="viewMyComplain">나의 문의 내역 보기</button> -->
 	</div>
 		<p style="text-align:right; font-size: 8pt;"><span style="color: red;">*</span>표시 항목은 필수 입력 사항입니다.</p>
 	<form name="writeFrm" >
@@ -588,9 +600,11 @@
 	    <tr>
 	        <th scope="row">파일첨부</th>
 	        <td id="file" style="height: 120px;">
-	        	<input type="text" id="file" maxlength="50" name="file_attached"><input id="addfile" type="file" style="display:none" /><div class="button" id="addfile" onclick="find(this.id)">찾아보기</div><button id="fileadd" class="plus" type="button" onclick="fileAdd()"></button>
+	        	<input type="text" id="file" maxlength="50" ><input id="addfile" type="file" name="file_attached" style="display:none" /><div class="button" id="addfile" onclick="find(this.id)">찾아보기</div><button id="fileadd" class="plus" type="button" onclick="fileAdd()"></button>
+	        	<%-- <input type="text" id="file" maxlength="50" name="file_attached"><input id="addfile" type="file" style="display:none" /><div class="button" id="addfile" onclick="find(this.id)">찾아보기</div><button id="fileadd" class="plus" type="button" onclick="fileAdd()"></button> --%>
 	        	<div id="fileattach">
-	        		<input type="text" id="file2" maxlength="50" name="file_attached2"><input id="removefile" type="file" style="display:none" /><div class="button" id="removefile" onclick="find(this.id)">찾아보기</div><button id="fileminus" class="minus" type="button" onclick="fileMinus()"></button>
+	        		<input type="text" id="file2" maxlength="50" ><input id="removefile" type="file" name="file_attached2" style="display:none" /><div class="button" id="removefile" onclick="find(this.id)">찾아보기</div><button id="fileminus" class="minus" type="button" onclick="fileMinus()"></button>
+	        	<%-- <input type="text" id="file2" maxlength="50" name="file_attached2"><input id="removefile" type="file" style="display:none" /><div class="button" id="removefile" onclick="find(this.id)">찾아보기</div><button id="fileminus" class="minus" type="button" onclick="fileMinus()"></button> --%>
 	        	</div>
 	        	<ul id="feed" style="padding-left:18px; list-style: disc; color: #444; line-height: 16px;">
   					<li class="file">

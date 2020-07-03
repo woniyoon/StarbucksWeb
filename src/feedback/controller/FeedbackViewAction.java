@@ -22,7 +22,8 @@ public class FeedbackViewAction extends AbstractController {
 		InterFeedbackDAO dao = new FeedbackDAO();
 				
 		HashMap<String, String> map = dao.selectOneFeedback(feedback_board_seq); // 한개만 불러오는 메소드 생성
-
+		
+		
 		if(map == null) {
 			// 사용자가 웹 브라우저에 존재하지 않는 공지사항 글 번호를 입력한 경우
 			String message="검색하신 제품은 존재하지 않습니다.";
