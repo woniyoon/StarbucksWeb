@@ -13,9 +13,21 @@ public class PaymentPageAction extends AbstractController {
 		String method = request.getMethod();
 
 		String slipNo = request.getParameter("slipNo");
-		if(!super.checkLogin(request) || !("GET".equalsIgnoreCase(method)) || slipNo == null) {
+		String amount = request.getParameter("amount");
+		boolean isValidNumber = true;
+		
+		// 파라미터에 제대로 된 금액이 전달됐는지 확인
+		try {
+			Integer.parseInt(amount);
+		} catch (Exception e) {
+			isValidNumber = false;
+		}
+		
+		System.out.println(isValidNumber);
+		
+		if(!super.checkLogin(request) || slipNo == null || !isValidNumber) {
 			String msg = "정상적인 경로가 아닙니다.";
-			String loc = "/StarbucksWeb/index.sb";
+			String loc = "javascript:self.close()";
 			
 			request.setAttribute("message", msg);
 			request.setAttribute("loc", loc);
