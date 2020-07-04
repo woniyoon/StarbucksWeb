@@ -5,6 +5,7 @@ public class FeedbackListVO {
 	private int rno;			      // 고객의소리 글번호
 	private int feedback_board_seq;   // 고객의소리시퀀스
 	private String store_id;          // 매장아이디
+	private String visit_day;		  // 매장방문일
 	private String userid;            // 아이디
 	private String category;          // 주제 (문의,칭찬,제안,불만)
 	private String title;             // 글제목  
@@ -21,13 +22,14 @@ public class FeedbackListVO {
 	
 	public FeedbackListVO() {}
 	
-	public FeedbackListVO(int rno, int feedback_board_seq, String store_id, String userid, String category, String title,
+	public FeedbackListVO(int rno, int feedback_board_seq, String store_id, String visit_day, String userid, String category, String title,
 			String contents, String hp1, String hp2, String hp3, String file_attached, String file_attached2, int hit, String username,
 			String write_day, String status) {
 		super();
 		this.rno = rno;
 		this.feedback_board_seq = feedback_board_seq;
 		this.store_id = store_id;
+		this.visit_day = visit_day;
 		this.userid = userid;
 		this.category = category;
 		this.title = title;
@@ -66,6 +68,15 @@ public class FeedbackListVO {
 
 	public void setStore_id(String store_id) {
 		this.store_id = store_id;
+	}
+	
+
+	public String getVisit_day() {
+		return visit_day;
+	}
+
+	public void setVisit_day(String visit_day) {
+		this.visit_day = visit_day;
 	}
 
 	public String getUserid() {
