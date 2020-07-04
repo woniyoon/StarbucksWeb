@@ -146,14 +146,7 @@
 	<div id="overlay" align="center">
 		<div id="loading"></div>
 	</div>
-    <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-	<section>
-        <ul class="order_progress">
-            <li id="shoppingCart"><span>커스텀</span></li>
-            <li id="storeLocation"><span>매장선택</span></li>
-            <li id="payment"><span>결제하기</span></li>
-            <li id="confirmed"><span>결제완료</span></li>
-        </ul>
+    <jsp:include page="progress_nav.jsp" />
         <div id="payment_container" align="center">
             <h2>결제사항</h2>
             <form id="payment_form" name="payment_form">

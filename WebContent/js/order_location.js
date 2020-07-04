@@ -2,15 +2,7 @@
 var store_id = "";    
 
 $(document).ready(function(){
-    var path = window.location.pathname;
-    var start_point = path.lastIndexOf("/")+1;
-    var current_state = path.substring(start_point, path.length-3);
-    console.log(current_state);
-
-    // 현재 진행중인 프로세스에 따라 상태옵션 색 변경
-    $("#"+current_state).css({"color": "white", "background-color": "#006633"})
-    $("#current_nav_menu").text($("li#"+current_state+" > span").text());
-    
+   
     var usesOwnLocation = confirm("현재 위치를 이용하겠습니까?");
     
     var coordinates = { // 디폴트 위치

@@ -76,15 +76,8 @@
     </style>
 </head>
 	<jsp:include page="../header.jsp" />   
-	
-    <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-    <section>
-        <ul class="order_progress">
-            <li id="shoppingCart"><span>커스텀</span></li>
-            <li id="storeLocation"><span>매장선택</span></li>
-            <li id="payment"><span>결제하기</span></li>
-            <li id="confirmed"><span>결제완료</span></li>
-        </ul>
+		<jsp:include page="progress_nav.jsp" />
+		
         <div id="confirmed_order" align="center">
 			<h1> 장바구니가 비어있습니다. </h1><br/>
 			<h3> 음료준비는 약 5분이 소요됩니다. </h3>
