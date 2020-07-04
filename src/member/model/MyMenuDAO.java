@@ -54,7 +54,7 @@ public class MyMenuDAO implements InterMyMenuDAO {
 			String sql = " select section, my_menu_seq, product_name, to_char(register_day, 'yyyy-mm-dd hh24:mi:ss') as register_day "+
  						 " from favorite_menu "+
 						 " where userid= ? "+
-						 " order by register_day desc ";			
+						 " order by register_day asc ";			
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);

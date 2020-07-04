@@ -218,7 +218,6 @@ public class MemberDAO implements InterMemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				userid = rs.getString("userid");
 				password = rs.getString("password");
 			}
 		} finally {

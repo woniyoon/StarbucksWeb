@@ -121,9 +121,6 @@
 		/* border: solid 1px  blue; */
 	}
 	
-	form {
-		dow
-	}
 	/* 제품설명_타이틀 */
 	div.product_details_title {
 		display: flex;
@@ -426,130 +423,127 @@
 	}); // ----- end of $(document).ready(function(){} -----
 		
 		
-		// 나만의 메뉴
-		function addMyMenu() {
-		
-		    $.ajax({
-				   url:"/StarbucksWeb/product/addMyMenu.sb",
-				   type:"POST",
-				   data:{"productId":"${pvo.productId}",
-					    "productName": "${pvo.name}",
-					    "parentTable": "${pvo.parentTable}"},
-				   dataType: "JSON",	
-				   success:function(json) {
-					   if(json.result > 0) {
-						   alert("마이 메뉴에 등록됐습니다!");
-						   $(".register").replaceWith('<p href="#" role="button" class="register_cl" title="등록된 나만의 음료 등록 옵션 열기"> '+"등록된 나의 메뉴"+' </p>');
-					   } else if(json.result == 0) {
-						   alert("해제");
-					   
-					   } else {
-						   alert("다시 시도해주세요.");
-					   }
-				   },
-				   error: function(request, status, error){
-						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	// 나만의 메뉴에 넣기
+	function addMyMenu() {
+	
+	    $.ajax({
+			   url:"/StarbucksWeb/product/addMyMenu.sb",
+			   type:"POST",
+			   data:{"productId":"${pvo.productId}",
+				    "productName": "${pvo.name}",
+				    "parentTable": "${pvo.parentTable}"},
+			   dataType: "JSON",	
+			   success:function(json) {
+				   if(json.result > 0) {
+					   alert("마이 메뉴에 등록됐습니다!");
+					   $(".register").replaceWith('<p href="#" role="button" class="register_cl" title="등록된 나만의 음료 등록 옵션 열기"> '+"등록된 나의 메뉴"+' </p>');
+				   } else if(json.result == -1){
+					   alert("로그인이 필요한 기능입니다.");
+					   location.href = "/StarbucksWeb/login/loginIndex.sb";
+				   } else {
+					   alert("다시 시도해주세요.");
 				   }
-			   });	   
-		}
+			   },
+			   error: function(request, status, error){
+					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			   }
+		   });	   
+	}
+	
+	// 장바구니에 넣기
+	function addCart() {
 		
-	
-	
-		// 장바구니
-		/* function goCart(productId) {
-			 
-			$.ajax({
-				   url:"/StarbucksWeb/product/addCart";
-				   .sb",
-				   type:"POST",
-				   data:{"productId":"${pvo.productId}",
-					    "productName": "${pvo.name}",
-					    "parentTable": "${pvo.parentTable}"},
-				   dataType: "JSON",	
-				   success:function(json) {
-					   if(json.result > 0) {
-						   alert("마이 메뉴에 등록됐습니다!");
-						   $(".register").replaceWith('<p href="#" role="button" class="register_cl" title="등록된 나만의 음료 등록 옵션 열기"> '+"등록된 나의 메뉴"+' </p>');
-					   } else if(json.result == 0) {
-						   alert("해제");
-					   
-					   } else {
-						   alert("다시 시도해주세요.");
-					   }
-				   },
-				   error: function(request, status, error){
-						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		$.ajax({
+			   url:"/StarbucksWeb/product/addCart.sb",
+			   type:"POST",
+			   data:{"productId": "${pvo.productId}",
+				    "parentTable": "${pvo.parentTable}"},
+			   dataType: "JSON",	
+			   success:function(json) {
+				   if(json.result > 0) {
+					   //alert("장바구니에 등록됐습니다!");
+						var result = confirm("장바구니에 추가되었습니다. \n장바구니로 이동하시겠습니까?");
+						if(result){
+							location.href = "/StarbucksWeb/order/shoppingCart.sb";
+						}
+				   } else if(json.result == -1){
+						alert("로그인이 필요한 기능입니다.");
+					  	location.href = "/StarbucksWeb/login/loginIndex.sb";
+				   } else {
+					    alert("다시 시도해주세요.");
 				   }
-			   });	   
-		} */
-			
-			
-	
-		function imageZoom(imgID, resultID) {
-		  var img, lens, result, cx, cy;
-		  img = document.getElementById(imgID);
-		  result = document.getElementById(resultID);
-		  /*create lens:*/
-		  lens = document.createElement("DIV");
-		  lens.setAttribute("class", "img-zoom-lens");
-		  /*insert lens:*/
-		  img.parentElement.insertBefore(lens, img);
-		  /*calculate the ratio between result DIV and lens:*/
-		  cx = result.offsetWidth / lens.offsetWidth;
-		  cy = result.offsetHeight / lens.offsetHeight;
-		  /*set background properties for the result DIV:*/
-		  result.style.backgroundImage = "url('" + img.src + "')";
-		  result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
-		  /*execute a function when someone moves the cursor over the image, or the lens:*/
-		  lens.addEventListener("mousemove", moveLens);
-		  img.addEventListener("mousemove", moveLens);
-		  /*and also for touch screens:*/
-		  lens.addEventListener("touchmove", moveLens);
-		  img.addEventListener("touchmove", moveLens);
-		  function moveLens(e) {
-		    var pos, x, y;
-		    /*prevent any other actions that may occur when moving over the image:*/
-		    e.preventDefault();
-		    /*get the cursor's x and y positions:*/
-		    pos = getCursorPos(e);
-		    /*calculate the position of the lens:*/
-		    x = pos.x - (lens.offsetWidth / 2);
-		    y = pos.y - (lens.offsetHeight / 2);
-		    /*prevent the lens from being positioned outside the image:*/
-		    if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
-		    if (x < 0) {x = 0;}
-		    if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
-		    if (y < 0) {y = 0;}
-		    /*set the position of the lens:*/
-		    lens.style.left = x + "px";
-		    lens.style.top = y + "px";
-		    /*display what the lens "sees":*/
-		    result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
-		  }
-		  function getCursorPos(e) {
-		    var a, x = 0, y = 0;
-		    e = e || window.event;
-		    /*get the x and y positions of the image:*/
-		    a = img.getBoundingClientRect();
-		    /*calculate the cursor's x and y coordinates, relative to the image:*/
-		    x = e.pageX - a.left;
-		    y = e.pageY - a.top;
-		    /*consider any page scrolling:*/
-		    x = x - window.pageXOffset;
-		    y = y - window.pageYOffset;
-		    return {x : x, y : y};
-		  }
+			   },
+			   error: function(request, status, error){
+					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			   }
+		});	   
+	}
+		
+
+	function imageZoom(imgID, resultID) {
+		var img, lens, result, cx, cy;
+		img = document.getElementById(imgID);
+		result = document.getElementById(resultID);
+		/*create lens:*/
+		lens = document.createElement("DIV");
+		lens.setAttribute("class", "img-zoom-lens");
+		/*insert lens:*/
+		img.parentElement.insertBefore(lens, img);
+		/*calculate the ratio between result DIV and lens:*/
+		cx = result.offsetWidth / lens.offsetWidth;
+		cy = result.offsetHeight / lens.offsetHeight;
+		/*set background properties for the result DIV:*/
+		result.style.backgroundImage = "url('" + img.src + "')";
+		result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+		/*execute a function when someone moves the cursor over the image, or the lens:*/
+		lens.addEventListener("mousemove", moveLens);
+		img.addEventListener("mousemove", moveLens);
+		/*and also for touch screens:*/
+		lens.addEventListener("touchmove", moveLens);
+		img.addEventListener("touchmove", moveLens);
+		function moveLens(e) {
+			var pos, x, y;
+			/*prevent any other actions that may occur when moving over the image:*/
+			e.preventDefault();
+			/*get the cursor's x and y positions:*/
+			pos = getCursorPos(e);
+			/*calculate the position of the lens:*/
+			x = pos.x - (lens.offsetWidth / 2);
+			y = pos.y - (lens.offsetHeight / 2);
+			/*prevent the lens from being positioned outside the image:*/
+			if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+			if (x < 0) {x = 0;}
+			if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+			if (y < 0) {y = 0;}
+			/*set the position of the lens:*/
+			lens.style.left = x + "px";
+			lens.style.top = y + "px";
+			/*display what the lens "sees":*/
+			result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
 		}
+		function getCursorPos(e) {
+			var a, x = 0, y = 0;
+			e = e || window.event;
+			/*get the x and y positions of the image:*/
+			a = img.getBoundingClientRect();
+			/*calculate the cursor's x and y coordinates, relative to the image:*/
+			x = e.pageX - a.left;
+			y = e.pageY - a.top;
+			/*consider any page scrolling:*/
+			x = x - window.pageXOffset;
+			y = y - window.pageYOffset;
+			return {x : x, y : y};
+		}
+	}
 </script>
 
-	
 	<div id="detail_container">
 		<!-- 타이틀 -->
 		<div class="title">
 			<h1>${pvo.name}</h1>
 			<nav>
 				<ul>
-					<li><a href="#"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
+					<li><a href="/StarbucksWeb/index.sb"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a></li>
 					<li>></li>
 					<li><a href="/StarbucksWeb/product/menu.sb">MENU</a></li>
 					<li>></li>
@@ -604,7 +598,7 @@
 							</c:when>
 							<c:otherwise><a href="#" role="button" class="register" title="나만의 푸드 등록 옵션 열기" onClick="addMyMenu()" >나만의 푸드로 등록</a></c:otherwise>
 						</c:choose>		
-						<a href="#" role="button" class="payment" title="장바구니 옵션 열기" onClick="goCart('${pvo.productId}');">장바구니</a>
+						<a href="#" role="button" class="payment" title="장바구니 옵션 열기" onClick="addCart();">장바구니</a>
 					</div>
 					<br>
 				</div>
