@@ -8,14 +8,22 @@
 
 <article align="center">
 	<h3>메뉴 목록</h3>
-	<table align="center" class="admin_table" id="member_table">
+	<table align="center" class="admin_table">
 		<tr>
-			<td class="category">번호</td>
-			<td class="category">종류</td>
-			<td class="category">카테고리</td>
-			<td class="category">이름</td>
-			<td class="category">설명</td>
-			<td class="category">가격</td>
+			<td id="option_td">
+				<select name="category" onchange="getMenuList(1)">
+				    <option value="drink" selected>음료</option>
+				    <option value="food">푸드</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="menu_content_td">번호</td>
+<!-- 			<td class="menu_content_td">종류</td> -->
+			<td class="menu_content_td">카테고리</td>
+			<td class="menu_content_td">이름</td>
+			<td class="menu_content_td">설명</td>
+			<td class="menu_content_td">가격</td>
 		</tr>
  		<tbody id="drink_tbody">
 		

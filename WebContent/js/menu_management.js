@@ -1,30 +1,30 @@
 
 $(document).ready(function(){
-	getDrinkList(1);
-	
+	getMenuList(1);
 	
 });
 
-function getDrinkList(current_page){
+function getMenuList(current_page){
+	
 	$.ajax({
-		url: "/StarbucksWeb/admin/drinkList.sb?currentPage="+current_page,		
+		url: "/StarbucksWeb/admin/menuList.sb?currentPage="+current_page,		
 		method: "POST",
+		data: { category: $("select[name=category]").val() },
 		dataType: "json",
 		success: function(json){			
 			var html = "";
 			var page_bar = "";
 			
-									
 			$.each(json, function(index, item) {
 				console.log(item);
 				
 			    html += "<tr> " +
-			    			"<td>"+(index+1)+"</td> " +
-			    			"<td>"+item.parentTable+"</td>" +
-			    			"<td>"+item.categoryName+"</td>" +
-			    			"<td>"+item.name+"</td>" +
-			    			"<td>"+item.description+"</td>" +
-			    			"<td>"+item.price+"</td>" +
+			    			"<td class='menu_content_td'>"+(index+1)+"</td> " +
+//			    			"<td class='menu_content_td'>"+item.parentTable+"</td>" +
+			    			"<td class='menu_content_td'>"+item.categoryID+"</td>" +
+			    			"<td class='menu_content_td'>"+item.name+"</td>" +
+			    			"<td class='menu_content_td'>"+item.description+"</td>" +
+			    			"<td class='menu_content_td'>"+item.price+"</td>" +
 			    		"</tr>";
 			    
 			    page_bar = item.pageBar;
