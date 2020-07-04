@@ -76,10 +76,29 @@
             align-content: space-between;
         }
         
-        #member_table, #member_table tr, #member_table td {
-        	border: 1px solid black;
+        #member_table {
         	border-collapse: collapse;
         }
+		
+		#member_table th {
+			font-size: 14px;
+		    font-weight: bold;
+		    color: #222222;
+		    text-align: center;
+		    padding: 17px 3px;
+		    border-top: 1px solid #333;
+		    border-bottom: 1px solid #333;
+		}
+		
+		#member_table td {
+			font-size: 14px;
+		    color: #666666;
+		    text-align: center;
+		    padding: 17px 0;
+		    border-bottom: 1px solid #dddddd;
+		    line-height: 1.8;
+		
+		}
         
         #paging_container {
         	margin: 10px;
