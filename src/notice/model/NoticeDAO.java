@@ -117,6 +117,8 @@ public class NoticeDAO implements InterNoticeDAO {
 	@Override
 	public HashMap<String, String> selectOneNotice(String notice_seq) throws SQLException {
 		
+		// System.out.println("글번호 가져왔니? "+notice_seq);
+		
 		HashMap<String, String> map = new HashMap<String, String>();
 		
 		try {
@@ -130,18 +132,38 @@ public class NoticeDAO implements InterNoticeDAO {
 			
 			pstmt.executeUpdate();
 			
-			sql = " select title, contents "+
-				  " from notice_post "+
-				  " where to_char(notice_seq) = ? "; // SQL문 오류 방지를 위해 문자열로 바꿔준다.	
+			sql = " select POSTNUM, POSTTITLE, notice_seq, title, contents, PRENUM, PRETITLE "+
+				  " from  "+
+				  " ( "+
+				  "    select  lag(notice_seq) over(order by notice_seq desc) AS POSTNUM "+
+				  "          , nvl( (lag(title) over(order by notice_seq desc)),'글이 없습니다.' )AS POSTTITLE "+
+				  "          , notice_seq "+
+				  "	         , title "+
+				  "          , contents "+
+				  "          , lead(notice_seq) over(order by notice_seq desc) AS PRENUM "+
+				  "          , nvl( (lead(title) over(order by notice_seq desc)),'글이 없습니다.' )AS PRETITLE "+
+				  "    from notice_post "+
+				  " ) V "+
+				  " where notice_seq = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, notice_seq);
+
 			
 			rs = pstmt.executeQuery();
 			
+			// 마지막 글일 떄 이전 글제목 불러오기 
+			
+			
 			if(rs.next()) {
+				
+				map.put("POSTNUM", rs.getString("POSTNUM"));
+				map.put("POSTTITLE", rs.getString("POSTTITLE"));
+				map.put("notice_seq", rs.getString("notice_seq"));
 				map.put("title", rs.getString("title"));
 				map.put("contents", rs.getString("contents"));
+				map.put("PRENUM", rs.getString("PRENUM"));
+				map.put("PRETITLE", rs.getString("PRETITLE"));
 			}
 	
 		} finally {
@@ -198,7 +220,6 @@ public class NoticeDAO implements InterNoticeDAO {
 				pstmt.setInt(2, (currentShowPageNo * sizePerPage) );// 공식
 			}
 			
-			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -224,6 +245,7 @@ public class NoticeDAO implements InterNoticeDAO {
 	public int getTotalPage(HashMap<String, String> paraMap) throws SQLException {
 
 		int totalPage = 0;
+		String searchWord = paraMap.get("searchWord");
 		
 		try {
 			conn = ds.getConnection();
@@ -231,7 +253,15 @@ public class NoticeDAO implements InterNoticeDAO {
 			String sql = " select ceil(count(*)/10) AS totalPage " +
 						 " from notice_post ";
 			
+			if (searchWord != null && !searchWord.trim().isEmpty()) { // 검색어가 있는 경우
+				sql += " where title like '%' || ? || '%' ";
+			}
+			
 			pstmt = conn.prepareStatement(sql);
+			
+			if (searchWord != null && !searchWord.trim().isEmpty()) { // 검색어가 있는 경우
+				pstmt.setInt( 1, Integer.parseInt(paraMap.get("sizePerPage")) );
+			}
 			
 			rs = pstmt.executeQuery();
 			

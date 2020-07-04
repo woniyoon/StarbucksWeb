@@ -15,13 +15,17 @@ public class PostNoticeAction extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String rno = request.getParameter("rno");
-		// System.out.println("나와라" +rno);
+		System.out.println("나와라 rno : " +rno);
+		String notice_seq = request.getParameter("notice_seq");
+		System.out.println("나와라 notice_seq : " + notice_seq);
 		
 		InterNoticeDAO dao = new NoticeDAO();
 		
-		HashMap<String, String> map = dao.selectPostNotice(rno); // 윗글 불러오기
-		HashMap<String, String> postTitlemap = dao.selectPostNoticeTitle(rno); // 윗글 제목보기
-		HashMap<String, String> preTitlemap = dao.selectPreNoticeTitle(rno); // 윗글 제목보기
+		HashMap<String, String> map = dao.selectPostNotice(notice_seq); // 윗글 불러오기
+		// HashMap<String, String> postTitlemap = dao.selectPostNoticeTitle(rno); // 윗글 제목보기
+		// HashMap<String, String> preTitlemap = dao.selectPreNoticeTitle(rno); // 윗글 제목보기
+		
+		// HashMap<String, String> dao.selectPostPreTitle(se)
 		
 		if(map == null) {
 			// 사용자가 웹 브라우저에 존재하지 않는 공지사항 글 번호를 입력한 경우
@@ -41,8 +45,9 @@ public class PostNoticeAction extends AbstractController {
 			
 			request.setAttribute("map", map);
 			request.setAttribute("rno", rno);
-			request.setAttribute("postTitlemap", postTitlemap);
-			request.setAttribute("preTitlemap", preTitlemap);
+			request.setAttribute("notice_seq", notice_seq);
+			// request.setAttribute("postTitlemap", postTitlemap);
+			// request.setAttribute("preTitlemap", preTitlemap);
 		//	System.out.println("나와라"+titlemap);
 			
 			super.setRedirect(false);
