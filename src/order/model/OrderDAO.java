@@ -373,6 +373,134 @@ public class OrderDAO implements InterOrderDAO {
 		
 		return storeName;
 	}
+	
+
+	@Override
+	public boolean updateConfirmedPurchase(Map<String, Object> paraMap) throws SQLException {
+		
+		boolean isUpdated = true;
+		
+		SlipVO slip = (SlipVO) paraMap.get("slip");
+		List<PurchaseDetailVO> pdvList = (ArrayList<PurchaseDetailVO>) paraMap.get("pdvList");
+		int pricePaid = Integer.parseInt((String)paraMap.get("pricePaid"));
+		int deductedPoint = Integer.parseInt((String)paraMap.get("deductedPoint"));
+		int point = (Integer) paraMap.get("point");
+		String userid = (String)paraMap.get("userid");
+		String[] itemSeqArr = (String[]) paraMap.get("itemSeqArr");
+		
+		System.out.println("ㅡㅡ");
+		System.out.println(pricePaid);
+		System.out.println(itemSeqArr[0] + "itemSeqArr");
+		
+		int result = 2 + pdvList.size() + itemSeqArr.length;
+		int cnt = 0;
+		
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			
+			String sql = " insert into slip (slip_num, userid, store_id, purchase_day, slip_seq) " + 
+						" values(?, ?, ?, sysdate, slip_seq.nextval) ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, slip.getSlipNum());
+			pstmt.setString(2, slip.getUserid());
+			pstmt.setString(3, slip.getStoreId());
+			
+			cnt += pstmt.executeUpdate();
+			
+			// 전표 업데이트 후 -> 구매사항 업데이트 시도
+			sql = " insert into purchase_detail (product_id, slip_num, userid, store_id, cnt, price, section, purchase_detail_seq) " + 
+					" values(?, ?, ?, ?, ?, ?, ?, PURCHASE_DETAIL_SEQ.nextval) ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			for(PurchaseDetailVO pdvo : pdvList) {
+				pstmt.setString(1, pdvo.getProductId());
+				pstmt.setString(2, pdvo.getSlipNum());
+				pstmt.setString(3, pdvo.getUserid());
+				pstmt.setString(4, pdvo.getStoreId());
+				pstmt.setInt(5, pdvo.getCnt());
+				pstmt.setInt(6, pdvo.getPrice());
+				pstmt.setInt(7, pdvo.getSection());
+				
+				cnt += pstmt.executeUpdate();
+			}
+			
+			// 구매사항 이후 포인트 업데이트 시도
+			sql = " UPDATE starbucks_member " + 
+					"  SET point = ? " + 
+					"  where userid = ? ";
+		
+			pstmt = conn.prepareStatement(sql);
+			
+			int updatedPoint = (int) ((point - deductedPoint) + Math.round((pricePaid * 0.05)));
+			
+			pstmt.setInt(1, updatedPoint);
+			pstmt.setString(2, userid);
+			
+			cnt += pstmt.executeUpdate();
+			
+			
+			// 장바구니 지우기 시도
+			sql = " DELETE FROM shoppingcart WHERE shoppingcart_seq = ? and userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+
+			for(String seq : itemSeqArr) {
+				pstmt.setInt(1, Integer.parseInt(seq));
+				pstmt.setString(2, userid);
+				
+				cnt += pstmt.executeUpdate();
+			}
+			
+			// cnt 와 result가 동일한지에 따라 commit / rollback 해준다.
+			if(cnt == result) {
+				conn.commit();
+				isUpdated = true;
+				System.out.println("cnt == result");
+				System.out.println(isUpdated);
+			} else {
+				conn.rollback();
+				isUpdated = false;
+				System.out.println("cnt != result");
+				System.out.println(isUpdated);
+			}
+			
+						
+		} finally {
+			close();
+		}
+		
+		return isUpdated;
+	}
+	
+	
+	
+	
+	
+	
+//	@Override
+//	public int updateConfirmedPurchase(Map<String, Object> paraMap) throws SQLException {
+//		
+//		SlipVO slip = (SlipVO) paraMap.get("slip");
+//		List<PurchaseDetailVO> pdvList = (ArrayList<PurchaseDetailVO>) paraMap.get("pdvList");
+//		int pricePaid = Integer.parseInt((String)paraMap.get("pricePaid"));
+//		int deductedPoint = Integer.parseInt((String)paraMap.get("deductedPoint"));
+//		int point = (Integer) paraMap.get("point");
+//		String userid = (String)paraMap.get("userid");
+//		
+//		int result = 2 + (pdvList.size() * 2);
+//		int cnt = 0;
+//		
+//		cnt += insertSlip(slip);
+//		cnt += insertPurchaseDetail(pdvList);
+//		cnt += updateMyPoint(paraMap);
+//		cnt += deleteCart(paraMap);
+//		
+//		
+//		
+//		return result;
+//	}
+//	
 
 	@Override
 	public int insertSlip(SlipVO slip) throws SQLException {
@@ -389,17 +517,81 @@ public class OrderDAO implements InterOrderDAO {
 			
 			result = pstmt.executeUpdate();
 			
-			// 업데이트 성공시 다른 트랜잭션 실행
-			if(result == 1) {
+		} finally {
+			close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public int insertPurchaseDetail(List<PurchaseDetailVO> pdvoList) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " insert into purchase_detail (product_id, slip_num, userid, store_id, cnt, price, section, purchase_detail_seq) " + 
+						" values(?, ?, ?, ?, ?, ?, ?, PURCHASE_DETAIL_SEQ.nextval) ";
+
+			pstmt = conn.prepareStatement(sql);
+			
+			for(PurchaseDetailVO pdvo : pdvoList) {
+				pstmt.setString(1, pdvo.getProductId());
+				pstmt.setString(2, pdvo.getSlipNum());
+				pstmt.setString(3, pdvo.getUserid());
+				pstmt.setString(4, pdvo.getStoreId());
+				pstmt.setInt(5, pdvo.getCnt());
+				pstmt.setInt(6, pdvo.getPrice());
+				pstmt.setInt(7, pdvo.getSection());
 				
-			} else {
-				return 0;
+				result += pstmt.executeUpdate();
 			}
 			
 		} finally {
 			close();
 		}
+				
+		return result;
+	}
 
+	@Override
+	public int updateMyPoint(Map<String, Object> paramap) throws SQLException {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " UPDATE starbucks_member " + 
+						"  SET point = ? " + 
+						"  where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			int pricePaid = Integer.parseInt((String)paramap.get("pricePaid"));
+			int deductedPoint = Integer.parseInt((String)paramap.get("deductedPoint"));
+			int point = (Integer) paramap.get("point");
+			String userid = (String)paramap.get("userid");
+			int updatedPoint = (int) ((point - deductedPoint) + Math.round((pricePaid * 0.05)));
+			pstmt.setInt(1, updatedPoint);
+			pstmt.setString(2, userid);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int deleteCart(Map<String, Object> paramap) throws SQLException {
+		int result = 0;
+		
+		try {
+			
+		} finally {
+			close();
+		}
+		
 		return result;
 	}
 	
