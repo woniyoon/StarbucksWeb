@@ -29,6 +29,7 @@
 		    background-color: white;
 		    box-shadow: 1px 1px 1px 0 #b6b6b65a, 0 1px 1px 0 rgba(155, 155, 155, 0.337);
 		    transition: 0.2s;
+		    box-sizing: border-box;
 		}
 		
 		ul.nav_menu {
@@ -60,9 +61,14 @@
 		}
 		
 		article {
+			width: 100%;
 		    height: 100vh;
 		    flex: 10;
 			padding: 50px auto;
+		}
+		
+		h3 {
+			margin: 20px 0 0 0;
 		}
 		
 		a {
