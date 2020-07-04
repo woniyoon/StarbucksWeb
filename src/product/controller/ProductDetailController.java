@@ -17,7 +17,7 @@ public class ProductDetailController extends AbstractController {
 		String type = request.getParameter("type"); // 제품번호
 
 		
-		System.out.println("type : "+type);
+		//System.out.println("type : "+type);
 		
 		InterProductDAO pdao = new ProductDAO();
 		

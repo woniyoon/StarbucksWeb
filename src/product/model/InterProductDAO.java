@@ -23,7 +23,8 @@ public interface InterProductDAO {
 	int addMyMenu(HashMap<String, String> paraMap) throws SQLException;
 	
 	// 장바구니
-	int addCart(String userid, String product_id) throws SQLException;
+	//int addCart(String userid, String product_id) throws SQLException;
+	int addCart(HashMap<String, String> paraMap) throws SQLException;
 
 	
 	// 제품번호를 가지고서 해당 제품의 추가된 이미지 정보를 조회해오기
