@@ -218,4 +218,29 @@ public class AdminDAO implements InterAdminDAO {
 		return productList;
 	}
 
+	@Override
+	public int getNumOfDrinks() throws SQLException {
+		
+		int numOfDrinks = 0;
+
+		try {
+			conn = ds.getConnection();
+
+			String sql = " select count(*) from drink ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				numOfDrinks = rs.getInt(1);
+			}
+
+		} finally {
+			close();
+		}
+
+		return numOfDrinks;
+	}
+
 }

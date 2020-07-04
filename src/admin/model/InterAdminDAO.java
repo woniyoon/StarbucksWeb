@@ -16,6 +16,9 @@ public interface InterAdminDAO {
 
 	// 전체 음료 목록 가져오기
 	List<ProductVO> getDrinkList(HashMap<String, String> paramap) throws SQLException;
+
+	// 음료 메뉴 개수 가져오기
+	int getNumOfDrinks() throws SQLException;
 	
 	//
 }
