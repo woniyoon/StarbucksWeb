@@ -48,5 +48,4 @@ public class MenuVO {
 		this.section = section;
 	}
 	
-	
 }

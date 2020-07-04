@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+        
 <jsp:include page="header.jsp" /> 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +35,6 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 20px;
-		border: solid 1px #ddd;
 	}	
 	
 	#con1:after {
@@ -47,19 +48,21 @@
          height: 250px;
          margin-right: 3px;
          float: left;
+         background: url("/StarbucksWeb/images/hyejeong/m_voc_top_bg.png");
+         background-size: 100px 100px;
     }
      
-     #box3 img {
-     	 width: 800px;
-         height: 250px;
-    }
-     
-     .p1 {
+    .txt_zone {
+    	width: 800px;
+    	margin-right: 50px;
+    } 
+    
+    .p1 {
      	font-size: 18pt;
      	font-weight: bold;
      	line-height: 1.2;
      	margin-top: 80px;
-     	padding-left: 80px;
+     	padding-left: 50px;
     }
 
 	.s1 {
@@ -74,7 +77,7 @@
 	.mem_level {
 		margin-left: auto;
 		margin-right: auto;
-		padding-left: 80px;
+		padding-left: 50px;
 	}
 	
 	.mem_level:after {
@@ -179,9 +182,8 @@
 		width: 650px;
 		height: 50px;
 		margin-top: 30px;
-		margin-right: auto;
-		margin-left: auto;
 		margin-bottom: 50px;
+		margin-left: 430px;
 		background-color: #e2c383;
 	}
 	
@@ -195,6 +197,11 @@
 	#delAccount a {
 		color: black;	
 	}
+	
+	.panel-heading {
+		cursor: pointer;
+	}
+	
 </style>
     
 <script type="text/javascript" src="/JqueryStudy/js/jquery-3.3.1.min.js"></script>
@@ -226,7 +233,7 @@ function goDel(userid) {
 	}
 	else if(bAgree == 1) {
 		
-		var bool = confirm("ŏ̥̥̥̥םŏ̥̥̥̥ 정말 회원탈퇴 하시겠습니까?");
+		var bool = confirm("정말 회원탈퇴 하시겠습니까?");
        	
 	    if(bool) {
 	    //	alert("탈퇴 완료");
@@ -240,12 +247,34 @@ function goDel(userid) {
 			
 	    }
 	    else {
-	    	alert("회원탈퇴를 취소하셨습니다 (๑❛ڡ❛๑)☆ ");
+	    	alert("회원탈퇴를 취소하셨습니다");
 	    	var bAgree = $("input:checkbox[id=ck_agree]").prop("checked", false);
 	    }
 	}
 }
 
+
+// 비밀번호 변경
+function goEditPersonal(userid) {
+	var frm = document.myinfoEditPwdFrm;
+	frm.userid.value = userid;
+	
+	frm.method = "POST";
+	frm.action = "/StarbucksWeb/member/myinfoEditPwd.sb";
+	frm.submit();
+}
+
+
+// 회원정보 변경
+function goEditInfo(name) {
+		var frm = document.goEditInfoFrm;
+
+	frm.method = "POST";
+	frm.action = "/StarbucksWeb/member/myinfoEdit.sb";
+	frm.submit(); 
+	
+//	alert("확인용 :"+ name);
+}
 </script>
 
 </head>
@@ -272,9 +301,18 @@ function goDel(userid) {
      				<span class="s2">아래 사항들을 확인하시고, 회원탈퇴에 대해 다시 한번 신중히 결정해주세요.</span>
      			</p>
      			<ul class="mem_level">
-     				<li class="li1" style="color: rgb(0,0,0);">Welcome Level</li>
-     				<li class="li2">유효한 스타벅스 별 : <span>2개</span></li>
-     				<li class="li3">사용가능한 쿠폰 : <span>0장</span></li>
+     				<li class="li1" style="color: rgb(0,0,0);">
+		     			<c:if test="${(sessionScope.loginuser).point>=10000}">
+		     				<strong class="userGrade" style="color: gold;">Gold Level</strong>
+		     			</c:if>
+		     			<c:if test="${(sessionScope.loginuser).point>=5000 && (sessionScope.loginuser).point<10000}">
+		     				<strong class="userGrade" style="color: green;">Green Level</strong>
+		     			</c:if>
+		     			<c:if test="${(sessionScope.loginuser).point<5000}">
+		     				<strong class="userGrade" style="color: brown;">Welcome Level</strong>
+		     			</c:if>
+     				</li>
+     				<li class="li2">유효한 포인트 : <span>${(sessionScope.loginuser).point}p</span></li>
      			</ul>
      		</div>
      		</div>
@@ -283,7 +321,7 @@ function goDel(userid) {
      		<div class="panel panel-default">
 	     		 <div class="panel-heading">
 			     <h4 class="panel-title">
-	     		 <a data-toggle="collapse" href="#collapse1">My 메뉴</a>
+	     		 <a data-toggle="collapse" onclick="location.href='http://localhost:9090/StarbucksWeb/member/myMenu.sb'">My 메뉴</a>
 	     	 	 </h4>
 			    </div>
 		    </div>  
@@ -294,9 +332,9 @@ function goDel(userid) {
 			        </h4>
 		      	  </div>
 		      	  <div id="collapse2" class="panel-collapse collapse">
-			        <div class="panel-body"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit.html">개인정보확인 및 수정</a></div>
-			        <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/Starbucks/mypage/myinfo_out.html">회원 탈퇴</a></div>
-			        <div class="panel-body"><a href="http://localhost:9090/Starbucks/mypage/myinfo_edit_pwd.html">비밀번호 변경</a></div>
+			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보확인 및 수정</a></div>
+			        <div class="panel-body" style="background-color: white;"><a href="javascript:goinfoOut('${(sessionScope.loginuser).userid}');">회원 탈퇴</a></div>
+			        <div class="panel-body"><a href="javascript:goEditPersonal('${(sessionScope.loginuser).userid}');">비밀번호 변경</a></div>
 		         </div>
 		    </div>
      		</div>
@@ -323,6 +361,15 @@ function goDel(userid) {
 <form name="delMemFrm">
 	<input type="hidden" name="userid"/>
 </form>
+
+<form name="myinfoEditPwdFrm">
+	<input type="hidden" name="userid"/>
+</form>
+
+<form name="myinfoOutFrm">
+	<input type="hidden" name="userid"/>
+</form>
+
     
 </div>
 

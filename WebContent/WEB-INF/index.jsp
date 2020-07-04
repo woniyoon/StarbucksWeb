@@ -10,8 +10,6 @@
 
 <jsp:include page="header.jsp" />
 
-
-
 <style type="text/css">
 
 	body {
@@ -285,7 +283,9 @@
 	div#section_map {
 		/* border: solid 1px red; */
 		height: 710px;
-		background-color: #ffe6ff;
+		/* background-color: #ffe6ff; */
+		background-image: url('images/nari/setion_map_back.jpg);
+		background-repeat : no-repeat; 
 	}
 	
 	
@@ -302,11 +302,34 @@
 		color: #555;
 	}
 	
+	/* -----------------------------------------------------------------  */
+	
+	.none {
+		display:none
+	}
+	
+	#ticker {
+		float:left;width:100px;
+	}
+	.navi {
+		float:right;
+	}
+	.block {
+		border:2px solid #d81f25; padding:0 5px; height:20px; overflow:hidden; background:#fff; width:350px; font-family:Gulim; font-size:12px;float:left;
+	}
+	.block ul, .block li { 
+		margin:0; padding:0; list-style:none;
+	}
+	.block li a { 
+		display:block; height:20px; line-height:20px; color:white; text-decoration:none;
+	}
+	
 	/* ---------------------------- 푸터 끝 -------------------------- */
 
 </style>	
 
 <script type="text/javascript">
+	
 
 	$(document).ready(function(){
 		
@@ -324,16 +347,26 @@
 					
 					<button class="section_new_product_more" onclick="alert('자세히보기')" >자세히보기</button>
 				</div>
-				<div class="section_new_product_limemojito back_size_lm" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"></div>
-				<div class="section_new_product_doubleexpresso back_size_de" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"></div>
-				<div class="section_new_product_applemango back_size_am" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"></div>
+				<div class="section_new_product_limemojito back_size_lm" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"></div>
+				<div class="section_new_product_doubleexpresso back_size_de" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"></div>
+				<div class="section_new_product_applemango back_size_am" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"></div>
 			</div>
 			
 			<div id="section_notice">
 				<table id="section_notice_table">
 					<tr>
 						<td id="section_notice_title">공지사항 </td>
-						<td><a>SSG PAY 시스템 점검 안내</a></td>
+						<td>
+						<div class="block">
+							<ul id="ticker">
+								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목1</a></li>
+								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목2</a></li>
+								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목3</a></li>
+								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목4</a></li>
+							</ul>
+						</div>
+						
+						</td>
 						<td><a href="http://localhost:9090/StarbucksWeb/notice/noticeList.sb"><img id="section_notice_plus" src="images/nari/notice_plus.png" width="30px" height="30px" /></a></td>
 					</tr>
 				</table>
@@ -356,7 +389,7 @@
 			
 			<div id="section_recommended_menu">
 				<img id="section_recommended_text" src="images/nari/section_recommended_text1.png" />
-				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="window.location.href='notice_list.html'"/>
+				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"/>
 			</div>
 			
 			<div id="section_reserve">
@@ -370,6 +403,93 @@
 		</section>
 		
 		<!-- --------------------------------- 바디 끝 ---------------------------------- -->
+
+<script>
+	jQuery(function($)
+		{
+		    var ticker = function()
+		    {
+		        timer = setTimeout(function(){
+		            $('#ticker li:first').animate( {marginTop: '-20px'}, 400, function()
+		            {
+		                $(this).detach().appendTo('ul#ticker').removeAttr('style');
+		            });
+		            ticker();
+		        }, 2000);         
+		      };
+		// 0번 이전 기능
+		      $(document).on('click','.prev',function(){
+		        $('#ticker li:last').hide().prependTo($('#ticker')).slideDown();
+		        clearTimeout(timer);
+		        ticker();
+		        if($('#pause').text() == 'Unpause'){
+		          $('#pause').text('Pause');
+		        };
+		      }); // 0번 기능 끝
+		  
+		// 1. 클릭하면 다음 요소 보여주기... 클릭할 경우 setTimeout 을 clearTimeout 해줘야 하는데 어떻게 하지..
+		      $(document).on('click','.next',function(){
+		            $('#ticker li:first').animate( {marginTop: '-20px'}, 400, function()
+		                    {
+		                        $(this).detach().appendTo('ul#ticker').removeAttr('style');
+		                    });
+		            clearTimeout(timer);
+		            ticker();
+		            //3 함수와 연계 시작
+		            if($('#pause').text() == 'Unpause'){
+		              $('#pause').text('Pause');
+		            }; //3 함수와 연계
+		          }); // next 끝. timer 를 전연변수보다 지역변수 사용하는게 나을 것 같은데 방법을 모르겠네요.
+
+		  //2. 재생정지기능 시작, 아직 다음 기능과 연동은 안됨...그래서 3을 만듦
+		  var autoplay = true;
+		      $(document).on('click','.pause',function(){
+		            if(autoplay==true){
+		              clearTimeout(timer);
+		              $(this).text('재생');
+		              autoplay=false;
+		            }else{
+		              autoplay=true;
+		              $(this).text('정지');
+		              ticker();
+		            }
+		          }); // 재생정지기능 끝  
+		  // 3. 재생정지 함수 시작. 2와 기능 동일함.
+		    var tickerpause = function()
+		  {
+		    $('#pause').click(function(){
+		      $this = $(this);
+		      if($this.text() == 'Pause'){
+		        $this.text('Unpause');
+		        clearTimeout(timer);
+		      }
+		      else {
+		        ticker();
+		        $this.text('Pause');
+		      }
+		    });
+		   
+		  };
+		  tickerpause();
+		  //3 재생정지 함수 끝
+		  //4 마우스를 올렸을 때 기능 정지
+		  var tickerover = function()
+		  {
+		    $('#ticker').mouseover(function(){
+		      clearTimeout(timer);
+		    });
+		    $('#ticker').mouseout(function(){
+		      ticker();
+		    });  
+		  };
+		  tickerover();
+		  // 4 끝
+		    ticker();
+		    
+		});
+
+</script>
+
 		
 <jsp:include page="footer.jsp" />
 
