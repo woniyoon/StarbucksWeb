@@ -1,15 +1,12 @@
 var deducted_points = 0;
 var price_to_pay = 0;
 var my_points = 0;
+// slip_no값을 난수로 생성
+var slipNo = Math.random().toString(36).substr(2,11);
 
 $(document).ready(function(){
-    var path = window.location.pathname;
-    var start_point = path.lastIndexOf("/")+1;
-    var current_state = path.substring(start_point, path.length-3);
 
-    $("#"+current_state).css({"color": "white", "background-color": "#006633"})
-    $("#current_nav_menu").text($("li#"+current_state+" > span").text());
-    
+    // 로딩바 숨기기 
     $("#overlay").hide();
     
     // 처음 들어오면 전체 선택 및 가격 업데이트!    
@@ -54,6 +51,8 @@ $(document).ready(function(){
     
 });
 
+
+// 체크박스 선택에 따라 최종가격 변경
 function update_price(){
 	console.log("가격변동!");
 	var sum = 0;
@@ -78,6 +77,8 @@ function update_price(){
 
 }
 
+
+// 보유 포인트 확인
 function check_points(){
 	$.ajax({
 		url: "/StarbucksWeb/order/getPoints.sb",
@@ -94,7 +95,7 @@ function check_points(){
 	});
 }
 
-
+// 사용 포인트 적용
 function apply_points(){
 	var points_to_use = Number($("#point_to_use").prop("value"));
 	console.log("사용 포인트 " + points_to_use);
@@ -111,28 +112,13 @@ function removeItem(){
 	
 }
 
+
+// 아임포트 결제 페이지로 이동
 function goToPay(){
 	
-//	$("#payment_form").attr("action", "/paymentPage.sb");
-//	$("#payment_form").method = "POST";
 	pop_up_window = "payment";
 
-//	var price_per_item = [];
-//	var product_id = [];
-//	var item_seq = [];
-//
-//	// 숨겨져있는 input의 값들을 sessionStorage에 전달 -> paymentGateway.jsp에 전달
-//	$("tr.items").each(function(index, item){
-//		price_per_item[index] = $("#price_per_item"+index).prop("value");
-//		product_id[index] = $("#product_id"+index).prop("value");
-//		item_seq[index] = $("#item_seq"+index).prop("value");
-//	});
-
 	var price_to_pay = $("input#price_to_pay").prop("value");
-//	console.log(price_to_pay);
-//	console.log();
-//	var deducted_point = $("#point_to_use").prop("value");
-//	var store_id = $("#store_id").prop("value");
 	
 	console.log(price_to_pay);
 
@@ -143,15 +129,13 @@ function goToPay(){
 //	sessionStorage.setItem("product_id", product_id);
 //	sessionStorage.setItem("item_seq", item_seq);
 
-	// slip_no값을 난수로 만들어서 파라미터로 전송
-	var slipNo = Math.random().toString(36).substr(2,11);
-	$("#slip_no").prop("value", slipNo);
 	
-	// 팝업창으로 결제페이지 띄움
+	// 팝업창으로 결제페이지 띄움 & 최종 결제금액과 난수로 생성된 slipNo를 파라미터로 전송
 	window.open("/StarbucksWeb/paymentPage.sb?amount="+price_to_pay+"&slipNo="+slipNo, pop_up_window, "toolbar=no, location=no, width=745, height=705");
 
 }
 
+// 결제 성공후 DB에 업데이트
 function update_database(){	
 	$("#overlay").show();	
 	
@@ -160,45 +144,62 @@ function update_database(){
 	var item_seq = [];
 
 	// 숨겨져있는 input의 값들을 sessionStorage에 전달 -> paymentGateway.jsp에 전달
-	$("tr.items").each(function(index, item){
-		price_per_item[index] = $("#price_per_item"+index).prop("value");
-		product_id[index] = $("#product_id"+index).prop("value");
-		item_seq[index] = $("#item_seq"+index).prop("value");
+	var index = 0;
+	$(".item_checkbox").each(function(){
+		if($(this).prop("checked")) {
+			price_per_item[index] = $("#price_per_item"+index).prop("value");
+			product_id[index] = $("#product_id"+index).prop("value");
+			item_seq[index] = $("#item_seq"+index).prop("value");
+			
+			index++;
+		}
 	});
+	
 	
 	var price_paid = $("input#price_to_pay").prop("value");
 	var deducted_point = $("#point_to_use").prop("value");
 	var store_id = $("#store_id").prop("value");
+	
+	
+	console.log("store_id" + store_id);
+	console.log("price_per_item" + price_per_item);
+	console.log("product_id" + product_id);
+	console.log("item_seq" + item_seq);
+	console.log("price_paid" + price_paid);
+	console.log("deducted_point" + deducted_point);
+	console.log("slipno" +slipNo);
 	
 	$.ajax({
 		url: "/StarbucksWeb/order/updatePurchase.sb",
 		dataType: "json",
 		data: {
 			"storeId": store_id,
-			"pricePerItems": price_per_item,
-			"prouctIds": product_id,
-			"itemSeqArr": item_seq,
+			"pricePerItems": price_per_item.toString(),
+			"productIds": product_id.toString(),
+			"itemSeqArr": item_seq.toString(),
 			"pricePaid": price_paid,
 			"deductedPoint": deducted_point,
-			"slipNo": $("#slip_no").prop("value"),
+			"slipNo": slipNo,
 		},
-		success: function(json){			
-			setTimeout(function() {
-				$("#overlay").hide();}
-			,2000);
+		success: function(json){	
+			setTimeout(function(){
+				$("#overlay").hide();
+			}, 3000);
+
+			console.log(json);
+			
+			if(json.isUpdated) {
+				location.href="/StarbucksWeb/order/confirmed.sb";
+			} else {
+				alert("결제가 실패했습니다. \n 관리자에게 문의해주세요.");
+			}
+			
 		},
 		error: function(request, status, error){
-			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 			$("#overlay").hide();
+			alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		},
 	});
-}
-
-function confirm_payment(){
-	var form = document.payment_form;
-	form.method = "POST";
-	
-	location.href="/StarbucksWeb/order/.sb";
 }
 
 
