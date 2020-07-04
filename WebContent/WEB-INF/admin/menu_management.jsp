@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="head.jsp" %>  
+<script type="text/javascript" src="/StarbucksWeb/js/menu_management.js"></script>
 
 <article align="center">
 	<h3>메뉴 목록</h3>
@@ -16,10 +17,10 @@
 			<td class="category">설명</td>
 			<td class="category">가격</td>
 		</tr>
-<!-- 		<tbody id="member_tb">
+ 		<tbody id="drink_tbody">
 		
-		</tbody> -->
-		<c:forEach var="pvo" items="${productList}" varStatus="status">
+		</tbody>
+<%-- 		<c:forEach var="pvo" items="${productList}" varStatus="status">
 			<tr>
 				<td>${status.count }</td>
 				<td>${pvo.parentTable }</td>
@@ -28,11 +29,11 @@
 				<td>${pvo.description}</td>
 				<td>${pvo.price }</td>
 			</tr>
-		</c:forEach>
+		</c:forEach> --%>
 	</table>
-<%-- 	<div id="paging_container" align="center">
+ 	<div id="paging_container" align="center">
 		${pageBar}
-	</div> --%>
+	</div>
 </article>
 <%@ include file="tail.jsp" %>  
 <script type="text/javascript" src="/StarbucksWeb/js/member_management.js"></script>
