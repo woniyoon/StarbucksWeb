@@ -50,6 +50,10 @@
 		    /* border: 1px solid lightcoral; */
 		}
 		
+		ul#point_usage li {
+			margin: 2px 0;
+		}
+		
 		section {
 		    height: auto;
 		    padding-bottom: 3rem;
@@ -57,7 +61,7 @@
 		
 		#payment_container {
 		    margin: 30px auto;
-		    width: 100vw;
+/* 		    width: 100vw; */
 		    height: auto;
 		    padding: 3rem 0;
 		}
