@@ -11,7 +11,7 @@ public class ProductVO {
    private int price;
    private String img;
    private NutritionVO nutrition;
-   private String custom = "";
+   private String custom;
    private String categoryName;
    
    public ProductVO() {
