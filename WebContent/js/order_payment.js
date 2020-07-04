@@ -131,7 +131,7 @@ function goToPay(){
 
 	
 	// 팝업창으로 결제페이지 띄움 & 최종 결제금액과 난수로 생성된 slipNo를 파라미터로 전송
-	window.open("/StarbucksWeb/paymentPage.sb?amount="+price_to_pay+"&slipNo="+slipNo, pop_up_window, "toolbar=no, location=no, width=745, height=705");
+	window.open("/StarbucksWeb/paymentPage.sb?amount="+price_to_pay+"&slipNo="+slipNo, pop_up_window, "toolbar=no, location=no, width=820, height=600");
 
 }
 
