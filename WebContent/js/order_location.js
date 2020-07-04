@@ -119,24 +119,7 @@ $(document).ready(function(){
 
 	}
 
-}); // end of $(document).ready() ----------------------------------------
-    
-//window.onresize = function(event) {
-//
-//	var map_container = document.getElementById("map_container");
-//	console.log(map_container);
-//    var rect = map_container.getBoundingClientRect();
-//    console.log("rect.right : " + rect.right);
-//    console.log("rect.bottom : " + rect.bottom);
-//    var height = $("div#option_viewer").css("height");
-//    var width = $("div#option_viewer").css("width");
-//    console.log(height);
-//    
-//    $("div#option_viewer").css({"left": rect.right - width , "top": rect.bottom - height});
-//    
-//    console.log("test");
-//};
-//  
+}); 
 
 
 function selectLocation(obj){
