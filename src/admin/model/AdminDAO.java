@@ -120,10 +120,10 @@ public class AdminDAO implements InterAdminDAO {
 				mvo.setMember_seq(rs.getInt("member_seq"));
 				mvo.setUserid(rs.getString("userid"));
 				mvo.setName(rs.getString("name"));
-				mvo.setEmail(aes.decrypt(rs.getString("email"))); // 복호화
+				mvo.setEmail(aes.decrypt(rs.getString("email")));
 				mvo.setHp1(rs.getString("hp1"));
-				mvo.setHp2(rs.getString("hp2")); // 복호화
-				mvo.setHp3(rs.getString("hp3")); // 복호화
+				mvo.setHp2(rs.getString("hp2"));
+				mvo.setHp3(rs.getString("hp3"));
 				mvo.setPoint(rs.getInt("point"));
 			    mvo.setGender(rs.getInt("gender"));
 			    mvo.setBirthyyyy(rs.getString("Birthyyyy"));
