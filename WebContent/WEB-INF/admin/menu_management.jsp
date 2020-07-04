@@ -6,8 +6,7 @@
 <%@ include file="head.jsp" %>  
 
 <article align="center">
-	<h3>메뉴 관리</h3>
-<%-- 	<h3>회원 목록</h3>
+	<h3>회원 목록</h3>
 	<table align="center" class="admin_table" id="member_table">
 		<tr>
 			<td class="category" id="member_seq">회원번호 <img id="member_seq" src="<%= ctxPath%>/images/common/filter_arrow.png" style="height: 10pt;"></td>
@@ -50,7 +49,7 @@
 	</table>
 	<div id="paging_container" align="center">
 		${pageBar}
-	</div> --%>
+	</div>
 </article>
 <%@ include file="tail.jsp" %>  
 <script type="text/javascript" src="/StarbucksWeb/js/member_management.js"></script>

@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <a class="side_menu_item" onclick="">메뉴관리</a>
+                            <a class="side_menu_item" href="<%= ctxPath%>/admin/menuManagement.sb">메뉴관리</a>
                         </td>
                     </tr>
                     <tr>
