@@ -23,7 +23,6 @@
 		}
 		
 		ul.order_progress li {
-		    /* display: inline-block; */
 		    display: table-cell;
 		    vertical-align: middle;
 		    height: 50px;
@@ -38,7 +37,6 @@
 		ul.order_progress {
 		    display: table;
 		    margin: 0 auto;
-		    /* justify-content: center; */
 		    padding-inline-start: 0px;
 		}
 		
@@ -47,7 +45,6 @@
 		    display: flex;
 		    flex-direction: column;
 		    align-items: flex-end;
-		    /* border: 1px solid lightcoral; */
 		}
 		
 		ul#point_usage li {
@@ -61,13 +58,11 @@
 		
 		#payment_container {
 		    margin: 30px auto;
-/* 		    width: 100vw; */
 		    height: auto;
 		    padding: 3rem 0;
 		}
 		
 		article#payment_detail {
-		    /* border: 2px solid darkorange; */
 		    display: inline-block;
 		}
 		
@@ -79,14 +74,11 @@
 		
 		table {
 		    margin: 50px 0 30px 0;
-		    /* border: 1px solid darkcyan; */
 		}
 		
 		section#price_info {
 		    display: flex;
 		    justify-content: flex-end;
-		    /* width: 40vw; */
-			/* border: 1px solid darkolivegreen; */
 		}
 		
 		input {
@@ -110,43 +102,6 @@
 		}
 		
 		/* section 끝 */
-		
-		#snackbar {
-		    visibility: hidden;
-		    min-width: 250px;
-		    margin-left: -125px;
-		    background-color: #006633;
-		    color: #fff;
-		    text-align: center;
-		    border-radius: 2px;
-		    padding: 16px;
-		    position: fixed;
-		    z-index: 1;
-		    left: 50%;
-		    bottom: 50px;
-		    font-size: 17px;
-		}
-		
-		#snackbar.show {
-		    visibility: visible;
-		    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-		    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-		}
-		
-		@-webkit-keyframes fadein {
-		    from {bottom: 0; opacity: 0;} 
-		    to {bottom: 50px; opacity: 1;}
-		}
-		
-		@keyframes fadein {
-		    from {bottom: 0; opacity: 0;}
-		    to {bottom: 50px; opacity: 1;}
-		}
-		
-		@-webkit-keyframes fadeout {
-		    from {bottom: 50px; opacity: 1;} 
-		    to {bottom: 0; opacity: 0;}
-		}
     	
     	#overlay {
 		  position: fixed; /* Sit on top of the page content */
@@ -224,27 +179,12 @@
 	                    		</c:forEach>
 	                    	</c:when>
 	                    </c:choose>
-	                    
-	                    
-	                    <!-- <tr>
-	                        <td><input type="checkbox" /></td>
-	                        <td>아이스 아메리카노</td>
-	                        <td>얼음 적게 얼음 적게 얼음 적게</td>
-	                        <td>4100원</td>
-	                    </tr>
-	                    <tr>
-	                        <td><input type="checkbox" /></td>
-	                        <td>아이스 아메리카노</td>
-	                        <td>얼음 많이, 물 적게</td>
-	                        <td>4100원</td>
-	                    </tr> -->
 	                </table>
 	                <section id="price_info">
 	                    <ul id="point_usage" align="left">
 	                        <li>
 	                            <label>보유 적립금</label>
 	                            <input id="my_point" type="number" readonly />
-<!-- 	                            <button type="button" onclick="check_points()">확인</button>        -->     
 	                        </li>
 	                        <li>
 	                            <label>사용 적립금</label>
@@ -265,5 +205,4 @@
             </div>
         </div>
     </section>
-    <div id="snackbar">알림용 스낵바입니다</div>
     <jsp:include page="../footer.jsp" />
