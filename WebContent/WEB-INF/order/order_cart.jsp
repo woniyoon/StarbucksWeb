@@ -189,6 +189,22 @@
 		color: #fff;
 	}
 	
+	#empty_cart_container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 40vh;
+	}
+	
+	a#go_menu {
+		padding: 5px;
+		color: black;
+/* 		border-radius: 5px;
+		border: 1px solid grey; */
+	}
+	
+	
 	/* section 끝 */
 	#snackbar {
 		visibility: hidden;
@@ -379,8 +395,9 @@
 			</div>
 		</c:if>
 		<c:if test="${fn:length(cart) == 0}">
-			<div>
-				<h1> 장바구니가 비어있습니다. </h1>
+			<div id="empty_cart_container" align="center">
+				<h1> 장바구니가 비어있습니다. </h1><br/>
+				<a id="go_menu" href="/StarbucksWeb/product/menu.sb">메뉴 보러가기</a>
 			</div>
 		</c:if>
 	</div>
