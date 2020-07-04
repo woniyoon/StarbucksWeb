@@ -98,63 +98,98 @@
 	.pre_post {
 		border-bottom: 1px solid #333333;
 	}
+	
+	/* 내용 */
+	textarea {
+		border: solid 1px #ccc;
+		border-radius: 3px;
+		height: 173px;
+		padding: 5px;
+		width: 507px;
+		resize: none;
+	}
+	
+	/* 제목 */
+	input.subject {
+		width: 513px;
+	}
 
 </style>    
 <script type="text/javascript">
 
-	function goDelete() {
-	  
-		var feedback_board_seq = $(".delFeedback").val();
-		//alert(notice_seq);
-		
-		var bool = confirm("나의 문의내역을 삭제하시겠습니까?");
-		
-		if(bool) {
-			
-			$.ajax({ 
-				url: "/StarbucksWeb/feedback/feedbackDelete.sb",
-				type: "POST",
-				data: {"feedback_board_seq":feedback_board_seq},
-				dataType: "JSON",
-				success:function(json){
-					if(json.n == 1) {
-						// alert("삭제성공!");
-						location.href="/StarbucksWeb/feedback/feedbackList.sb"; // 페이지 넘어가기
-					}
-					
-				},
-				error: function(request, status, error){
-					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-			    }
-				
-			}); 
-		}
-		else {
-			alert("삭제 취소!");
-		}
- 	  
-	}// end of goDelete()----------
+	//내용 용량제한시키기
+	function fnChkByte(obj, maxByte) {
+	    var str = obj.value;
+	    var str_len = str.length;
 	
+	    var rbyte = 0;
+	    var rlen = 0;
+	    var one_char = "";
+	    var str2 = "";
 	
-	function goUpdate(feedback_board_seq) {
-		 
-		var bool = confirm("나의 문의내역을 수정하시겠습니까?");
-		
-		if(bool) {
-			
-			var frm = document.feedbackFrm;
+	    for(var i=0; i<str_len; i++) {
+		        one_char = str.charAt(i);
+		        
+		        if(escape(one_char).length > 4){
+		            rbyte += 2;                                         //한글2Byte
+		        }
+		        else {
+		            rbyte++;                                            //영문 등 나머지 1Byte
+		        }
+	
+		        if(rbyte <= maxByte){
+		            rlen = i+1;                                          //return할 문자열 갯수
+		        }
+	     }
+	
+	     if(rbyte > maxByte){
+			  // alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+			  alert("메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.")
+			  str2 = str.substr(0,rlen);                                  //문자열 자르기
+			  obj.value = str2;
+			  fnChkByte(obj, maxByte);
+	     }
+	     else {
+	        document.getElementById('byteInfo').innerText = rbyte;
+	     }
+	}
+
+
+
+	function updateEnd() {
+		  
+
+	   	  var bRequiredInfo = false;
+	   	  $(".requiredInfo").each(function(){
+		  	var data = $(this).val().trim();
+			if(data == "") {
+				bRequiredInfo = true;
+				$(this).focus();
+				return false;
+			}
+		  }); // end of $(".requiredInfo").each()-------
+		  // 선택자.each(); 은 선택자의 갯수만큼 반복처리를 해주는 것이다.
+		  // 그러므로 $(".requiredInfo").each(); 은
+		  // 클래스가 requiredInfo 인 것마다 하나하나씩 반복업무를 해주는 것이다.
+	   	  
+		//  alert(document.getElementById("store_id").innertext);
+		  
+		  // var storeid = $('#store_id').prop("value");
+		  
+		 //  alert(storeid);
+		  
+		  if(!bRequiredInfo) {
+			  var frm = document.updateFrm;
 		   	  frm.method = "POST";
-		   	  frm.action = "feedbackUpdate.sb";
+		   	  frm.action = "feedbackUpdateEnd.sb";
 		   	  frm.submit();
-		}
-		else {
-			alert("삭제 취소!");
-		}
- 	  
-	}// end of goDelete()----------
+		  }
+	   	  
+		}// end of function goRegister(event)----------
+
 
 </script>
-    
+   	
 	<div class="notice_view">
 		<header>
 			<div id="sub_header">
@@ -167,7 +202,7 @@
 		<!-- -------------------------------- 헤더 끝 ---------------------------------- -->
 		
 		<section>
-		<form name="feedbackFrm">
+		<form name="updateFrm">
 			<table class="type05" style="border-top: solid 1px black;">
 	    <tr>
 	        <th scope="row">분야 </th>
@@ -197,13 +232,14 @@
 	    <tr>
 	        <th scope="row">제목</th>
 	        <td>
-	        	${map.title}
+	        	<input style="width: 515px;" class="requiredInfo" type="text" class="subject" name="title" value="${map.title}" maxlength="50">
 			</td>
 	    </tr>
 	    <tr>
 	        <th scope="row">내용</th>
 	        <td>
-	        	${map.contents}
+	        	<textarea class="requiredInfo" name="contents" onKeyUp="javascript:fnChkByte(this,'2500')">${map.contents}</textarea><br/>
+	        	<span id="byteInfo">0</span> /2500bytes 
 			</td>
 	    </tr>
 	    <tr>
@@ -223,13 +259,7 @@
 	
 	<div id="notice_button_wrap">
 		<p id="notice_button">
-			<a href="feedbackList.sb" class="notice_view">목록</a>
-		</p>
-		<p id="notice_button">
-			<a class="delete notice_view" onclick="goDelete();">삭제</a>
-		</p>
-		<p id="notice_button">
-			<a class="update notice_view" onclick="goUpdate();">수정</a>
+			<a class="update notice_view" onclick="updateEnd();">수정하기</a>
 		</p>
 	</div>
 			
