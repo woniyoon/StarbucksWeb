@@ -381,7 +381,12 @@ public class OrderDAO implements InterOrderDAO {
 		boolean isUpdated = true;
 		
 		SlipVO slip = (SlipVO) paraMap.get("slip");
-		List<PurchaseDetailVO> pdvList = (ArrayList<PurchaseDetailVO>) paraMap.get("pdvList");
+		@SuppressWarnings("unchecked")
+		ArrayList<PurchaseDetailVO> pdvList = (ArrayList<PurchaseDetailVO>) paraMap.get("pdvList");
+		
+		System.out.println("pdvList size : " + pdvList.size());
+		
+		
 		int pricePaid = Integer.parseInt((String)paraMap.get("pricePaid"));
 		int deductedPoint = Integer.parseInt((String)paraMap.get("deductedPoint"));
 		int point = (Integer) paraMap.get("point");
@@ -390,7 +395,7 @@ public class OrderDAO implements InterOrderDAO {
 		
 		System.out.println("ㅡㅡ");
 		System.out.println(pricePaid);
-		System.out.println(itemSeqArr[0] + "itemSeqArr");
+		System.out.println("보유포인트 : " + point);
 		
 		int result = 2 + pdvList.size() + itemSeqArr.length;
 		int cnt = 0;
@@ -423,6 +428,7 @@ public class OrderDAO implements InterOrderDAO {
 				pstmt.setInt(6, pdvo.getPrice());
 				pstmt.setInt(7, pdvo.getSection());
 				
+				System.out.println("구매사항 업데이트 회수 : " + cnt);
 				cnt += pstmt.executeUpdate();
 			}
 			
@@ -433,7 +439,11 @@ public class OrderDAO implements InterOrderDAO {
 		
 			pstmt = conn.prepareStatement(sql);
 			
-			int updatedPoint = (int) ((point - deductedPoint) + Math.round((pricePaid * 0.05)));
+			int updatedPoint = (int) ((point - deductedPoint) + Math.round((pricePaid * 0.02)));
+			
+
+			System.out.println("updatedPoint : " + updatedPoint);
+			System.out.println("deductedPoint : " + deductedPoint);
 			
 			pstmt.setInt(1, updatedPoint);
 			pstmt.setString(2, userid);
@@ -456,13 +466,9 @@ public class OrderDAO implements InterOrderDAO {
 			if(cnt == result) {
 				conn.commit();
 				isUpdated = true;
-				System.out.println("cnt == result");
-				System.out.println(isUpdated);
 			} else {
 				conn.rollback();
 				isUpdated = false;
-				System.out.println("cnt != result");
-				System.out.println(isUpdated);
 			}
 			
 						
