@@ -6,21 +6,21 @@ public class PurchaseDetailVO {
 	private String slipNum;
 	private String userid;
 	private String storeId;
-	private int qty;
+	private int cnt;
 	private int price;
 	private int section;
 	private int purchaseDetailSeq;
 	
 	public PurchaseDetailVO() {}
 	
-	public PurchaseDetailVO(String productId, String slipNum, String userid, String storeId, int qty, int price,
+	public PurchaseDetailVO(String productId, String slipNum, String userid, String storeId, int cnt, int price,
 			int section, int purchaseDetailSeq) {
 		super();
 		this.productId = productId;
 		this.slipNum = slipNum;
 		this.userid = userid;
 		this.storeId = storeId;
-		this.qty = qty;
+		this.cnt = cnt;
 		this.price = price;
 		this.section = section;
 		this.purchaseDetailSeq = purchaseDetailSeq;
@@ -58,12 +58,12 @@ public class PurchaseDetailVO {
 		this.storeId = storeId;
 	}
 
-	public int getQty() {
-		return qty;
+	public int getCnt() {
+		return cnt;
 	}
 
-	public void setQty(int qty) {
-		this.qty = qty;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 	public int getPrice() {
