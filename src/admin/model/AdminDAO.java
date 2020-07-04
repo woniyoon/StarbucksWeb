@@ -225,9 +225,75 @@ public class AdminDAO implements InterAdminDAO {
 
 		try {
 			conn = ds.getConnection();
-
 			String sql = " select count(*) from drink ";
+			pstmt = conn.prepareStatement(sql);
 
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				numOfDrinks = rs.getInt(1);
+			}
+
+		} finally {
+			close();
+		}
+
+		return numOfDrinks;
+	}
+
+	@Override
+	public List<ProductVO> getFoodList(HashMap<String, String> paramap) throws SQLException {
+		List<ProductVO> productList = new ArrayList<>();
+		try {
+			conn = ds.getConnection();
+
+			String sql = " select * from "
+					+ " (select rownum as rn, parent_table, id, category_id, name, name_eng, description, price, img "
+					+ " from "
+					+ " (select rownum, N.parent_table, id, category_id, name, name_eng, description, price, img "
+					+ " from food F, nutrition N " + " where F.id = N.product_id) v ) t "
+					+ " where t.rn between ? and ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			int itemsPerPage = Integer.parseInt(paramap.get("itemsPerPage"));
+			int currentShowPageNo = Integer.parseInt(paramap.get("currentShowPageNo"));
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, (currentShowPageNo * itemsPerPage) - itemsPerPage + 1);
+			pstmt.setInt(2, (currentShowPageNo) * itemsPerPage);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				String parent_table = rs.getString("parent_table");
+				String id = rs.getString("id");
+				String category_id = rs.getString("category_id");
+				String name = rs.getString("name");
+				String name_eng = rs.getString("name_eng");
+				String description = rs.getString("description");
+				int price = rs.getInt("price");
+				String img = rs.getString("img");
+
+				ProductVO pvo = new ProductVO(parent_table, id, category_id, name, name_eng, description, price, img);
+
+				productList.add(pvo);
+			} 
+
+		} finally {
+			close();
+		}
+		return productList;
+	}
+
+	@Override
+	public int getNumOfFood() throws SQLException {
+		int numOfDrinks = 0;
+
+		try {
+			conn = ds.getConnection();
+			String sql = " select count(*) from food ";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
