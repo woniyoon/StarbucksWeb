@@ -10,36 +10,39 @@ public class DeleteDrinkAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		String seq = request.getParameter("seq");
 		
-		System.out.println("확인용 : "+seq);
-		
-		String[] seqArr = seq.split(",");
-		
+		 	
 		MemberDAO mdao = new MemberDAO();
+
+		String[] favoriteMenuSeq = request.getParameterValues("favorite");
+		
+		for(String r : favoriteMenuSeq) { 
+			System.out.println(r); 
+		}
 		
 		int sum = 0;
 		
-		for(int i=0; i<seqArr.length; i++) {
-			
-			try {
-				
-				int n = mdao.menuDelete(seqArr[i]);
-				sum += n;
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			if(sum == seqArr.length) {
-				
-				response.sendRedirect("myMenu.sb");
-				
-			}
-			
-		}
 		
+		for(int i=0; i<favoriteMenuSeq.length; i++) {
+		  
+		  try { 
+			  
+			  int n = mdao.menuDelete(favoriteMenuSeq[i]); 
+			  sum += n;
+		  
+		  } 
+		  catch (Exception e) { 
+			  e.printStackTrace(); 
+		  }
+		  
+		  if(sum == favoriteMenuSeq.length) {
+			  
+			  response.sendRedirect("myMenu.sb");
+			  
+		  }
+		  
+		}
+		 		
 		
 	}
 

@@ -26,7 +26,9 @@ public class SumExtraCustomAction extends AbstractController {
 		JSONObject obj = new JSONObject();
 
 		/*
-		 * priceMap.forEach((key, value)->{ obj.put(key, value); });
+		priceMap.forEach((key, value)->{
+			obj.put(key, value);
+		});
 		 */
 		
 		request.setAttribute("json", obj);

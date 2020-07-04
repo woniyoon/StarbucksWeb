@@ -3,7 +3,7 @@
    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
     
-<jsp:include page="header.jsp" /> 
+<jsp:include page="../header.jsp" /> 
     
     
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,6 +62,8 @@
         margin-right: 3px;
         float: left;
         border: solid 1px deepbink;
+        background: url("/StarbucksWeb/images/hyejeong/m_voc_top_bg.png");
+        background-size: 100px 100px;
      }
      
      h5 {
@@ -107,30 +109,41 @@
      #box4 {
         width: 400px;
         height: 250px;
-        margin-right: 3px;
         float: left;
-		border: solid 1px #ddd;
+		background: url("/StarbucksWeb/images/hyejeong/m_voc_top_bg.png");
+        background-size: 100px 100px;
      }
      
      #box4 p {
-		margin-top: 30px;
+		margin-top: 70px;
 		padding-left: 30px;     
      }
          
      #box4 span {
 	    width: 300px;
-     	font-size: 20px;
+     	font-size: 16pt;
 	    line-height: 35px;
 	    margin-top: 30px;
      }
     
-    ul {
+    .recommended_menu ul {
     	list-style: none;
     	padding-left: 30px;
     	margin-top: 50px;
     }
     
-    ul li {
+    .user_edit ul {
+    	list-style: none;
+    	padding-left: 30px;
+    	margin-top: 50px;
+    }
+    
+    .recommended_menu ul li {
+    	float: left;
+    	margin-right: 10px;
+    }
+    
+    .user_edit ul li {
     	float: left;
     	margin-right: 10px;
     }
@@ -182,6 +195,8 @@
 		margin-top: 30px;
 		margin-bottom: 30px;
 		border: solid 1px #ddd;
+		background: url("/StarbucksWeb/images/hyejeong/m_voc_top_bg.png");
+        background-size: 100px 100px;		
 	}
 	
 	.rank_head {
@@ -194,6 +209,10 @@
 		height: 30px;
 	    width: 78px;
 	    font-size: 14pt;
+	}
+	
+	.panel-heading {
+		cursor: pointer;
 	}
 	
 </style>
@@ -225,7 +244,7 @@ $(document).ready(function(){
 	
 		var total = {};	// {0: 0, 1:0, 2:0 }
 	
-		var imgCnt = $("#recommended_menu").children().length;
+		var imgCnt = $(".recommended_menu > ul").children().length;
 	
 		for (var i=0; i<imgCnt; i++) {
 			var imgNum = Math.round(Math.random()*4);
@@ -310,8 +329,7 @@ $(document).ready(function(){
      		<div id="box4"> 
      			<p>
 	     		<span>
-		     		<strong class="userName">${(sessionScope.loginuser).userid}</strong>님은<br>
-		     		현재 
+		     		<strong class="userName">${(sessionScope.loginuser).userid}</strong>님은<br>현재 
 		     			<c:if test="${(sessionScope.loginuser).point>=10000}">
 		     				<strong class="userGrade" style="color: gold;">Gold Level</strong>
 		     			</c:if>
@@ -369,7 +387,7 @@ $(document).ready(function(){
 			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEdit.sb">개인정보확인 및 수정</a></div>
 			        <%-- <div class="panel-body" style="background-color: white;"><a href="http://localhost:9090/StarbucksWeb/member/myinfoOut.sb" value="${(sessionScope.loginuser).email}">회원 탈퇴</a></div> --%>
 			        <div class="panel-body" style="background-color: white;"><a href="javascript:goinfoOut('${(sessionScope.loginuser).userid}');">회원 탈퇴</a></div>
-			        <div class="panel-body"><a href="http://localhost:9090/StarbucksWeb/member/myinfoEditPwd.sb">비밀번호 변경</a></div>
+			        <div class="panel-body"><a href="javascript:goEditPersonal('${(sessionScope.loginuser).userid}');">비밀번호 변경</a></div>
 		         </div>
 		    </div>
      		</div>
@@ -395,12 +413,13 @@ $(document).ready(function(){
 		     		이 즐기는 메뉴가 궁금하시죠? <button title="메뉴 확인하기" id="random">확인</button></p>
 	     		</header>
 
-	     		<ul id="recommended_menu">
-	     			<li><img id = "randomImg1" border="0" width="230px" height="250px"></li>
-	     			<li><img id = "randomImg2" border="0" width="230px" height="250px"></li>
-	     			<li><img id = "randomImg3" border="0" width="230px" height="250px"></li>
-	     		</ul>
-	     		
+				<div class="recommended_menu">
+		     		<ul>
+		     			<li><img id = "randomImg1" border="0" width="230px" height="250px"></li>
+		     			<li><img id = "randomImg2" border="0" width="230px" height="250px"></li>
+		     			<li><img id = "randomImg3" border="0" width="230px" height="250px"></li>
+		     		</ul>
+	     		</div>
      		</div>
      	</div>
      </nav>
@@ -415,4 +434,4 @@ $(document).ready(function(){
 	<input type="hidden" name="userid"/>
 </form>
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="../footer.jsp" />
