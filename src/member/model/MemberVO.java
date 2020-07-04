@@ -162,6 +162,9 @@ public class MemberVO {
 		this.status = status;
 	}
 	
+	public String getPhone() {
+		return this.hp1+"-"+this.hp2+"-"+this.hp3;
+	}
 
 }	
 	
