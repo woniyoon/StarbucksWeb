@@ -76,14 +76,19 @@
 		    line-height: 3rem;
 		    font-size: 18px;
 		}
+		
         .navbar {
             display: flex;
             justify-content: center;
             align-content: space-between;
         }
         
-        #member_table {
+        .admin_table {
         	border-collapse: collapse;
+        }
+        
+        #option_td {
+        	border: none;
         }
 		
 		#member_table th {
@@ -103,7 +108,15 @@
 		    padding: 17px 0;
 		    border-bottom: 1px solid #dddddd;
 		    line-height: 1.8;
+		}
 		
+		.menu_content_td {
+			font-size: 14px;
+		    color: #666666;
+		    text-align: center;
+		    padding: 17px 0;
+		    border-bottom: 1px solid #dddddd;
+		    line-height: 1.8;
 		}
         
         #paging_container {
