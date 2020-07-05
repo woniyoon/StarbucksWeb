@@ -9,6 +9,26 @@
 
 <style>
 
+	div#section_map_location {
+		/* border: solid 1px red; */
+		height: 670px;
+		width: 100%;
+		background-color: #d9d9d9;
+		position: relative;
+		top: 0px;
+	}
+	
+	img#section_map_textimb {
+		/* border: solid 1px red; */
+		background-color: transparent; /* 뒷 배경과 동일하게 배경 설정하기 */
+		position: relative;
+		margin: 0 auto;
+		padding-top: 40px;
+		padding-bottom: 30px;
+		padding-left: 20%;
+		
+	}
+
 	div.mycontent {
   		width: 300px;
   		padding: 5px 3px;
@@ -44,8 +64,7 @@
   	div#map {
   		margin: 0 auto;
   		position: relative;
-  		top: 55px;
-  		
+
   	}
   	
   	.address {
@@ -124,7 +143,7 @@
 				// === 인포윈도우(텍스트를 올릴 수 있는 말풍선 모양의 이미지) 생성하기 === //
 				
 				// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능함.
-				var iwContent = "<div style='padding:5px; font-size:9pt;'>여기에 계신가요?<br/><a href='https://map.kakao.com/link/map/현위치(약간틀림),"+latitude+","+longitude+"' style='color:blue;' target='_blank'>큰지도</a> <a href='https://map.kakao.com/link/to/현위치(약간틀림),"+latitude+","+longitude+"' style='color:blue' target='_blank'>길찾기</a></div>";
+				var iwContent = "<div style='padding:5px; font-size:9pt;'>여기에 계신가요?<br/><a href='https://map.kakao.com/link/map/현위치(약간틀림),"+latitude+","+longitude+"' style='color:blue;' target='_blank'>큰지도</a> <a href='https://map.kakao.com/link/to/현위치,"+latitude+","+longitude+"' style='color:blue' target='_blank'>길찾기</a></div>";
 				
 				// 인포윈도우 표시 위치
 			    var iwPosition = locPosition;
@@ -194,19 +213,15 @@
 			error: function(request, status, error){
 				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		    }
-
-			
 			
 		});
-		
-		// 여기를 수정하면 된다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 		// 인포윈도우를 가지고 있는 객체 배열의 용도 
 		var infowindowArr = new Array(); 
 		
 		
 		var imageSrc = "/StarbucksWeb/images/nari/map_pin.png";       
-	    var imageSize = new kakao.maps.Size(38, 60);   
+	    var imageSize = new kakao.maps.Size(30, 50);   
 	    var imageOption = {offset: new kakao.maps.Point(15, 39)};         
 	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
@@ -217,7 +232,7 @@
 			// == 마커 생성하기
 			var marker = new kakao.maps.Marker({ 
 				map: mapobj,
-				position: positionArr[i].latlng		,
+				position: positionArr[i].latlng,
 				image: markerImage,
 			});
 			
@@ -266,9 +281,11 @@
 
 </script>	
 
-
-<div id="map" style="width:60%; height:600px; ] "></div>
+<div id="section_map_location">
+<img id="section_map_textimb" src="images/nari/section_map_text_img.png" />
+<div id="map" style="width:60%; height:500px; ] "></div>
  
 <%-- 위/경도 값을 보여줄 곳 --%>
 <div id="latlngResult" style="margin: 20px 0;"></div>
 
+</div>

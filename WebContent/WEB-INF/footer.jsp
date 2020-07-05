@@ -28,7 +28,7 @@
 </style>    
 
 		<footer class="footer">
-			<div>광고</div>
+			<div></div>
 			<br/><br/><br/><br/><br/><br/><br/>
 			<div id="footer_botton">
 				<ul class="footer">
