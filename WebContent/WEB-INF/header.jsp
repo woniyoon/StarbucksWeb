@@ -73,8 +73,40 @@
 		color: #555 !important;
 	}
 	
-	a.index {
+	/* a.index {
 		text-decoration: none !important;
+	}
+	 */
+	header.index a {
+		color: #555;
+	    text-decoration: none;
+	}
+		
+	header.index a:visited { 
+		color: #555;
+		text-decoration: none;
+	}
+
+	header.index a:hover {
+		text-decoration: underline;
+	}
+	
+	.pagination a {
+	  	color: black;
+/* 	  	float: left; */
+	  	padding: 4px 8px;
+	  	text-decoration: none;
+	}
+	
+	.pagination a.active {
+	  	background-color: #4CAF50;
+	  	color: white;
+	  	border-radius: 5px;
+	}
+	
+	.pagination a:hover:not(.active) {
+	  	background-color: #ddd;
+	  	border-radius: 5px;
 	}
 </style>
 
@@ -133,7 +165,7 @@
 							<li class="index"><a href="javascript:goLogOut()" class="index">SIGN OUT</a></li>	
 							<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
 							<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>	
-							<li class="index"><a href="<%= ctxPath%>/adminPage.sb" class="index">MANAGER PAGE</a></li>
+							<li class="index"><a href="<%= ctxPath%>/admin/storeManagement.sb" class="index">MANAGER PAGE</a></li>
 						</c:when>
 					</c:choose> 
 						

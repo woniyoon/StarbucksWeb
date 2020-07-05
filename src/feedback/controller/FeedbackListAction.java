@@ -114,18 +114,18 @@ public class FeedbackListAction extends AbstractController {
 			
 			// *** [이전] 만들기 *** //
 			if( pageNo != 1 ) {
-				pageBar += "&nbsp;<a href='feedbackList.sb?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
+				pageBar += "<a href='feedbackList.sb?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>&laquo;</a>";
 			}
 			
 			while( !(loop > blockSize || pageNo > totalPage) ) {
 				
 				if(pageNo == Integer.parseInt(currentShowPageNo)) {
 					// 현재 클릭한 페이지 넘버라면
-					pageBar += "&nbsp;<span style='color:red; border: solid 1px gray; padding: 2px 4px;'>"+pageNo+"</span>&nbsp;";
+					pageBar += "<a class='active'>"+pageNo+"</a>";
 				}
 				
 				else {
-					pageBar += "&nbsp;<a href='feedbackList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>"+pageNo+"</a>&nbsp;";
+					pageBar += "<a href='feedbackList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>"+pageNo+"</a>";
 				}
 				
 				pageNo++; // 1 2 3 4 5 6 7 8 9 10 11 12 ... 40 41 42
@@ -134,7 +134,7 @@ public class FeedbackListAction extends AbstractController {
 			
 			// *** [다음] 만들기 *** //
 			if( !(pageNo > totalPage) ) {
-				pageBar += "&nbsp;<a href='feedbackList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
+				pageBar += "<a href='feedbackList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>&raquo;</a>";
 			}
 	
 			

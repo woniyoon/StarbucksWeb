@@ -40,4 +40,11 @@ public abstract class AbstractController implements InterCommand {
 		}		
 	}
 	
+	
+	public MemberVO getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		return loginuser;
+	} 
 }

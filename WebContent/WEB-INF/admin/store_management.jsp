@@ -10,12 +10,12 @@
 	
 	div#pageBar {
 		text-align: center;
-		
+		margin: 10px auto;
 	}
 
 </style>
 
-<article>
+<article align="center">
 	<br/>
 	<h3>매장 목록</h3>
 	<table align="center" class="admin_table" id="member_table">
@@ -52,10 +52,8 @@
 			
 	</table>
 	
-	</br></br>
-		<div id="pageBar">
-			${pageBar}
-		</div>
-	</br></br>
+	<div class="pagination" id="pageBar" align="center">
+		${pageBar}
+	</div>
 </article>
 <%@ include file="tail.jsp" %>  

@@ -128,7 +128,6 @@ function remove_item(index, item_seq){
 		data: {"itemSeq": item_seq, "itemName" : deletedItemName},
 		dataType: "json",
 		success: function(json){			
-
 			if(json.result != 0) {
 				$("#card"+index).hide();				
 			}

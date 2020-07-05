@@ -95,14 +95,18 @@ public class AdminDAO implements InterAdminDAO {
 //						" order by "+ paraMap.get("filterCondition") +") m ) t"+
 //						" where m.rn between ? and ? ";
 
+			String order = "point".equalsIgnoreCase(paraMap.get("filterCondition"))?  "desc" : "asc";
+			
 			String sql = " select * from " + "( select rownum as rn, member_seq, userid, name, email,  hp1, hp2, hp3 "
 					+ "     , point, gender, Birthyyyy " + "     , Birthmm, Birthdd " + "     , register_day, status "
 					+ " from\n" + " (select rownum, member_seq, userid, name, email,  hp1, hp2, hp3 "
 					+ "     , point, gender,  substr(Birthday,1,4) AS Birthyyyy "
 					+ "     , substr(Birthday,5,2) AS Birthmm, substr(Birthday, 7) AS Birthdd "
 					+ "     , register_day, status  \n" + " from STARBUCKS_MEMBER " + " where userid != 'admin' "
-					+ " order by " + paraMap.get("filterCondition") + ") m ) t" + " where t.rn between ? and ? ";
+					+ " order by " + paraMap.get("filterCondition") + " " + order + ") m ) t" + " where t.rn between ? and ? ";
 
+			
+			
 			int memsPerPage = Integer.parseInt(paraMap.get("memsPerPage"));
 			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
 
@@ -153,7 +157,7 @@ public class AdminDAO implements InterAdminDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = " select count(*) from STARBUCKS_MEMBER ";
+			String sql = " select count(*) from STARBUCKS_MEMBER where userid != 'admin' ";
 
 			pstmt = conn.prepareStatement(sql);
 

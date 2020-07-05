@@ -249,7 +249,7 @@
 			</form>
 			</br></br>
 			${totalPage}
-			<div id="pageBar">
+			<div class="pagination" id="pageBar">
 				${pageBar}
 			</div>
 			</br></br>

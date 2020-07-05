@@ -79,7 +79,7 @@
 		<jsp:include page="progress_nav.jsp" />
 		
         <div id="confirmed_order" align="center">
-			<h1> 장바구니가 비어있습니다. </h1><br/>
+			<h1> 결제가 완료됐습니다 </h1><br/>
 			<h3> 음료준비는 약 5분이 소요됩니다. </h3>
 			<h3> 픽업 매장위치에서 만나요~ </h3>
 			<a id="go_main" href="/StarbucksWeb/index.sb">메인으로 돌아가기</a>

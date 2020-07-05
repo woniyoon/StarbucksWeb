@@ -7,7 +7,7 @@
 <script type="text/javascript" src="/StarbucksWeb/js/menu_management.js"></script>
 
 <article align="center">
-	<h3>메뉴 목록</h3>
+	<h3>메뉴 목록<span> (</span><span id="num_of_items"></span>개)</h3>
 	<table align="center" class="admin_table">
 		<tr>
 			<td id="option_td">
@@ -18,12 +18,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="menu_content_td">번호</td>
-<!-- 			<td class="menu_content_td">종류</td> -->
-			<td class="menu_content_td">카테고리</td>
-			<td class="menu_content_td">이름</td>
-			<td class="menu_content_td">설명</td>
-			<td class="menu_content_td">가격</td>
+			<th class="menu_content_td">번호</th>
+<!-- 			<th class="menu_content_td">종류</th> -->
+			<th class="menu_content_td">카테고리</th>
+			<th class="menu_content_td">이름</th>
+			<th class="menu_content_td">설명</th>
+			<th class="menu_content_td">가격</th>
 		</tr>
  		<tbody id="drink_tbody">
 		
@@ -39,7 +39,7 @@
 			</tr>
 		</c:forEach> --%>
 	</table>
- 	<div id="paging_container" align="center">
+ 	<div class="pagination" id="paging_container" align="center">
 		${pageBar}
 	</div>
 </article>

@@ -17,7 +17,9 @@
 </script>
 
 <nav id="sub_nav">
-	<a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a>
+	<a href="/StarbucksWeb/index.sb"><img src="/StarbucksWeb/images/bobae/home.jpg" alt="홈으로"/></a> > 
+	<a href="/StarbucksWeb/product/menu.sb">메뉴</a> > 
+	<a id="current_nav_menu"></a>
 </nav>
 <section>
 	<ul class="order_progress">
