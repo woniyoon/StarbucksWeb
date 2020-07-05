@@ -74,6 +74,14 @@ public class StoreManagementAction extends AbstractController {
 
 		// 전체 매장 정보 가져오기 메소드 생성
 		List<StoreVO> storeList = storeDAO.selectPagingStore(sMap);
+
+		for(StoreVO svo : storeList) {
+			int income = storeDAO.selectIncomeByStore(svo.getStore_id());
+			svo.setIncome(income);
+		}
+		
+//		List<StoreVO> incomeList = storeDAO.selectIncomeByStore(sMap);
+		
 		
 		request.setAttribute("storeList", storeList);
 		request.setAttribute("sizePerPage", sizePerPage);
