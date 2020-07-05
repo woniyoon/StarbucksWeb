@@ -43,8 +43,7 @@ public class NoticeListAction extends AbstractController {
 		System.out.println("~~~ searchWord : " + searchWord);
 		
 		if ( searchWord != null && !searchWord.trim().isEmpty() ) {
-			paraMap.put("searchWord", searchWord);
-			
+			paraMap.put("searchWord", searchWord);	
 		}
 
 		List<NoticeVO> noticeList = dao.selectOneNotice(paraMap);
@@ -74,7 +73,7 @@ public class NoticeListAction extends AbstractController {
 		
 		// *** [이전] 만들기 *** //
 		if( pageNo != 1 ) {
-			pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
+			pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[◀]</a>&nbsp;";
 		}
 		
 		while( !(loop > blockSize || pageNo > totalPage) ) {
@@ -94,7 +93,7 @@ public class NoticeListAction extends AbstractController {
 		
 		// *** [다음] 만들기 *** //
 		if( !(pageNo > totalPage) ) {
-			pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
+			pageBar += "&nbsp;<a href='noticeList.sb?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchWord="+searchWord+"'>[▶]</a>&nbsp;";
 		}
 
 		

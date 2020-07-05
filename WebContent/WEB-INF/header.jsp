@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	String ctxPath = request.getContextPath();
 	// ctxPath = /StarbucksWeb
@@ -28,7 +30,7 @@
 		height: 120px !important;
 		background-color: #f6f5ef !important;
 		border-bottom: 1px solid #e5e5e5 !important;
-		z-index: 1 !important; /* 헤더가 제일 앞으로 오도록 해줌  */
+		z-index: 1000 !important; /* 헤더가 제일 앞으로 오도록 해줌  */
 	} 
 	
 	div#header_1 {
@@ -84,6 +86,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		
+		
+		// console.log(loginuser);
+		
+		
+	});
+	
+	// 로그아웃 ----------------------------
+	function goLogOut() {
+		// 로그아웃 처리해주는 페이지로 이동
+		location.href="<%= request.getContextPath()%>/login/logout.sb";
+	}
+
+</script>
+
 </head>
 <body class="index">
 
@@ -97,11 +118,26 @@
 			<div id="header_2">
 				<nav class="nav_first index">
 					<ul class="index">
-						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN IN</a></li>
-						<li class="index"><a href="<%= ctxPath%>/register/memberRegister.sb"  class="index">SIGN OUT</a></li>						
-						<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
-						<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>
-						<li class="index"><a href="<%= ctxPath%>/notice/noticeList.sb"  class="index">MANAGER PAGE(임시)</a></li>
+					<c:choose>
+						<c:when test="${ empty (sessionScope.loginuser).userid }">
+							<li class="index"><a href="<%= ctxPath%>/login/loginIndex.sb"  class="index">SIGN IN</a></li>
+							
+							
+						</c:when>
+						<c:when test="${ not empty (sessionScope.loginuser).userid && (sessionScope.loginuser).userid != 'admin' }">
+							<li class="index"><a href="javascript:goLogOut()"  class="index">SIGN OUT</a></li>	
+							<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
+							<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>					
+						</c:when>
+						<c:when test="${ not empty (sessionScope.loginuser).userid && (sessionScope.loginuser).userid == 'admin'}">
+							<li class="index"><a href="javascript:goLogOut()" class="index">SIGN OUT</a></li>	
+							<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
+							<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>	
+							<li class="index"><a href="<%= ctxPath%>/adminPage.sb" class="index">MANAGER PAGE</a></li>
+						</c:when>
+					</c:choose> 
+						
+						
 					</ul>
 				</nav>
 				<nav class="nav_second index">

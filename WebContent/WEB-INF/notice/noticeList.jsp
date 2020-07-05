@@ -248,7 +248,6 @@
 			<div id="pageBar">
 				${pageBar}
 			</div>
-			</br></br>
 			
 			<div id="notice_button_wrap">
 				<p id="notice_button">

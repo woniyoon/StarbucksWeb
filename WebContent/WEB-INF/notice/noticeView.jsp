@@ -105,28 +105,34 @@
 	
 		$(".noticeNO").hide();
 		
-		
+	
 
 		// 윗글 보기 
 		$(".postNotice").click(function(){ 
 			
 			var notice_seq = $(this).prev().prev().text();
 			// alert(notice_seq);
-			var rno = $(this).prev().text();
-			rno = parseInt(rno);
+			 var rno = $(this).prev().text();
+			 rno = parseInt(rno);
 			// alert(rno);
 			// $(".postNotice").val("${postTitlemap.title}");
 			
 			// 만약 더이상 윗글이 없는 경우
-			if ( $(".postNotice").val() == "" ) {
-				// location.href="postNotice.sb?rno="+(rno+1);
-				$(".postNotice").text("글이 없습니다.");
-				$(this).removeClass("titlePointer");
+				/* if ( $(".postNotice").val() == "" ) {
+					// location.href="postNotice.sb?rno="+(rno+1);
+					$(".postNotice").text("글이 없습니다.");
+					$(this).removeClass("titlePointer");
+				}
+				else {
+					location.href="postNotice.sb?rno="+(rno+1);
+				}   */
+				
+				
+			// seq가 없는 경우 클릭 지우기
+			if ( $(".postNotice").val() == null ) {
+				$(this).removeClass('titlePointer');
 			}
-			else {
-				location.href="postNotice.sb?rno="+(rno+1);
-				 
-			} 
+			location.href="?notice_seq="+notice_seq;
 			
 
 		});
@@ -139,13 +145,10 @@
 			rno = parseInt(rno);
 			// alert(rno);
 			
-			location.href="postNotice.sb?rno="+(rno-1);
+			location.href="?notice_seq="+notice_seq;
 
 		});
-		
 
-		
-		
 		
 	});
 
@@ -224,19 +227,22 @@
 				</p>
 			</div>
 			
+			
+			
+			
 			<div>
 				<table>
 					<tr>
 						<th class="next_post th">윗글</th>
-						<td class="noticeNO" >${notice_seq}</td>
+						<td class="noticeNO" >${map.POSTNUM}</td>
 						<td class="noticeNO postrno" >${rno}</td>
-						<td class="next_post postNotice titlePointer">${postTitlemap.title}</td>
+						<td class="next_post postNotice titlePointer">${map.POSTTITLE}</td>
 					</tr>
 					<tr>
 						<th class="pre_post th">아랫글</th>
-						<td class="noticeNO" >${notice_seq}</td>
+						<td class="noticeNO" >${map.PRENUM}</td>
 						<td class="noticeNO prerno" >${rno}</td>
-						<td class="pre_post preNotice titlePointer">${preTitlemap.title}</td>
+						<td class="pre_post preNotice titlePointer">${map.PRETITLE}</td>
 					</tr>
 				</table>
 			</div>
