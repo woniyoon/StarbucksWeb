@@ -111,7 +111,7 @@
 		    font-weight: bold;
 		    color: #222222;
 		    text-align: center;
-		    padding: 17px 3px;
+		    padding: 10px 3px;
 		    border-top: 1px solid #333;
 		    border-bottom: 1px solid #333;
 		}
@@ -120,7 +120,7 @@
 			font-size: 14px;
 		    color: #666666;
 		    text-align: center;
-		    padding: 17px 0;
+		    padding: 10px 0;
 		    border-bottom: 1px solid #dddddd;
 		    line-height: 1.8;
 		}

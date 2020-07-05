@@ -7,11 +7,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-/* 	
+	
 	div#pageBar {
 		text-align: center;
-		
-	} */
+		margin: 10px auto;
+	}
 
 </style>
 
@@ -52,10 +52,8 @@
 			
 	</table>
 	
-	</br></br>
-		<div class="pagination" id="pageBar" align="center">
-			${pageBar}
-		</div>
-	</br></br>
+	<div class="pagination" id="pageBar" align="center">
+		${pageBar}
+	</div>
 </article>
 <%@ include file="tail.jsp" %>  
