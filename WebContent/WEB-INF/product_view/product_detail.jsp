@@ -664,10 +664,12 @@
 							</c:choose>	
                         </ul>
 					</div>
-				
-					<div class="allergy_triggers">
-						<p>알레르기 유발요인 : ${pvo.nutrition.allergyTriggers}</p>
-					</div>
+					${pvo.nutrition.allergyTriggers}
+					<c:if test="${not empty pvo.nutrition.allergyTriggers}">
+						<div class="allergy_triggers">
+							<p>알레르기 유발요인 : ${pvo.nutrition.allergyTriggers}</p>
+						</div>
+					</c:if>
 					</fieldset>
 				</form>
 			</div>	
