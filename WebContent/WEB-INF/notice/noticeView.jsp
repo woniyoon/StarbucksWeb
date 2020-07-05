@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <jsp:include page="../header.jsp" />
+ 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
 <style type="text/css">
 
@@ -222,9 +224,11 @@
 				<p id="notice_button">
 					<a href="noticeList.sb" class="notice_view">목록</a>
 				</p>
-				<p id="notice_button">
-					<a class="delete notice_view" onclick="deleteNotice();">삭제</a>
-				</p>
+				<c:if test="${(sessionScope.loginuser).userid == 'admin' }">
+					<p id="notice_button">
+						<a class="delete notice_view" onclick="deleteNotice();">삭제</a>
+					</p>
+				</c:if>
 			</div>
 			
 			
