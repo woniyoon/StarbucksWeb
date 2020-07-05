@@ -27,7 +27,7 @@ public class MyMenuAction extends AbstractController {
 		List<MenuVO> menuList = pdao.selectMyMenu(loginuser.getUserid());
 		//List<MenuVO> menuList = pdao.selectMyMenu("test");
 		
-//		System.out.println("menuList size  : " + menuList.size());
+		System.out.println("menuList size  : " + menuList.size());
 		
 		request.setAttribute("menuList", menuList);
 		

@@ -35,6 +35,7 @@ public interface InterMemberDAO {
 	// 회원탈퇴
 	int deleteMember(MemberVO membervo) throws SQLException;
 
-	
+	// 포인트 확인
+	int checkPoints(HashMap<String, String> paramap) throws SQLException;
 }
 

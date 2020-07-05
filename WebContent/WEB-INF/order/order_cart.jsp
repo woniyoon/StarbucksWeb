@@ -189,6 +189,22 @@
 		color: #fff;
 	}
 	
+	#empty_cart_container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 40vh;
+	}
+	
+	a#go_menu {
+		padding: 5px;
+		color: black;
+/* 		border-radius: 5px;
+		border: 1px solid grey; */
+	}
+	
+	
 	/* section 끝 */
 	#snackbar {
 		visibility: hidden;
@@ -249,17 +265,7 @@
 </head>
 
 <jsp:include page="../header.jsp" />
-
-<nav id="sub_nav">
-	<a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a>
-</nav>
-<section>
-	<ul class="order_progress">
-		<li id="shoppingCart"><span>커스텀</span></li>
-		<li id="storeLocation"><span>매장선택</span></li>
-		<li id="payment"><span>결제하기</span></li>
-		<li id="confirmed"><span>결제완료</span></li>
-	</ul>
+	<jsp:include page="progress_nav.jsp" />
 	<div class="items_container">
 		<c:set var="cart" value="${cart }"></c:set>
 		<c:if test="${fn:length(cart) > 0}">
@@ -379,8 +385,9 @@
 			</div>
 		</c:if>
 		<c:if test="${fn:length(cart) == 0}">
-			<div>
-				<h1> 장바구니가 비어있습니다. </h1>
+			<div id="empty_cart_container" align="center">
+				<h1> 장바구니가 비어있습니다. </h1><br/>
+				<a id="go_menu" href="/StarbucksWeb/product/menu.sb">메뉴 보러가기</a>
 			</div>
 		</c:if>
 	</div>

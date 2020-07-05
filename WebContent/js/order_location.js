@@ -2,15 +2,7 @@
 var store_id = "";    
 
 $(document).ready(function(){
-    var path = window.location.pathname;
-    var start_point = path.lastIndexOf("/")+1;
-    var current_state = path.substring(start_point, path.length-3);
-    console.log(current_state);
-
-    // 현재 진행중인 프로세스에 따라 상태옵션 색 변경
-    $("#"+current_state).css({"color": "white", "background-color": "#006633"})
-    $("#current_nav_menu").text($("li#"+current_state+" > span").text());
-    
+   
     var usesOwnLocation = confirm("현재 위치를 이용하겠습니까?");
     
     var coordinates = { // 디폴트 위치
@@ -26,17 +18,6 @@ $(document).ready(function(){
     
     var map = new kakao.maps.Map(container, options); 
     	
-    
-//    var rect = container.getBoundingClientRect();
-//    console.log("rect.right : " + rect.right);
-//    console.log("rect.bottom : " + rect.bottom);
-//    
-//    var height = $("div#test").css("height");
-//    var width = $("div#test").css("width");
-//        
-//    $("div#test").css({"z-index": 1000, "left": rect.right - 380 , "top": rect.bottom - 140 });
-
-    
 	var positionArr = [];
     
     $.ajax({ 
@@ -138,37 +119,18 @@ $(document).ready(function(){
 
 	}
 
-}); // end of $(document).ready() ----------------------------------------
-    
-//window.onresize = function(event) {
-//
-//	var map_container = document.getElementById("map_container");
-//	console.log(map_container);
-//    var rect = map_container.getBoundingClientRect();
-//    console.log("rect.right : " + rect.right);
-//    console.log("rect.bottom : " + rect.bottom);
-//    var height = $("div#option_viewer").css("height");
-//    var width = $("div#option_viewer").css("width");
-//    console.log(height);
-//    
-//    $("div#option_viewer").css({"left": rect.right - width , "top": rect.bottom - height});
-//    
-//    console.log("test");
-//};
-//  
+}); 
 
 
 function selectLocation(obj){
 	// 구매 매장 확정시 store_id를 전달하기 위해 숨겨진 form의 input에 저장
 	$("#store_id").prop("value", obj.id);
 	store_id = obj.id;
-//	console.log("선택한 매장의 아이디 : " + store_id);
-//	console.log($("input#store_name"+obj.id).prop("value"));
+
 	
 	// 지도 밑에 선택된 매장명을 보여줌
 	$("span#selected_store_name").text($("input#store_name"+store_id).prop("value"));
 	$("#selected_store_container").show();
-//	$("div#option_viewer").show();	
 }
     
     
@@ -200,5 +162,4 @@ function checkout(){
 	}
 	
 	
-	//javascript:location.href='order_payment.html
 }

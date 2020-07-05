@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String ctxPath = request.getContextPath();
+%>     
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -43,7 +47,7 @@
 		    margin: 30px auto;
 		    width: 100%;
 		    height: auto;
-		    padding-bottom: 3rem;
+		    padding-bottom: 1rem;
 		}
 		
 		#map_container {
@@ -168,8 +172,7 @@
 		
 		#selected_store_container {
 			margin: 60px auto;
-			border: 1px solid red;
-			font-size: 20pt;
+			font-size: 18pt;
 			display: none;
 		}
 		
@@ -228,6 +231,8 @@
 var store_id = "";    
 
 $(document).ready(function(){
+	$("#selected_store_container").show();
+	
     var path = window.location.pathname;
     var start_point = path.lastIndexOf("/")+1;
     var current_state = path.substring(start_point, path.length-3);
@@ -387,12 +392,23 @@ $(document).ready(function(){
 function selectLocation(obj){
 	// 구매 매장 확정시 store_id를 전달하기 위해 전역변수에 저장
 	store_id = obj.id;
-	console.log("선택한 매장의 아이디 : " + store_id);
-	console.log($("input#store_name"+obj.id).prop("value"));
+//	console.log("선택한 매장의 아이디 : " + store_id);
+//	console.log($("input#store_name"+obj.id).prop("value"));
 	
+	//자식창에 입력된 값을 가져온 다음 opener를 이용해 부모창에 있는 특정 element에 값을 담기
+	//opener.document.getElementById("pInput").value = $("input#store_name"+store_id).prop("value");
+	opener.document.getElementById("selectChain").innerText = $("input#store_name"+store_id).prop("value");
+	opener.document.getElementById("store_id").value = obj.id;
+	
+	//alert(opener.document.getElementById("selectChain").innerText);
+	//console.log("?????");
+	//opener.document.getElementById("selectChain").value = $("input#store_name"+store_id).prop("value");
+	
+	opener.document.getElementById("pickStore").style.display = "contents";
+	window.close();
 	// 지도 밑에 선택된 매장명을 보여줌
-	$("span#selected_store_name").text($("input#store_name"+store_id).prop("value"));
-	$("#selected_store_container").show();
+	//$("span#selected_store_name").text($("input#store_name"+store_id).prop("value"));
+	
 //	$("div#option_viewer").show();	
 }
     
@@ -435,7 +451,7 @@ function makeOverListener(map, marker, infowindow, infowindowArr) {
 	        <div id="map"></div>
         </div>
 <!--         <div id="option_viewer"><label>선택된 매장 : </label><br><span id="selected_store_name"></span></div>  -->
-        <div id="selected_store_container" align="center"><label>선택된 매장 : </label><span id="selected_store_name"></span></div>
+        <div id="selected_store_container" align="center"><label>방문하신 매장을 선택해주세요. </label><span id="selected_store_name"></span></div>
         <%-- <div align="center">
             <button class="move_button" onclick="history.back()">뒤로</button>
             <button class="move_button" id="next" onclick="javascript:location.href='order_payment.html'">다음</button>

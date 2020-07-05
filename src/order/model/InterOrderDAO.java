@@ -30,4 +30,26 @@ public interface InterOrderDAO {
 
 	// 커스텀 옵션과 최종가격을 업데이트
 	int updateShoppingCart(HashMap<String, String> paraMap) throws SQLException;
+
+	// 커스텀&최종가격이 업데이트 된 카트를 가져오기
+	List<ShoppingCartVO> getCartWithCustoms(HashMap<String, String> paramap) throws SQLException;
+
+	// 매장 이름 가져오기
+	String getStoreName(HashMap<String, String> paramap) throws SQLException;
+	
+	// 결제후 DB 업데이트
+	boolean updateConfirmedPurchase(Map<String, Object> paraMap) throws SQLException;
+	
+	// 전표 업데이트
+	int insertSlip(SlipVO slip) throws SQLException;
+
+	// 구매상세 업데이트
+	int insertPurchaseDetail(List<PurchaseDetailVO> pdvoList) throws SQLException;
+	
+	// 적립금 업데이트
+	int updateMyPoint(Map<String, Object> paramap)  throws SQLException;
+	
+	// 장바구니 업데이트
+	int deleteCart(Map<String, Object> paramap) throws SQLException;
+
 }

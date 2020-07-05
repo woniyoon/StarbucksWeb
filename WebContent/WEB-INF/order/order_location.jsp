@@ -34,7 +34,6 @@
 		ul.order_progress {
 		    display: table;
 		    margin: 0 auto;
-		    /* justify-content: center; */
 		    padding-inline-start: 0px;
 		}
 		
@@ -55,77 +54,10 @@
 		}
 		
 		#search_section {
-		    /* border: 5px solid red; */
 		    flex: 1;
 		    display: flex;
 		    flex-direction: column;
 		}
-		
-		/* #search_bar {
-			flex: 1;
-		    height: 50px;
-		    box-sizing: content-box;
-		    width: -webkit-fill-available;
-		    padding: 0;
-		    background-image: url("https://img.icons8.com/material-outlined/24/000000/search.png");
-		    background-repeat: no-repeat;
-		    background-position: right;
-		}
-		
-		#store_locations {
-			flex: 7;
-		    width: -webkit-fill-available;
-		    height: 100%;
-		    border: 2px solid purple;
-		    list-style-type: none;
-		    padding: 0;
-		    border-collapse: collapse;
-		    overflow-y: auto;
-		}
-		
-		table, tr, th, td, thead, tbody {
-		    border-collapse: collapse;
-		   	width: -webkit-fill-available;
-		}
-		
-		#store_locations th { 
-		    position: sticky; top: 0;
-		    background-color: rgb(179, 179, 179);
-		    height: 3em;
-		}
-		
-		#store_locations td {
-		    height: 4em;
-		    padding: 10px;
-		    border: 1px solid grey;
-		} */
-		
-		/* .store_row {
-			display: flex;
-			flex-direction: row;
-			cursor: pointer;
-		}
-		
-		.store_detail {
-			flex: 7;
-			display: flex;
-			flex-direction: column;
-		}
-		
-		.store_detail > strong {
-			font-size: 14pt;
-			font-weight: bold;
-			padding: 0 0 5px 0;
-		}
-		
-		.store_row > img {
-			max-width: 100%;
-		} */
-		
-/* 		#map_section {
-		    border: 5px solid #006633;
-		    flex: 1;
-		} */
 		
 		#map {
 		    flex: 1;
@@ -167,22 +99,11 @@
 		}
 		
 		#selected_store_container {
-			margin: 60px auto;
-			border: 1px solid red;
+			margin: auto 0;
 			font-size: 20pt;
 			display: none;
 		}
 		
-/* 		#option_viewer {
-			position: fixed;
-			height: 10%;
-			width: 15%;
-			border-radius: 10px;
-			background-color: #006633;
-			color: white;
-			display: none;
-		}
-		 */
 		
 		/* 페이지 이동 버튼 */
 		
@@ -228,20 +149,16 @@
     
 	<jsp:include page="../header.jsp" />   
     
-    <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-    
-    <section>
-        <ul class="order_progress">
-            <li id="shoppingCart"><span>커스텀</span></li>
-            <li id="storeLocation"><span>매장선택</span></li>
-            <li id="payment"><span>결제하기</span></li>
-            <li id="confirmed"><span>결제완료</span></li>
-        </ul>
+	<jsp:include page="progress_nav.jsp" />
+	
         <div id="map_container" align="center">
 	        <div id="map"></div>
         </div>
-<!--         <div id="option_viewer"><label>선택된 매장 : </label><br><span id="selected_store_name"></span></div> -->
-        <div id="selected_store_container" align="center"><label>선택된 매장 : </label><span id="selected_store_name"></span></div>
+        <div style="height: 10vh" align="center">
+        	<div id="selected_store_container">
+        		<label>선택된 매장 : </label><span id="selected_store_name"></span>
+        	</div>
+        </div>
         <form name="loc_form"><input id="store_id" name="store_id" type="hidden" /></form>
         <div align="center">
             <button class="move_button" onclick="history.back()">뒤로</button>
