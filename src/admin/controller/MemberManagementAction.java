@@ -96,11 +96,10 @@ public class MemberManagementAction extends AbstractController {
 		  pageBar += "&nbsp;<a href='memberManagement.sb?currentShowPageNo="+(pageNo-1)+"&filterCondition="+filterCondition+"'>[이전]</a>&nbsp;";		  		  
 		}
 		
-
 		while(!(loop > blockSize || pageNo > totalPage)) {
 			  
 			if(pageNo == Integer.parseInt(currentShowPageNo)) {
-				pageBar += "&nbsp;<span style='color: red; border: solid 1px grey; padding: 2px 4px'>" + pageNo + "</span>&nbsp;";			  
+				pageBar += "&nbsp;<a class='active'>" + pageNo + "</a>&nbsp;";			  
 			} else {			  
 				pageBar += "&nbsp;<a href='memberManagement.sb?currentShowPageNo="+pageNo+"&filterCondition="+filterCondition+"'>"+pageNo+"</a>&nbsp;";
 			}

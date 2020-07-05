@@ -70,7 +70,7 @@
 			margin: 20px 0 0 0;
 		}
 		
-		a {
+		.navbar a {
 		    font-weight: bold;
 		    font-size: 18px;
 		    color: #555;
@@ -98,6 +98,7 @@
         }
         
         .admin_table {
+        	margin-top: 20px;
         	border-collapse: collapse;
         }
         
@@ -136,6 +137,28 @@
         #paging_container {
         	margin: 10px;
         }
+        
+        .pagination {
+		  	display: inline-block;
+		}
+		
+		.pagination a {
+		  	color: black;
+		  	float: left;
+		  	padding: 4px 8px;
+		 	text-decoration: none;
+		}
+		
+		.pagination a.active {
+		  	background-color: #4CAF50;
+		  	color: white;
+		  	border-radius: 5px;
+		}
+		
+		.pagination a:hover:not(.active) {
+		  	background-color: #ddd;
+		  	border-radius: 5px;
+		}
         
     </style>
 </head>

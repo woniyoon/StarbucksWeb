@@ -81,7 +81,7 @@ public class MenuListAction extends AbstractController {
 		while(!(loop > blockSize || pageNo > totalPage)) {
 			  
 			if(pageNo == Integer.parseInt(currentShowPageNo)) {
-				pageBar += "&nbsp;<span style='color: red; font-weight: bold; border: solid 1px grey; padding: 2px 4px'>" + pageNo + "</span>&nbsp;";			  
+				pageBar += "&nbsp;<a class='active'>" + pageNo + "</a>&nbsp;";			  
 			} else {			  
 				pageBar += "&nbsp;<a href='javascript:getMenuList("+pageNo+")'>"+pageNo+"</a>&nbsp;";
 			}

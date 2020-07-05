@@ -6,15 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-	
+/* 	
 	div#pageBar {
 		text-align: center;
 		
-	}
+	} */
 
 </style>
 
-<article>
+<article align="center">
 	<h3>매장 목록</h3>
 	<table align="center" class="admin_table" id="member_table">
 		<tr>
@@ -46,7 +46,7 @@
 	</table>
 	
 	</br></br>
-		<div id="pageBar">
+		<div class="pagination" id="pageBar" align="center">
 			${pageBar}
 		</div>
 	</br></br>

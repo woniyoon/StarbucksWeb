@@ -170,7 +170,7 @@ public class StoreManagementAction extends AbstractController {
 			
 			if(pageNo == Integer.parseInt(currentShowPageNo)) {
 				// 현재 클릭한 페이지 넘버라면
-				pageBar += "&nbsp;<span style='color:red; border: solid 1px gray; padding: 2px 4px;'>"+pageNo+"</span>&nbsp;";
+				pageBar += "&nbsp;<a class='active'>"+pageNo+"</a>&nbsp;";
 			}
 			
 			else {
