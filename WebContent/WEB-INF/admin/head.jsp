@@ -25,7 +25,7 @@
 		    align-items: center;
 		    padding: 10px;
 		    width: 100vw;
-		    background-color: white;
+		    background-color: #f6f5ef;
 		    box-shadow: 1px 1px 1px 0 #b6b6b65a, 0 1px 1px 0 rgba(155, 155, 155, 0.337);
 		    transition: 0.2s;
 		    box-sizing: border-box;
@@ -72,14 +72,29 @@
 		
 		a {
 		    font-weight: bold;
-		    line-height: 3rem;
 		    font-size: 18px;
+		    color: #555;
+		    text-decoration: none;
 		}
 		
+		a:visited { 
+			color: #555;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+		
+		a.side_menu_item {
+			line-height: 3rem;
+		}
+
         .navbar {
             display: flex;
             justify-content: center;
             align-content: space-between;
+            margin: 30px 0;
         }
         
         .admin_table {
@@ -126,7 +141,9 @@
 </head>
 <body>
     <header>
-		<img id="logo" src="<%= ctxPath%>/images/nari/starbucslogo.png" width="75px" height="75px"/> 
+		<a href="<%= ctxPath%>/index.sb">
+			<img id="logo" src="<%= ctxPath%>/images/nari/starbucslogo.png" width="75px" height="75px"/>
+		</a> 
         <ul class="nav_menu">
             <li><a href="<%= ctxPath%>/index.sb">공식홈페이지</a></li>
             <li><a href="<%= ctxPath%>/login/logout.sb">로그아웃</a></li>
@@ -135,7 +152,6 @@
     </header>
     <section>
         <aside>
-            <h2>관리자 페이지</h2>
             <div class="navbar">
                 <table>
                     <tr>
