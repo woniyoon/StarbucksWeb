@@ -10,7 +10,7 @@ public class AdminPageAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		super.setViewPage("/WEB-INF/admin/dashboard.jsp");
+		super.setViewPage("/WEB-INF/admin/store_management.jsp");
 
 	}
 
