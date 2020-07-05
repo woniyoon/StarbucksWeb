@@ -10,6 +10,7 @@ public class StoreVO {
 	private double latitude;
 	private double longitude;
 	private int zindex;
+	private int income = 0;
 
 	public String getStore_id() {
 		return store_id;
@@ -75,6 +76,12 @@ public class StoreVO {
 		this.zindex = zindex;
 	}
 	
+	public int getIncome() {
+		return income;
+	}
 	
+	public void setIncome(int income) {
+		this.income = income;
+	}
 
 }
