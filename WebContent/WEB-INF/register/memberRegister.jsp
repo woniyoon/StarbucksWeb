@@ -787,7 +787,7 @@
 						<label style="margin-left: 10px; padding-top:15px; font-weight: bold;" for="agree">이용약관 동의</label><input type="checkbox" name="agree" id="agree" /><label for="agree"></label>&nbsp;
 					</li>
 					<li>
-						<iframe src="iframeAgree/agree.html" width="500px;" height="170px;" style="border: solid 1px navy; margin: 20px 10px;"></iframe>
+						<iframe src="/StarbucksWeb/html/agree.html" width="500px;" height="170px;" style="border: solid 1px navy; margin: 20px 10px;"></iframe>
 					</li>
 				</ul>
 			</div>
