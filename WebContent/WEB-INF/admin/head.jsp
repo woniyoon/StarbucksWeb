@@ -17,7 +17,6 @@
 		    width: 100vw;
 		    margin: 0 auto;
 		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		    border: 1px solid pink;
 		}
 		
 		header {
