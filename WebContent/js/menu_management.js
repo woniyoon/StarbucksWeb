@@ -16,10 +16,9 @@ function getMenuList(current_page){
 			var page_bar = "";
 			
 			$.each(json, function(index, item) {
-				console.log(item);
 				
 			    html += "<tr> " +
-			    			"<td class='menu_content_td'>"+(index+1)+"</td> " +
+			    			"<td class='menu_content_td'>"+ Number(((current_page-1) * 10)+(index+1))+"</td> " +
 //			    			"<td class='menu_content_td'>"+item.parentTable+"</td>" +
 			    			"<td class='menu_content_td'>"+item.categoryID+"</td>" +
 			    			"<td class='menu_content_td'>"+item.name+"</td>" +
