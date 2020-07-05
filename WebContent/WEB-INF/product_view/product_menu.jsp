@@ -224,7 +224,7 @@ $(window).ready(function(){
 	
 		
 		// 음료 카테고리 내 작은 버튼 눌렀을 때
-		$("#category_btn_container_mini").click(function(event){
+		$(".button_bogi").click(function(event){
 			
 			var $target = $(event.target);
 			if ($target.prop("id")=="view_photo_btn"){
@@ -272,7 +272,7 @@ $(window).ready(function(){
 		$(".coffee_category").hide();
 		
 		// 푸드 카테고리 내 작은 버튼 눌렀을 때
-		$("#category_btn_container_mini").click(function(event){
+		$(".button_bogi").click(function(event){
 			
 			var $target = $(event.target);
 			if ($target.prop("id")=="view_photo_btn"){
