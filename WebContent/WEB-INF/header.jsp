@@ -73,8 +73,22 @@
 		color: #555 !important;
 	}
 	
-	a.index {
+	/* a.index {
 		text-decoration: none !important;
+	}
+	 */
+	header.index a {
+		color: #555;
+	    text-decoration: none;
+	}
+		
+	header.index a:visited { 
+		color: #555;
+		text-decoration: none;
+	}
+
+	header.index a:hover {
+		text-decoration: underline;
 	}
 </style>
 
