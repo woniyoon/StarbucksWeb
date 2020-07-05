@@ -7,7 +7,7 @@
 <script type="text/javascript" src="/StarbucksWeb/js/menu_management.js"></script>
 
 <article align="center">
-	<h3>메뉴 목록</h3>
+	<h3>메뉴 목록<span> (</span><span id="num_of_items"></span>개)</h3>
 	<table align="center" class="admin_table">
 		<tr>
 			<td id="option_td">
@@ -38,11 +38,6 @@
 				<td>${pvo.price }</td>
 			</tr>
 		</c:forEach> --%>
-		<tfoot>
-			<td colspan="5" align="right">
-				<span>총 메뉴 개수 : </span><span id="num_of_items"></span>
-			</td>
-		</tfoot>
 	</table>
  	<div id="paging_container" align="center">
 		${pageBar}
