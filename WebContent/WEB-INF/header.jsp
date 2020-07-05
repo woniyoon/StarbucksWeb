@@ -133,7 +133,7 @@
 							<li class="index"><a href="javascript:goLogOut()" class="index">SIGN OUT</a></li>	
 							<li class="index"><a href="<%= ctxPath%>/order/shoppingCart.sb"  class="index">SHOPPING CART</a></li>
 							<li class="index"><a href="<%= ctxPath%>/member/myPage.sb"  class="index">MY STARBUCKS</a></li>	
-							<li class="index"><a href="<%= ctxPath%>/adminPage.sb" class="index">MANAGER PAGE</a></li>
+							<li class="index"><a href="<%= ctxPath%>/admin/storeManagement.sb" class="index">MANAGER PAGE</a></li>
 						</c:when>
 					</c:choose> 
 						
