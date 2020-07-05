@@ -115,6 +115,7 @@ public class MenuListAction extends AbstractController {
 //			obj.put("totalPage", totalPage);
 //			obj.put("pageNo", pageNo);
 			obj.put("pageBar", pageBar);
+			obj.put("numOfItems", numOfItems);
 			
 			json.put(obj);
 		}

@@ -38,6 +38,11 @@
 				<td>${pvo.price }</td>
 			</tr>
 		</c:forEach> --%>
+		<tfoot>
+			<td colspan="5" align="right">
+				<span>총 메뉴 개수 : </span><span id="num_of_items"></span>
+			</td>
+		</tfoot>
 	</table>
  	<div id="paging_container" align="center">
 		${pageBar}

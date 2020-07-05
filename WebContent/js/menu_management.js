@@ -29,6 +29,10 @@ function getMenuList(current_page){
 			    
 			    page_bar = item.pageBar;
 			    
+			    if(index == 0) {
+			    	$("#num_of_items").prop("textContent", item.numOfItems);
+			    }
+			    
 			});
 			
 			$("#drink_tbody").html(html);
