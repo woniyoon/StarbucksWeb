@@ -44,7 +44,7 @@ public class IdFindAction extends AbstractController {
 				else {
 					
 					System.out.println(paraMap.get("name")); //주혜정
-					System.out.println(paraMap.get("ph1")); // null
+					System.out.println(paraMap.get("hp1")); // null
 					
 					String message = "존재하지 않는 사용자 정보입니다. ";
 					String loc = "javascript:history.back()";
