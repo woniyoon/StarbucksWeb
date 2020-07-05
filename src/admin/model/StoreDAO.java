@@ -32,7 +32,8 @@ public class StoreDAO implements InterStoreDAO {
 			aes = new AES256(key);
 		} catch (NamingException e) {
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} 
+		catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}	
 	}
@@ -131,10 +132,40 @@ public class StoreDAO implements InterStoreDAO {
 		
 		return totalPage;
 	}
+
+	
+	// 매장 매출액 알아오기 (select)
+	@Override
+	public int selectIncomeByStore(String store_id) throws SQLException {
+		//List<StoreVO> incomeList = new ArrayList<StoreVO>();
+		int income =0;
+		
+		try {
+			conn = ds.getConnection();
+						
+			String sql = " select sum(price) from purchase_detail where store_id = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, store_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				income = rs.getInt(1);
+			}
+			
+			
+		} finally {
+			close();
+		}
+		
+		return income;
+	}
 	
 	
 	
-	// 페이징 처리를 위한 전체매장에 대한 총 페이지개수 알아오기(select)
+	
 
 
 
