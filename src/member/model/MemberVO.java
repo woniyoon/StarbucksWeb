@@ -1,5 +1,7 @@
 package member.model;
 
+import java.util.*;
+
 public class MemberVO {
 
 	private int Member_seq;       // 회원번호(시퀀스로 데이터가 들어온다)
@@ -164,6 +166,13 @@ public class MemberVO {
 	
 	public String getPhone() {
 		return this.hp1+"-"+this.hp2+"-"+this.hp3;
+	}
+	
+	public int getAge() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		
+		return calendar.get(Calendar.YEAR) - Integer.parseInt(this.Birthyyyy) + 1;
 	}
 
 }	

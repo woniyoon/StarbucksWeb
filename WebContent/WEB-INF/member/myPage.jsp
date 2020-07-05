@@ -215,6 +215,10 @@
 		cursor: pointer;
 	}
 	
+	ul.index {
+		margin-top: 13.333px;	
+	}
+	
 </style>
 
 <script type="text/javascript">
