@@ -161,8 +161,8 @@
         </div>
         <form name="loc_form"><input id="store_id" name="store_id" type="hidden" /></form>
         <div align="center">
-            <button class="move_button" onclick="history.back()">뒤로</button>
-            <button class="move_button" id="next" onclick="checkout()">다음</button>
+            <button type="button" class="move_button" onclick="history.back()">뒤로</button>
+            <button type="button" class="move_button" id="next" onclick="checkout()">다음</button>
         </div>
     </section>
    

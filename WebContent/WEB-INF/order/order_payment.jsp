@@ -193,8 +193,8 @@
 	            <input type="hidden" name="slip_no" />
             </form>
             <div>
-                <button class="move_button" onclick="history.back()">뒤로</button>
-                <button class="move_button" id="next" onclick="goToPay()">결제</button>
+                <button type="button" class="move_button" onclick="history.back()">뒤로</button>
+                <button type="button" class="move_button" id="next" onclick="goToPay()">결제</button>
             </div>
         </div>
     </section>

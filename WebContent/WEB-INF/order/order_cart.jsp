@@ -273,7 +273,7 @@
 				<form class="order_form" id="${cart.itemSeq }">
 				<div id="card${status.index}" class="card">
 					<p>
-						<button class="remove_button" id="${status.index}"
+						<button type="button" class="remove_button" id="${status.index}"
 							onclick="remove_item(this.id, '${cart.itemSeq}')">×</button>
 						<input type="hidden" id="name${status.index }"
 							value="${cart.product.name}" />
@@ -380,8 +380,8 @@
 			<form name="form_checkout" id="form_checkout">
 			</form>
 			<div align="center">
-				<button class="move_button">뒤로</button>
-				<button class="move_button" id="next" onclick="checkout()">다음</button>
+				<button type="button" class="move_button" onclick="history.back()">뒤로</button>
+				<button type="button" class="move_button" id="next" onclick="checkout()">다음</button>
 			</div>
 		</c:if>
 		<c:if test="${fn:length(cart) == 0}">
