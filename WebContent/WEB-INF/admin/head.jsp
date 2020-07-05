@@ -129,7 +129,7 @@
 		<img id="logo" src="<%= ctxPath%>/images/nari/starbucslogo.png" width="75px" height="75px"/> 
         <ul class="nav_menu">
             <li><a href="<%= ctxPath%>/index.sb">공식홈페이지</a></li>
-            <li><a>로그아웃</a></li>
+            <li><a href="<%= ctxPath%>/login/logout.sb">로그아웃</a></li>
             <li><a></a></li>
         </ul>
     </header>
