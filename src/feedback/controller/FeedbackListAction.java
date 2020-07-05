@@ -42,9 +42,7 @@ public class FeedbackListAction extends AbstractController {
 
 		}
 		else {
-			
-			
-			
+
 			String userid = ((MemberVO)session.getAttribute("loginuser")).getUserid();
 			request.setAttribute("userid", userid);
 			
@@ -91,6 +89,8 @@ public class FeedbackListAction extends AbstractController {
 				request.setAttribute("sizePerPage", sizePerPage);
 				request.setAttribute("userid", userid);
 			}
+			
+			paraMap.put("searchWord", searchWord);
 			
 			// 페이징 처리를 위한 공지사항에 대한 총 페이지개수 알아오기(select) --------------------------------
 			int totalPage = dao.getTotalPage(paraMap);

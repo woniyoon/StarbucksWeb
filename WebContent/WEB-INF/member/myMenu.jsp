@@ -150,6 +150,10 @@
 		cursor: pointer;
 	}
 	
+	ul.index {
+		margin-top: 13.333px;	
+	}
+	
 </style>
 
 <script type="text/javascript" src="/JqueryStudy/js/jquery-3.3.1.min.js"></script>

@@ -3,7 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
         
-<jsp:include page="header.jsp" /> 
+<jsp:include page="../header.jsp" /> 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -157,15 +157,14 @@
 		border: solid 1px #ddd;
 		color: #666;
 		padding: 10px 5px 10px 5px;
+		font-size: 17px;
 	}
 	
-	#box6 ul {
+	.infoOut ul {
 		padding-left: 10px;
-		font-size: 12pt;
-		/* border: solid 1px pink;  */
 	}
 	
-	#box6 li {
+	.infoOut li {
 		margin-bottom: 10px;
 	}
 	
@@ -200,6 +199,10 @@
 	
 	.panel-heading {
 		cursor: pointer;
+	}
+	
+	ul.index {
+		margin-top: 13.333px;	
 	}
 	
 </style>
@@ -280,7 +283,7 @@ function goEditInfo(name) {
 </head>
 <body>
 <div id="container">
-     <header>
+
      	<div id="box1"></div>
      	<div id="box2">
      		<img src="../images/jiwon/coffeeBeans.jpg">
@@ -288,7 +291,6 @@ function goEditInfo(name) {
 			 회원탈퇴
 			</div>
      	</div>
-     </header>
      
      <nav>
      	<div id="con1">
@@ -343,7 +345,7 @@ function goEditInfo(name) {
      	<div id="con2">
      		<p id="box5">마이 스타벅스 리워드 서비스 해지 시 유의사항</p>
      		<div id="box6">
-     			<ul>
+     			<ul class="infoOut">
      				<li>회원 탈퇴 시에는 고객님의 개인정보 및 등록하신 스타벅스 카드의 정보가 모두 삭제되어, 더 이상 MSR 혜택을 받으실 수 없습니다.</li>
      				<li>회원탈퇴에 의해 등록 해지된 일반 스타벅스 카드는 재등록을 하지 않은 상태에서도 스타벅스에서 정상적으로 이용이 가능하지만, 별의 지급, 분실, 분실신고 시 잔액보장 등의 다양한 MSR 혜택은 더 이상 누리실 수 없게 됩니다.</li>
      				<li>정상 이용하셨던 일반 스타벅스 카드는 탈퇴와 함께 자동 해지되어 회원 재가입 후 본인 또는 다른 사용자에 의해 다시 등록될 수 있지만 이전에 사용하셨던 거래정보는 확인하실 수 없습니다.</li>
@@ -373,4 +375,4 @@ function goEditInfo(name) {
     
 </div>
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="../footer.jsp" />
