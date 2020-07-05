@@ -331,6 +331,7 @@ public class FeedbackDAO implements InterFeedbackDAO{
 		public int getTotalPage(HashMap<String, String> paraMap) throws SQLException {
 
 			int totalPage = 0;
+			String searchWord = paraMap.get("searchWord");
 			
 			try {
 				conn = ds.getConnection();
@@ -338,7 +339,15 @@ public class FeedbackDAO implements InterFeedbackDAO{
 				String sql = " select ceil(count(*)/10) AS totalPage " +
 							 " from feedback_post ";
 				
+				if (searchWord != null && !searchWord.trim().isEmpty()) { // 검색어가 있는 경우
+					sql += " where title like '%' || ? || '%' ";
+				}
+				
 				pstmt = conn.prepareStatement(sql);
+				
+				if (searchWord != null && !searchWord.trim().isEmpty()) { // 검색어가 있는 경우
+					pstmt.setInt( 1, Integer.parseInt(paraMap.get("sizePerPage")) );
+				}
 				
 				rs = pstmt.executeQuery();
 				
