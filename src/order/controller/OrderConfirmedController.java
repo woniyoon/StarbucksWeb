@@ -11,19 +11,19 @@ public class OrderConfirmedController extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("OrderConfirmedController가 실행중입니다.");
 	
-		if(super.checkLogin(request) || request.getParameter("item_seq") == null) {
-			
-			String message = "먼저 로그인 해야 가능합니다.";
-			String loc = "javascript:history.back()";
-			
-			request.setAttribute("message", message);
-			request.setAttribute("loc", loc);
-			
-			super.setRedirect(false);
-			super.setViewPage("/WEB-INF/msg.jsp");
-			
-			return;
-		}
+//		if(!super.checkLogin(request)) {
+//			
+//			String message = "먼저 로그인 해야 가능합니다.";
+//			String loc = "javascript:history.back()";
+//			
+//			request.setAttribute("message", message);
+//			request.setAttribute("loc", loc);
+//			
+//			super.setRedirect(false);
+//			super.setViewPage("/WEB-INF/msg.jsp");
+//			
+//			return;
+//		}
 		
 		request.getParameter("item_seq");
 		request.getParameter("product_id");

@@ -652,6 +652,7 @@
                                 </dl>
                             </li>
                             <c:choose>
+	                   
 	                            <c:when test="${pvo.parentTable eq 'drink'}">
 									<li class="caffein">
 		                                <dl>
@@ -664,7 +665,6 @@
 							</c:choose>	
                         </ul>
 					</div>
-					${pvo.nutrition.allergyTriggers}
 					<c:if test="${not empty pvo.nutrition.allergyTriggers}">
 						<div class="allergy_triggers">
 							<p>알레르기 유발요인 : ${pvo.nutrition.allergyTriggers}</p>
