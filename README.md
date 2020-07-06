@@ -7,7 +7,8 @@
 - [팀소개](#팀소개)
 - [프로젝트 간단 소개](#프로젝트-간단-소개)
 - [스킬셋](#개발에-사용한-툴)
-
+- [ERD/UML](#ERD-UML)
+- [NOT NULL팀의 코딩 스타일 가이드라인](#코드-스타일-가이드)
 
 ___
 
@@ -30,13 +31,31 @@ ___
 
 ### 협업툴<br>
 <img alt="slack" src="https://user-images.githubusercontent.com/33106403/86535261-145e4a00-bf1a-11ea-8e21-f94ac33f8a11.png"  width=100 height=100><img alt="trello" src="https://user-images.githubusercontent.com/33106403/86535263-17593a80-bf1a-11ea-9441-1c1a45ebdd0a.png"  width=100 height=100>
-
+<br><br>
 ### 프론트엔드<br>
 <img alt="html/css/js" src="https://user-images.githubusercontent.com/33106403/86535266-188a6780-bf1a-11ea-814c-2868c8226c3e.png"  width=350 height=100>
-
+<br><br>
 ### 백엔드<br>
 <img alt="java" src="https://user-images.githubusercontent.com/33106403/86535267-1922fe00-bf1a-11ea-9dd4-5517332bb88c.png"  width=150 height=150> <img alt="oracle" src="https://user-images.githubusercontent.com/33106403/86535265-188a6780-bf1a-11ea-8093-fbd1582fc04d.png"  width=200 height=160>
 
 
 <br><br><br>
 
+
+# ERD-UML
+
+### ERD
+<img alt="starbucks_web_erd" src="https://user-images.githubusercontent.com/33106403/86535291-440d5200-bf1a-11ea-88ce-00ac4f162b0b.png"> 
+<br><br><br>
+
+### UML
+<img alt="starbucks_web_uml" src="https://user-images.githubusercontent.com/33106403/86535294-4a9bc980-bf1a-11ea-814c-c243bbec7e0f.jpeg">
+<br><br><br>
+
+
+# 코드 스타일 가이드 
+[WIP]
+팀프로젝트를 진행하기에 앞서, 코딩 스타일에 대해서 생각해봤습니다. 각자 다른 코딩 스타일을 
+깃허브를 사용하면서 최소 1번은 충돌은 난 적 있어도, 한 번도 나지 않은 적은 없다! 
+<br><br><br>
+[보러가기](/coding_convention.md)
