@@ -16,15 +16,7 @@ var dictionary = {"size=tall": "톨 사이즈", "size=grande": "그란데 사이
 var price_list = {};
 
 $(document).ready(function(){
-    var path = window.location.pathname;
-    var start_point = path.lastIndexOf("/")+1;
-    var current_state = path.substring(start_point, path.length-3);
-    console.log(current_state);
-    
-    // 현재 위치한 페이지에 해당하는 nav_menu 항목의 컬러만 변경
-    $("#"+current_state).css({"color": "white", "background-color": "#006633", "border-color": "#006633"})
-    $("#current_nav_menu").text($("li#"+current_state+" > span").text());
-
+	
     // 커스텀 가격표를 가져옴
     $.ajax({
 		url: "/StarbucksWeb/order/sumExtraCustom.sb",
@@ -136,7 +128,6 @@ function remove_item(index, item_seq){
 		data: {"itemSeq": item_seq, "itemName" : deletedItemName},
 		dataType: "json",
 		success: function(json){			
-
 			if(json.result != 0) {
 				$("#card"+index).hide();				
 			}

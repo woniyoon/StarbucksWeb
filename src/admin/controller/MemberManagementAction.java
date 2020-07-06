@@ -13,6 +13,36 @@ public class MemberManagementAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		
+		if(!checkLogin(request)) {
+			
+			String message = "먼저 로그인 해야 가능합니다.";
+			String loc = "javascript:history.back()";
+			
+			request.setAttribute("message", message);
+			request.setAttribute("loc", loc);
+			
+			super.setRedirect(false);
+			super.setViewPage("/WEB-INF/msg.jsp");
+			
+			return;
+			
+		} else {
+			if(!"admin".equalsIgnoreCase(getLoginUser(request).getUserid())) {
+				String message = "잘못된 경로입니다.";
+				String loc = "javascript:history.back()";
+				
+				request.setAttribute("message", message);
+				request.setAttribute("loc", loc);
+				
+				super.setRedirect(false);
+				super.setViewPage("/WEB-INF/msg.jsp");
+				
+				return;
+			}
+			
+		}	
+		
 			
 		String currentShowPageNo = request.getParameter("currentShowPageNo");			
 		String filterCondition = request.getParameter("filterCondition");			
@@ -66,11 +96,10 @@ public class MemberManagementAction extends AbstractController {
 		  pageBar += "&nbsp;<a href='memberManagement.sb?currentShowPageNo="+(pageNo-1)+"&filterCondition="+filterCondition+"'>[이전]</a>&nbsp;";		  		  
 		}
 		
-
 		while(!(loop > blockSize || pageNo > totalPage)) {
 			  
 			if(pageNo == Integer.parseInt(currentShowPageNo)) {
-				pageBar += "&nbsp;<span style='color: red; border: solid 1px grey; padding: 2px 4px'>" + pageNo + "</span>&nbsp;";			  
+				pageBar += "&nbsp;<a class='active'>" + pageNo + "</a>&nbsp;";			  
 			} else {			  
 				pageBar += "&nbsp;<a href='memberManagement.sb?currentShowPageNo="+pageNo+"&filterCondition="+filterCondition+"'>"+pageNo+"</a>&nbsp;";
 			}

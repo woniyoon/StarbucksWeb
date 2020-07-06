@@ -9,7 +9,6 @@ import product.model.InterProductDAO;
 import product.model.ProductDAO;
 import product.model.ProductVO;
 
-
 public abstract class AbstractController implements InterCommand {
 
 	private boolean isRedirect = false;
@@ -38,7 +37,14 @@ public abstract class AbstractController implements InterCommand {
 		}
 		else {
 			return false;
-		}
-		
+		}		
 	}
+	
+	
+	public MemberVO getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		
+		return loginuser;
+	} 
 }

@@ -220,22 +220,27 @@
 			<table>
 				<thead>
 					 <tr>
-					 	<th>NO</th>
+					 	<th>글번호</th>
+					 	<th>상태</th>
 					 	<th>제목</th>
+					 	<th>작성자</th>
 					 	<th>날짜</th>
 					 	<th>조회수</th>
 					 </tr>
 				</thead>
 				
 				<tbody>
-					<c:forEach var="feedback" items="${feedbackList}">
+					<c:forEach var="feedback" items="${feedbackList}" >
 					<tr>
-						<td>${feedback.rno}</td>
+					    <td>${feedback.rno}</td>
+						<td>${feedback.status}</td>
 						<td class="notice_seq">${feedback.feedback_board_seq}</td>
 						<td class="noticeTitle">${feedback.title}</td>
 						<%-- <a href="/notice/noticeView.sb?notice_seq=${notice.notice_seq}"> --%>
+						<td>${feedback.username}</td>
 						<td>${feedback.write_day}</td>
 						<td>${feedback.hit}</td>
+						
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -244,7 +249,7 @@
 			</form>
 			</br></br>
 			${totalPage}
-			<div id="pageBar">
+			<div class="pagination" id="pageBar">
 				${pageBar}
 			</div>
 			</br></br>

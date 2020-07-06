@@ -245,16 +245,20 @@
 			</form>
 			</br></br>
 			${totalPage}
-			<div id="pageBar">
+			<div class="pagination" id="pageBar">
 				${pageBar}
 			</div>
-			</br></br>
+			<br/><br/><br/>
+
 			
-			<div id="notice_button_wrap">
-				<p id="notice_button">
-					<a class="write notice_list" href="noticeWrite.sb" >글쓰기</a>
-				</p>
-			</div>
+			<c:if test="${(sessionScope.loginuser).userid == 'admin' }">
+				<div id="notice_button_wrap">
+					<p id="notice_button">
+						<a class="write notice_list" href="noticeWrite.sb" >글쓰기</a>
+					</p>
+				</div>	
+			</c:if>
+			
 		</section>
 		
 		

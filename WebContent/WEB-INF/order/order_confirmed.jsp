@@ -57,62 +57,33 @@
 			width: 100%;
 		}
 		
-		/* section 끝 */
-		
-		#snackbar {
-		    visibility: hidden;
-		    min-width: 250px;
-		    margin-left: -125px;
-		    background-color: #006633;
-		    color: #fff;
-		    text-align: center;
-		    border-radius: 2px;
-		    padding: 16px;
-		    position: fixed;
-		    z-index: 1;
-		    left: 50%;
-		    bottom: 50px;
-		    font-size: 17px;
+		#confirmed_order {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 40vh;
 		}
 		
-		#snackbar.show {
-		    visibility: visible;
-		    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-		    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-		}
-		
-		@-webkit-keyframes fadein {
-		    from {bottom: 0; opacity: 0;} 
-		    to {bottom: 50px; opacity: 1;}
-		}
-		
-		@keyframes fadein {
-		    from {bottom: 0; opacity: 0;}
-		    to {bottom: 50px; opacity: 1;}
-		}
-		
-		@-webkit-keyframes fadeout {
-		    from {bottom: 50px; opacity: 1;} 
-		    to {bottom: 0; opacity: 0;}
+		a#go_main {
+			padding: 5px;
+			color: black;
+	/* 		border-radius: 5px;
+			border: 1px solid grey; */
 		}
 			
     	
     </style>
 </head>
 	<jsp:include page="../header.jsp" />   
-	
-    <nav id="sub_nav"><a>HOME</a> > <a>메뉴</a> > <a id="current_nav_menu"></a></nav>
-    <section>
-        <ul class="order_progress">
-            <li id="shoppingCart"><span>커스텀</span></li>
-            <li id="storeLocation"><span>매장선택</span></li>
-            <li id="payment"><span>결제하기</span></li>
-            <li id="confirmed"><span>결제완료</span></li>
-        </ul>
-        <div id="confirmed_div" align="center">
-            <h2>결제가 완료됐습니다!</h2>
-        </div>
+		<jsp:include page="progress_nav.jsp" />
+		
+        <div id="confirmed_order" align="center">
+			<h1> 결제가 완료됐습니다 </h1><br/>
+			<h3> 음료준비는 약 5분이 소요됩니다. </h3>
+			<h3> 픽업 매장위치에서 만나요~ </h3>
+			<a id="go_main" href="/StarbucksWeb/index.sb">메인으로 돌아가기</a>
+		</div>
     </section>
-    <div id="snackbar">알림용 스낵바입니다</div>
     
     <jsp:include page="../footer.jsp" />

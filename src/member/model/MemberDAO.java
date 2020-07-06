@@ -195,6 +195,11 @@ public class MemberDAO implements InterMemberDAO {
 			
 			pstmt.setString(2, paraMap.get("hp1")+paraMap.get("hp2")+paraMap.get("hp3"));
 			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userid = rs.getString("userid");
+			}
 		} finally {
 			close();
 		}
@@ -402,5 +407,28 @@ public class MemberDAO implements InterMemberDAO {
 	                        
 	      return result;   
 	
+	}
+
+	@Override
+	public int checkPoints(HashMap<String, String> paramap) throws SQLException {
+		int points = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = " select point from starbucks_member where userid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, paramap.get("userid"));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				points = rs.getInt("point");
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return points;
 	}
 }

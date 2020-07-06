@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	String ctxPath = request.getContextPath();
@@ -100,7 +101,9 @@
 		height: 40vh;
 		top: 12vw;
 		left: 45vw;
+		/* animation: fadein 1s; */
     } 
+    
     
     div.back_size_lm {
     	/* 이미지 비율 지정해주는 곳 */
@@ -115,6 +118,8 @@
 		height: 51vh;
 		top: 25vw;
 		left: 35vw;
+		/* animation: fadein 1s;
+		animation-delay: 1s; */
     }
     
     div.back_size_de {
@@ -130,6 +135,8 @@
 		height: 52vh;
 		top: 22vw;
 		left: 61vw;
+		/* animation: fadein 1s;
+		animation-delay: 2s; */
     }
     
     div.back_size_am {
@@ -168,6 +175,12 @@
 	img#section_notice_plus {
 		border-radius: 50%;
 		margin-left: 50px;
+	}
+	
+	
+    @keyframes fadein {
+		from { opacity: 0; }
+		to { opacity: 1; }
 	}
 	
 	/* 리워드 --------------------------------------------------------------------------- */
@@ -229,17 +242,31 @@
 		/* padding: 0.5vw 1vw; */
 	}
 	
-	button.reward_button:hover {
+	 button.reward_button:hover {
 		background-color: black;
 		color: white;
 		font-weight: bold;
 		cursor: pointer;
+	} 
+	
+	span.loginName {
+		color: #006633;
+	}
+	
+	span.loginName:hover {
+		color: yellow;
 	}
 	
 	button.reward_btn_signup:hover {
 		background-color: black;
 		color: white;
 		font-weight: bold;
+	}
+	
+	button.reward_btn_mypage {
+		width: 200px;
+		text-align: center;
+		margin-left: 35px;
 	}
 	
 	button.reward_btn_product {
@@ -280,13 +307,27 @@
 		background-size: 100vw 40vw;
 	}
 	
+	img#section_reserve_text {
+		/* border: solid 1px red; */
+		background-color: transparent; /* 뒷 배경과 동일하게 배경 설정하기 */
+		position: relative;
+		padding-top: 150px;
+		padding-left: 500px;
+			
+		
+	}
+	
+	/* 지도 */
 	div#section_map {
 		/* border: solid 1px red; */
-		height: 710px;
+		height: 670px;
+		width: 100%;
 		/* background-color: #ffe6ff; */
-		background-image: url('images/nari/setion_map_back.jpg);
+		background-image: url('images/nari/section_map_backGray.jpg);
 		background-repeat : no-repeat; 
 	}
+	
+
 	
 	
 	/* ---------------------------- 바디 끝 -------------------------- */
@@ -302,28 +343,11 @@
 		color: #555;
 	}
 	
-	/* -----------------------------------------------------------------  */
-	
-	.none {
-		display:none
+	a.notice_title_link {
+		color: white;
+		text-decoration: none;
 	}
-	
-	#ticker {
-		float:left;width:100px;
-	}
-	.navi {
-		float:right;
-	}
-	.block {
-		border:2px solid #d81f25; padding:0 5px; height:20px; overflow:hidden; background:#fff; width:350px; font-family:Gulim; font-size:12px;float:left;
-	}
-	.block ul, .block li { 
-		margin:0; padding:0; list-style:none;
-	}
-	.block li a { 
-		display:block; height:20px; line-height:20px; color:white; text-decoration:none;
-	}
-	
+
 	/* ---------------------------- 푸터 끝 -------------------------- */
 
 </style>	
@@ -333,23 +357,61 @@
 
 	$(document).ready(function(){
 		
+		// 신제품 이미지 순차적으로 불러오기
+		$(".fadein").hide();
+		$("#fadein1").fadeIn(1000);
+		$("#fadein2").delay(1000).fadeIn(1000);
+		$("#fadein3").delay(2000).fadeIn(1000);
 		
 		
-	});
+		// 다양한 메뉴를 스타벅스에서 즐겨보세요 옆으로 이동시키기
+		$(function () {
+		    var foundTop = $("#section_reserve_text").offset().top;
+		    $(document).on("scroll", function () {
+		        if ($(window).scrollTop() + $(window).height() > foundTop + 300) {
+		            // alert("section_reserve_text!");
+		            scroll();	
+		            $(document).off("scroll");
+		        }
+		    });
+		});
+		
+		
+		// section_reward 관리자페이지 버튼 효과
+		$(".reward_btn_mypage").mouseover(function(){
+		    $("span.loginName").css("color","yellow");	
+		});
+		
+		$(".reward_btn_mypage").mouseout(function(){
+		    $("span.loginName").css("color","#006633");
+		});
+
+	}); // end of $(document).ready(function() ----------------------
+		
+	function scroll(){
+		$(".scrollerText").animate({'left':0},0,		
+							 function() {
+							   $(".scrollerText").css({'left':800});
+							   $(".scrollerText").animate({'left':0},3000);
+							 }
+		);
+		// setTimeout("scroll()", 2000);
+	}
+	
+	
+	
 </script>
-
-
 
 		<section>
 			<div id="section_new_product" class="new_back_size">
 				<div id="section_new_product_slogan">
 					<div class="section_new_product_emblem back_size_eb"></div> 
 					
-					<button class="section_new_product_more" onclick="alert('자세히보기')" >자세히보기</button>
+					<button class="section_new_product_more" onclick="window.location.href='<%= ctxPath%>/product/menu.sb'" >자세히보기</button>
 				</div>
-				<div class="section_new_product_limemojito back_size_lm" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"></div>
-				<div class="section_new_product_doubleexpresso back_size_de" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"></div>
-				<div class="section_new_product_applemango back_size_am" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"></div>
+				<div id="fadein1" class="section_new_product_limemojito back_size_lm fadein" style="cursor: pointer;" onclick="window.location.href='http://localhost:9090/StarbucksWeb/product/detail.sb?type=drink&productId=d034'"></div>
+				<div id="fadein2" class="section_new_product_doubleexpresso back_size_de fadein" style="cursor: pointer;" onclick="window.location.href='http://localhost:9090/StarbucksWeb/product/detail.sb?type=drink&productId=d022'"></div>
+				<div id="fadein3" class="section_new_product_applemango back_size_am fadein" style="cursor: pointer;" onclick="window.location.href='http://localhost:9090/StarbucksWeb/product/detail.sb?type=drink&productId=d030'"></div>
 			</div>
 			
 			<div id="section_notice">
@@ -357,15 +419,7 @@
 					<tr>
 						<td id="section_notice_title">공지사항 </td>
 						<td>
-						<div class="block">
-							<ul id="ticker">
-								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목1</a></li>
-								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목2</a></li>
-								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목3</a></li>
-								<li><a href="<%= ctxPath%>/notice/noticeList.sb">제목4</a></li>
-							</ul>
-						</div>
-						
+							<a class="notice_title_link" style="color:white; text-decoration: none; font-size: 14pt;" href="http://localhost:9090/StarbucksWeb/notice/noticeView.sb?notice_seq=165&rno=165">앱 서비스/홈페이지 서비스의 중단안내 15</a>
 						</td>
 						<td><a href="http://localhost:9090/StarbucksWeb/notice/noticeList.sb"><img id="section_notice_plus" src="images/nari/notice_plus.png" width="30px" height="30px" /></a></td>
 					</tr>
@@ -379,116 +433,43 @@
 				<img id="section_reward_txt1" src="images/nari/section_reward_txt1.png" />
 				<img id="section_reward_txt2" src="images/nari/section_reward_txt2.png" />
 				<div id="reward_button">
-					<button class="reward_button reward_btn_signup" type="button" onclick="window.location.href='<%= ctxPath%>/register/memberRegister.sb'">회원가입</button>
-					<button class="reward_button reward_btn_login" type="button" onclick="window.location.href='<%= ctxPath%>/login/loginIndex.sb'">로그인</button>
+				<c:choose>
+					<c:when test="${ empty (sessionScope.loginuser).userid }">
+						<button class="reward_button reward_btn_signup" type="button" onclick="window.location.href='<%= ctxPath%>/register/memberRegister.sb'">회원가입</button>
+						<button class="reward_button reward_btn_login" type="button" onclick="window.location.href='<%= ctxPath%>/login/loginIndex.sb'">로그인</button>
+					</c:when>
+					<c:when test="${ not empty (sessionScope.loginuser).userid }">
+						<button class="reward_button reward_btn_mypage" type="button" onclick="window.location.href='<%= ctxPath%>/member/myPage.sb'"><span class="loginName" style="font-size: 12pt;">${(sessionScope.loginuser).name}</span>님 마이페이지</button>
+					</c:when>
+					
+				</c:choose>	
 					<br/>
-					<button class="reward_button reward_btn_product" type="button" onclick="window.location.href='/product/menu.sb'">더 많은 상품보기</button>
+					<button class="reward_button reward_btn_product" type="button" onclick="window.location.href='<%= ctxPath%>/product/menu.sb'">더 많은 상품보기</button>
 				</div>	
 			</div>
 			</section>
 			
+			
+			
 			<div id="section_recommended_menu">
 				<img id="section_recommended_text" src="images/nari/section_recommended_text1.png" />
-				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="window.location.href='/product/menu.sb'"/>
-			</div>
-			
-			<div id="section_reserve">
-			
+				<img id="section_recommended_menu_1" src="images/nari/section_recommended_menu_1.jpg" width="500px" height="500px" style="cursor: pointer;" onclick="window.location.href='http://localhost:9090/StarbucksWeb/product/detail.sb?type=food&productId=f004'"/>
 			</div>
 			
 			<div id="section_map">
 			    <jsp:include page="location.jsp"/>
+			</div>
+			
+			<div id="section_reserve">
+				<div id="scroller">
+					<img id="section_reserve_text" class="scrollerText" src="images/nari/section_reserve_text.png" />
+				</div>
 			</div>
 		
 		</section>
 		
 		<!-- --------------------------------- 바디 끝 ---------------------------------- -->
 
-<script>
-	jQuery(function($)
-		{
-		    var ticker = function()
-		    {
-		        timer = setTimeout(function(){
-		            $('#ticker li:first').animate( {marginTop: '-20px'}, 400, function()
-		            {
-		                $(this).detach().appendTo('ul#ticker').removeAttr('style');
-		            });
-		            ticker();
-		        }, 2000);         
-		      };
-		// 0번 이전 기능
-		      $(document).on('click','.prev',function(){
-		        $('#ticker li:last').hide().prependTo($('#ticker')).slideDown();
-		        clearTimeout(timer);
-		        ticker();
-		        if($('#pause').text() == 'Unpause'){
-		          $('#pause').text('Pause');
-		        };
-		      }); // 0번 기능 끝
-		  
-		// 1. 클릭하면 다음 요소 보여주기... 클릭할 경우 setTimeout 을 clearTimeout 해줘야 하는데 어떻게 하지..
-		      $(document).on('click','.next',function(){
-		            $('#ticker li:first').animate( {marginTop: '-20px'}, 400, function()
-		                    {
-		                        $(this).detach().appendTo('ul#ticker').removeAttr('style');
-		                    });
-		            clearTimeout(timer);
-		            ticker();
-		            //3 함수와 연계 시작
-		            if($('#pause').text() == 'Unpause'){
-		              $('#pause').text('Pause');
-		            }; //3 함수와 연계
-		          }); // next 끝. timer 를 전연변수보다 지역변수 사용하는게 나을 것 같은데 방법을 모르겠네요.
-
-		  //2. 재생정지기능 시작, 아직 다음 기능과 연동은 안됨...그래서 3을 만듦
-		  var autoplay = true;
-		      $(document).on('click','.pause',function(){
-		            if(autoplay==true){
-		              clearTimeout(timer);
-		              $(this).text('재생');
-		              autoplay=false;
-		            }else{
-		              autoplay=true;
-		              $(this).text('정지');
-		              ticker();
-		            }
-		          }); // 재생정지기능 끝  
-		  // 3. 재생정지 함수 시작. 2와 기능 동일함.
-		    var tickerpause = function()
-		  {
-		    $('#pause').click(function(){
-		      $this = $(this);
-		      if($this.text() == 'Pause'){
-		        $this.text('Unpause');
-		        clearTimeout(timer);
-		      }
-		      else {
-		        ticker();
-		        $this.text('Pause');
-		      }
-		    });
-		   
-		  };
-		  tickerpause();
-		  //3 재생정지 함수 끝
-		  //4 마우스를 올렸을 때 기능 정지
-		  var tickerover = function()
-		  {
-		    $('#ticker').mouseover(function(){
-		      clearTimeout(timer);
-		    });
-		    $('#ticker').mouseout(function(){
-		      ticker();
-		    });  
-		  };
-		  tickerover();
-		  // 4 끝
-		    ticker();
-		    
-		});
-
-</script>
 
 		
 <jsp:include page="footer.jsp" />

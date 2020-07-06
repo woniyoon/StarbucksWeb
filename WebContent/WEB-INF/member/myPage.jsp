@@ -215,6 +215,10 @@
 		cursor: pointer;
 	}
 	
+	ul.index {
+		margin-top: 13.333px;	
+	}
+	
 </style>
 
 <script type="text/javascript">
@@ -410,7 +414,7 @@ $(document).ready(function(){
 		     			<option value="woman">여성</option>
 		     			<option value="man">남성</option>
 		     		</select>
-		     		이 즐기는 메뉴가 궁금하시죠? <button title="메뉴 확인하기" id="random">확인</button></p>
+		     		이 즐기는 메뉴가 궁금하시죠? <button type="button" title="메뉴 확인하기" id="random">확인</button></p>
 	     		</header>
 
 				<div class="recommended_menu">

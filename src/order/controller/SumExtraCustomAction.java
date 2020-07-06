@@ -31,6 +31,10 @@ public class SumExtraCustomAction extends AbstractController {
 		});
 		 */
 		
+		for( Map.Entry<String, Integer> priceInfo : priceMap.entrySet() ){
+			obj.put(priceInfo.getKey(), priceInfo.getValue());
+        }
+		
 		request.setAttribute("json", obj);
 		
 		super.setViewPage("/WEB-INF/order/result.jsp");

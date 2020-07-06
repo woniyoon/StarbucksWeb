@@ -26,7 +26,6 @@ public class LocationJSONAction extends AbstractController {
 		
 		for(LocationVO lvo : storeList) {
 			JSONObject obj = new JSONObject();
-			System.out.println(lvo.getStoreName());
 			
 			obj.put("storeID", lvo.getStoreID());
 			obj.put("storeName", lvo.getStoreName());
