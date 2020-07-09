@@ -49,7 +49,13 @@ ___
 
 # 코드 스타일 가이드 
 [WIP]
-팀프로젝트를 진행하기에 앞서, 코딩 스타일에 대해서 생각해봤습니다. 각자 다른 코딩 스타일을 
-깃허브를 사용하면서 최소 1번은 충돌은 난 적 있어도, 한 번도 나지 않은 적은 없다! 
+팀프로젝트를 진행하기에 앞서, 코딩 스타일에 대해서 생각해봤습니다. 각자 다른 코딩 스타일을 깃허브를 사용하면서 최소 1번은 충돌은 난 적 있어도, 한 번도 나지 않은 적은 없다! 어차피 날 충돌이면 그 횟수를 최소화시키고자, 우리 팀만의 코딩 스타일을 작성했습니다. 덕분에 프로젝트를 진행하면서 충돌난 횟수가 적었습니다! 자세한 가이드를 보고 싶으면 [이곳](/coding_convention.md)으로 가주세요!
+
+<br>- 참고 페이지 -<br>
+[Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) <br>
+[Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html) <br>
+[레진 마크업 가이드](https://github.com/lezhin/markup-guide) <br>
+
+
 <br><br><br>
-[보러가기](/coding_convention.md)
+
