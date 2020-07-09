@@ -6,7 +6,7 @@
 ## 목차
 - [팀소개](#팀소개)
 - [프로젝트 간단 소개](#프로젝트-간단-소개)
-- [스킬셋](#개발에-사용한-툴)
+- [스택 아키텍처](#스택-아키텍처)
 - [ERD/UML](#ERD-UML)
 - [NOT NULL팀의 코딩 스타일 가이드라인](#코드-스타일-가이드)
 
@@ -27,16 +27,10 @@ ___
 
 <br><br>
 
-# 개발에 사용한 툴
+# 스택 아키텍처
 
-### 협업툴<br>
-<img alt="slack" src="https://user-images.githubusercontent.com/33106403/86535261-145e4a00-bf1a-11ea-8e21-f94ac33f8a11.png"  width=100 height=100><img alt="trello" src="https://user-images.githubusercontent.com/33106403/86535263-17593a80-bf1a-11ea-9441-1c1a45ebdd0a.png"  width=100 height=100>
-<br><br>
-### 프론트엔드<br>
-<img alt="html/css/js" src="https://user-images.githubusercontent.com/33106403/86535266-188a6780-bf1a-11ea-814c-2868c8226c3e.png"  width=350 height=100>
-<br><br>
-### 백엔드<br>
-<img alt="java" src="https://user-images.githubusercontent.com/33106403/86535267-1922fe00-bf1a-11ea-9dd4-5517332bb88c.png"  width=150 height=150> <img alt="oracle" src="https://user-images.githubusercontent.com/33106403/86535265-188a6780-bf1a-11ea-8093-fbd1582fc04d.png"  width=200 height=160>
+<img alt="stack_architecture" src="https://user-images.githubusercontent.com/33106403/86994439-55d44b00-c1e1-11ea-9889-ccdffdb5c2b0.jpeg">
+
 
 
 <br><br><br>
